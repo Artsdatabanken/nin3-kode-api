@@ -82,14 +82,41 @@ namespace NiN3KodeAPI.DbContexts
                 new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "O", Beskrivelse = "O" }
                 );
 
-            /*new Variabeltyper() {Id = Guid.NewGuid(), Kode = "FE", Beskrivelse="enkel, ikke-ordnet faktorvariabel"},
-                new Variabeltyper() {Id = Guid.NewGuid(), Kode = "FK", Beskrivelse="kompleks, ikke-ordnet faktorvariabel"},
-                new Variabeltyper() {Id = Guid.NewGuid(), Kode = "GE", Beskrivelse="enkel gradient"},
-                new Variabeltyper() {Id = Guid.NewGuid(), Kode = "GK", Beskrivelse="kompleks gradient"}*/
+            /*
+                // variabeltyper
+                new Variabeltype() {Id = Guid.NewGuid(), Kode = "FE", Beskrivelse="enkel, ikke-ordnet faktorvariabel"},
+                new Variabeltype() {Id = Guid.NewGuid(), Kode = "FK", Beskrivelse="kompleks, ikke-ordnet faktorvariabel"},
+                new Variabeltype() {Id = Guid.NewGuid(), Kode = "GE", Beskrivelse="enkel gradient"},
+                new Variabeltype() {Id = Guid.NewGuid(), Kode = "GK", Beskrivelse="kompleks gradient"}*/
+
+            /*
+             // variabelkategori
+             new Variabelkategori() {Id = Guid.NewGuid(), Kode = "M", Beskrivelse="mennekebetinget"},
+             new Variabelkategori() {Id = Guid.NewGuid(), Kode = "N", Beskrivelse="naturgitt"}
+             */
+
+            /*
+             new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "AD", Beskrivelse="artssammensetningsdynamikk"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "BE", Beskrivelse="bergarter"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "KM", Beskrivelse="korttidsmiljøvariabel"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "LM", Beskrivelse="lokal miljøvariabel"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "LO", Beskrivelse="landform-objekter"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "MD", Beskrivelse="miljødynamikk"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "MO", Beskrivelse="menneskeskapt objekt"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "NO", Beskrivelse="naturgitt objekt"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "RA", Beskrivelse="romlig artsfordelingsmønster"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "RM", Beskrivelse="regional miljøvariabel"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "RS", Beskrivelse="romlig strukturvariasjon"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "SA", Beskrivelse="strukturerende og funksjonelle artsgrupper"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "TF", Beskrivelse="terrengformvariasjon"},
+            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "VS", Beskrivelse="vertikal struktur"}
+             */
 
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Domene> domene { get; set; } 
+        public DbSet<Entities.Type> type { get; set; }
+
     }
 }

@@ -1,0 +1,167 @@
+Typekategori2;11 GT;Grunntypenavn;Kode
+NA;01;svært og temmelig beskyttet fast saltvannsbunn;NA-01
+NA;02;sagtangbunn;NA-02
+NA;03;fingertareskog;NA-03
+NA;04;fast bunn med filamentøse alger;NA-04
+NA;05;sukkertareskog;NA-05
+NA;06;stortareskog;NA-06
+NA;07;butareskog;NA-07
+NA;08;svært eksponert fast bunn;NA-08
+NA;09;beskyttet rødalgebunn;NA-09
+NA;10;eksponert rødalgebunn;NA-10
+NA;11;eksponert rødalgebunn;NA-11
+NA;12;beskyttet vegg ovenfor rødalgebeltet;NA-12
+NA;13;beskyttet vegg i rødalgebeltet;NA-13
+NA;14;moderat eksponert vegg ovenfor rødalgebeltet;NA-14
+NA;15;moderat eksponert vegg i rødalgebeltet;NA-15
+NA;16;eksponert vegg;NA-16
+NA;17;moderat eksponert fast bunn med store hulrom ovenfor rødalgebeltet;NA-17
+NA;18;moderat eksponert fast bunn med store hulrom i rødalgebeltet;NA-18
+NA;19;eksponert fast bunn med store hulrom;NA-19
+NA;20;fast bunn preget av disruptiv isforstyrrelse;NA-20
+NA;01;grisetang-bunn;NA-01
+NA;02;grønnalge-spiraltangbunn;NA-02
+NA;03;grønnalge-rurbunn;NA-03
+NA;04;blæretang-bunn;NA-04
+NA;05;spiraltang-bunn;NA-05
+NA;06;sauetang-blåskjell-rurbunn;NA-06
+NA;07;remtang-bunn;NA-07
+NA;08;strandsnegl-blåskjellbunn;NA-08
+NA;09;strandsnegl-blåskjell-rurbunn;NA-09
+NA;10;bunn dominert av filamentøse alger;NA-10
+NA;01;lurvbunn i brakkvann;NA-01
+NA;02;brakkvannsparallell til sagtangbunn;NA-02
+NA;03;brakkvannsparallell til fingertareskog;NA-03
+NA;04;brakkvannsparallell til sukkertareskog;NA-04
+NA;05;brakkvannsparallell til stortareskog;NA-05
+NA;06;brakkvannsparallell til rødalgebunn;NA-06
+NA;07;lurvbunn i svært brakt vann;NA-07
+NA;08;moderat eksponert fast bunn i svært brakt vann;NA-08
+NA;09;beskyttet vegg i brakkvann;NA-09
+NA;10;moderat eksponert vegg i brakkvann ovenfor rødalgebeltet;NA-10
+NA;11;moderat eksponert vegg i brakkvann i rødalgebeltet;NA-11
+NA;12;vegg i svært brakt vann;NA-12
+NA;13;fast bunn preget av disruptiv isforstyrrelse;NA-13
+NA;01;embryonal- og primærdyne;NA-01
+NA;02;kvit dyne;NA-02
+NA;03;grå dyne;NA-03
+NA;04;brun dyne;NA-04
+NA;05;dynehei;NA-05
+NA;06;primær og kvit innlandsdyne;NA-06
+NA;07;grå og brun innlandsdyne;NA-07
+NA;08;erodert dyne;NA-08
+NA;09;dynetrau;NA-09
+NA;01;leir- og siltskred;NA-01
+NA;02;sandskred;NA-02
+NA;03;grusskred;NA-03
+NA;01;beskyttet (høgurt-)driftvoll;NA-01
+NA;02;litt eksponert (lågurt-)driftvoll;NA-02
+NA;03;eksponert (ettårs-)driftvoll;NA-03
+NA;04;vegetasjonsfri driftvoll;NA-04
+NA;05;brakkvannsdriftvoll;NA-05
+NA;01;sandskogsmark;NA-01
+NA;02;dyneskogsmark;NA-02
+0;01;hardbunn i marine systemer;0-01
+0;01;på bløtbunn i marine systemer;0-01
+0;02;i bløtbunn i marine systemer;0-02
+0;01;på biogene karbonatsubstrater fra døde organismer;0-01
+0;02;i biogene karbonatsubstrater fra døde organismer;0-02
+0;01;nærmiljørundt levende steinkoraller;0-01
+0;02;nærmiljø rundt andre organismer med kalkskall enn steinkoraller;0-02
+0;03;kalkskall på levende organismer med karbonatsubstrater;0-03
+0;04;indre vev i steinkoraller;0-04
+0;05;indre vev i andre fastsittende organismer enn steinkoraller;0-05
+0;06;indre vev i bevegelige organismer med kalkskall;0-06
+0;01;på marine alger;0-01
+0;02;i marine alger;0-02
+0;03;på marine karplanter;0-03
+0;04;i marine karplanter;0-04
+0;01;ytre vev hos marine vertebrater;0-01
+0;02;indre vev hos marine vertebrater;0-02
+0;03;ytre vev hos marine invertebrater uten kalkskjelett;0-03
+0;04;indre vev hos marine invertebrater uten kalkskjelett;0-04
+0;01;vedrester;0-01
+0;02;dødt plantemateriale i marine systemer;0-02
+0;01;døde dyr i marine systemer;0-01
+0;01;syntetiske livsmedier i marine systemer;0-01
+0;01;substratfrie livsmedier i marine systemer;0-01
+0;01;hardbunn i ferskvann;0-01
+0;01;på bløtbunn i ferskvann;0-01
+0;02;i bløtbunn i ferskvann;0-02
+0;01;på ferskvannsalger;0-01
+0;02;i ferskvannsalger;0-02
+0;03;på ferskvannskarplanter og -moser;0-03
+0;04;i ferskvannskarplanter og -moser;0-04
+0;01;ytre vev hos ferskvannsvertebrater;0-01
+0;02;indre vev hos ferskvannsvertebrater;0-02
+0;03;ytre vev hos ferskvannsinvertebrater;0-03
+0;04;indre vev hos ferskvannsinvertebrater;0-04
+0;01;myrtorv;0-01
+0;02;dy og gyttje;0-02
+0;03;vedrester;0-03
+0;04;døde planter;0-04
+0;05;døde dyr;0-05
+0;01;syntetiske livsmedier i ferskvann;0-01
+0;01;substratfrie livsmedier i ferskvann;0-01
+0;01;grovere uorganiske substrater på land;0-01
+0;01;på finere uorganiske substrater på land;0-01
+0;02;i finere uorganiske substrater på land;0-02
+0;01;på råhumus;0-01
+0;02;i råhumus;0-02
+0;03;på torv;0-03
+0;04;i torv;0-04
+0;05;på eller i flytjord;0-05
+0;01;på levende, ikke forvedete planter på land;0-01
+0;02;på røtter av levende, ikke forvedete planter på land;0-02
+0;03;i levende, ikke forvedete planter på land;0-03
+0;01;på bladverk, nåleverk og reproduktive deler av levende forvedete planter på land;0-01
+0;02;i bladverk, nåleverk og reproduktive deler av levende forvedete planter på land;0-02
+0;01;i levende og nylig død ved;0-01
+0;02;i stående død ved;0-02
+0;03;i stubbe eller liggende død ved;0-03
+0;04;på eller i bark;0-04
+0;05;i hulhet i tre;0-05
+0;06;i vedboende sopp;0-06
+0;07;i sevjeutflod;0-07
+0;08;i sterkt modifisert ved innendørs (M);0-08
+0;09;i sterkt modifisert ved utendørs (M);0-09
+0;10;tømmeropplag (M);0-10
+0;11;rekved (M);0-11
+0;12;barkhaug (M);0-12
+0;13;sagflishaug (M);0-13
+0;14;annet hogstavfall enn bark og sagflis (M);0-14
+0;01;muggliknende sopp;0-01
+0;02;pulver- og flekkdannende sopp;0-02
+0;03;fruktlegemer med løst vev, inkludert jordboende sopp;0-03
+0;04;underjordiske myceler;0-04
+0;05;lav og andre tørre, langlevete sopp;0-05
+0;01;i ytre vev, hos levende vertebrater;0-01
+0;02;i indre vev hos levende vertebrater;0-02
+0;03;i ytre vev hos levende invertebrater;0-03
+0;04;i indre vev hos levende invertebrater;0-04
+0;05;i smågnagerbo og -ganger;0-05
+0;06;i bo av (øvrige) pattedyr;0-06
+0;07;fuglereir;0-07
+0;08;maurtue og -bo;0-08
+0;09;vepse- og humlebol;0-09
+0;10;bikube (M);0-10
+0;01;strøfall;0-01
+0;02;dødt plantemateriale i fjæresonen;0-02
+0;03;dødt plantemateriale i flomsonen;0-03
+0;04;kompost (M);0-04
+0;05;tørket plantemateriale (M);0-05
+0;06;matvarer og organisk avfall innendørs (M);0-06
+0;01;åtsler;0-01
+0;02;bein og horn;0-02
+0;03;tørre rester etter døde dyr;0-03
+0;04;utstoppete dyr (M);0-04
+0;05;insektsamlinger (M);0-05
+0;06;avfallshauger med animalske rester (M);0-06
+0;07;tørket bein- og hornmateriale (M);0-07
+0;08;annet avfall av animalsk opprinnelse (M);0-08
+0;01;pattedyrmøkk;0-01
+0;02;fuglegjødsel;0-02
+0;01;syntetiske livsmedier på land;0-01
+0;01;snø;0-01
+0;02;is;0-02
+0;01;luft;0-01
