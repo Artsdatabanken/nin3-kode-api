@@ -7,8 +7,11 @@ namespace NiN3KodeAPI.DbContexts
 {
     public class NiN3DbContext : DbContext
     {
+        private DataImportHelper _dataImportHelper;
         public NiN3DbContext(DbContextOptions<NiN3DbContext> options)
-    : base(options){}
+    : base(options){
+            
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +30,7 @@ namespace NiN3KodeAPI.DbContexts
             modelBuilder.Entity<Domene>().HasData(
                 new Domene() { Id = Guid.NewGuid(), Navn = "3.0"}
                 );
+
             // Ecosystnivaa
             modelBuilder.Entity<Ecosystnivaa>().HasData(
                 new Ecosystnivaa() { Id = Guid.NewGuid(), Kode = "A", Beskrivelse = "abiotisk" },
@@ -82,6 +86,8 @@ namespace NiN3KodeAPI.DbContexts
                 new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "O", Beskrivelse = "O" }
                 );
 
+            
+
             /*
                 // variabeltyper
                 new Variabeltype() {Id = Guid.NewGuid(), Kode = "FE", Beskrivelse="enkel, ikke-ordnet faktorvariabel"},
@@ -117,6 +123,10 @@ namespace NiN3KodeAPI.DbContexts
 
         public DbSet<Domene> domene { get; set; } 
         public DbSet<Entities.Type> type { get; set; }
-
+        public DbSet<Hovedtypegruppe> hovedtypegruppe { get; set; }
+        
+        public DbSet<Hovedtype> hovedtype { get; set; }
+        public DbSet<Grunntype> grunntype { get; set;}
+        public DbSet<Undertype> undertype { get; set;}
     }
 }

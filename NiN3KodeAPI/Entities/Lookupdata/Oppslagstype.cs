@@ -7,7 +7,7 @@ namespace NiN3KodeAPI.Entities.Lookupdata
         [Key]
         public Guid Id { get; set; }
         [Required]
-        public string Kode {get; set; }
-        public string Beskrivelse { get; set; }
+        public string? Kode {get; set; }
+        public string? Beskrivelse { get; set; }
     }
 }

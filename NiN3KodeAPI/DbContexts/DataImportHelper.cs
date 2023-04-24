@@ -7,6 +7,11 @@
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public void GetDomene() { 
+            var ds = _context.domene.FirstOrDefault();
+            Console.WriteLine(ds);
+        }
+        
         public void PopulateHovedtypegruppe() {
             string[] allLines = File.ReadAllLines(@"in_data\hovedtypegruppe.csv");
             foreach (var line in allLines)
