@@ -72,6 +72,13 @@ namespace NiN3KodeAPI.Services
             _logger.LogInformation("Htg_Ht_Gt_Mapping lastet");
         }
 
+        private void GetGrunndata() 
+        {
+            if (_context.hovedtype.Count() == 0) { 
+            //todo-sat: do impl. 
+            }
+        }
+
         private void GetHovedtypeData()
         {
             if (_context.hovedtype.Count() == 0)

@@ -38,10 +38,19 @@ namespace NiN3KodeAPI.Controllers
         }
 
         [HttpGet(Name = "LoadInitDB")]
-        public string LoadInitDB()
+        public async Task<ActionResult<string>> LoadInitDB()
         {
-            _logger.LogInformation("DB was loaded!");
-            _adminService.OpprettInitDbAsync();
+            
+            var ok = _adminService.OpprettInitDbAsync();
+            if (ok)
+            {
+                _logger.LogInformation("DB was loaded!");
+                return Ok("DB was loaded!");
+            }
+            else {
+                _logger.LogError("Something went sideways!");
+                return StatusCode(500);
+            }
             return "DB was loaded";
         }
     }
