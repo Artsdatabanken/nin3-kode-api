@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NiN3KodeAPI.DbContexts;
 
@@ -11,9 +12,10 @@ using NiN3KodeAPI.DbContexts;
 namespace NiN3KodeAPI.Migrations
 {
     [DbContext(typeof(NiN3DbContext))]
-    partial class NiN3DbContextModelSnapshot : ModelSnapshot
+    [Migration("20230427130633_modelbuilder_modified_hovedtype")]
+    partial class modelbuilder_modified_hovedtype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

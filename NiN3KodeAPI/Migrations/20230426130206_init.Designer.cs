@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NiN3KodeAPI.DbContexts;
 
@@ -11,9 +12,10 @@ using NiN3KodeAPI.DbContexts;
 namespace NiN3KodeAPI.Migrations
 {
     [DbContext(typeof(NiN3DbContext))]
-    partial class NiN3DbContextModelSnapshot : ModelSnapshot
+    [Migration("20230426130206_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("970268f4-7c56-42c6-a52a-90d0017d0e48"),
+                            Id = new Guid("3ce9268b-ea16-4185-a24c-44adf835e99d"),
                             Navn = "3.0"
                         });
                 });
@@ -76,13 +78,6 @@ namespace NiN3KodeAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Delkode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("HovedtypegruppeId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Kode")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -92,17 +87,10 @@ namespace NiN3KodeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ProsedyrekategoriId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("VersionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HovedtypegruppeId");
-
-                    b.HasIndex("ProsedyrekategoriId");
 
                     b.HasIndex("VersionId");
 
@@ -115,10 +103,6 @@ namespace NiN3KodeAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Delkode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Kode")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -128,15 +112,10 @@ namespace NiN3KodeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("Typekategori2Id")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("VersionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Typekategori2Id");
 
                     b.HasIndex("VersionId");
 
@@ -163,19 +142,19 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5d0f5872-e973-436a-b73f-882e39488009"),
+                            Id = new Guid("11c7ada4-87df-41e2-97f7-98201c93a1ac"),
                             Beskrivelse = "abiotisk",
                             Kode = "A"
                         },
                         new
                         {
-                            Id = new Guid("afe84582-1f43-47d8-aef3-3719df2d20c3"),
+                            Id = new Guid("aa29179e-5055-4f62-b7ac-73dad8fa6330"),
                             Beskrivelse = "biotisk",
                             Kode = "B"
                         },
                         new
                         {
-                            Id = new Guid("b27464da-1d44-4df3-bfe3-6eb3e819fbb8"),
+                            Id = new Guid("8f4f79e4-4bc8-49ea-a491-176b4aa0b565"),
                             Beskrivelse = "økodiversitet",
                             Kode = "C"
                         });
@@ -201,37 +180,37 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e36255f4-5fc2-4de9-a89b-2066e44b05e5"),
+                            Id = new Guid("106a357d-6ea6-4c36-aaff-66b6b397ccd0"),
                             Beskrivelse = "grunntype",
                             Kode = "G"
                         },
                         new
                         {
-                            Id = new Guid("de3563eb-7cc9-4a12-9bcc-5aa2d54fdf20"),
+                            Id = new Guid("a8b5a81f-7ed6-43c9-8d2d-e25c957e5ae0"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:5000",
                             Kode = "005K"
                         },
                         new
                         {
-                            Id = new Guid("f0724a84-9669-4a62-aabd-5281a4e1d25d"),
+                            Id = new Guid("4f462294-d679-40b5-9d4b-390f4ec5c9eb"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:10 000",
                             Kode = "010K"
                         },
                         new
                         {
-                            Id = new Guid("9b908310-4506-4444-87a7-019d5b60870e"),
+                            Id = new Guid("547c5e0b-186b-4f1b-bc3a-d842073be832"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:20 000",
                             Kode = "020K"
                         },
                         new
                         {
-                            Id = new Guid("cad5bebb-bca5-4445-b990-7ae1cda6aafb"),
+                            Id = new Guid("810c297f-3173-45fb-812e-25fc31bbf285"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:50 000",
                             Kode = "050K"
                         },
                         new
                         {
-                            Id = new Guid("50743dd8-ef0a-4fd2-8e76-a63f3333517f"),
+                            Id = new Guid("4d978e1f-5922-48ad-92a5-1f00d38c452f"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:100 000",
                             Kode = "100K"
                         });
@@ -257,91 +236,91 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7ec3663c-6db0-4f22-8ca0-898b80c4167d"),
+                            Id = new Guid("7c061b16-048e-4af9-9be9-8e1111bfe019"),
                             Beskrivelse = "A",
                             Kode = "A"
                         },
                         new
                         {
-                            Id = new Guid("802ad24b-a9f0-49e2-80a9-45a7b47e4cb2"),
+                            Id = new Guid("26838b8c-da4a-43b0-958e-bae954e33ae7"),
                             Beskrivelse = "B",
                             Kode = "B"
                         },
                         new
                         {
-                            Id = new Guid("2b71daa7-6ef9-4ab6-8c97-44405629d7a8"),
+                            Id = new Guid("c25a75c7-aa35-47be-90b4-e3faf3d69e07"),
                             Beskrivelse = "C",
                             Kode = "C"
                         },
                         new
                         {
-                            Id = new Guid("a2f75e87-3da2-4fbc-a4ef-bf880a46cdaf"),
+                            Id = new Guid("f2db4103-5bc1-45e5-84b6-6c95eee7cb95"),
                             Beskrivelse = "D",
                             Kode = "D"
                         },
                         new
                         {
-                            Id = new Guid("412122e0-3fe9-419d-be89-db2f31fcfbbb"),
+                            Id = new Guid("b554a112-db5d-40e6-bf23-bf392afecc61"),
                             Beskrivelse = "E",
                             Kode = "E"
                         },
                         new
                         {
-                            Id = new Guid("6f094b22-554b-4fd3-b47e-d98b17f13f1c"),
+                            Id = new Guid("cdbf7ece-3dd9-4b49-bfd7-777327e3135e"),
                             Beskrivelse = "F",
                             Kode = "F"
                         },
                         new
                         {
-                            Id = new Guid("10d33671-bb08-4583-955f-c4e04d04e20e"),
+                            Id = new Guid("762b2b1e-f204-42dc-bdd3-06b462cc52d8"),
                             Beskrivelse = "G",
                             Kode = "G"
                         },
                         new
                         {
-                            Id = new Guid("0ab3775d-2123-4551-b2b0-64494fae8b29"),
+                            Id = new Guid("e72f3e05-20aa-4fb4-ae35-1537c74830e4"),
                             Beskrivelse = "H",
                             Kode = "H"
                         },
                         new
                         {
-                            Id = new Guid("025f8d81-4856-4660-9e0e-8aff44b00dd0"),
+                            Id = new Guid("8ac0b7b9-95f0-4fd4-bd3b-1deaaa9d22f6"),
                             Beskrivelse = "I",
                             Kode = "I"
                         },
                         new
                         {
-                            Id = new Guid("ba1299bd-c2b6-4f8a-8859-46359f07893b"),
+                            Id = new Guid("f657ad4d-a0d5-4211-a1d2-f120b2aa4b9d"),
                             Beskrivelse = "J",
                             Kode = "J"
                         },
                         new
                         {
-                            Id = new Guid("67de15f0-8c1c-4526-9917-590639cc952b"),
+                            Id = new Guid("8b8d6124-3281-401c-932b-087edd5cce4c"),
                             Beskrivelse = "K",
                             Kode = "K"
                         },
                         new
                         {
-                            Id = new Guid("138e0a01-3076-49ce-bb29-0178b65d4886"),
+                            Id = new Guid("8ae20e55-181c-4cf2-8402-60b10c6dd54c"),
                             Beskrivelse = "L",
                             Kode = "L"
                         },
                         new
                         {
-                            Id = new Guid("0e959966-532a-488d-b5e4-07e63b4f2957"),
+                            Id = new Guid("6cd02757-f959-4347-98f6-c7cb78ba41b2"),
                             Beskrivelse = "M",
                             Kode = "M"
                         },
                         new
                         {
-                            Id = new Guid("a1aa2ab7-9f4f-46a6-9720-ed60d8304ba0"),
+                            Id = new Guid("ae5b4f06-c378-4470-8db8-e86534a31cf1"),
                             Beskrivelse = "N",
                             Kode = "N"
                         },
                         new
                         {
-                            Id = new Guid("ab6aec50-55a9-493b-9a91-f23509312662"),
+                            Id = new Guid("0905bb19-6d75-4c77-8fd1-3acef420dba9"),
                             Beskrivelse = "O",
                             Kode = "O"
                         });
@@ -367,31 +346,31 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3d95b5e0-7bb1-4df5-945a-fc2f4339c17b"),
+                            Id = new Guid("f6f4d140-7c8a-4720-8ae2-5a80e347ccf1"),
                             Beskrivelse = "livsmedium",
                             Kode = "LI"
                         },
                         new
                         {
-                            Id = new Guid("00d70522-60fe-4e9b-962d-1232f2476851"),
+                            Id = new Guid("7b972e3c-f2c9-4ee6-a60e-d9ab9ca597f5"),
                             Beskrivelse = "landformvariasjon",
                             Kode = "LV"
                         },
                         new
                         {
-                            Id = new Guid("de4ec007-bf98-4eb9-bbd4-ee3b3868f3fd"),
+                            Id = new Guid("cb1383be-2090-40b4-984a-7bc8ad8dada7"),
                             Beskrivelse = "marine vannmasser",
                             Kode = "MV"
                         },
                         new
                         {
-                            Id = new Guid("f7eac1eb-c66d-4119-af7f-845c78d59ae9"),
+                            Id = new Guid("09cb2cb3-42c5-4aca-8a0b-7b916ee749d6"),
                             Beskrivelse = "primært økodiversitetsnivå",
                             Kode = "PE"
                         },
                         new
                         {
-                            Id = new Guid("844f9c1f-72a3-47f3-9bc7-06d35047550f"),
+                            Id = new Guid("bc067a1b-756f-4141-8007-ef09e5942ef3"),
                             Beskrivelse = "sekundært økodiversitetsnivå",
                             Kode = "SE"
                         });
@@ -417,49 +396,49 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4f62b339-ff99-4fbf-8fff-4e9d0be545e7"),
+                            Id = new Guid("4e8416d0-8dca-45ee-88d0-6d5b6738686c"),
                             Beskrivelse = "bremassiv",
                             Kode = "BM"
                         },
                         new
                         {
-                            Id = new Guid("fbddf779-53ed-4f52-90ce-c723bfff9e4a"),
+                            Id = new Guid("f938f305-7b43-44db-876d-d0ef171cd00c"),
                             Beskrivelse = "elveløp",
                             Kode = "EL"
                         },
                         new
                         {
-                            Id = new Guid("3ca7d579-e4ce-4fa6-b30a-1e6f72b64d6f"),
+                            Id = new Guid("0de07b92-5d22-45a5-a607-b7ee3087ecdb"),
                             Beskrivelse = "landformer i fast fjell og løsmasser",
                             Kode = "FL"
                         },
                         new
                         {
-                            Id = new Guid("0a4f978d-5a72-4b52-a64c-1321735522c1"),
+                            Id = new Guid("faab5b3c-eb86-418a-9ec8-95415ba2ca15"),
                             Beskrivelse = "innsjøbasseng",
                             Kode = "IB"
                         },
                         new
                         {
-                            Id = new Guid("2b0220f5-483b-435b-a729-5bd7eb51df3e"),
+                            Id = new Guid("902b89c5-4b5a-4f6d-8a6f-ca077315e862"),
                             Beskrivelse = "landskapstype",
                             Kode = "LA"
                         },
                         new
                         {
-                            Id = new Guid("9503a817-d1cc-4978-a7f0-e98a986fd595"),
+                            Id = new Guid("0e4388f7-00ea-4118-aa74-49dd87940914"),
                             Beskrivelse = "natursystem",
                             Kode = "NA"
                         },
                         new
                         {
-                            Id = new Guid("4935ce21-dcdb-40b3-b3c5-11643594b1aa"),
+                            Id = new Guid("faaaae2d-a94e-4612-ac6c-3d8f8a9ec3cb"),
                             Beskrivelse = "naturkompleks",
                             Kode = "NK"
                         },
                         new
                         {
-                            Id = new Guid("5fa41c4c-9654-468e-8e6e-d9eceb61b21a"),
+                            Id = new Guid("f24b611d-8cb9-4586-ab58-46aec19190ea"),
                             Beskrivelse = "torvmarksmassiv",
                             Kode = "TM"
                         });
@@ -485,13 +464,13 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8f025a5c-1b7d-4051-8cda-11c065388031"),
+                            Id = new Guid("19713000-5712-4a91-8f87-0cb906e83004"),
                             Beskrivelse = "vannmassesystemer",
                             Kode = "VM"
                         },
                         new
                         {
-                            Id = new Guid("9b856646-0dd2-4698-b9f3-e4b70182b7df"),
+                            Id = new Guid("20c9b7ea-d683-4a3e-8fa9-87b40af1f724"),
                             Beskrivelse = "mark- og bunnsystemer",
                             Kode = "MB"
                         });
@@ -510,7 +489,7 @@ namespace NiN3KodeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("Typekategori2Id")
+                    b.Property<Guid>("Typekategori2Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("TypekategoriId")
@@ -585,45 +564,22 @@ namespace NiN3KodeAPI.Migrations
 
             modelBuilder.Entity("NiN3KodeAPI.Entities.Hovedtype", b =>
                 {
-                    b.HasOne("NiN3KodeAPI.Entities.Hovedtypegruppe", "Hovedtypegruppe")
-                        .WithMany()
-                        .HasForeignKey("HovedtypegruppeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Prosedyrekategori", "Prosedyrekategori")
-                        .WithMany()
-                        .HasForeignKey("ProsedyrekategoriId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("NiN3KodeAPI.Entities.Domene", "Version")
                         .WithMany()
                         .HasForeignKey("VersionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Hovedtypegruppe");
-
-                    b.Navigation("Prosedyrekategori");
 
                     b.Navigation("Version");
                 });
 
             modelBuilder.Entity("NiN3KodeAPI.Entities.Hovedtypegruppe", b =>
                 {
-                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Typekategori2", "Typekategori2")
-                        .WithMany()
-                        .HasForeignKey("Typekategori2Id")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("NiN3KodeAPI.Entities.Domene", "Version")
                         .WithMany()
                         .HasForeignKey("VersionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Typekategori2");
 
                     b.Navigation("Version");
                 });
@@ -638,7 +594,9 @@ namespace NiN3KodeAPI.Migrations
 
                     b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Typekategori2", "Typekategori2")
                         .WithMany()
-                        .HasForeignKey("Typekategori2Id");
+                        .HasForeignKey("Typekategori2Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Typekategori", "Typekategori")
                         .WithMany()

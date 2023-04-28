@@ -36,5 +36,13 @@ namespace NiN3KodeAPI.Controllers
             _logger.LogError("Hello from error level!!!");
             return "Hello was logged";
         }
+
+        [HttpGet(Name = "LoadInitDB")]
+        public string LoadInitDB()
+        {
+            _logger.LogInformation("DB was loaded!");
+            _adminService.OpprettInitDbAsync();
+            return "DB was loaded";
+        }
     }
 }
