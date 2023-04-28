@@ -84,7 +84,8 @@ namespace NiN3KodeAPI.DbContexts
                 new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "L", Beskrivelse = "L" },
                 new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "M", Beskrivelse = "M" },
                 new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "N", Beskrivelse = "N" },
-                new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "O", Beskrivelse = "O" }
+                new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "O", Beskrivelse = "O" },
+                new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "0", Beskrivelse = "Ikke angitt" }
                 );
 
 

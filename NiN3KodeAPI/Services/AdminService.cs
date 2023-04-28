@@ -81,11 +81,25 @@ namespace NiN3KodeAPI.Services
                 foreach (var ht in hovedtyper)
                 {
                     var psk = Prosedyrekategoris.FirstOrDefault(s => s.Kode == ht.Prosedyrekategori);
+                    var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Hovedtype_kode == ht.Kode); // finn hovedtypegruppe koden gitt hovedtypekode fra mapping/relasjonstabell.
+                    var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
+                    var hovedtype = new Hovedtype()
+                    {
+                        Id = Guid.NewGuid(),
+                        Kode = ht.Kode,
+                        Hovedtypegruppe = hovedtypegruppe,
+                        Version = domene,
+                        Delkode = ht.Hovedtype,
+                        Navn = ht.Hovedtypenavn,
+                        Prosedyrekategori = psk
+                    };
+                    _context.Add(hovedtype);
                     //var 
                     //htg > //todo-sat: use htg_ht_gt_mapping.csv
                     //var htg = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == ht.Prosedyrekategori)
 
                 }
+                _context.SaveChanges();
             }
             else
             {
