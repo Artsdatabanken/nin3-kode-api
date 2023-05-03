@@ -47,6 +47,9 @@ namespace NiN3KodeAPI.Services
 
                 GetHovedtypeData();
                 _logger.LogInformation("Import of HTdata. Done");
+
+                GetGrunntypedata();
+                _logger.LogInformation("Import of GTdata. Done");
             }
             catch (Exception ex)
             {
@@ -72,10 +75,37 @@ namespace NiN3KodeAPI.Services
             _logger.LogInformation("Htg_Ht_Gt_Mapping lastet");
         }
 
-        private void GetGrunndata() 
+        private void GetGrunntypedata()
         {
-            if (_context.hovedtype.Count() == 0) { 
-            //todo-sat: do impl. 
+            if (_context.grunntype.Count() == 0)
+            {
+                //todo-sat: do impl. 
+                var grunntyper = CsvdataImporter_Grunntype.ProcessCSV("in_data/grunntyper.csv");
+                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                foreach (var gt in grunntyper)
+                {
+                    var psk = Prosedyrekategoris.FirstOrDefault(s => s.Kode == gt.Prosedyrekategori);
+                    var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Grunntype_kode == gt.Kode);
+                    var hovedtype = _context.hovedtype.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtype_kode);
+                    //var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);//htg_ht_gt.Hove
+                    var grunntype = new Grunntype()
+                    {
+                        Id = Guid.NewGuid(),
+                        Kode = gt.Kode,
+                        Navn = gt.Grunntypenavn,
+                        Version = domene,
+                        Delkode = gt.Kode,
+                        //Hovedtypegruppe = hovedtypegruppe,
+                        Hovedtype = hovedtype,
+                        Prosedyrekategori = psk
+                    };
+                    _context.Add(grunntype);
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                _logger.LogInformation("Objecttype <<Grunntype>> allready has data!");
             }
         }
 

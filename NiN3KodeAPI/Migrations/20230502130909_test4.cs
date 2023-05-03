@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NiN3KodeAPI.Migrations
 {
-    public partial class init : Migration
+    public partial class test4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -100,50 +100,12 @@ namespace NiN3KodeAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Grunntype",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VersionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Kode = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Navn = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Grunntype", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Grunntype_domene_VersionId",
-                        column: x => x.VersionId,
-                        principalTable: "domene",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Hovedtype",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VersionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Kode = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Navn = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hovedtype", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Hovedtype_domene_VersionId",
-                        column: x => x.VersionId,
-                        principalTable: "domene",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Hovedtypegruppe",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Typekategori2Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Delkode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VersionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Kode = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Navn = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -157,6 +119,12 @@ namespace NiN3KodeAPI.Migrations
                         principalTable: "domene",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Hovedtypegruppe_Typekategori2_Typekategori2Id",
+                        column: x => x.Typekategori2Id,
+                        principalTable: "Typekategori2",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,7 +134,7 @@ namespace NiN3KodeAPI.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EcosystnivaaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TypekategoriId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Typekategori2Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Typekategori2Id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Kode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VersionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -195,6 +163,75 @@ namespace NiN3KodeAPI.Migrations
                         name: "FK_Type_Typekategori2_Typekategori2Id",
                         column: x => x.Typekategori2Id,
                         principalTable: "Typekategori2",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Hovedtype",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Delkode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProsedyrekategoriId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HovedtypegruppeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VersionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Kode = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Navn = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hovedtype", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Hovedtype_domene_VersionId",
+                        column: x => x.VersionId,
+                        principalTable: "domene",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Hovedtype_Hovedtypegruppe_HovedtypegruppeId",
+                        column: x => x.HovedtypegruppeId,
+                        principalTable: "Hovedtypegruppe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Hovedtype_Prosedyrekategori_ProsedyrekategoriId",
+                        column: x => x.ProsedyrekategoriId,
+                        principalTable: "Prosedyrekategori",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Grunntype",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Delkode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProsedyrekategoriId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HovedtypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VersionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Kode = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Navn = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Grunntype", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Grunntype_domene_VersionId",
+                        column: x => x.VersionId,
+                        principalTable: "domene",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Grunntype_Hovedtype_HovedtypeId",
+                        column: x => x.HovedtypeId,
+                        principalTable: "Hovedtype",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Grunntype_Prosedyrekategori_ProsedyrekategoriId",
+                        column: x => x.ProsedyrekategoriId,
+                        principalTable: "Prosedyrekategori",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -204,8 +241,6 @@ namespace NiN3KodeAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HovedtypegruppeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HovedtypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GrunntypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VersionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Kode = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -226,18 +261,6 @@ namespace NiN3KodeAPI.Migrations
                         principalTable: "Grunntype",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Undertype_Hovedtype_HovedtypeId",
-                        column: x => x.HovedtypeId,
-                        principalTable: "Hovedtype",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Undertype_Hovedtypegruppe_HovedtypegruppeId",
-                        column: x => x.HovedtypegruppeId,
-                        principalTable: "Hovedtypegruppe",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -245,9 +268,9 @@ namespace NiN3KodeAPI.Migrations
                 columns: new[] { "Id", "Beskrivelse", "Kode" },
                 values: new object[,]
                 {
-                    { new Guid("11c7ada4-87df-41e2-97f7-98201c93a1ac"), "abiotisk", "A" },
-                    { new Guid("8f4f79e4-4bc8-49ea-a491-176b4aa0b565"), "økodiversitet", "C" },
-                    { new Guid("aa29179e-5055-4f62-b7ac-73dad8fa6330"), "biotisk", "B" }
+                    { new Guid("05b1c2d5-5c6d-4919-bdaa-0aed6b7c523d"), "økodiversitet", "C" },
+                    { new Guid("7d211287-77b6-4e23-9ac1-85f12d939dd6"), "biotisk", "B" },
+                    { new Guid("abe83bd4-b9e1-4561-ba88-198baceb6188"), "abiotisk", "A" }
                 });
 
             migrationBuilder.InsertData(
@@ -255,12 +278,12 @@ namespace NiN3KodeAPI.Migrations
                 columns: new[] { "Id", "Beskrivelse", "Kode" },
                 values: new object[,]
                 {
-                    { new Guid("106a357d-6ea6-4c36-aaff-66b6b397ccd0"), "grunntype", "G" },
-                    { new Guid("4d978e1f-5922-48ad-92a5-1f00d38c452f"), "kartleggingsenhet tilpasset 1:100 000", "100K" },
-                    { new Guid("4f462294-d679-40b5-9d4b-390f4ec5c9eb"), "kartleggingsenhet tilpasset 1:10 000", "010K" },
-                    { new Guid("547c5e0b-186b-4f1b-bc3a-d842073be832"), "kartleggingsenhet tilpasset 1:20 000", "020K" },
-                    { new Guid("810c297f-3173-45fb-812e-25fc31bbf285"), "kartleggingsenhet tilpasset 1:50 000", "050K" },
-                    { new Guid("a8b5a81f-7ed6-43c9-8d2d-e25c957e5ae0"), "kartleggingsenhet tilpasset 1:5000", "005K" }
+                    { new Guid("4da882f9-692a-4e0c-81e0-9ebe244436e8"), "kartleggingsenhet tilpasset 1:10 000", "010K" },
+                    { new Guid("524ee6b6-47a8-4bc4-89e5-8fd82f9293cf"), "kartleggingsenhet tilpasset 1:100 000", "100K" },
+                    { new Guid("5697e50b-9e7b-4601-855d-e29ddd262522"), "grunntype", "G" },
+                    { new Guid("936ae6f6-e2eb-49df-9181-a1b01255ac2f"), "kartleggingsenhet tilpasset 1:50 000", "050K" },
+                    { new Guid("cbfc9cde-b07d-4922-8337-8a3f5d085185"), "kartleggingsenhet tilpasset 1:5000", "005K" },
+                    { new Guid("e64afe5c-7c1e-4e60-9285-c7d9e163a942"), "kartleggingsenhet tilpasset 1:20 000", "020K" }
                 });
 
             migrationBuilder.InsertData(
@@ -268,21 +291,22 @@ namespace NiN3KodeAPI.Migrations
                 columns: new[] { "Id", "Beskrivelse", "Kode" },
                 values: new object[,]
                 {
-                    { new Guid("0905bb19-6d75-4c77-8fd1-3acef420dba9"), "O", "O" },
-                    { new Guid("26838b8c-da4a-43b0-958e-bae954e33ae7"), "B", "B" },
-                    { new Guid("6cd02757-f959-4347-98f6-c7cb78ba41b2"), "M", "M" },
-                    { new Guid("762b2b1e-f204-42dc-bdd3-06b462cc52d8"), "G", "G" },
-                    { new Guid("7c061b16-048e-4af9-9be9-8e1111bfe019"), "A", "A" },
-                    { new Guid("8ac0b7b9-95f0-4fd4-bd3b-1deaaa9d22f6"), "I", "I" },
-                    { new Guid("8ae20e55-181c-4cf2-8402-60b10c6dd54c"), "L", "L" },
-                    { new Guid("8b8d6124-3281-401c-932b-087edd5cce4c"), "K", "K" },
-                    { new Guid("ae5b4f06-c378-4470-8db8-e86534a31cf1"), "N", "N" },
-                    { new Guid("b554a112-db5d-40e6-bf23-bf392afecc61"), "E", "E" },
-                    { new Guid("c25a75c7-aa35-47be-90b4-e3faf3d69e07"), "C", "C" },
-                    { new Guid("cdbf7ece-3dd9-4b49-bfd7-777327e3135e"), "F", "F" },
-                    { new Guid("e72f3e05-20aa-4fb4-ae35-1537c74830e4"), "H", "H" },
-                    { new Guid("f2db4103-5bc1-45e5-84b6-6c95eee7cb95"), "D", "D" },
-                    { new Guid("f657ad4d-a0d5-4211-a1d2-f120b2aa4b9d"), "J", "J" }
+                    { new Guid("0c5999af-8f5b-4883-bb3d-e01a5a991f02"), "F", "F" },
+                    { new Guid("0f787d8d-248e-48cd-8ad8-aaa224e716b9"), "A", "A" },
+                    { new Guid("192c59db-a338-4e28-9801-06dd62443cd5"), "E", "E" },
+                    { new Guid("1fb7a0bc-01a7-453f-a337-e45398f5300e"), "B", "B" },
+                    { new Guid("4e578132-63ff-43aa-bf68-31f4b565dea2"), "O", "O" },
+                    { new Guid("6ac6ebcb-6226-4497-a045-9561a52a7ef0"), "C", "C" },
+                    { new Guid("6be2303f-5f60-47b4-a7ec-71b91e755ab8"), "N", "N" },
+                    { new Guid("801fd9a0-df9e-46c2-95f6-69b075381cb9"), "H", "H" },
+                    { new Guid("8b450fd0-2815-461d-8af3-18f321592323"), "K", "K" },
+                    { new Guid("a2dcd346-1d93-44cb-a704-6cbd7872ca51"), "J", "J" },
+                    { new Guid("a75de8c9-aba5-42f0-bfc6-d59ae8630fd5"), "Ikke angitt", "0" },
+                    { new Guid("aa11baaa-14ad-4efe-8836-3fb9b1ce9238"), "L", "L" },
+                    { new Guid("acae9bca-e174-4f09-a42b-e313ee88c051"), "I", "I" },
+                    { new Guid("d192c26b-0262-4dda-941f-2d54dd44b1ad"), "G", "G" },
+                    { new Guid("d2a4de0a-c220-4624-80a0-45875fd1329e"), "M", "M" },
+                    { new Guid("f4569193-4ff0-4a38-bb7b-217bdb376fee"), "D", "D" }
                 });
 
             migrationBuilder.InsertData(
@@ -290,11 +314,11 @@ namespace NiN3KodeAPI.Migrations
                 columns: new[] { "Id", "Beskrivelse", "Kode" },
                 values: new object[,]
                 {
-                    { new Guid("09cb2cb3-42c5-4aca-8a0b-7b916ee749d6"), "primært økodiversitetsnivå", "PE" },
-                    { new Guid("7b972e3c-f2c9-4ee6-a60e-d9ab9ca597f5"), "landformvariasjon", "LV" },
-                    { new Guid("bc067a1b-756f-4141-8007-ef09e5942ef3"), "sekundært økodiversitetsnivå", "SE" },
-                    { new Guid("cb1383be-2090-40b4-984a-7bc8ad8dada7"), "marine vannmasser", "MV" },
-                    { new Guid("f6f4d140-7c8a-4720-8ae2-5a80e347ccf1"), "livsmedium", "LI" }
+                    { new Guid("1bd2bf18-f8ef-440d-a258-502b8758dfa6"), "landformvariasjon", "LV" },
+                    { new Guid("2ccb0411-602e-4c67-86d9-d02d4f04ead6"), "primært økodiversitetsnivå", "PE" },
+                    { new Guid("492aed69-3515-4da0-9361-11d404cb2ef7"), "marine vannmasser", "MV" },
+                    { new Guid("c1c4c007-137c-4130-b466-c3ffc007d7de"), "livsmedium", "LI" },
+                    { new Guid("db7f7db8-0580-4483-aadf-4dbabf28f3b8"), "sekundært økodiversitetsnivå", "SE" }
                 });
 
             migrationBuilder.InsertData(
@@ -302,14 +326,14 @@ namespace NiN3KodeAPI.Migrations
                 columns: new[] { "Id", "Beskrivelse", "Kode" },
                 values: new object[,]
                 {
-                    { new Guid("0de07b92-5d22-45a5-a607-b7ee3087ecdb"), "landformer i fast fjell og løsmasser", "FL" },
-                    { new Guid("0e4388f7-00ea-4118-aa74-49dd87940914"), "natursystem", "NA" },
-                    { new Guid("4e8416d0-8dca-45ee-88d0-6d5b6738686c"), "bremassiv", "BM" },
-                    { new Guid("902b89c5-4b5a-4f6d-8a6f-ca077315e862"), "landskapstype", "LA" },
-                    { new Guid("f24b611d-8cb9-4586-ab58-46aec19190ea"), "torvmarksmassiv", "TM" },
-                    { new Guid("f938f305-7b43-44db-876d-d0ef171cd00c"), "elveløp", "EL" },
-                    { new Guid("faaaae2d-a94e-4612-ac6c-3d8f8a9ec3cb"), "naturkompleks", "NK" },
-                    { new Guid("faab5b3c-eb86-418a-9ec8-95415ba2ca15"), "innsjøbasseng", "IB" }
+                    { new Guid("5df8ef12-64fa-4139-b938-4a2717fb8bd7"), "innsjøbasseng", "IB" },
+                    { new Guid("6aae4bfb-14b4-45ef-bca8-d9a0f12f9940"), "landskapstype", "LA" },
+                    { new Guid("73c1cf3c-7434-4916-9ef7-8d30cb6664a8"), "landformer i fast fjell og løsmasser", "FL" },
+                    { new Guid("80669b12-ce4d-4af3-b64f-0f9c0a4930ea"), "torvmarksmassiv", "TM" },
+                    { new Guid("b15b33b7-cc10-4939-bf88-affd6aef8342"), "naturkompleks", "NK" },
+                    { new Guid("d63a2cf8-d283-441b-9b4a-adcf99a5ee5a"), "elveløp", "EL" },
+                    { new Guid("dfd6c72d-b3b4-43f0-87d8-aa73aca830cb"), "bremassiv", "BM" },
+                    { new Guid("ec15e224-e848-4364-a80c-1ffdd5c876ec"), "natursystem", "NA" }
                 });
 
             migrationBuilder.InsertData(
@@ -317,14 +341,24 @@ namespace NiN3KodeAPI.Migrations
                 columns: new[] { "Id", "Beskrivelse", "Kode" },
                 values: new object[,]
                 {
-                    { new Guid("19713000-5712-4a91-8f87-0cb906e83004"), "vannmassesystemer", "VM" },
-                    { new Guid("20c9b7ea-d683-4a3e-8fa9-87b40af1f724"), "mark- og bunnsystemer", "MB" }
+                    { new Guid("85a33672-b9e0-4987-9343-26c67587fd5a"), "mark- og bunnsystemer", "MB" },
+                    { new Guid("a7e1088b-3dd6-4f35-b3e3-36484c7321b1"), "vannmassesystemer", "VM" }
                 });
 
             migrationBuilder.InsertData(
                 table: "domene",
                 columns: new[] { "Id", "Navn" },
-                values: new object[] { new Guid("3ce9268b-ea16-4185-a24c-44adf835e99d"), "3.0" });
+                values: new object[] { new Guid("65e16959-3031-4e19-b692-f2f875bbf4e5"), "3.0" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Grunntype_HovedtypeId",
+                table: "Grunntype",
+                column: "HovedtypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Grunntype_ProsedyrekategoriId",
+                table: "Grunntype",
+                column: "ProsedyrekategoriId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Grunntype_VersionId",
@@ -332,9 +366,24 @@ namespace NiN3KodeAPI.Migrations
                 column: "VersionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Hovedtype_HovedtypegruppeId",
+                table: "Hovedtype",
+                column: "HovedtypegruppeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Hovedtype_ProsedyrekategoriId",
+                table: "Hovedtype",
+                column: "ProsedyrekategoriId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Hovedtype_VersionId",
                 table: "Hovedtype",
                 column: "VersionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Hovedtypegruppe_Typekategori2Id",
+                table: "Hovedtypegruppe",
+                column: "Typekategori2Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Hovedtypegruppe_VersionId",
@@ -367,16 +416,6 @@ namespace NiN3KodeAPI.Migrations
                 column: "GrunntypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Undertype_HovedtypegruppeId",
-                table: "Undertype",
-                column: "HovedtypegruppeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Undertype_HovedtypeId",
-                table: "Undertype",
-                column: "HovedtypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Undertype_VersionId",
                 table: "Undertype",
                 column: "VersionId");
@@ -386,9 +425,6 @@ namespace NiN3KodeAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Maalestokk");
-
-            migrationBuilder.DropTable(
-                name: "Prosedyrekategori");
 
             migrationBuilder.DropTable(
                 name: "Type");
@@ -406,9 +442,6 @@ namespace NiN3KodeAPI.Migrations
                 name: "Typekategori");
 
             migrationBuilder.DropTable(
-                name: "Typekategori2");
-
-            migrationBuilder.DropTable(
                 name: "Grunntype");
 
             migrationBuilder.DropTable(
@@ -418,7 +451,13 @@ namespace NiN3KodeAPI.Migrations
                 name: "Hovedtypegruppe");
 
             migrationBuilder.DropTable(
+                name: "Prosedyrekategori");
+
+            migrationBuilder.DropTable(
                 name: "domene");
+
+            migrationBuilder.DropTable(
+                name: "Typekategori2");
         }
     }
 }

@@ -88,20 +88,22 @@ namespace NiN3KodeAPI.DbContexts
                 new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "0", Beskrivelse = "Ikke angitt" }
                 );
 
+            /*
+                 // variabelkategori
+                 new Variabelkategori() {Id = Guid.NewGuid(), Kode = "M", Beskrivelse="mennekebetinget"},
+                 new Variabelkategori() {Id = Guid.NewGuid(), Kode = "N", Beskrivelse="naturgitt"}
+            */
 
 
             /*
+            
                 // variabeltyper
                 new Variabeltype() {Id = Guid.NewGuid(), Kode = "FE", Beskrivelse="enkel, ikke-ordnet faktorvariabel"},
                 new Variabeltype() {Id = Guid.NewGuid(), Kode = "FK", Beskrivelse="kompleks, ikke-ordnet faktorvariabel"},
                 new Variabeltype() {Id = Guid.NewGuid(), Kode = "GE", Beskrivelse="enkel gradient"},
                 new Variabeltype() {Id = Guid.NewGuid(), Kode = "GK", Beskrivelse="kompleks gradient"}*/
 
-            /*
-             // variabelkategori
-             new Variabelkategori() {Id = Guid.NewGuid(), Kode = "M", Beskrivelse="mennekebetinget"},
-             new Variabelkategori() {Id = Guid.NewGuid(), Kode = "N", Beskrivelse="naturgitt"}
-             */
+
 
             /*
              new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "AD", Beskrivelse="artssammensetningsdynamikk"},
@@ -127,22 +129,27 @@ namespace NiN3KodeAPI.DbContexts
                 .HasOne(e => e.Typekategori2)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Undertype>()
+ /*           modelBuilder.Entity<Undertype>()
                 .HasOne(e => e.Hovedtype)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Undertype>()
             .HasOne(e => e.Hovedtypegruppe)
             .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Restrict);*/
             modelBuilder.Entity<Undertype>()
             .HasOne(e => e.Grunntype)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
-
+            modelBuilder.Entity<Grunntype>()
+            .HasOne(e => e.Hovedtype)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }
+
+        // TYPER
         public DbSet<Ecosystnivaa> Ecosystnivaa { get; set; }
         public DbSet<Typekategori> Typekategori { get; set; }
         public DbSet<Typekategori2> Typekategori2 { get; set; }
@@ -154,6 +161,12 @@ namespace NiN3KodeAPI.DbContexts
         public DbSet<Hovedtype> hovedtype { get; set; }
         public DbSet<Grunntype> grunntype { get; set; }
         public DbSet<Undertype> undertype { get; set; }
+
+        //VARIABLER
+        // ...
+
+        //ANDRE
+        // ...
 
     }
 }

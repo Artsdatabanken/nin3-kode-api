@@ -2,7 +2,7 @@
 {
     public class CsvdataImporter_Grunntype
     {
-        public string Hovedtypegruppe { get; set; }
+       //public string Hovedtypegruppe { get; set; }
         public string Prosedyrekategori { get; set; }
 
         public string Hovedtype { get; set; }
@@ -18,7 +18,7 @@
             {
                 Hovedtype = columns[2],
                 Prosedyrekategori = columns[1],
-                Hovedtypegruppe = columns[0],
+                //Hovedtypegruppe = columns[0],
                 Grunntype = columns[3],
                 Grunntypenavn = columns[4],
                 Kode = columns[5]
