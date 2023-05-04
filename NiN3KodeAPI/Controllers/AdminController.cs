@@ -37,6 +37,14 @@ namespace NiN3KodeAPI.Controllers
             return "Hello was logged";
         }
 
+        [HttpGet(Name = "OppdaterDatabasestruktur")]
+        public string OppdaterDatabasestruktur()
+        {
+            _adminService.DoMigrations();
+            _logger.LogInformation("Migration was attempted!");
+            return "Migration was attempted!";
+        }
+
         [HttpGet(Name = "LoadInitDB")]
         public async Task<ActionResult<string>> LoadInitDB()
         {

@@ -7,5 +7,6 @@ namespace NiN3KodeAPI.Services
         Task<IEnumerable<Domene>> HentDomenerAsync();
 
         bool OpprettInitDbAsync();
+        void DoMigrations();
     }
 }

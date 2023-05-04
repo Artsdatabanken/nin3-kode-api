@@ -32,6 +32,11 @@ namespace NiN3KodeAPI.Services
             return await _context.domene.OrderBy(c => c.Navn).ToListAsync();
         }
 
+        public void DoMigrations() {
+            _context.Database.Migrate();
+        }
+
+
         public bool OpprettInitDbAsync()
         {
             //throw new NotImplementedException();

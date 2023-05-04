@@ -2,7 +2,7 @@
 
 namespace NiN3KodeAPI.Entities.Lookupdata
 {
-    [Table("Ecosystnivå")]
+    [Table("Ecosystnivaa")]
     public class Ecosystnivaa : Oppslagstype
     {
     }
