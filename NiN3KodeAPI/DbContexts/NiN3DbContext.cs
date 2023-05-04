@@ -88,11 +88,13 @@ namespace NiN3KodeAPI.DbContexts
                 new Prosedyrekategori() { Id = Guid.NewGuid(), Kode = "0", Beskrivelse = "Ikke angitt" }
                 );
 
-            /*
-                 // variabelkategori
-                 new Variabelkategori() {Id = Guid.NewGuid(), Kode = "M", Beskrivelse="mennekebetinget"},
-                 new Variabelkategori() {Id = Guid.NewGuid(), Kode = "N", Beskrivelse="naturgitt"}
-            */
+
+            // variabelkategori
+            modelBuilder.Entity<Variabelkategori>().HasData(
+                new Variabelkategori() { Id = Guid.NewGuid(), Kode = "M", Beskrivelse = "mennekebetinget" },
+                new Variabelkategori() { Id = Guid.NewGuid(), Kode = "N", Beskrivelse = "naturgitt" }
+            );
+            
 
 
             /*
