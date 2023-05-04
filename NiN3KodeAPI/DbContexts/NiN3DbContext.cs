@@ -7,7 +7,6 @@ namespace NiN3KodeAPI.DbContexts
 {
     public class NiN3DbContext : DbContext
     {
-        private DataImportHelper _dataImportHelper;
         public NiN3DbContext(DbContextOptions<NiN3DbContext> options)
     : base(options)
         {
