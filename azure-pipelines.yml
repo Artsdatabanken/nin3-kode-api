@@ -8,12 +8,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: |
-    npm install
-    npm run download
-  displayName: 'npm install and download'
-
 resources:
 - repo: self
 
