@@ -6,7 +6,7 @@ trigger:
 - test
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 resources:
 - repo: self

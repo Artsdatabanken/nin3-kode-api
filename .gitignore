@@ -4,3 +4,5 @@ NiN3KodeAPI/obj/
 .vs/NiN3KodeAPI/config/applicationhost.config
 *.vsidx
 .vs/
+
+.fake
