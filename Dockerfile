@@ -7,9 +7,6 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-RUN ls -l
-RUN cd ..
-RUN ls -l
 COPY ["NiN3KodeAPI/NiN3KodeAPI.csproj", "NiN3KodeAPI/"]
 RUN dotnet restore "NiN3KodeAPI/NiN3KodeAPI.csproj"
 COPY . .
