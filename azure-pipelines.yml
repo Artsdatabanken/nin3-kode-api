@@ -24,8 +24,6 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - script: dir
-    - script: dir NiN3KodeAPI
     - task: Docker@2
       inputs:
         containerRegistry: 'dockerhub'
