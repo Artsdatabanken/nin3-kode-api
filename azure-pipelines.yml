@@ -24,12 +24,20 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - script: dir
-    - script: dir NiN3KodeAPI
     - task: Docker@2
-      displayName: Build an image
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+        containerRegistry: 'dockerhub'
+        repository: 'artsdatabanken/nin3kodeapi'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: '$(Build.SourceBranchName)'
+
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
+        appType: 'webAppContainer'
+        WebAppName: 'adb-test-ao3-wp-as'
+        DockerNamespace: 'artsdatabanken/nin3kodeapi'
+        DockerRepository: 'artsdatabanken/nin3kodeapi'
+        DockerImageTag: 'test'
