@@ -33,11 +33,9 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-    - task: AzureRmWebAppDeployment@4
+    - task: Docker@2
       inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
-        appType: 'webAppContainer'
-        WebAppName: 'adb-test-nin3-as'
-        DockerRepository: 'NiN3KodeAPI'
-        DockerImageTag: '$(tag)'
+        containerRegistry: 'dockerhub'
+        repository: 'artsdatabanken/nin3kodeapi'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
