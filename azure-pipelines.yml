@@ -30,4 +30,4 @@ stages:
         repository: 'artsdatabanken/nin3kodeapi'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: 'test'
+        tags: '$(Build.SourceBranchName)'
