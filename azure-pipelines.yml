@@ -5,6 +5,14 @@
 trigger:
 - test
 
+pool:
+  vmImage: ubuntu-latest
+
+- script: |
+    npm install
+    npm run download
+  displayName: 'npm install and download'
+
 resources:
 - repo: self
 
