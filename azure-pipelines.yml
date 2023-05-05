@@ -27,13 +27,6 @@ stages:
     - script: dir
     - script: dir NiN3KodeAPI
     - task: Docker@2
-      displayName: Build image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
-    - task: Docker@2
       inputs:
         containerRegistry: 'dockerhub'
         repository: 'artsdatabanken/nin3kodeapi'
