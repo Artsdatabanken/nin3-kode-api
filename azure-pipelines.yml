@@ -41,4 +41,3 @@ stages:
         DockerNamespace: 'artsdatabanken/nin3kodeapi'
         DockerRepository: 'artsdatabanken/nin3kodeapi'
         DockerImageTag: 'test'
-        StartupCommand: 'dotnet NiN3KodeAPI.dll'
