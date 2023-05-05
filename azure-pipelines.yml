@@ -38,4 +38,4 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          docker save NiN3KodeAPI:$(tag) -o $(Pipeline.Workspace)/ninkode3api.tar
+          docker save ninkode3:$(tag) -o $(Pipeline.Workspace)/ninkode3api.tar
