@@ -25,8 +25,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - script: dir
-    - script: cd NiN3KodeAPI
-    - script: dir
+    - script: dir NiN3KodeAPI
     - task: Docker@2
       displayName: Build an image
       inputs:
