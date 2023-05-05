@@ -8,9 +8,6 @@ trigger:
 resources:
 - repo: self
 
-variables:
-  tag: '$(Build.BuildId)'
-
 stages:
 - stage: Build
   displayName: Build image
@@ -26,4 +23,4 @@ stages:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/NiN3KodeAPI/Dockerfile'
         tags: |
-          $(tag)
+          test
