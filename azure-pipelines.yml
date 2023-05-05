@@ -33,9 +33,11 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-    - task: Bash@3
-      displayName: Save Docker Image
+    - task: AzureRmWebAppDeployment@4
       inputs:
-        targetType: 'inline'
-        script: |
-          docker save ninkode3:$(tag) -o $(Pipeline.Workspace)/ninkode3api.tar
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
+        appType: 'webAppContainer'
+        WebAppName: 'adb-test-nin3-as'
+        DockerRepository: 'NiN3KodeAPI'
+        DockerImageTag: '$(tag)'
