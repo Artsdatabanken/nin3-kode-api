@@ -32,7 +32,7 @@ namespace NiN3KodeAPI.Services
             return await _context.domene.OrderBy(c => c.Navn).ToListAsync();
         }
 
-        public void DoMigrations() {
+        public void DoMigrations() {// from adminController.
             _context.Database.Migrate();
         }
 

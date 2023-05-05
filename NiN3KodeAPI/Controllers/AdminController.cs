@@ -61,5 +61,10 @@ namespace NiN3KodeAPI.Controllers
             }
             return "DB was loaded";
         }
-    }
+
+        [HttpGet(Name = "test2")]
+        public async Task<ActionResult<string>> Test2()
+        {
+            return Ok("En liten response fra test2");
+        }
 }
