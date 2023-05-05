@@ -23,4 +23,4 @@ stages:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/NiN3KodeAPI/Dockerfile'
         tags: |
-          test
+          latest
