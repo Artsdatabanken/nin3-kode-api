@@ -67,7 +67,7 @@ namespace NiN3KodeAPI.Controllers
         [HttpGet(Name = "test2")]
         public async Task<ActionResult<string>> Test2()
         {
-            return Ok("En liten response fra test2");
+            return Ok("En liten response fra test2.1");
         }
     }
 }
