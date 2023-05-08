@@ -32,7 +32,8 @@ namespace NiN3KodeAPI.Controllers
         }
 
         [HttpGet(Name = "LogHello")]
-        public string LogHello() {
+        public string LogHello()
+        {
             _logger.LogError("Hello from error level!!!");
             return "Hello was logged";
         }
@@ -48,14 +49,15 @@ namespace NiN3KodeAPI.Controllers
         [HttpGet(Name = "LoadInitDB")]
         public async Task<ActionResult<string>> LoadInitDB()
         {
-            
+
             var ok = _adminService.OpprettInitDbAsync();
             if (ok)
             {
                 _logger.LogInformation("DB was loaded!");
                 return Ok("DB was loaded!");
             }
-            else {
+            else
+            {
                 _logger.LogError("Something went sideways!");
                 return StatusCode(500);
             }
@@ -67,4 +69,5 @@ namespace NiN3KodeAPI.Controllers
         {
             return Ok("En liten response fra test2");
         }
+    }
 }
