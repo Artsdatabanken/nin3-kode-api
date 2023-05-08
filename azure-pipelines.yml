@@ -37,7 +37,8 @@ stages:
         azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
         appType: 'webAppContainer'
         WebAppName: 'adb-test-nin3-as'
-        DockerRepository: 'artsdatabanken/nin3kodeapi'
+        DockerNamespace: 'artsdatabanken'
+        DockerRepository: 'nin3kodeapi'
         DockerImageTag: 'test'
     - task: AzureAppServiceManage@0
       inputs:
