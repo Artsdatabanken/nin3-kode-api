@@ -31,13 +31,17 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: '$(Build.SourceBranchName)'
-
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
         appType: 'webAppContainer'
-        WebAppName: 'adb-test-ao3-wp-as'
-        DockerNamespace: 'artsdatabanken/nin3kodeapi'
-        DockerRepository: 'artsdatabanken/nin3kodeapi'
+        WebAppName: 'adb-test-nin3-as'
+        DockerNamespace: 'artsdatabanken'
+        DockerRepository: 'nin3kodeapi'
         DockerImageTag: 'test'
+    - task: AzureAppServiceManage@0
+      inputs:
+        azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
+        Action: 'Restart Azure App Service'
+        WebAppName: 'adb-test-nin3-as'
