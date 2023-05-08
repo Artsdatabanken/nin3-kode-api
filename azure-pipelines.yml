@@ -24,3 +24,8 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/NiN3KodeAPI/Dockerfile'
         tags: |
           - latest
+    - task: AzureAppServiceManage@0
+      inputs:
+        azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
+        Action: 'Restart Azure App Service'
+        WebAppName: 'adb-test-nin3-as'
