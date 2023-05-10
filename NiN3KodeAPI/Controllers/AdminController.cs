@@ -42,6 +42,12 @@ namespace NiN3KodeAPI.Controllers
             return "Hello was logged";
         }
 
+        [HttpGet(Name = "return_env")]
+        public string return_env()
+        {
+            return Environment.GetEnvironmentVariable("nin3kodeKV");
+        }
+
         [HttpGet(Name = "OppdaterDatabasestruktur")]
         public string OppdaterDatabasestruktur()
         {
