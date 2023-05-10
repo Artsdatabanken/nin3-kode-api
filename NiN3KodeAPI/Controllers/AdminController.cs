@@ -48,6 +48,12 @@ namespace NiN3KodeAPI.Controllers
             return Environment.GetEnvironmentVariable("nin3kodeKV");
         }
 
+        [HttpGet(Name = "st")]
+        public string st()
+        {
+            return _sservice.Admintoken;
+        }
+
         [HttpGet(Name = "OppdaterDatabasestruktur")]
         public string OppdaterDatabasestruktur()
         {
