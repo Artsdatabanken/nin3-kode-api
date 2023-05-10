@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NiN3KodeAPI.Entities;
 using NiN3KodeAPI.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace NiN3KodeAPI.Controllers
 {
@@ -12,20 +13,23 @@ namespace NiN3KodeAPI.Controllers
         //private readonly IAdminService _adminService;
         private readonly ILogger<AdminController> _logger;
         private readonly IAdminService _adminService;
-        public AdminController(IAdminService adminService, ILogger<AdminController> logger)
+        private readonly ISService _sservice;
+        public AdminController(ISService SService, IAdminService adminService, ILogger<AdminController> logger)
         {
             _adminService = adminService ?? throw new ArgumentNullException(nameof(adminService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _sservice = SService ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet(Name = "HentDomener")]
-        public async Task<ActionResult<IEnumerable<Domene>>> HentDomener()
+        public async Task<ActionResult<IEnumerable<Domene>>> HentDomener([FromHeader(Name = "admintoken")][Required] string admintokenHeader)
         {
-            //var domener = new Domene() {Id = Guid.NewGuid(), Navn="hardcoded" };
+            if (!CheckAuth(admintokenHeader)) {
+                return StatusCode(401);
+            }
             var domener = await _adminService.HentDomenerAsync();
             if (domener == null)
             {
-                //_logger.LogInformation($"City with id {cityid} wasn't found when accessing points of interest");
                 return NotFound();
             }
             return Ok(domener);
@@ -68,6 +72,16 @@ namespace NiN3KodeAPI.Controllers
         public async Task<ActionResult<string>> Test2()
         {
             return Ok("En liten response fra test2.2");
+        }
+
+        private Boolean CheckAuth(string inputtoken) {
+            if (inputtoken != _sservice.Admintoken)
+            {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
     }
 }

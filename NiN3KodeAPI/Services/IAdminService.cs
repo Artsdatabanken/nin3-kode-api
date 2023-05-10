@@ -8,5 +8,7 @@ namespace NiN3KodeAPI.Services
 
         bool OpprettInitDbAsync();
         void DoMigrations();
+
+        //void Startup();
     }
 }

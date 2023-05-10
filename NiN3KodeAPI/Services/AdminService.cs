@@ -7,6 +7,11 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq.Expressions;
 //using NiN3KodeAPI.Migrations;
 using Type = NiN3KodeAPI.Entities.Type;
+using System;
+using System.Threading.Tasks;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+
 
 namespace NiN3KodeAPI.Services
 {
@@ -14,17 +19,20 @@ namespace NiN3KodeAPI.Services
     {
         private readonly ILogger<AdminService> _logger;
         private readonly NiN3DbContext _context;
+        private IConfiguration _conf;
         private List<CsvdataImporter_htg_ht_gt_mapping> csvdataImporter_Htg_Ht_Gt_Mappings;
         private List<Prosedyrekategori> Prosedyrekategoris;
         private List<Ecosystnivaa> Ecosystnivaas;
         private List<Typekategori> Typekategoris;
         private List<Typekategori2> Typekategori2s;
         private List<Domene> Domenes;
+        private string AdminToken;
 
         public AdminService(IConfiguration configuration, NiN3DbContext context, ILogger<AdminService> logger)
         {
             _context = context;
             _logger = logger;
+            _conf = configuration;
         }
 
         public async Task<IEnumerable<Domene>> HentDomenerAsync()
