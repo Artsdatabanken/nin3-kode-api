@@ -9,6 +9,10 @@ namespace NiN3KodeAPI.Services
         bool OpprettInitDbAsync();
         void DoMigrations();
 
+        List<string> Tabeller();
+
+        string Tabelldata(string tablename);
+
         //void Startup();
     }
 }

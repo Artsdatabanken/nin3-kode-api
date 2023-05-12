@@ -93,35 +93,39 @@ namespace NiN3KodeAPI.DbContexts
                 new Variabelkategori() { Id = Guid.NewGuid(), Kode = "M", Beskrivelse = "mennekebetinget" },
                 new Variabelkategori() { Id = Guid.NewGuid(), Kode = "N", Beskrivelse = "naturgitt" }
             );
-            
-
-
-            /*
-            
-                // variabeltyper
-                new Variabeltype() {Id = Guid.NewGuid(), Kode = "FE", Beskrivelse="enkel, ikke-ordnet faktorvariabel"},
-                new Variabeltype() {Id = Guid.NewGuid(), Kode = "FK", Beskrivelse="kompleks, ikke-ordnet faktorvariabel"},
-                new Variabeltype() {Id = Guid.NewGuid(), Kode = "GE", Beskrivelse="enkel gradient"},
-                new Variabeltype() {Id = Guid.NewGuid(), Kode = "GK", Beskrivelse="kompleks gradient"}*/
 
 
 
-            /*
-             new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "AD", Beskrivelse="artssammensetningsdynamikk"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "BE", Beskrivelse="bergarter"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "KM", Beskrivelse="korttidsmiljøvariabel"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "LM", Beskrivelse="lokal miljøvariabel"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "LO", Beskrivelse="landform-objekter"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "MD", Beskrivelse="miljødynamikk"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "MO", Beskrivelse="menneskeskapt objekt"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "NO", Beskrivelse="naturgitt objekt"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "RA", Beskrivelse="romlig artsfordelingsmønster"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "RM", Beskrivelse="regional miljøvariabel"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "RS", Beskrivelse="romlig strukturvariasjon"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "SA", Beskrivelse="strukturerende og funksjonelle artsgrupper"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "TF", Beskrivelse="terrengformvariasjon"},
-            new Variabelkategori2() {Id = Guid.NewGuid(), Kode = "VS", Beskrivelse="vertikal struktur"}
-             */
+
+
+            // variabeltyper
+            modelBuilder.Entity<Variabeltype>().HasData(
+                new Variabeltype() { Id = Guid.NewGuid(), Kode = "FE", Beskrivelse = "enkel, ikke-ordnet faktorvariabel" },
+                    new Variabeltype() { Id = Guid.NewGuid(), Kode = "FK", Beskrivelse = "kompleks, ikke-ordnet faktorvariabel" },
+                    new Variabeltype() { Id = Guid.NewGuid(), Kode = "GE", Beskrivelse = "enkel gradient" },
+                    new Variabeltype() { Id = Guid.NewGuid(), Kode = "GK", Beskrivelse = "kompleks gradient" }
+                    );
+
+
+
+            modelBuilder.Entity<Variabelkategori2>().HasData(
+             new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "AD", Beskrivelse = "artssammensetningsdynamikk" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "BE", Beskrivelse = "bergarter" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "KM", Beskrivelse = "korttidsmiljøvariabel" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "LM", Beskrivelse = "lokal miljøvariabel" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "LO", Beskrivelse = "landform-objekter" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "MD", Beskrivelse = "miljødynamikk" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "MO", Beskrivelse = "menneskeskapt objekt" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "NO", Beskrivelse = "naturgitt objekt" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "RA", Beskrivelse = "romlig artsfordelingsmønster" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "RM", Beskrivelse = "regional miljøvariabel" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "RS", Beskrivelse = "romlig strukturvariasjon" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "SA", Beskrivelse = "strukturerende og funksjonelle artsgrupper" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "TF", Beskrivelse = "terrengformvariasjon" },
+            new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "VS", Beskrivelse = "vertikal struktur" }
+             );
+
+
             modelBuilder.Entity<Hovedtype>()
                 .HasOne(e => e.Hovedtypegruppe)
                 .WithMany()
@@ -130,14 +134,14 @@ namespace NiN3KodeAPI.DbContexts
                 .HasOne(e => e.Typekategori2)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
- /*           modelBuilder.Entity<Undertype>()
-                .HasOne(e => e.Hovedtype)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Undertype>()
-            .HasOne(e => e.Hovedtypegruppe)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);*/
+            /*           modelBuilder.Entity<Undertype>()
+                           .HasOne(e => e.Hovedtype)
+                           .WithMany()
+                           .OnDelete(DeleteBehavior.Restrict);
+                       modelBuilder.Entity<Undertype>()
+                       .HasOne(e => e.Hovedtypegruppe)
+                       .WithMany()
+                       .OnDelete(DeleteBehavior.Restrict);*/
             modelBuilder.Entity<Undertype>()
             .HasOne(e => e.Grunntype)
             .WithMany()
@@ -152,16 +156,16 @@ namespace NiN3KodeAPI.DbContexts
 
         // TYPER
         public DbSet<Ecosystnivaa> Ecosystnivaa { get; set; }
+        public DbSet<Maalestokk> Maalestokk { get; set; }
         public DbSet<Typekategori> Typekategori { get; set; }
         public DbSet<Typekategori2> Typekategori2 { get; set; }
-
         public DbSet<Prosedyrekategori> Prosedyrekategori { get; set; }
-        public DbSet<Domene> domene { get; set; }
-        public DbSet<Entities.Type> type { get; set; }
-        public DbSet<Hovedtypegruppe> hovedtypegruppe { get; set; }
-        public DbSet<Hovedtype> hovedtype { get; set; }
-        public DbSet<Grunntype> grunntype { get; set; }
-        public DbSet<Undertype> undertype { get; set; }
+        public DbSet<Domene> Domene { get; set; }
+        public DbSet<Entities.Type> Type { get; set; }
+        public DbSet<Hovedtypegruppe> Hovedtypegruppe { get; set; }
+        public DbSet<Hovedtype> Hovedtype { get; set; }
+        public DbSet<Grunntype> Grunntype { get; set; }
+        public DbSet<Undertype> Undertype { get; set; }
 
         //VARIABLER
         // ...

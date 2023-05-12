@@ -1,8 +1,11 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NiN3KodeAPI.Entities;
 using NiN3KodeAPI.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 
 namespace NiN3KodeAPI.Controllers
 {
@@ -35,12 +38,13 @@ namespace NiN3KodeAPI.Controllers
             return Ok(domener);
         }
 
+        /*
         [HttpGet(Name = "LogHello")]
         public string LogHello()
         {
             _logger.LogError("Hello from error level!!!");
             return "Hello was logged";
-        }
+        }*/
 
         [HttpGet(Name = "return_env")]
         public string return_env()
@@ -48,11 +52,12 @@ namespace NiN3KodeAPI.Controllers
             return Environment.GetEnvironmentVariable("nin3kodeKV");
         }
 
+        /*
         [HttpGet(Name = "st")]
         public string st()
         {
             return _sservice.Admintoken;
-        }
+        }*/
 
         [HttpGet(Name = "OppdaterDatabasestruktur")]
         public string OppdaterDatabasestruktur()
@@ -80,11 +85,29 @@ namespace NiN3KodeAPI.Controllers
             return "DB was loaded";
         }
 
+
+        [HttpGet("Tabelliste")]
+        public async Task<ActionResult<string>> ShowTables()
+        {
+            return Ok(_adminService.Tabeller());
+        }
+
+        [HttpGet("Tabelldata")]
+        public async Task<IActionResult> Tabelldata(string tabellnavn)
+        {
+            var tdr = _adminService.Tabelldata(tabellnavn);
+            //
+            var c = ((JArray)JsonConvert.DeserializeObject(tdr)).Count;
+            Response.Headers.Add("Recordcount", c.ToString());
+            return Content(tdr, "application/json");
+        }
+
+        /*
         [HttpGet(Name = "test2")]
         public async Task<ActionResult<string>> Test2()
         {
             return Ok("En liten response fra test2.2");
-        }
+        }*/
 
         private Boolean CheckAuth(string inputtoken) {
             if (inputtoken != _sservice.Admintoken)

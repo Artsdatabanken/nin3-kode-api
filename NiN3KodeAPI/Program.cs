@@ -3,12 +3,23 @@ global using Microsoft.EntityFrameworkCore;
 using NiN3KodeAPI.DbContexts;
 using NiN3KodeAPI.Services;
 using Microsoft.Extensions.Hosting;
+using NiN3KodeAPI;
+using System.Collections;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var controllers_to_exclude_from_prod = new ArrayList() {"WeatherForecast", "Admin"};
 
-builder.Services.AddControllers();
+// Add services to the container.
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+builder.Services.AddControllers(o =>
+{
+    //if (environment == "Development")
+    if (environment == "Production")
+    {
+        o.Conventions.Add(new ActionHidingConvention(controllers_to_exclude_from_prod));
+    }
+});
 builder.Services.AddDbContext<NiN3DbContext>(options =>
 {
     //options.UseSqlServer(builder.Configuration.GetConnectionString("default"));
@@ -35,7 +46,6 @@ if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Test"
 //app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 app.MapControllers();
 var SService = app.Services.GetRequiredService<ISService>();
 SService.Startup();

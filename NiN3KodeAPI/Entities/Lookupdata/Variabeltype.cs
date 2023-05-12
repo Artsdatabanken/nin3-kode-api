@@ -3,7 +3,7 @@
 namespace NiN3KodeAPI.Entities.Lookupdata
 {
     [Table("Variabeltype")]
-    public class Variabeltype
+    public class Variabeltype : Oppslagstype
     {
     }
 }
