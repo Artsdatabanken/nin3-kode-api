@@ -12,7 +12,7 @@ resources:
 - repo: self
 
 variables:
-  solution: '**/NiN3KOdeAPI.sln'
+  solution: '**/NiN3KodeAPI.sln'
   buildConfiguration: 'Test'
   project: 'NiN3KodeAPI/NiN3KodeAPI.csproj'
 
@@ -22,4 +22,19 @@ steps:
   inputs:
     script: |
      call dotnet restore $(project)
-     dotnet build $(project) -c Release -o /app/build
+     dotnet build $(project) $(buildConfiguration)
+
+- task: ArchiveFiles@2
+  name: NiN3Kodeapi    
+  inputs:
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/NiN3Kodeapi.zip' 
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+  inputs: 
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
+    ArtifactName: 'Nin3Kodeapi'
+    publishLocation: Container
