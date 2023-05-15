@@ -20,8 +20,9 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
+     call dir 
      call dotnet restore $(solution)
-     dotnet build $(solution)
+     call dotnet build $(solution)
 
 - task: ArchiveFiles@2
   name: NiN3Kodeapi    
