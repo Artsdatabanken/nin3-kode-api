@@ -12,36 +12,18 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
-  solution: "NiN3KOdeAPI.sln"
+  solution: ".\NiN3KodeAPI\NiN3KOdeAPI.sln"
+  buildConfiguration: 'Test'
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'dockerhub'
-        repository: 'artsdatabanken/nin3kodeapi'
-        command: 'buildAndPush'
-        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: '$(Build.SourceBranchName)'
-    - task: AzureRmWebAppDeployment@4
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
-        appType: 'webAppContainer'
-        WebAppName: 'adb-test-nin3-as'
-        DockerNamespace: 'artsdatabanken'
-        DockerRepository: 'nin3kodeapi'
-        DockerImageTag: 'test'
-    - task: AzureAppServiceManage@0
-      inputs:
-        azureSubscription: 'Test(2e1858b1-de46-4865-a290-c1d54976a10f)'
-        Action: 'Restart Azure App Service'
-        WebAppName: 'adb-test-nin3-as'
+steps: 
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: MSBuild@1
+  inputs: 
+    solution: '$solution'
+    msbuildArchitecture: x64
+    configuration: '$buildConfiguration'
+    msbuildArguments: '' 
