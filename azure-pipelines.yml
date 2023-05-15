@@ -21,13 +21,13 @@ steps:
   inputs:
     script: |
      call dotnet restore $(solution)
-     call dotnet build $(solution)
-     call dir
+     call dotnet build $(solution) -o /app/build
 
 - task: ArchiveFiles@2
   name: NiN3Kodeapi    
   inputs:
     includeRootFolder: false
+    rootFolderOrFile: /app/build
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/NiN3Kodeapi.zip' 
     replaceExistingArchive: true
