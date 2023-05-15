@@ -21,7 +21,7 @@ steps:
   inputs:
     script: |
      call dotnet restore $(solution)
-     dotnet build $(solution) $(buildConfiguration)
+     dotnet build $(solution)
 
 - task: ArchiveFiles@2
   name: NiN3Kodeapi    
