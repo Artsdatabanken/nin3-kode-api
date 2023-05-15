@@ -14,15 +14,14 @@ resources:
 variables:
   solution: '**/NiN3KodeAPI.sln'
   buildConfiguration: 'Test'
-  project: 'NiN3KodeAPI/NiN3KodeAPI.csproj'
 
 steps: 
 
 - task: CmdLine@2
   inputs:
     script: |
-     call dotnet restore $(project)
-     dotnet build $(project) $(buildConfiguration)
+     call dotnet restore $(solution)
+     dotnet build $(solution) $(buildConfiguration)
 
 - task: ArchiveFiles@2
   name: NiN3Kodeapi    
