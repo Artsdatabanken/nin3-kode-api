@@ -12,7 +12,7 @@ resources:
 - repo: self
 
 variables:
-  solution: '**/NiN3KodeAPI.sln'
+  solution: 'NiN3KodeAPI.sln'
   buildConfiguration: 'Test'
 
 steps: 
@@ -20,7 +20,6 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-     call dir 
      call dotnet restore $(solution)
      call dotnet build $(solution)
 
