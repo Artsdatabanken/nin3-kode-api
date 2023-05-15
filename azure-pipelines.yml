@@ -12,7 +12,7 @@ resources:
 - repo: self
 
 variables:
-  solution: ".\NiN3KOdeAPI.sln"
+  solution: "**/NiN3KOdeAPI.sln"
   buildConfiguration: 'Test'
 
 steps: 
