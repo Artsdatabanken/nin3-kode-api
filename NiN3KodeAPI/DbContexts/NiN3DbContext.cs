@@ -125,6 +125,44 @@ namespace NiN3KodeAPI.DbContexts
             new Variabelkategori2() { Id = Guid.NewGuid(), Kode = "VS", Beskrivelse = "vertikal struktur" }
              );
 
+            modelBuilder.Entity<Variabelgruppe>().HasData(
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "W W", Beskrivelse = "W W" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "EE elveløpsegenskaper", Beskrivelse = "EE elveløpsegenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "SB skogbruksrelaterte egeskaper", Beskrivelse = "SB skogbruksrelaterte egeskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "DL liggende død ved (læger)", Beskrivelse = "DL liggende død ved (læger)" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "W artsforekomst/-mengde", Beskrivelse = "W artsforekomst/-mengde" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "AG artsgruppesammensetning", Beskrivelse = "AG artsgruppesammensetning" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "AR relativ del-artsgruppesammensetning", Beskrivelse = "AR relativ del-artsgruppesammensetning" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "BO naturgitte breobjekter", Beskrivelse = "BO naturgitte breobjekter" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "EB elvebanker", Beskrivelse = "EB elvebanker" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "EO andre naturgitte elveløpsobjekter", Beskrivelse = "EO andre naturgitte elveløpsobjekter" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "IO naturgitte innsjøobjekter", Beskrivelse = "IO naturgitte innsjøobjekter" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "TA torvmarksmassiv: myrsegment", Beskrivelse = "TA torvmarksmassiv: myrsegment" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "TB torvmarksmassiv: myrstruktur", Beskrivelse = "TB torvmarksmassiv: myrstruktur" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "TC torvmarksmassiv: mikrostruktur", Beskrivelse = "TC torvmarksmassiv: mikrostruktur" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "SE skogegenskaper", Beskrivelse = "SE skogegenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "IE innsjøbassengegenskaper", Beskrivelse = "IE innsjøbassengegenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "GE generelle egenskaper", Beskrivelse = "GE generelle egenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "GT generelle terrengegenskaper", Beskrivelse = "GT generelle terrengegenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "HE havegenskaper", Beskrivelse = "HE havegenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "BE bremassivegenskaper", Beskrivelse = "BE bremassivegenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "OE menneskeskapt objekt i elv", Beskrivelse = "OE menneskeskapt objekt i elv" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "OI menneskeskapt objekt i innsjø eller til havs", Beskrivelse = "OI menneskeskapt objekt i innsjø eller til havs" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "OT menneskeskapt terrestrisk objekt", Beskrivelse = "OT menneskeskapt terrestrisk objekt" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "SU suksesjonsrelaterte egenskaper", Beskrivelse = "SU suksesjonsrelaterte egenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "JB jordbruksrelaterte egenskaper", Beskrivelse = "JB jordbruksrelaterte egenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "SB skogbruksrelaterte egenskaper", Beskrivelse = "SB skogbruksrelaterte egenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "SB skogbruksegenskaper", Beskrivelse = "SB skogbruksegenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "DG stående død ved (gadder)", Beskrivelse = "DG stående død ved (gadder)" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "DR relativ sammensetning av død ved", Beskrivelse = "DR relativ sammensetning av død ved" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "TE generelle treegenskaper", Beskrivelse = "TE generelle treegenskaper" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "TG gammelt tre", Beskrivelse = "TG gammelt tre" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "TL tre med spesielt livsmedium", Beskrivelse = "TL tre med spesielt livsmedium" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "TM trær med gitt minstestørrelse", Beskrivelse = "TM trær med gitt minstestørrelse" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "TS trær med gitt størrelse", Beskrivelse = "TS trær med gitt størrelse" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "AM artsforekomst/-mengde", Beskrivelse = "AM artsforekomst/-mengde" },
+                new Variabelgruppe() { Id = Guid.NewGuid(), Kode = "FA fremmedartsegenskaper", Beskrivelse = "FA fremmedartsegenskaper" }
+                );
 
             modelBuilder.Entity<Hovedtype>()
                 .HasOne(e => e.Hovedtypegruppe)
@@ -166,6 +204,10 @@ namespace NiN3KodeAPI.DbContexts
         public DbSet<Hovedtype> Hovedtype { get; set; }
         public DbSet<Grunntype> Grunntype { get; set; }
         public DbSet<Undertype> Undertype { get; set; }
+
+        public DbSet<Variabeltype> Variabeltype { get; set;}
+        public DbSet<Variabelkategori2> Variabelkategori2 { get;set; }
+        public DbSet<Variabelgruppe> Variabelgruppe { get; set; }   
 
         //VARIABLER
         // ...

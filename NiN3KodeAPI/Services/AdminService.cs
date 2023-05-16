@@ -119,6 +119,9 @@ namespace NiN3KodeAPI.Services
                     rs = _context.Typekategori2.ToList();
                     //res = JsonConvert.SerializeObject(rs);
                     break;
+                case "Type":
+                    rs = _context.Type.ToList();
+                    break;
                 case null:
                     break;
             }
