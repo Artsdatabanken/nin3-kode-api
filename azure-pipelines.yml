@@ -13,7 +13,7 @@ resources:
 
 variables:
   solution: 'NiN3KodeAPI.sln'
-  buildConfiguration: 'Test'
+  buildConfiguration: 'Release'
 
 steps: 
 
