@@ -29,8 +29,16 @@ builder.Services.AddControllers(o =>
 });
 builder.Services.AddDbContext<NiN3DbContext>(options =>
 {
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("default"));
-    options.UseSqlite(builder.Configuration.GetConnectionString("default"));
+    if (builder.Configuration.GetConnectionString("default").Contains("Server=tcp"))
+    {
+         options.UseSqlServer(builder.Configuration.GetConnectionString("default"));
+    }
+    else
+    {
+        options.UseSqlite(builder.Configuration.GetConnectionString("default"));
+    }
+   
+    //options.UseSqlite(builder.Configuration.GetConnectionString("default"));
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IAdminService, AdminService>();
