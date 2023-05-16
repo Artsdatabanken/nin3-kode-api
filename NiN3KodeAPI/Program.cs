@@ -5,17 +5,26 @@ using NiN3KodeAPI.Services;
 using Microsoft.Extensions.Hosting;
 using NiN3KodeAPI;
 using System.Collections;
+using Azure.Identity;
+using Azure.Security.KeyVault;
 
 var builder = WebApplication.CreateBuilder(args);
+if (builder.Environment.IsProduction() || builder.Environment.IsStaging())
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+        new DefaultAzureCredential());
+}
+
 
 var controllers_to_exclude_from_prod = new ArrayList() {"WeatherForecast", "Admin"};
 
 // Add services to the container.
-var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+//var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 builder.Services.AddControllers(o =>
 {
     //if (environment == "Development")
-    if (environment == "Production")
+    if (builder.Environment.IsProduction())
     {
         o.Conventions.Add(new ActionHidingConvention(controllers_to_exclude_from_prod));
     }
@@ -46,9 +55,10 @@ if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Test"
 
 app.UseAuthorization();
 app.MapControllers();
+app.MapGet("/", () => "Hello World!");
 //* One way to get key vault secrets */
 var SService = app.Services.GetRequiredService<ISService>();
-SService.Startup();
+//SService.Startup();
 
 
 //var tokenService = host.Services.GetRequiredService<ITokenService>();
