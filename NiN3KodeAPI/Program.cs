@@ -54,6 +54,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
     app.UseSwaggerUI();
     var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetService<NiN3DbContext>();
+    db.Database.EnsureCreated();
     //if (db != null) { db.Database.Migrate(); };
 }
 
