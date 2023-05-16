@@ -48,20 +48,20 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//    var scope = app.Services.CreateScope();
-//    var db = scope.ServiceProvider.GetService<NiN3DbContext>();
-//    //if (db != null) { db.Database.Migrate(); };
-//}
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetService<NiN3DbContext>();
+    //if (db != null) { db.Database.Migrate(); };
+}
 
 //app.UseHttpsRedirection();
 
-//app.UseAuthorization();
+app.UseAuthorization();
 app.MapGet("/", () => "Hello World!");
-//app.MapControllers();
+app.MapControllers();
 ////* One way to get key vault secrets */
 //var SService = app.Services.GetRequiredService<ISService>();
 ////SService.Startup();
