@@ -17,12 +17,21 @@ variables:
 
 steps: 
 
-- task: CmdLine@2
+# - task: CmdLine@2
+#   inputs:
+#     script: |
+#      call mkdir build
+#      call dotnet restore $(solution)
+#      call dotnet build $(solution) -o build
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish and zip'
   inputs:
-    script: |
-     call mkdir build
-     call dotnet restore $(solution)
-     call dotnet build $(solution) -o build
+    command: publish
+    publishWebProjects: False
+    projects: $(solutionPath)
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
 
 - task: ArchiveFiles@2
   name: NiN3Kodeapi    
