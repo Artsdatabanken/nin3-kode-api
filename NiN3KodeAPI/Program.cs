@@ -2,11 +2,9 @@ global using NiN3KodeAPI.Entities;
 global using Microsoft.EntityFrameworkCore;
 using NiN3KodeAPI.DbContexts;
 using NiN3KodeAPI.Services;
-using Microsoft.Extensions.Hosting;
 using NiN3KodeAPI;
 using System.Collections;
 using Azure.Identity;
-using Azure.Security.KeyVault;
 
 var builder = WebApplication.CreateBuilder(args);
 if (builder.Environment.IsProduction() || builder.Environment.IsStaging())
@@ -56,12 +54,12 @@ if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Test"
 app.UseAuthorization();
 app.MapControllers();
 app.MapGet("/", () => "Hello World!");
-//* One way to get key vault secrets */
-var SService = app.Services.GetRequiredService<ISService>();
-//SService.Startup();
+////* One way to get key vault secrets */
+//var SService = app.Services.GetRequiredService<ISService>();
+////SService.Startup();
 
 
-//var tokenService = host.Services.GetRequiredService<ITokenService>();
-//tokenService.DoSomething();
+////var tokenService = host.Services.GetRequiredService<ITokenService>();
+////tokenService.DoSomething();
 
 app.Run();
