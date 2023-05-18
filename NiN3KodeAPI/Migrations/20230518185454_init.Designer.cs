@@ -11,7 +11,7 @@ using NiN3KodeAPI.DbContexts;
 namespace NiN3KodeAPI.Migrations
 {
     [DbContext(typeof(NiN3DbContext))]
-    [Migration("20230511123941_init")]
+    [Migration("20230518185454_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8024a183-9cce-4d61-bea2-6fec9c207ec9"),
+                            Id = new Guid("c7eec7d9-b13e-406c-aa3b-3b198adb41aa"),
                             Navn = "3.0"
                         });
                 });
@@ -174,19 +174,19 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4fe545c7-17a7-4f10-83e3-244c65307a23"),
+                            Id = new Guid("96b20e46-a278-44c1-9e3e-8abb9932be94"),
                             Beskrivelse = "abiotisk",
                             Kode = "A"
                         },
                         new
                         {
-                            Id = new Guid("503bd8e4-d781-48b9-b227-21e005a29af6"),
+                            Id = new Guid("0fec972d-77b0-426f-91a0-df4d17dd3dbe"),
                             Beskrivelse = "biotisk",
                             Kode = "B"
                         },
                         new
                         {
-                            Id = new Guid("3b1dab44-8562-41bf-a4b6-22f89c0824a2"),
+                            Id = new Guid("b55b37b4-2ea0-4f28-b1c5-c1aee6c61214"),
                             Beskrivelse = "økodiversitet",
                             Kode = "C"
                         });
@@ -212,37 +212,37 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a302a814-e5e7-4c36-a609-efb83b52ea29"),
+                            Id = new Guid("089c7579-e025-41cd-a035-5e546d82568e"),
                             Beskrivelse = "grunntype",
                             Kode = "G"
                         },
                         new
                         {
-                            Id = new Guid("e5a04723-6a38-4867-b7ab-6d97701b8dd1"),
+                            Id = new Guid("6f8c8872-d333-407c-957d-279cc89c6158"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:5000",
                             Kode = "005K"
                         },
                         new
                         {
-                            Id = new Guid("7c6c6c11-2d99-4b64-a645-67043c2a3628"),
+                            Id = new Guid("f1cbec47-1ab7-429d-9300-bd9762011ff1"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:10 000",
                             Kode = "010K"
                         },
                         new
                         {
-                            Id = new Guid("9f11090a-a415-49b7-89ea-4f213661227e"),
+                            Id = new Guid("e4296af2-40f4-43c4-9511-5f3b644ce0fc"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:20 000",
                             Kode = "020K"
                         },
                         new
                         {
-                            Id = new Guid("41a1bd99-d666-49e2-ac31-1f1bb7207705"),
+                            Id = new Guid("97eddcd8-ca72-4c96-a5af-79e5f5a8ddaa"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:50 000",
                             Kode = "050K"
                         },
                         new
                         {
-                            Id = new Guid("a2afc6ca-6d2f-4bcb-8bfc-ba7450ed7b37"),
+                            Id = new Guid("8125ce97-80ab-4558-bb82-99c8c0c62fd9"),
                             Beskrivelse = "kartleggingsenhet tilpasset 1:100 000",
                             Kode = "100K"
                         });
@@ -268,97 +268,97 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8b6bf6f2-3f34-4fb2-b618-ea1e8a560785"),
+                            Id = new Guid("d82e90f3-ce71-46e9-87ef-845a295c8235"),
                             Beskrivelse = "A",
                             Kode = "A"
                         },
                         new
                         {
-                            Id = new Guid("21dbd023-f1a8-4dba-8de8-1c846779c106"),
+                            Id = new Guid("add2f130-5ba5-4b66-81e4-d8f7fd323bbd"),
                             Beskrivelse = "B",
                             Kode = "B"
                         },
                         new
                         {
-                            Id = new Guid("07f6cbd4-77c6-43af-a3d7-6ee24b1126ea"),
+                            Id = new Guid("f95841ab-8a63-451e-b474-fd0020a85b60"),
                             Beskrivelse = "C",
                             Kode = "C"
                         },
                         new
                         {
-                            Id = new Guid("c96ea63a-a34c-4b9c-93e6-9fd4b11adbc8"),
+                            Id = new Guid("c38dd757-b54e-4df4-9dc7-c01f579b9e9a"),
                             Beskrivelse = "D",
                             Kode = "D"
                         },
                         new
                         {
-                            Id = new Guid("f53e33d5-44ad-4415-9555-da15b951af56"),
+                            Id = new Guid("054c7941-1064-4a15-b12d-406ed982dafe"),
                             Beskrivelse = "E",
                             Kode = "E"
                         },
                         new
                         {
-                            Id = new Guid("afc5cbfe-2f87-4f6f-b337-7b75bbeda21b"),
+                            Id = new Guid("e0132d0c-f315-4ceb-b59c-54c3a524d66b"),
                             Beskrivelse = "F",
                             Kode = "F"
                         },
                         new
                         {
-                            Id = new Guid("7a4ebba8-037d-4738-a30a-eb5ac910d1b9"),
+                            Id = new Guid("d98dcc37-46b0-480d-9c11-11145fb2a548"),
                             Beskrivelse = "G",
                             Kode = "G"
                         },
                         new
                         {
-                            Id = new Guid("e724609a-b036-4119-b5ba-3f583316d01b"),
+                            Id = new Guid("263da5c0-868c-4e9d-8d80-bf076a76137a"),
                             Beskrivelse = "H",
                             Kode = "H"
                         },
                         new
                         {
-                            Id = new Guid("f36d6f31-dc4c-46d8-a366-e0cb80d92f8f"),
+                            Id = new Guid("05bb298a-2b05-4c03-8fae-868f3611bff9"),
                             Beskrivelse = "I",
                             Kode = "I"
                         },
                         new
                         {
-                            Id = new Guid("dd2db91f-9bab-41bf-896e-2bc897d56b33"),
+                            Id = new Guid("4db99215-08af-4b7a-a045-da827951e46c"),
                             Beskrivelse = "J",
                             Kode = "J"
                         },
                         new
                         {
-                            Id = new Guid("ae93b65b-f246-43f8-b625-889f06adfaaf"),
+                            Id = new Guid("9dfa8a3c-e6b5-4d61-8c7b-59e39d589906"),
                             Beskrivelse = "K",
                             Kode = "K"
                         },
                         new
                         {
-                            Id = new Guid("8e077c5c-a072-47a6-8c1c-66a0f8856cb2"),
+                            Id = new Guid("28a16dac-0aa0-4705-afb7-d294e9846271"),
                             Beskrivelse = "L",
                             Kode = "L"
                         },
                         new
                         {
-                            Id = new Guid("e4678e8d-4e8c-4c6f-beae-9251734f648e"),
+                            Id = new Guid("d80479bf-f693-4fc3-a799-b39aa512b900"),
                             Beskrivelse = "M",
                             Kode = "M"
                         },
                         new
                         {
-                            Id = new Guid("5af5138f-4e08-4288-ac6d-9efc76ae7940"),
+                            Id = new Guid("be81020b-74c9-4500-beda-f2f9938132ad"),
                             Beskrivelse = "N",
                             Kode = "N"
                         },
                         new
                         {
-                            Id = new Guid("f5d32d52-8e66-42b5-bf66-2faacfe8c0c4"),
+                            Id = new Guid("b7aaac85-b733-45ab-ba2d-e6f18c3180ae"),
                             Beskrivelse = "O",
                             Kode = "O"
                         },
                         new
                         {
-                            Id = new Guid("97b86afb-73f0-4a9a-b7db-6d97c9e949ca"),
+                            Id = new Guid("b9aa37b7-c6d1-40d8-bc57-3150d3001106"),
                             Beskrivelse = "Ikke angitt",
                             Kode = "0"
                         });
@@ -384,31 +384,31 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e6ba9540-d33c-4313-a1f2-2c52ecd384a6"),
+                            Id = new Guid("9ec64afd-f939-4987-ba17-22e3bab0da01"),
                             Beskrivelse = "livsmedium",
                             Kode = "LI"
                         },
                         new
                         {
-                            Id = new Guid("087daf6d-1df2-4d46-bdac-d5269c7880dd"),
+                            Id = new Guid("f78d8f6f-89b2-4287-bb10-826d4f469ab3"),
                             Beskrivelse = "landformvariasjon",
                             Kode = "LV"
                         },
                         new
                         {
-                            Id = new Guid("a9dc5d91-98cd-4dc1-b9c9-0dc7d3c6c2ce"),
+                            Id = new Guid("87bda7d2-7bd6-41a7-9e0d-216c0b836758"),
                             Beskrivelse = "marine vannmasser",
                             Kode = "MV"
                         },
                         new
                         {
-                            Id = new Guid("7635a7db-9895-4429-b304-88ed1e1821ec"),
+                            Id = new Guid("de3acdcf-703b-41eb-810a-373eb449f95f"),
                             Beskrivelse = "primært økodiversitetsnivå",
                             Kode = "PE"
                         },
                         new
                         {
-                            Id = new Guid("6943b4e3-2cfd-4303-bd3c-d5bd938aab01"),
+                            Id = new Guid("b0dbbb22-f713-4610-a949-1723e1932285"),
                             Beskrivelse = "sekundært økodiversitetsnivå",
                             Kode = "SE"
                         });
@@ -434,49 +434,49 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("636fafbb-fa09-42d6-9eea-5eb521971323"),
+                            Id = new Guid("63b4c148-db25-4728-b99b-b2bdde86bb32"),
                             Beskrivelse = "bremassiv",
                             Kode = "BM"
                         },
                         new
                         {
-                            Id = new Guid("d8c3357c-af29-4fc0-b03c-b9daade3857b"),
+                            Id = new Guid("70ea6a19-31e4-41dc-8cd7-1cd10015d189"),
                             Beskrivelse = "elveløp",
                             Kode = "EL"
                         },
                         new
                         {
-                            Id = new Guid("ae9e496b-b044-4ef5-8cce-d8a8a2b027d0"),
+                            Id = new Guid("361536c4-9fc4-450d-97b1-f98d264475e2"),
                             Beskrivelse = "landformer i fast fjell og løsmasser",
                             Kode = "FL"
                         },
                         new
                         {
-                            Id = new Guid("2b37ebfc-befa-40e7-91cf-903af973eda6"),
+                            Id = new Guid("62e7845e-3712-4fa5-9dec-71a7b9435a92"),
                             Beskrivelse = "innsjøbasseng",
                             Kode = "IB"
                         },
                         new
                         {
-                            Id = new Guid("eaa20eeb-981f-4abc-9182-47a2ad8b6623"),
+                            Id = new Guid("367422ec-6b17-412d-9faa-585c0c30b68b"),
                             Beskrivelse = "landskapstype",
                             Kode = "LA"
                         },
                         new
                         {
-                            Id = new Guid("e33a6d9e-fff1-4d5a-8141-e71451ac2f39"),
+                            Id = new Guid("3a1b3bf4-4874-4ccf-9fe4-768a3bbd614c"),
                             Beskrivelse = "natursystem",
                             Kode = "NA"
                         },
                         new
                         {
-                            Id = new Guid("b0c55c5f-2d66-4449-acae-0069d7400d0b"),
+                            Id = new Guid("3b27d436-9812-42aa-a35b-c78f8741b58e"),
                             Beskrivelse = "naturkompleks",
                             Kode = "NK"
                         },
                         new
                         {
-                            Id = new Guid("a1389c5d-76a3-4b71-8fd3-d147b6ac961d"),
+                            Id = new Guid("16ae3bdf-2e3e-41fd-bd89-d14c4a1c09d0"),
                             Beskrivelse = "torvmarksmassiv",
                             Kode = "TM"
                         });
@@ -502,15 +502,251 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b2c048cd-ff92-4b2d-a0f8-e2a8a03146a7"),
+                            Id = new Guid("7223d990-511d-4b36-a70a-d9910256a499"),
                             Beskrivelse = "vannmassesystemer",
                             Kode = "VM"
                         },
                         new
                         {
-                            Id = new Guid("d26897b7-6628-4143-943a-387e98b368e8"),
+                            Id = new Guid("24c92a7f-51fe-4899-8aaf-b3693971150f"),
                             Beskrivelse = "mark- og bunnsystemer",
                             Kode = "MB"
+                        });
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabelgruppe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Beskrivelse")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Kode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Variabelgruppe");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a99ea446-e8df-4b4d-a041-f8f3c14e1207"),
+                            Beskrivelse = "W W",
+                            Kode = "W W"
+                        },
+                        new
+                        {
+                            Id = new Guid("c52f584f-4f6c-45b6-8af5-0c8df1ec9eca"),
+                            Beskrivelse = "EE elveløpsegenskaper",
+                            Kode = "EE elveløpsegenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("04754c88-f97a-40d5-8231-fb3ea9cc2869"),
+                            Beskrivelse = "SB skogbruksrelaterte egeskaper",
+                            Kode = "SB skogbruksrelaterte egeskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("564e10db-ef2e-48e3-bdc7-4a9f8d39752b"),
+                            Beskrivelse = "DL liggende død ved (læger)",
+                            Kode = "DL liggende død ved (læger)"
+                        },
+                        new
+                        {
+                            Id = new Guid("ca7b711a-e303-457a-8778-434e9a8d7466"),
+                            Beskrivelse = "W artsforekomst/-mengde",
+                            Kode = "W artsforekomst/-mengde"
+                        },
+                        new
+                        {
+                            Id = new Guid("5b28eec2-897c-4f6f-8fd4-576a0e2f3664"),
+                            Beskrivelse = "AG artsgruppesammensetning",
+                            Kode = "AG artsgruppesammensetning"
+                        },
+                        new
+                        {
+                            Id = new Guid("a10c51bb-e390-445a-94e8-b514ebb73970"),
+                            Beskrivelse = "AR relativ del-artsgruppesammensetning",
+                            Kode = "AR relativ del-artsgruppesammensetning"
+                        },
+                        new
+                        {
+                            Id = new Guid("8625ae4c-d982-4810-adad-148baabb9d1c"),
+                            Beskrivelse = "BO naturgitte breobjekter",
+                            Kode = "BO naturgitte breobjekter"
+                        },
+                        new
+                        {
+                            Id = new Guid("d56e69ef-8c8a-4db3-9050-2b09c30c6cf5"),
+                            Beskrivelse = "EB elvebanker",
+                            Kode = "EB elvebanker"
+                        },
+                        new
+                        {
+                            Id = new Guid("15c28f3e-e858-4c3b-8cc1-a4f2289c1ec0"),
+                            Beskrivelse = "EO andre naturgitte elveløpsobjekter",
+                            Kode = "EO andre naturgitte elveløpsobjekter"
+                        },
+                        new
+                        {
+                            Id = new Guid("87c91243-0880-4ccf-8d0f-d1313e3aa826"),
+                            Beskrivelse = "IO naturgitte innsjøobjekter",
+                            Kode = "IO naturgitte innsjøobjekter"
+                        },
+                        new
+                        {
+                            Id = new Guid("e461f3ac-c531-434c-9e6a-77982684899b"),
+                            Beskrivelse = "TA torvmarksmassiv: myrsegment",
+                            Kode = "TA torvmarksmassiv: myrsegment"
+                        },
+                        new
+                        {
+                            Id = new Guid("f4f94927-f09d-45ea-b217-6204d74b7183"),
+                            Beskrivelse = "TB torvmarksmassiv: myrstruktur",
+                            Kode = "TB torvmarksmassiv: myrstruktur"
+                        },
+                        new
+                        {
+                            Id = new Guid("46527856-dbb9-45b3-bf87-30c9bc242689"),
+                            Beskrivelse = "TC torvmarksmassiv: mikrostruktur",
+                            Kode = "TC torvmarksmassiv: mikrostruktur"
+                        },
+                        new
+                        {
+                            Id = new Guid("85cdbdae-f373-4944-830a-99942e3b681a"),
+                            Beskrivelse = "SE skogegenskaper",
+                            Kode = "SE skogegenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("9b0713e8-bd89-4e59-a7c8-fea65aac1e0f"),
+                            Beskrivelse = "IE innsjøbassengegenskaper",
+                            Kode = "IE innsjøbassengegenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("088f8c59-5208-44cb-9969-9b73cd769c72"),
+                            Beskrivelse = "GE generelle egenskaper",
+                            Kode = "GE generelle egenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("60b93bef-0f4c-4b38-884c-665f894527d7"),
+                            Beskrivelse = "GT generelle terrengegenskaper",
+                            Kode = "GT generelle terrengegenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("a93d07a6-8ed8-49f5-a03b-36cb3d7ae22d"),
+                            Beskrivelse = "HE havegenskaper",
+                            Kode = "HE havegenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("79712a28-2240-4e8b-8f51-2e86844d3c38"),
+                            Beskrivelse = "BE bremassivegenskaper",
+                            Kode = "BE bremassivegenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("c55dbb6b-3e50-408e-809f-8fe3f3d2efe6"),
+                            Beskrivelse = "OE menneskeskapt objekt i elv",
+                            Kode = "OE menneskeskapt objekt i elv"
+                        },
+                        new
+                        {
+                            Id = new Guid("dd40a005-33a3-4ccd-a832-52c2bb711d18"),
+                            Beskrivelse = "OI menneskeskapt objekt i innsjø eller til havs",
+                            Kode = "OI menneskeskapt objekt i innsjø eller til havs"
+                        },
+                        new
+                        {
+                            Id = new Guid("13a752a7-bc6f-4870-bd74-c9f4e94d2b79"),
+                            Beskrivelse = "OT menneskeskapt terrestrisk objekt",
+                            Kode = "OT menneskeskapt terrestrisk objekt"
+                        },
+                        new
+                        {
+                            Id = new Guid("94cf4a08-85c6-4683-a6c5-a59e8cadabd1"),
+                            Beskrivelse = "SU suksesjonsrelaterte egenskaper",
+                            Kode = "SU suksesjonsrelaterte egenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("0114751d-f3ce-45eb-b076-443870b39489"),
+                            Beskrivelse = "JB jordbruksrelaterte egenskaper",
+                            Kode = "JB jordbruksrelaterte egenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("829adb46-c246-461d-b2b7-e5b485b68b30"),
+                            Beskrivelse = "SB skogbruksrelaterte egenskaper",
+                            Kode = "SB skogbruksrelaterte egenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("42b2d6da-b5e1-415d-9fac-b184ed19a4e5"),
+                            Beskrivelse = "SB skogbruksegenskaper",
+                            Kode = "SB skogbruksegenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("a28d4c7c-0791-4060-9d78-516d3194c1e0"),
+                            Beskrivelse = "DG stående død ved (gadder)",
+                            Kode = "DG stående død ved (gadder)"
+                        },
+                        new
+                        {
+                            Id = new Guid("22063ae1-bc94-4dec-941d-3d010a2daf10"),
+                            Beskrivelse = "DR relativ sammensetning av død ved",
+                            Kode = "DR relativ sammensetning av død ved"
+                        },
+                        new
+                        {
+                            Id = new Guid("4bfb6464-e18a-4c59-9684-41bab4df8492"),
+                            Beskrivelse = "TE generelle treegenskaper",
+                            Kode = "TE generelle treegenskaper"
+                        },
+                        new
+                        {
+                            Id = new Guid("4efa5e5a-ba54-4a8b-bfb7-e73bc24e42b0"),
+                            Beskrivelse = "TG gammelt tre",
+                            Kode = "TG gammelt tre"
+                        },
+                        new
+                        {
+                            Id = new Guid("01b45ec5-66e7-45d9-af2d-f19ccda58138"),
+                            Beskrivelse = "TL tre med spesielt livsmedium",
+                            Kode = "TL tre med spesielt livsmedium"
+                        },
+                        new
+                        {
+                            Id = new Guid("d58d296c-31d5-4112-88e1-d5d7050091d5"),
+                            Beskrivelse = "TM trær med gitt minstestørrelse",
+                            Kode = "TM trær med gitt minstestørrelse"
+                        },
+                        new
+                        {
+                            Id = new Guid("829c32cd-0bb9-44bb-8787-cf80881388cb"),
+                            Beskrivelse = "TS trær med gitt størrelse",
+                            Kode = "TS trær med gitt størrelse"
+                        },
+                        new
+                        {
+                            Id = new Guid("20d8984b-f8d3-4d25-aca9-5c393cb24ae2"),
+                            Beskrivelse = "AM artsforekomst/-mengde",
+                            Kode = "AM artsforekomst/-mengde"
+                        },
+                        new
+                        {
+                            Id = new Guid("9fd78342-24b1-4305-9cf0-5655d3914c45"),
+                            Beskrivelse = "FA fremmedartsegenskaper",
+                            Kode = "FA fremmedartsegenskaper"
                         });
                 });
 
@@ -534,13 +770,13 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("485f8f84-cefd-4caa-a2dd-51edb30f93ff"),
+                            Id = new Guid("1eeebb71-c29f-4065-a7de-205d5126b78b"),
                             Beskrivelse = "mennekebetinget",
                             Kode = "M"
                         },
                         new
                         {
-                            Id = new Guid("56cf49b5-a7a9-4e40-82f6-66a5f7dd3a3d"),
+                            Id = new Guid("cc0bf7f2-c01f-46ef-965f-9b6c3d454fc5"),
                             Beskrivelse = "naturgitt",
                             Kode = "N"
                         });
@@ -566,85 +802,85 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1b241896-a567-4435-b390-2131e846cf9e"),
+                            Id = new Guid("64bdb6f3-0966-40d0-96e9-deb88d3270ac"),
                             Beskrivelse = "artssammensetningsdynamikk",
                             Kode = "AD"
                         },
                         new
                         {
-                            Id = new Guid("9f7024b5-c500-4196-8c85-a5a0be8b4908"),
+                            Id = new Guid("15c8dd28-c9c6-404c-a8be-b7a8ebdbea5a"),
                             Beskrivelse = "bergarter",
                             Kode = "BE"
                         },
                         new
                         {
-                            Id = new Guid("7c8ff245-4e96-4962-94fd-afccb6ecaf08"),
+                            Id = new Guid("de9f9a88-9efc-40c1-9b76-acf353349afc"),
                             Beskrivelse = "korttidsmiljøvariabel",
                             Kode = "KM"
                         },
                         new
                         {
-                            Id = new Guid("ce8c5e16-4d81-45c1-a948-4c82061bad4d"),
+                            Id = new Guid("25af7df3-0b40-4e35-a81d-a64f9a933b72"),
                             Beskrivelse = "lokal miljøvariabel",
                             Kode = "LM"
                         },
                         new
                         {
-                            Id = new Guid("9d85f563-c5c5-443b-b76a-949a085739cd"),
+                            Id = new Guid("b3e1ee81-752b-4f3a-9269-94449db3bd18"),
                             Beskrivelse = "landform-objekter",
                             Kode = "LO"
                         },
                         new
                         {
-                            Id = new Guid("9370e320-b34b-4d6b-938b-53f8a295eb2b"),
+                            Id = new Guid("704c2155-cd00-462a-941c-fa4277b3b697"),
                             Beskrivelse = "miljødynamikk",
                             Kode = "MD"
                         },
                         new
                         {
-                            Id = new Guid("d55c97bf-8ae0-4947-a0b2-7b6f2ee46c13"),
+                            Id = new Guid("15483961-5c64-4e44-90c4-d39d89debf3a"),
                             Beskrivelse = "menneskeskapt objekt",
                             Kode = "MO"
                         },
                         new
                         {
-                            Id = new Guid("940a9985-e4cb-4686-a783-0fc3c9ea7fe1"),
+                            Id = new Guid("ec46a7db-2d35-4f74-aec1-6040537a6d53"),
                             Beskrivelse = "naturgitt objekt",
                             Kode = "NO"
                         },
                         new
                         {
-                            Id = new Guid("6bf7bb8a-bb0b-4535-a52a-e44835e0c888"),
+                            Id = new Guid("2ecf332b-f870-4255-a51f-5af6c696b575"),
                             Beskrivelse = "romlig artsfordelingsmønster",
                             Kode = "RA"
                         },
                         new
                         {
-                            Id = new Guid("965fc22e-07a3-4f1a-a7d1-dacd98f7d3d5"),
+                            Id = new Guid("cc9a1c46-5883-4f55-b7bd-b0590dd3af7c"),
                             Beskrivelse = "regional miljøvariabel",
                             Kode = "RM"
                         },
                         new
                         {
-                            Id = new Guid("260b09b0-fb0f-4974-9c95-9fc73fa0b3c8"),
+                            Id = new Guid("56d69a76-c974-4d42-9062-f2b2f439d48a"),
                             Beskrivelse = "romlig strukturvariasjon",
                             Kode = "RS"
                         },
                         new
                         {
-                            Id = new Guid("19d2c01c-627e-4166-94dc-9d058b228ca6"),
+                            Id = new Guid("c1d5bb3b-c0a9-4e1d-9ccf-c0c772a11b0e"),
                             Beskrivelse = "strukturerende og funksjonelle artsgrupper",
                             Kode = "SA"
                         },
                         new
                         {
-                            Id = new Guid("8ac3b854-c67f-4d70-8a8e-d02a9d9eae34"),
+                            Id = new Guid("26f6c558-67bb-4b70-95d2-a1cff40089f3"),
                             Beskrivelse = "terrengformvariasjon",
                             Kode = "TF"
                         },
                         new
                         {
-                            Id = new Guid("c2f51e8e-0285-4256-a6ff-a451067a3800"),
+                            Id = new Guid("314f0a2c-ec2b-42c6-b109-7b8dbfa5b910"),
                             Beskrivelse = "vertikal struktur",
                             Kode = "VS"
                         });
@@ -670,25 +906,25 @@ namespace NiN3KodeAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("16fbff5b-5af3-4796-ab13-b9a7faa3c5dd"),
+                            Id = new Guid("a27a16c7-cccb-4e25-92f9-5b88c0b5202c"),
                             Beskrivelse = "enkel, ikke-ordnet faktorvariabel",
                             Kode = "FE"
                         },
                         new
                         {
-                            Id = new Guid("bbf1dc54-94e8-4213-8993-f65bd0e7c143"),
+                            Id = new Guid("397eee3e-3a4f-43e6-9c34-ab3d8cc11107"),
                             Beskrivelse = "kompleks, ikke-ordnet faktorvariabel",
                             Kode = "FK"
                         },
                         new
                         {
-                            Id = new Guid("e01545d2-20c8-47b9-b88d-e6b42a7a465e"),
+                            Id = new Guid("29831898-1e63-43b0-b8d8-6efea6e3747b"),
                             Beskrivelse = "enkel gradient",
                             Kode = "GE"
                         },
                         new
                         {
-                            Id = new Guid("31d28776-c8df-42b0-b55d-a51b79175358"),
+                            Id = new Guid("df99195e-e463-4151-9ed7-48d8edb04cbe"),
                             Beskrivelse = "kompleks gradient",
                             Kode = "GK"
                         });
