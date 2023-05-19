@@ -150,7 +150,9 @@ namespace NiN3KodeAPI.Services
 
     public bool OpprettInitDbAsync()
     {
-        //throw new NotImplementedException();
+            //throw new NotImplementedException();
+        SeedLookupData();
+            /*
         LoadLookupData();
         LoadHtg_Ht_Gt_Mappings();
         try
@@ -170,7 +172,7 @@ namespace NiN3KodeAPI.Services
         catch (Exception ex)
         {
             _logger.LogError("Error importing data from csv ; " + ex.Message);
-        }
+        }*/
         return true;
     }
 
@@ -191,6 +193,13 @@ namespace NiN3KodeAPI.Services
         _logger.LogInformation("Htg_Ht_Gt_Mapping lastet");
     }
 
+
+        private void SeedLookupData() {
+            List<Domene> domenes = new List<Domene>();
+            domenes.Add(new Domene() { Navn = "3.0"} );
+            _context.AddRange(domenes);
+            _context.SaveChanges();
+        }
     private void GetGrunntypedata()
     {
         if (_context.Grunntype.Count() == 0)
@@ -206,7 +215,7 @@ namespace NiN3KodeAPI.Services
                 //var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);//htg_ht_gt.Hove
                 var grunntype = new Grunntype()
                 {
-                    Id = Guid.NewGuid(),
+                    /* Id = Guid.NewGuid(), */
                     Kode = gt.Kode,
                     Navn = gt.Grunntypenavn,
                     Version = domene,
@@ -238,7 +247,7 @@ namespace NiN3KodeAPI.Services
                 var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
                 var hovedtype = new Hovedtype()
                 {
-                    Id = Guid.NewGuid(),
+                    /* Id = Guid.NewGuid(), */
                     Kode = ht.Kode,
                     Hovedtypegruppe = hovedtypegruppe,
                     Version = domene,
@@ -272,7 +281,7 @@ namespace NiN3KodeAPI.Services
                 var tk2 = Typekategori2s.FirstOrDefault(s => s.Kode == htg.Typekategori2);
                 var hovedtg = new Hovedtypegruppe()
                 {
-                    Id = Guid.NewGuid(),
+                    /* Id = Guid.NewGuid(), */
                     Kode = htg.Kode,
                     Typekategori2 = tk2,
                     Version = domene,
@@ -302,7 +311,7 @@ namespace NiN3KodeAPI.Services
                 var tk = Typekategoris.FirstOrDefault(s => s.Kode == type.Typekategori);
                 var tk2 = Typekategori2s.FirstOrDefault(s => s.Kode == type.Typekategori2);
 
-                var t = new Type() { Id = Guid.NewGuid(), Kode = type.Kode, Ecosystnivaa = esn, Typekategori = tk, Typekategori2 = tk2, Version = domene };
+                var t = new Type() { /* Id = Guid.NewGuid(), */ Kode = type.Kode, Ecosystnivaa = esn, Typekategori = tk, Typekategori2 = tk2, Version = domene };
                 _context.Add(t);
             }
             _context.SaveChanges();

@@ -7,6 +7,7 @@ using System.Collections;
 using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+//if (builder.Environment.IsProduction() || builder.Environment.IsStaging() || builder.Environment.IsDevelopment())
 if (builder.Environment.IsProduction() || builder.Environment.IsStaging())
 {
     builder.Configuration.AddAzureKeyVault(
@@ -29,7 +30,7 @@ builder.Services.AddControllers(o =>
 });
 builder.Services.AddDbContext<NiN3DbContext>(options =>
 {
-    if (builder.Configuration.GetConnectionString("default").Contains("Server=tcp"))
+    if (builder.Configuration.GetValue<bool>("useMssql"))
     {
          options.UseSqlServer(builder.Configuration.GetConnectionString("default"));
     }

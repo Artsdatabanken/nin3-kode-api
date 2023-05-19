@@ -17,11 +17,13 @@ namespace NiN3KodeAPI.Controllers
         private readonly ILogger<AdminController> _logger;
         private readonly IAdminService _adminService;
         private readonly ISService _sservice;
-        public AdminController(ISService SService, IAdminService adminService, ILogger<AdminController> logger)
+        private readonly IConfiguration  _conf;
+        public AdminController(IConfiguration configuration, ISService SService, IAdminService adminService, ILogger<AdminController> logger)
         {
             _adminService = adminService ?? throw new ArgumentNullException(nameof(adminService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _sservice = SService ?? throw new ArgumentNullException(nameof(logger));
+            _conf = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         [HttpGet(Name = "HentDomener")]
@@ -58,6 +60,12 @@ namespace NiN3KodeAPI.Controllers
         {
             return _sservice.Admintoken;
         }*/
+
+        [HttpGet(Name = "st")]
+        public string st()
+        {
+            return _conf.GetValue<string>("admintoken");
+        }
 
         [HttpGet(Name = "OppdaterDatabasestruktur")]
         public string OppdaterDatabasestruktur()
@@ -110,7 +118,8 @@ namespace NiN3KodeAPI.Controllers
         }*/
 
         private Boolean CheckAuth(string inputtoken) {
-            if (inputtoken != _sservice.Admintoken)
+            //if (inputtoken != _sservice.Admintoken)
+            if(inputtoken != _conf.GetValue<string>("admintoken"))
             {
                 return false;
             }
