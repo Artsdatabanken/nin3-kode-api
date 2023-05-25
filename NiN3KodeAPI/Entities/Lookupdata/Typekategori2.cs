@@ -2,7 +2,7 @@
 
 namespace NiN3KodeAPI.Entities.Lookupdata
 {
-    [Table("Typekategori2")]
+    [Table("Typekategori2Enum")]
     public class Typekategori2 : Oppslagstype
     {
     }
