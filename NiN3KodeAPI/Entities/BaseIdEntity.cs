@@ -7,6 +7,6 @@ namespace NiN3KodeAPI.Entities
         [Key]
         public Guid Id { get; set; }
 
-        public Domene Domene { get; set; }
+        public Domene Version { get; set; }
     }
 }

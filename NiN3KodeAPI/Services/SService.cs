@@ -39,7 +39,7 @@ namespace NiN3KodeAPI.Services
             //Console.WriteLine($"Retrieving your secret from {keyVaultName}.");
             var sec = await client.GetSecretAsync(secretName);
             _admintoken = sec.Value.Value;
-            //Console.WriteLine($"Your secret is '{Admintoken}'.");
+            Console.WriteLine($"Your secret is '{Admintoken}'.");
         }
 
     }

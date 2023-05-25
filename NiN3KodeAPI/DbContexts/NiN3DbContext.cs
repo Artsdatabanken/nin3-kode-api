@@ -15,28 +15,37 @@ namespace NiN3KodeAPI.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
+            modelBuilder.Entity<Blog>()
+                .Property(b => b.Url)
+                .HasColumnName("Url");
+
+            modelBuilder.Entity<RssBlog>()
+                .Property(b => b.Url)
+                .HasColumnName("Url");
+            */
+            modelBuilder.Entity<BaseIdEntity>()
+            .Property(b => b.Id)
+            .HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<Domene>()
             .Property(b => b.Id)
-            .HasDefaultValueSql("newid()");
-            //modelBuilder.Entity<Oppslagstype>()
-            //.Property(b => b.Id)
-            //.HasDefaultValueSql("NEWID()");
-
+            .HasDefaultValueSql("NEWID()");
+            
             /********* SEEDING ***********/
-
+            
             // Domene
-            modelBuilder.Entity<Domene>().HasData(
-                new Domene() {  Id = Guid.NewGuid(),  Navn = "3.0" }
-            );
-
+            //modelBuilder.Entity<Domene>().HasData(
+            //    new Domene() { /* Id = Guid.NewGuid(), */ Navn = "3.0" }
+            //    );
+            
             //// Ecosystnivaa
             //modelBuilder.Entity<Ecosystnivaa>().HasData(
             //    new Ecosystnivaa() { /* Id = Guid.NewGuid(), */ Kode = "A", Beskrivelse = "abiotisk" },
             //    new Ecosystnivaa() { /* Id = Guid.NewGuid(), */ Kode = "B", Beskrivelse = "biotisk" },
             //    new Ecosystnivaa() { /* Id = Guid.NewGuid(), */ Kode = "C", Beskrivelse = "økodiversitet" }
             //);
-
             ////Typekategori
+           
             //modelBuilder.Entity<Typekategori>().HasData(
             //    new Typekategori() { /* Id = Guid.NewGuid(), */ Kode = "LI", Beskrivelse = "livsmedium" },
             //    new Typekategori() { /* Id = Guid.NewGuid(), */ Kode = "LV", Beskrivelse = "landformvariasjon" },
@@ -45,15 +54,15 @@ namespace NiN3KodeAPI.DbContexts
             //    new Typekategori() { /* Id = Guid.NewGuid(), */ Kode = "SE", Beskrivelse = "sekundært økodiversitetsnivå" }
             //);
             //// ...
-            //modelBuilder.Entity<Typekategori2Enum>().HasData(
-            //    new Typekategori2Enum() { /* Id = Guid.NewGuid(), */ Kode = "BM", Beskrivelse = "bremassiv" },
-            //    new Typekategori2Enum() { /* Id = Guid.NewGuid(), */ Kode = "EL", Beskrivelse = "elveløp" },
-            //    new Typekategori2Enum() { /* Id = Guid.NewGuid(), */ Kode = "FL", Beskrivelse = "landformer i fast fjell og løsmasser" },
-            //    new Typekategori2Enum() { /* Id = Guid.NewGuid(), */ Kode = "IB", Beskrivelse = "innsjøbasseng" },
-            //    new Typekategori2Enum() { /* Id = Guid.NewGuid(), */ Kode = "LA", Beskrivelse = "landskapstype" },
-            //    new Typekategori2Enum() { /* Id = Guid.NewGuid(), */ Kode = "NA", Beskrivelse = "natursystem" },
-            //    new Typekategori2Enum() { /* Id = Guid.NewGuid(), */ Kode = "NK", Beskrivelse = "naturkompleks" },
-            //    new Typekategori2Enum() { /* Id = Guid.NewGuid(), */ Kode = "TM", Beskrivelse = "torvmarksmassiv" }
+            //modelBuilder.Entity<Typekategori2>().HasData(
+            //    new Typekategori2() { /* Id = Guid.NewGuid(), */ Kode = "BM", Beskrivelse = "bremassiv" },
+            //    new Typekategori2() { /* Id = Guid.NewGuid(), */ Kode = "EL", Beskrivelse = "elveløp" },
+            //    new Typekategori2() { /* Id = Guid.NewGuid(), */ Kode = "FL", Beskrivelse = "landformer i fast fjell og løsmasser" },
+            //    new Typekategori2() { /* Id = Guid.NewGuid(), */ Kode = "IB", Beskrivelse = "innsjøbasseng" },
+            //    new Typekategori2() { /* Id = Guid.NewGuid(), */ Kode = "LA", Beskrivelse = "landskapstype" },
+            //    new Typekategori2() { /* Id = Guid.NewGuid(), */ Kode = "NA", Beskrivelse = "natursystem" },
+            //    new Typekategori2() { /* Id = Guid.NewGuid(), */ Kode = "NK", Beskrivelse = "naturkompleks" },
+            //    new Typekategori2() { /* Id = Guid.NewGuid(), */ Kode = "TM", Beskrivelse = "torvmarksmassiv" }
             //    );
             //modelBuilder.Entity<Typekategori3>().HasData(
             //    new Typekategori3() { /* Id = Guid.NewGuid(), */ Kode = "VM", Beskrivelse = "vannmassesystemer" },
@@ -92,6 +101,9 @@ namespace NiN3KodeAPI.DbContexts
             //    new Variabelkategori() { /* Id = Guid.NewGuid(), */ Kode = "M", Beskrivelse = "mennekebetinget" },
             //    new Variabelkategori() { /* Id = Guid.NewGuid(), */ Kode = "N", Beskrivelse = "naturgitt" }
             //);
+
+
+
 
 
             //// variabeltyper
@@ -164,10 +176,10 @@ namespace NiN3KodeAPI.DbContexts
                 .HasOne(e => e.Hovedtypegruppe)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
- /*           modelBuilder.Entity<Hovedtypegruppe>()
+            modelBuilder.Entity<Hovedtypegruppe>()
                 .HasOne(e => e.Typekategori2)
                 .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);*/
+                .OnDelete(DeleteBehavior.Restrict);
             /*           modelBuilder.Entity<Undertype>()
                            .HasOne(e => e.Hovedtype)
                            .WithMany()
@@ -189,7 +201,7 @@ namespace NiN3KodeAPI.DbContexts
         }
 
         // TYPER
-        //  public DbSet<Ecosystnivaa> Ecosystnivaa { get; set; }
+        public DbSet<Ecosystnivaa> Ecosystnivaa { get; set; }
         public DbSet<Maalestokk> Maalestokk { get; set; }
         public DbSet<Typekategori> Typekategori { get; set; }
         public DbSet<Typekategori2> Typekategori2 { get; set; }

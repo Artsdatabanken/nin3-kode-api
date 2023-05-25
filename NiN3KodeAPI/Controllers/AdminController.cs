@@ -13,12 +13,12 @@ namespace NiN3KodeAPI.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        //private readonly ILoaderService _adminService;
+        //private readonly IAdminService _adminService;
         private readonly ILogger<AdminController> _logger;
-        private readonly ILoaderService _adminService;
+        private readonly IAdminService _adminService;
         private readonly ISService _sservice;
         private readonly IConfiguration  _conf;
-        public AdminController(IConfiguration configuration, ISService SService, ILoaderService adminService, ILogger<AdminController> logger)
+        public AdminController(IConfiguration configuration, ISService SService, IAdminService adminService, ILogger<AdminController> logger)
         {
             _adminService = adminService ?? throw new ArgumentNullException(nameof(adminService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));

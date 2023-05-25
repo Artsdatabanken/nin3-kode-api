@@ -1,11 +1,9 @@
-﻿using NiN3KodeAPI.Entities.Enums;
-
-namespace NiN3KodeAPI.in_data
+﻿namespace NiN3KodeAPI.in_data
 {
     public class CsvdataImporter_Grunntype
     {
        //public string Hovedtypegruppe { get; set; }
-        public ProsedyrekategoriEnum Prosedyrekategori { get; set; }
+        public string Prosedyrekategori { get; set; }
 
         public string Hovedtype { get; set; }
         public string Grunntype { get; set; }
@@ -19,7 +17,7 @@ namespace NiN3KodeAPI.in_data
             return new CsvdataImporter_Grunntype()
             {
                 Hovedtype = columns[2],
-                Prosedyrekategori = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(columns[1]),
+                Prosedyrekategori = columns[1],
                 //Hovedtypegruppe = columns[0],
                 Grunntype = columns[3],
                 Grunntypenavn = columns[4],

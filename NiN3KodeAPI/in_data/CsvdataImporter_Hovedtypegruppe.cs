@@ -1,10 +1,8 @@
-﻿using NiN3KodeAPI.Entities.Enums;
-
-namespace NiN3KodeAPI.in_data
+﻿namespace NiN3KodeAPI.in_data
 {
     public class CsvdataImporter_Hovedtypegruppe
     {
-        public Typekategori2Enum Typekategori2 { get; set; }   
+        public string Typekategori2 { get; set; }   
         public string Hovedtypegruppe { get; set;}
         public string Hovedtypegruppenavn { get; set;}
         public string Kode { get; set; }
@@ -13,7 +11,7 @@ namespace NiN3KodeAPI.in_data
             var columns = row.Split(';');
             return new CsvdataImporter_Hovedtypegruppe()
             {
-                Typekategori2 = EnumUtil.ParseEnum<Typekategori2Enum>(columns[0]),
+                Typekategori2 = columns[0],
                 Hovedtypegruppe = columns[1],
                 Hovedtypegruppenavn = columns[2],
                 Kode = columns[3]
