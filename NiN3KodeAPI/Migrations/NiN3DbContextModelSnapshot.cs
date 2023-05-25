@@ -56,13 +56,15 @@ namespace NiN3KodeAPI.Migrations
                     b.ToTable("Domene");
                 });
 
-            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Ecosystnivaa", b =>
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("Beskrivelse")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Kode")
@@ -71,133 +73,7 @@ namespace NiN3KodeAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ecosystnivaa");
-                });
-
-            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Maalestokk", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Beskrivelse")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Kode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Maalestokk");
-                });
-
-            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Prosedyrekategori", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Beskrivelse")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Kode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Prosedyrekategori");
-                });
-
-            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Typekategori", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Beskrivelse")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Kode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Typekategori");
-                });
-
-            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Typekategori2", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Beskrivelse")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Kode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Typekategori2");
-                });
-
-            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabelgruppe", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Beskrivelse")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Kode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Variabelgruppe");
-                });
-
-            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabelkategori2", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Beskrivelse")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Kode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Variabelkategori2");
-                });
-
-            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabeltype", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Beskrivelse")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Kode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Variabeltype");
+                    b.ToTable("Oppslagstype");
                 });
 
             modelBuilder.Entity("NiN3KodeAPI.Entities.Grunntype", b =>
@@ -217,7 +93,6 @@ namespace NiN3KodeAPI.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Navn")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("ProsedyrekategoriId")
@@ -247,7 +122,6 @@ namespace NiN3KodeAPI.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Navn")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("ProsedyrekategoriId")
@@ -274,7 +148,6 @@ namespace NiN3KodeAPI.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Navn")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("Typekategori2Id")
@@ -283,6 +156,62 @@ namespace NiN3KodeAPI.Migrations
                     b.HasIndex("Typekategori2Id");
 
                     b.ToTable("Hovedtypegruppe");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Ecosystnivaa", b =>
+                {
+                    b.HasBaseType("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype");
+
+                    b.ToTable("Ecosystnivaa");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Maalestokk", b =>
+                {
+                    b.HasBaseType("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype");
+
+                    b.ToTable("Maalestokk");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Prosedyrekategori", b =>
+                {
+                    b.HasBaseType("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype");
+
+                    b.ToTable("Prosedyrekategori");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Typekategori", b =>
+                {
+                    b.HasBaseType("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype");
+
+                    b.ToTable("Typekategori");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Typekategori2Enum", b =>
+                {
+                    b.HasBaseType("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype");
+
+                    b.ToTable("Typekategori2Enum");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabelgruppe", b =>
+                {
+                    b.HasBaseType("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype");
+
+                    b.ToTable("Variabelgruppe");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabelkategori2", b =>
+                {
+                    b.HasBaseType("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype");
+
+                    b.ToTable("Variabelkategori2");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabeltype", b =>
+                {
+                    b.HasBaseType("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype");
+
+                    b.ToTable("Variabeltype");
                 });
 
             modelBuilder.Entity("NiN3KodeAPI.Entities.Type", b =>
@@ -324,7 +253,6 @@ namespace NiN3KodeAPI.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Navn")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("GrunntypeId");
@@ -401,12 +329,84 @@ namespace NiN3KodeAPI.Migrations
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Typekategori2", "Typekategori2")
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Typekategori2Enum", "Typekategori2Enum")
                         .WithMany()
                         .HasForeignKey("Typekategori2Id")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("Typekategori2");
+                    b.Navigation("Typekategori2Enum");
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Ecosystnivaa", b =>
+                {
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", null)
+                        .WithOne()
+                        .HasForeignKey("NiN3KodeAPI.Entities.Lookupdata.Ecosystnivaa", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Maalestokk", b =>
+                {
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", null)
+                        .WithOne()
+                        .HasForeignKey("NiN3KodeAPI.Entities.Lookupdata.Maalestokk", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Prosedyrekategori", b =>
+                {
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", null)
+                        .WithOne()
+                        .HasForeignKey("NiN3KodeAPI.Entities.Lookupdata.Prosedyrekategori", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Typekategori", b =>
+                {
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", null)
+                        .WithOne()
+                        .HasForeignKey("NiN3KodeAPI.Entities.Lookupdata.Typekategori", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Typekategori2Enum", b =>
+                {
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", null)
+                        .WithOne()
+                        .HasForeignKey("NiN3KodeAPI.Entities.Lookupdata.Typekategori2Enum", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabelgruppe", b =>
+                {
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", null)
+                        .WithOne()
+                        .HasForeignKey("NiN3KodeAPI.Entities.Lookupdata.Variabelgruppe", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabelkategori2", b =>
+                {
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", null)
+                        .WithOne()
+                        .HasForeignKey("NiN3KodeAPI.Entities.Lookupdata.Variabelkategori2", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("NiN3KodeAPI.Entities.Lookupdata.Variabeltype", b =>
+                {
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Oppslagstype", null)
+                        .WithOne()
+                        .HasForeignKey("NiN3KodeAPI.Entities.Lookupdata.Variabeltype", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("NiN3KodeAPI.Entities.Type", b =>
@@ -423,7 +423,7 @@ namespace NiN3KodeAPI.Migrations
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Typekategori2", "Typekategori2")
+                    b.HasOne("NiN3KodeAPI.Entities.Lookupdata.Typekategori2Enum", "Typekategori2Enum")
                         .WithMany()
                         .HasForeignKey("Typekategori2Id");
 
@@ -437,7 +437,7 @@ namespace NiN3KodeAPI.Migrations
 
                     b.Navigation("Typekategori");
 
-                    b.Navigation("Typekategori2");
+                    b.Navigation("Typekategori2Enum");
                 });
 
             modelBuilder.Entity("NiN3KodeAPI.Entities.Undertype", b =>
