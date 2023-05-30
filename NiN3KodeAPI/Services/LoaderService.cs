@@ -301,7 +301,7 @@ namespace NiN3KodeAPI.Services
         }
     }
 
-    private void LoadTypeData()
+    public void LoadTypeData()
     {
         var tp_count = _context.Hovedtypegruppe.Count();
         if (_context.Type.Count() == 0)
@@ -310,11 +310,12 @@ namespace NiN3KodeAPI.Services
             var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
             foreach (var type in typer)
             {
-                var esn = Ecosystnivaas.FirstOrDefault(s => s.Kode == type.Ecosystnivaa);
-                var tk = Typekategoris.FirstOrDefault(s => s.Kode == type.Typekategori);
-                var tk2 = Typekategori2s.FirstOrDefault(s => s.Kode == type.Typekategori2);
-
-                var t = new Type() { /* Id = Guid.NewGuid(), */ Kode = type.Kode, Ecosystnivaa = esn, Typekategori = tk, Typekategori2 = tk2, Domene = domene };
+                var t = new Type() { /* Id = Guid.NewGuid(), */ 
+                    Kode = type.Kode, 
+                    Ecosystnivaa = type.Ecosystnivaa, 
+                    Typekategori = type.Typekategori, 
+                    Typekategori2 = type.Typekategori2, 
+                    Domene = domene };
                 _context.Add(t);
             }
             _context.SaveChanges();

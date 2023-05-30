@@ -32,7 +32,6 @@ namespace Test_NiN3KodeAPI.Infrastructure
         {
             var connection = new SqliteConnection("Filename=:memory:");
             connection.Open();
-            // In-memory database only exists while the connection is open
             connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
             var options = new DbContextOptionsBuilder<NiN3DbContext>()
@@ -73,6 +72,16 @@ namespace Test_NiN3KodeAPI.Infrastructure
             service.LoadGrunntypedata();
             var numOfGD = inmemorydb.Grunntype.Count();
             Assert.Equal(166, numOfGD);
+        }
+
+        [Fact]
+        public void TestLoadType()
+        {
+            var inmemorydb = GetInMemoryDb();
+            var service = new LoaderService(null, inmemorydb, _logger);
+            service.LoadTypeData();
+            var numOfTD = inmemorydb.Type.Count();
+            Assert.Equal(10, numOfTD);
         }
     }
 }

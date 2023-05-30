@@ -1,4 +1,5 @@
-﻿using NiN3KodeAPI.Entities.Lookupdata;
+﻿using NiN3KodeAPI.Entities.Enums;
+using NiN3KodeAPI.Entities.Lookupdata;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,9 +10,9 @@ namespace NiN3KodeAPI.Entities
         [Key]
         public Guid Id { get; set; }
         public Domene Domene { get; set; }
-        public Ecosystnivaa Ecosystnivaa { get; set; }
-        public Typekategori Typekategori { get; set; }
-        public Typekategori2? Typekategori2 { get; set;}
+        public EcosystnivaaEnum Ecosystnivaa { get; set; }
+        public TypekategoriEnum Typekategori { get; set; }
+        public Typekategori2Enum? Typekategori2 { get; set;}
         public string Kode { get; set; } 
     }
 }

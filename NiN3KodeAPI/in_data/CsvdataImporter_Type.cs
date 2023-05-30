@@ -1,10 +1,13 @@
-﻿namespace NiN3KodeAPI.in_data
+﻿using NiN3KodeAPI.Entities.Enums;
+using NiN3KodeAPI.Entities.Lookupdata;
+
+namespace NiN3KodeAPI.in_data
 {
     public class CsvdataImporter_Type
     {
-        public string Ecosystnivaa { get; set; }
-        public string Typekategori { get; set; }
-        public string Typekategori2 { get; set; }
+        public EcosystnivaaEnum Ecosystnivaa { get; set; }
+        public TypekategoriEnum Typekategori { get; set; }
+        public Typekategori2Enum Typekategori2 { get; set; }
         public string Kode { get; set; }
 
         internal static CsvdataImporter_Type ParseRow(string row)
@@ -12,9 +15,9 @@
             var columns = row.Split(';');
             return new CsvdataImporter_Type()
             {
-                Ecosystnivaa = columns[0],
-                Typekategori = columns[1],
-                Typekategori2 = columns[2],
+                Ecosystnivaa = EnumUtil.ParseEnum<EcosystnivaaEnum>(columns[0]),
+                Typekategori = EnumUtil.ParseEnum <TypekategoriEnum>(columns[1]),
+                Typekategori2 = EnumUtil.ParseEnum <Typekategori2Enum>(columns[2]),
                 Kode = columns[3]
             };
         }

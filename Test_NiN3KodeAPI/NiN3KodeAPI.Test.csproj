@@ -27,4 +27,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\NiN3KodeAPI\NiN3KodeAPI.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="core\in_data\" />
+	</ItemGroup>
 </Project>
