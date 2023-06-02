@@ -11,14 +11,21 @@ namespace NiN3KodeAPI.Entities.Enums
     {
         public static T ParseEnum<T>(string value)
         {
+            //todo-sat: Add logger to this class and logg the error-event to logfile.
             return (T)Enum.Parse(typeof(T), value, true);
         }
 
 
         public static string ToDescription(this Enum value)
         {
-            var da = (DescriptionAttribute[])(value.GetType().GetField(value.ToString())).GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return da.Length > 0 ? da[0].Description : value.ToString();
+            try { 
+                var da = (DescriptionAttribute[])(value.GetType().GetField(value.ToString())).GetCustomAttributes(typeof(DescriptionAttribute), false);
+                return da.Length > 0 ? da[0].Description : value.ToString();
+            }catch (Exception ex)
+            {
+                //todo-sat: Add logger to this class and logg the error-event to logfile.
+                return null;
+            }
         }
         
     }

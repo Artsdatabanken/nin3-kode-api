@@ -176,10 +176,6 @@ namespace NiN3KodeAPI.DbContexts
                        .HasOne(e => e.Hovedtypegruppe)
                        .WithMany()
                        .OnDelete(DeleteBehavior.Restrict);*/
-            modelBuilder.Entity<Undertype>()
-            .HasOne(e => e.Grunntype)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Grunntype>()
             .HasOne(e => e.Hovedtype)
             .WithMany()
@@ -199,7 +195,7 @@ namespace NiN3KodeAPI.DbContexts
         public DbSet<Hovedtypegruppe> Hovedtypegruppe { get; set; }
         public DbSet<Hovedtype> Hovedtype { get; set; }
         public DbSet<Grunntype> Grunntype { get; set; }
-        public DbSet<Undertype> Undertype { get; set; }
+        //public DbSet<Undertype> Undertype { get; set; }
 
         public DbSet<Variabeltype> Variabeltype { get; set;}
         public DbSet<Variabelkategori2> Variabelkategori2 { get;set; }

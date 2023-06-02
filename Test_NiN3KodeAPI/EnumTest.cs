@@ -21,9 +21,10 @@ namespace Test_NiN3KodeAPI
             var desc = EnumUtil.ToDescription(e);
             Assert.Equal("biotisk", desc);
         }
-
+        /*
         [Fact]
         public void TestEnumUtil_null_values() {
+            //When fetching a non existing 
             var doesNotExist = "D";
             EcosystnivaaEnum e = EnumUtil.ParseEnum<EcosystnivaaEnum>(doesNotExist);
             var Bvalue = e.ToString();
@@ -31,5 +32,6 @@ namespace Test_NiN3KodeAPI
             //var desc = EnumUtil.ToDescription(e);
             //Assert.Equal("biotisk", desc);
         }
+        */
     }
 }

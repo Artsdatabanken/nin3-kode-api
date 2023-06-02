@@ -226,7 +226,7 @@ namespace NiN3KodeAPI.Services
                     Kode = gt.Kode,
                     Navn = gt.Grunntypenavn,
                     Domene = domene,
-                    Delkode = gt.Kode,
+                    Delkode = gt.Grunntype,
                     //Hovedtypegruppe = hovedtypegruppe,
                     Hovedtype = hovedtype,
                     Prosedyrekategori = gt.Prosedyrekategori
@@ -325,7 +325,5 @@ namespace NiN3KodeAPI.Services
             _logger.LogInformation("Objecttype <<Type>> allready has data!");
         }
     }
-
-       
     }
 }

@@ -72,6 +72,8 @@ namespace Test_NiN3KodeAPI.Infrastructure
             service.LoadGrunntypedata();
             var numOfGD = inmemorydb.Grunntype.Count();
             Assert.Equal(166, numOfGD);
+            var grunntype = inmemorydb.Grunntype.Where(gt =>gt.Kode == "M-A-01-05").FirstOrDefault();
+            Assert.Equal("sukkertareskog", grunntype.Navn);
         }
 
         [Fact]
