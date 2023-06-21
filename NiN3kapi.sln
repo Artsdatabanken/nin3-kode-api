@@ -9,9 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiN3.Tests", "NiN3.Tests\Ni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiN3.Infrastructure", "NiN3.Infrastructure\NiN3.Infrastructure.csproj", "{C668EA10-B374-4739-AAB8-8539C883741F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiN3.WebApi", "NiN3.WebApi\NiN3.WebApi.csproj", "{06A75829-1CA6-4F16-BBFE-A5D5341ECA8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiN3.WebApi", "NiN3.WebApi\NiN3.WebApi.csproj", "{06A75829-1CA6-4F16-BBFE-A5D5341ECA8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiN3.Console", "NiN3.Console\NiN3.Console.csproj", "{C87CD0E1-2540-417A-A28E-B2173DA4CFFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiN3.Console", "NiN3.Console\NiN3.Console.csproj", "{C87CD0E1-2540-417A-A28E-B2173DA4CFFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiN3.Infrastructure.Mapping", "Infrastructure.Mapping\NiN3.Infrastructure.Mapping.csproj", "{88E1417F-906A-4F03-AE38-E1A6966DA060}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09D709CE-1EBF-483F-81CE-FF9C6F3CF965} = {09D709CE-1EBF-483F-81CE-FF9C6F3CF965}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +44,10 @@ Global
 		{C87CD0E1-2540-417A-A28E-B2173DA4CFFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C87CD0E1-2540-417A-A28E-B2173DA4CFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C87CD0E1-2540-417A-A28E-B2173DA4CFFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E1417F-906A-4F03-AE38-E1A6966DA060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E1417F-906A-4F03-AE38-E1A6966DA060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E1417F-906A-4F03-AE38-E1A6966DA060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E1417F-906A-4F03-AE38-E1A6966DA060}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

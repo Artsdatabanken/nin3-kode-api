@@ -28,7 +28,7 @@ namespace NiN3.WebApi.Controllers
         }
 
         [HttpGet(Name = "HentDomener")]
-        public async Task<ActionResult<IEnumerable<Domene>>> HentDomener([FromHeader(Name = "admintoken")][Required] string admintokenHeader)
+        public async Task<ActionResult<IEnumerable<Versjon>>> HentDomener([FromHeader(Name = "admintoken")][Required] string admintokenHeader)
         {
             if (!CheckAuth(admintokenHeader)) {
                 return StatusCode(401);

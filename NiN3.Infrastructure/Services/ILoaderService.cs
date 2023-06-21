@@ -5,8 +5,8 @@ namespace NiN3.Infrastructure.Services
 {
     public interface ILoaderService
     {
-        //Task<IEnumerable<Domene>> HentDomenerAsync();
-        public IEnumerable<Domene> HentDomener();
+        //Task<IEnumerable<Versjon>> HentDomenerAsync();
+        public IEnumerable<Versjon> HentDomener();
 
         //bool OpprettInitDbAsync();
         bool OpprettInitDb();

@@ -10,7 +10,7 @@ namespace NiN3.Core.Models
     {
         public Guid Id { get; set; }
         [Required]
-        public Domene Domene { get; set; }
+        public Versjon Versjon { get; set; }
         [StringLength(255)]
         public string Kode { get; set; }
         public string? Navn { get; set; }

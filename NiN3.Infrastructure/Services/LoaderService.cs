@@ -18,6 +18,7 @@ using NiN3KodeAPI.in_data;
 using Newtonsoft.Json;
 using NiN3.Infrastructure.Services;
 using NiN3.Infrastructure.DbContexts;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 //using Newtonsoft.Json;
 
 namespace NiN.Infrastructure.Services
@@ -32,7 +33,7 @@ namespace NiN.Infrastructure.Services
         //private List<Ecosystnivaa> Ecosystnivaas;
         //private List<Typekategori> Typekategoris;
         //private List<Typekategori2> Typekategori2s;
-        private List<Domene> Domenes;
+        private List<Versjon> Domenes;
         //private string AdminToken;
         private readonly Dictionary<string, dynamic> EntitiesTypeDict = new Dictionary<string, dynamic>();
 
@@ -41,7 +42,7 @@ namespace NiN.Infrastructure.Services
             _context = context;
             _logger = logger;
             _conf = configuration;
-            Domenes = _context.Domene.ToList();
+            Domenes = _context.Versjon.ToList();
             //PopulateEntitiesTypeDict();
         }
 
@@ -68,7 +69,7 @@ namespace NiN.Infrastructure.Services
 
         public string Tabelldata(string tablename)
         {
-            /*  "Domene",
+            /*  "Versjon",
                   "Grunntype",
                   "Hovedtype",
                   "Hovedtypegruppe",
@@ -87,9 +88,9 @@ namespace NiN.Infrastructure.Services
             dynamic rs = new List<dynamic>();
             switch (tablename)
             {
-                case "Domene":
-                    //rs = _context.Domene.Cast<Object>().ToList();
-                    rs = _context.Domene.ToList();
+                case "Versjon":
+                    //rs = _context.Versjon.Cast<Object>().ToList();
+                    rs = _context.Versjon.ToList();
                     //res = JsonConvert.SerializeObject(rs);
                     break;
                 case "Grunntype":
@@ -136,9 +137,9 @@ namespace NiN.Infrastructure.Services
         }
     
 
-    public IEnumerable<Domene> HentDomener()
+    public IEnumerable<Versjon> HentDomener()
     {
-        return _context.Domene.OrderBy(c => c.Navn).ToList();
+        return _context.Versjon.OrderBy(c => c.Navn).ToList();
     }
 
     public void DoMigrations()
@@ -177,10 +178,19 @@ namespace NiN.Infrastructure.Services
     }
 
 
+        public void load_all_data() {
+            SeedLookupData();
+            LoadTypeData();
+            LoadHovedtypeGruppeData();
+            LoadHtg_Ht_Gt_Mappings();
+            LoadHovedtypeData();
+            LoadGrunntypedata();
+           
+        }
 
     private void LoadLookupData()
     {
-        Domenes = _context.Domene.ToList();
+        Domenes = _context.Versjon.ToList();
     }
 
     public void LoadHtg_Ht_Gt_Mappings()
@@ -191,8 +201,8 @@ namespace NiN.Infrastructure.Services
 
 
     private void SeedLookupData() {
-        List<Domene> domenes = new List<Domene>();
-        domenes.Add(new Domene() { Navn = "3.0"} );
+        List<Versjon> domenes = new List<Versjon>();
+        domenes.Add(new Versjon() { Navn = "3.0"} );
             _context.SaveChanges();
     }
     public void LoadGrunntypedata()
@@ -212,7 +222,7 @@ namespace NiN.Infrastructure.Services
                     /* Id = Guid.NewGuid(), */
                     Kode = gt.Kode,
                     Navn = gt.Grunntypenavn,
-                    Domene = domene,
+                    Versjon = domene,
                     Delkode = gt.Grunntype,
                     //Hovedtypegruppe = hovedtypegruppe,
                     Hovedtype = hovedtype,
@@ -244,7 +254,7 @@ namespace NiN.Infrastructure.Services
                         Id = Guid.NewGuid(),
                         Kode = ht.Kode,
                         Hovedtypegruppe = hovedtypegruppe,
-                        Domene = domene,
+                        Versjon = domene,
                         Delkode = ht.Hovedtype,
                         Navn = ht.Hovedtypenavn,
                         Prosedyrekategori = ht.Prosedyrekategori
@@ -260,7 +270,6 @@ namespace NiN.Infrastructure.Services
     }
     public void LoadHovedtypeGruppeData()
     {
-
         var htg_count = _context.Hovedtypegruppe.Count();
         if (_context.Hovedtypegruppe.Count() == 0)
         {
@@ -274,7 +283,7 @@ namespace NiN.Infrastructure.Services
                     /* Id = Guid.NewGuid(), */
                     Kode = htg.Kode,
                     Typekategori2 = htg.Typekategori2,
-                    Domene = domene,
+                    Versjon = domene,
                     Delkode = htg.Hovedtypegruppe,
                     Navn = htg.Hovedtypegruppenavn
                 };
@@ -302,7 +311,7 @@ namespace NiN.Infrastructure.Services
                     Ecosystnivaa = type.Ecosystnivaa, 
                     Typekategori = type.Typekategori, 
                     Typekategori2 = type.Typekategori2, 
-                    Domene = domene };
+                    Versjon = domene };
                 _context.Add(t);
             }
             _context.SaveChanges();

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NiN3.Core.Models
 {
-    public class Domene
+    public class Versjon
     {
         [Key]
         public Guid Id { get; set; }
@@ -11,5 +11,6 @@ namespace NiN3.Core.Models
         [StringLength(255)]
         [Required]
         public string Navn { get; set; } = string.Empty;
+        public ICollection<Type> Typer { get; set; }
     }
 }

@@ -10,3 +10,6 @@ NiN3.Core/obj/
 NiN3.Infrastructure/bin/
 NiN3.Console/bin/
 NiN3.Core/bin/
+.idea/
+Infrastructure.Mapping/bin/
+Infrastructure.Mapping/obj/
