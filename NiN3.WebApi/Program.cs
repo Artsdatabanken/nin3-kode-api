@@ -8,6 +8,8 @@ using NiN3.WebApi;
 using Microsoft.EntityFrameworkCore;
 using NiN.Infrastructure.Services;
 using NLog;
+using NiN3.Infrastructure.Mapping.Profiles;
+using Microsoft.Extensions.DependencyInjection;
 
 
 /*Log.Logger = new LoggerConfiguration()
@@ -56,7 +58,9 @@ builder.Services.AddDbContext<NiN3DbContext>(options =>
     //options.UseSqlite("../NiN3.Infrastructure/Database/nin3kapi.db");
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddAutoMapper(typeof(NiN3.Infrastructure.Mapping.Profiles.AllProfiles));
+//builder.Services.AddAutoMapper(typeof(NiN3.Infrastructure.Mapping.Profiles.AllProfiles));
+//builder.Services.AddScoped<AllProfiles>();
+builder.Services.AddAutoMapper(typeof(AllProfiles));
 builder.Services.AddScoped<ILoaderService, LoaderService>();
 builder.Services.AddScoped<ITypeApiService, TypeApiService>();
 //builder.Services.AddSingleton<ISService, SService>();

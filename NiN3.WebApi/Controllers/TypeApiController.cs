@@ -17,6 +17,7 @@ namespace NiN3.WebApi.Controllers
         // and IConfiguration parameters are injected into the constructor
         // and assigned to the corresponding private fields. 
         // This allows the TypeApiController to access the services, logger, and configuration when needed.
+        
         public TypeApiController(ITypeApiService typeApiService, /*ILogger logger,*/ IConfiguration configuration)
         {
             _typeApiService = typeApiService;

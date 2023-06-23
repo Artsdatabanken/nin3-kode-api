@@ -1,18 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace NiN3.Core.Models.Enums
 {
     public enum TypekategoriEnum
     {
-        [Display(Name = "livsmedium")]
+        [Description("livsmedium")]
         LI,
-        [Display(Name = "landformvariasjon")]
+        [Description("landformvariasjon")]
         LV,
-        [Display(Name = "marine vannmasser")]
+        [Description("marine vannmasser")]
         MV,
-        [Display(Name = "primært økodiversitetsnivå")]
+        [Description("primært økodiversitetsnivå")]
         PE,
-        [Display(Name = "sekundært økodiversitetsnivå")]
+        [Description("sekundært økodiversitetsnivå")]
         SE
     }
 }

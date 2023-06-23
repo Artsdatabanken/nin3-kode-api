@@ -226,7 +226,7 @@ namespace NiN.Infrastructure.Services
                     Delkode = gt.Grunntype,
                     //Hovedtypegruppe = hovedtypegruppe,
                     Hovedtype = hovedtype,
-                    Prosedyrekategori = gt.Prosedyrekategori
+                    Prosedyrekategori = gt.Prosedyrekategori 
                 };
                 _context.Add(grunntype);
             }

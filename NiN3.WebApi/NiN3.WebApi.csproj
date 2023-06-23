@@ -21,4 +21,12 @@
     <ProjectReference Include="..\NiN3.Infrastructure\NiN3.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="nin3kodeapi.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="https://json.schemastore.org/base.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

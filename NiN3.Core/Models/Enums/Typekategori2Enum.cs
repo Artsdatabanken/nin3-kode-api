@@ -1,24 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace NiN3.Core.Models.Enums
 {
     public enum Typekategori2Enum
     {
-        [Display(Name = "bremassiv")]
+        [Description("bremassiv")]
         BM,
-        [Display(Name = "elveløp")]
+        [Description("elveløp")]
         EL,
-        [Display(Name = "landformer i fast fjell og løsmasser")]
+        [Description("landformer i fast fjell og løsmasser")]
         FL,
-        [Display(Name = "innsjøbasseng")]
+        [Description("innsjøbasseng")]
         IB,
-        [Display(Name = "landskapstype")]
+        [Description("landskapstype")]
         LA,
-        [Display(Name = "natursystem")]
+        [Description("natursystem")]
         NA,
-        [Display(Name = "naturkompleks")]
+        [Description("naturkompleks")]
         NK,
-        [Display(Name = "torvmarksmassiv")]
+        [Description("torvmarksmassiv")]
         TM
     }
 }

@@ -13,6 +13,8 @@ using Castle.Core.Logging;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NiN.Infrastructure.Services;
+using Microsoft.Extensions.Configuration;
+using static System.Net.WebRequestMethods;
 
 namespace NiN3.Tests.Infrastructure
 {
@@ -41,8 +43,33 @@ namespace NiN3.Tests.Infrastructure
             return context;
         }
 
+
+        // q: create a method to create Microsoft.Extensions.Configuration.ConfigurationManager object with key and value "root_url": "http://localhost:5001"
+        public Microsoft.Extensions.Configuration.IConfigurationRoot CreateConfigurationManager(string key, string value)
+        {
+            var builder = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string>
+                {
+                { "root_url", "http://localhost:5001" }                
+            });
+
+            return builder.Build();
+        }
+        public IConfiguration CreateConfiguration()
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string>
+                {
+                    { "root_url", "http://localhost:5001" }
+                })
+                .Build();
+
+            return configuration;
+        }
+
         private void rigMapper()
         {
+            //var mappingProfile = new NiN3.Infrastructure.Mapping.Profiles.AllProfiles(CreateConfiguration());
             var mappingProfile = new NiN3.Infrastructure.Mapping.Profiles.AllProfiles();
             var config = new MapperConfiguration(cfg =>
             {
@@ -61,14 +88,14 @@ namespace NiN3.Tests.Infrastructure
             var service = new TypeApiService(_mapper, inmemorydb, _logger);
             loader.LoadTypeData();
             //loader.LoadHovedtypeData();
-            // q: assert that v3alleCodes is not null
-            var v3allCodes = serice.AllCodes("3.0");
+            var v3allCodes = service.AllCodes("3.0");
             Assert.NotNull(v3allCodes);
             //Assert.Null(v3alleCodes.Typer);
             Assert.Equal(10, v3allCodes.Typer.Count);
             var firstType = v3allCodes.Typer.First();
             Assert.Equal("A-LV-BM", firstType.Kode.Id);
-            //q: assert that v3alleCodes.navn is '3.0'
+            Assert.Equal("abiotisk landformvariasjon bremassiv", firstType.Navn);
+            Assert.Equal("https://nin-kode-api.artsdatabanken.no/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
             Assert.Equal("3.0", v3allCodes.Navn);
         }
     }
