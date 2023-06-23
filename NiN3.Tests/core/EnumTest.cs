@@ -1,5 +1,7 @@
 ﻿
 using NiN3.Core.Models.Enums;
+using System.Xml.Serialization;
+
 namespace NiN3.Tests.Test.core
 {
     public class EnumTest
@@ -10,20 +12,17 @@ namespace NiN3.Tests.Test.core
         {
             var stringToParse = "B";
             EcosystnivaaEnum e = EnumUtil.ParseEnum<EcosystnivaaEnum>(stringToParse);
-            var Bvalue = e.ToString();
-            Assert.Equal(stringToParse, Bvalue);
-            var desc = EnumUtil.ToDescription(e);
-            Assert.Equal("biotisk", desc);
+            Assert.Equal(stringToParse, e.ToString());
+            Assert.Equal("biotisk", EnumUtil.ToDescription(e));
         }
 
         [Fact]
-        public void TestingTypeKategoriEnum() {
+        public void TestingTypeKategoriEnum()
+        {
             var stringToParse = "PE";
             TypekategoriEnum e = EnumUtil.ParseEnum<TypekategoriEnum>(stringToParse);
-            var Bvalue = e.ToString();
-            Assert.Equal(stringToParse, Bvalue);
-            var desc = EnumUtil.ToDescription(e);
-            Assert.Equal("primært økodiversitetsnivå", desc);
+            Assert.Equal(stringToParse, e.ToString());
+            Assert.Equal("primært økodiversitetsnivå", EnumUtil.ToDescription(e));
         }
 
         [Fact]
@@ -31,36 +30,26 @@ namespace NiN3.Tests.Test.core
         {
             var stringToParse = "NK";
             Typekategori2Enum e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse);
-            var Bvalue = e.ToString();
-            Assert.Equal(stringToParse, Bvalue);
-            var desc = EnumUtil.ToDescription(e);
-            Assert.Equal("naturkompleks", desc);
+            Assert.Equal(stringToParse, e.ToString());
+            Assert.Equal("naturkompleks", EnumUtil.ToDescription(e));
         }
 
         [Fact]
-        public void TestingProsedyrekategoriEnum() 
+        public void TestingProsedyrekategoriEnum()
         {
             //Spesiell variasjonsbredde. Sterkt endret system.Hevdpreget.Jordbruksmark.
             var stringToParse = "O";
             ProsedyrekategoriEnum e = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(stringToParse);
-            var Bvalue = e.ToString();
-            Assert.Equal(stringToParse, Bvalue);
-            var desc = EnumUtil.ToDescription(e);
-            Assert.Equal("Spesiell variasjonsbredde. Sterkt endret system. Hevdpreget. Jordbruksmark.", desc);
+            Assert.Equal(stringToParse, e.ToString());
+            Assert.Equal("Spesiell variasjonsbredde. Sterkt endret system. Hevdpreget. Jordbruksmark.", EnumUtil.ToDescription(e));
         }
 
-        //NK
-        /*
+        // q: write test that fetches Enum with EnumUtil.ParseEnum for value "NK", enum: TypeKategori3Enum, and checks the Description attribute for typekategori3enum using EnumUtil.ToDescription
         [Fact]
-        public void TestEnumUtil_null_values() {
-            //When fetching a non existing 
-            var doesNotExist = "D";
-            EcosystnivaaEnum e = EnumUtil.ParseEnum<EcosystnivaaEnum>(doesNotExist);
-            var Bvalue = e.ToString();
-            //Assert.Equal(doesNotExist, Bvalue);
-            //var desc = EnumUtil.ToDescription(e);
-            //Assert.Equal("biotisk", desc);
+        public void TestFetchEnumDescription()
+        {
+            Typekategori3Enum result = EnumUtil.ParseEnum<Typekategori3Enum>("NK");
+            Assert.Equal("vannmassesystemer", EnumUtil.ToDescription(result));
         }
-        */
     }
 }
