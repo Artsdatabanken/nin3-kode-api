@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace NiN3.Core.Models.Enums
 {
     public enum Typekategori3Enum
     {
-        [Display(Name = "vannmassesystemer")]
+        [Description("vannmassesystemer")]
         VM,
-        [Display(Name = "mark- og bunnsystemer")]
+        [Description("mark- og bunnsystemer")]
         MB
     }
 }
