@@ -50,7 +50,7 @@ namespace NiN3.Tests.Infrastructure
             var builder = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
-                { "root_url", "http://localhost:5001" }                
+                { "root_url", "http://localhost:5001" }
             });
 
             return builder.Build();
@@ -67,6 +67,7 @@ namespace NiN3.Tests.Infrastructure
             return configuration;
         }
 
+        /*
         private void rigMapper()
         {
             //var mappingProfile = new NiN3.Infrastructure.Mapping.Profiles.AllProfiles(CreateConfiguration());
@@ -74,21 +75,24 @@ namespace NiN3.Tests.Infrastructure
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(mappingProfile);
+                //cfg.ValidateInlineMaps = false;
             });
             _mapper = new Mapper(config);
-
-        }
+            config.AssertConfigurationIsValid();
+            //config.ValidateInlineMaps();
+        }*/
 
         [Fact]
         public void TestAllCodesVersjon()
         {
-            rigMapper();
+            //rigMapper();
             var inmemorydb = GetInMemoryDb();
             var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
             var service = new TypeApiService(_mapper, inmemorydb, _logger);
-            loader.LoadTypeData();
-            //loader.LoadHovedtypeData();
+            loader.OpprettInitDb();
+            ////loader.LoadHovedtypeData();
             var v3allCodes = service.AllCodes("3.0");
+            Assert.Equal("3.0", v3allCodes.Navn);
             Assert.NotNull(v3allCodes);
             //Assert.Null(v3alleCodes.Typer);
             Assert.Equal(10, v3allCodes.Typer.Count);
@@ -96,7 +100,17 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("A-LV-BM", firstType.Kode.Id);
             Assert.Equal("abiotisk landformvariasjon bremassiv", firstType.Navn);
             Assert.Equal("https://nin-kode-api.artsdatabanken.no/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
-            Assert.Equal("3.0", v3allCodes.Navn);
+
+            Assert.Equal(10, firstType.Hovedtypegrupper.Count);
+            var hovedtypegruppe = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").First();
+            Assert.Equal("0-MS", hovedtypegruppe.Kode.Id);
+            Assert.Equal(11, hovedtypegruppe.Hovedtyper.Count);
+            // get second hovedtype from firstHovedtypegruppe.Hovedtyper
+            var hovedtype = hovedtypegruppe.Hovedtyper.Where(ht => ht.Kode.Id == "MS-0-08").First();
+            Assert.Equal("MS-0-08", hovedtype.Kode.Id);
+            Assert.Equal(1, hovedtype.Grunntyper.Count);
+            var grunntype = hovedtype.Grunntyper.First();
+            Assert.Equal("MS-0-08-01", grunntype.Kode.Id);
         }
     }
 }

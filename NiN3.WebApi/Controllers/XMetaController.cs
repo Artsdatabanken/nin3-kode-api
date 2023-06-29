@@ -11,15 +11,15 @@ namespace NiN3.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class MetaController : ControllerBase
+    public class XMetaController : ControllerBase
     {
         //private readonly ILoaderService _metaService;
-        private readonly ILogger<MetaController> _logger;
+        private readonly ILogger<XMetaController> _logger;
         private readonly ILoaderService _metaService;
         //private readonly ISService _sservice;
-        private readonly IConfiguration  _conf;
+        private readonly IConfiguration _conf;
         //public MetaController(IConfiguration configuration, ISService SService, ILoaderService metaService, ILogger<MetaController> logger)
-        public MetaController(IConfiguration configuration, ILoaderService metaService, ILogger<MetaController> logger)
+        public XMetaController(IConfiguration configuration, ILoaderService metaService, ILogger<XMetaController> logger)
         {
             _metaService = metaService ?? throw new ArgumentNullException(nameof(metaService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -30,7 +30,8 @@ namespace NiN3.WebApi.Controllers
         [HttpGet(Name = "HentDomener")]
         public async Task<ActionResult<IEnumerable<Versjon>>> HentDomener([FromHeader(Name = "admintoken")][Required] string admintokenHeader)
         {
-            if (!CheckAuth(admintokenHeader)) {
+            if (!CheckAuth(admintokenHeader))
+            {
                 return StatusCode(401);
             }
             //var domener = await _metaService.HentDomener();
@@ -120,13 +121,15 @@ namespace NiN3.WebApi.Controllers
             return Ok("En liten response fra test2.2");
         }*/
 
-        private Boolean CheckAuth(string inputtoken) {
+        private Boolean CheckAuth(string inputtoken)
+        {
             //if (inputtoken != _sservice.Admintoken)
-            if(inputtoken != _conf.GetValue<string>("admintoken"))
+            if (inputtoken != _conf.GetValue<string>("admintoken"))
             {
                 return false;
             }
-            else {
+            else
+            {
                 return true;
             }
         }

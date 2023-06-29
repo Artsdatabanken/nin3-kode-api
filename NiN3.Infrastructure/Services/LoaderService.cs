@@ -28,7 +28,9 @@ namespace NiN.Infrastructure.Services
         private readonly ILogger<LoaderService> _logger;
         private readonly NiN3DbContext _context;
         private IConfiguration _conf;
-        private List<CsvdataImporter_htg_ht_gt_mapping> csvdataImporter_Htg_Ht_Gt_Mappings;
+        public List<CsvdataImporter_htg_ht_gt_mapping> csvdataImporter_Htg_Ht_Gt_Mappings { get; set; }
+        public List<CsvdataImporter_Type_Htg_mapping> csvdataImporter_Type_Htg_Mappings { get; set; }
+        public List<Type> _typer { get; set; }
         //private List<Prosedyrekategori> Prosedyrekategoris;
         //private List<Ecosystnivaa> Ecosystnivaas;
         //private List<Typekategori> Typekategoris;
@@ -84,7 +86,7 @@ namespace NiN.Infrastructure.Services
                   "Variabeltype",
                   "Type",
                   "Undertype"*/
-            string res ="";
+            string res = "";
             dynamic rs = new List<dynamic>();
             switch (tablename)
             {
@@ -135,120 +137,143 @@ namespace NiN.Infrastructure.Services
             //return rs;
             return JsonConvert.SerializeObject(rs);
         }
-    
 
-    public IEnumerable<Versjon> HentDomener()
-    {
-        return _context.Versjon.OrderBy(c => c.Navn).ToList();
-    }
 
-    public void DoMigrations()
-    {// from adminController.
-        _context.Database.Migrate();
-    }
+        public IEnumerable<Versjon> HentDomener()
+        {
+            return _context.Versjon.OrderBy(c => c.Navn).ToList();
+        }
+
+        public void DoMigrations()
+        {// from adminController.
+            _context.Database.Migrate();
+        }
 
 
         //public bool OpprettInitDbAsync()
         public bool OpprettInitDb()
         {
             //throw new NotImplementedException();
-        //SeedLookupData();
-      
-        LoadLookupData();
-        LoadHtg_Ht_Gt_Mappings();
-        try
-        {
-            LoadTypeData();
-            _logger.LogInformation("Import of Types. Done");
-            LoadHovedtypeGruppeData();
-            _logger.LogInformation("Import of HTGdata. Done");
-            //todo-sat: load mapping csv
+            //SeedLookupData();
 
-            LoadHovedtypeData();
-            _logger.LogInformation("Import of HTdata. Done");
+            LoadLookupData();
+            LoadType_HTG_Mappings();
+            LoadHtg_Ht_Gt_Mappings();
+            try
+            {
+                LoadTypeData();
+                _logger.LogInformation("Import of Types. Done");
+                LoadHovedtypeGruppeData();
+                _logger.LogInformation("Import of HTGdata. Done");
+                //todo-sat: load mapping csv
 
-            LoadGrunntypedata();
-            _logger.LogInformation("Import of GTdata. Done");
+                LoadHovedtypeData();
+                _logger.LogInformation("Import of HTdata. Done");
+
+                LoadGrunntypedata();
+                _logger.LogInformation("Import of GTdata. Done");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error importing data from csv ; " + ex.Message);
+            }
+            return true;
         }
-        catch (Exception ex)
+
+
+        public void load_all_data()
         {
-            _logger.LogError("Error importing data from csv ; " + ex.Message);
-        }
-        return true;
-    }
-
-
-        public void load_all_data() {
             SeedLookupData();
             LoadTypeData();
+            LoadType_HTG_Mappings();
             LoadHovedtypeGruppeData();
             LoadHtg_Ht_Gt_Mappings();
             LoadHovedtypeData();
             LoadGrunntypedata();
-           
         }
 
-    private void LoadLookupData()
-    {
-        Domenes = _context.Versjon.ToList();
-    }
-
-    public void LoadHtg_Ht_Gt_Mappings()
-    {
-        csvdataImporter_Htg_Ht_Gt_Mappings = CsvdataImporter_htg_ht_gt_mapping.ProcessCSV("in_data/htg_ht_gt_mapping.csv");
-        _logger.LogInformation("Htg_Ht_Gt_Mapping lastet");
-    }
-
-
-    private void SeedLookupData() {
-        List<Versjon> domenes = new List<Versjon>();
-        domenes.Add(new Versjon() { Navn = "3.0"} );
-            _context.SaveChanges();
-    }
-    public void LoadGrunntypedata()
-    {
-        if (_context.Grunntype.Count() == 0)
+        private void LoadLookupData()
         {
-            //todo-sat: do impl. 
-            var grunntyper = CsvdataImporter_Grunntype.ProcessCSV("in_data/grunntyper.csv");
-            var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
-            foreach (var gt in grunntyper)
+            Domenes = _context.Versjon.ToList();
+        }
+
+        // Rewritten code with comments
+
+        /// <summary>
+        /// Loads the Type_HTG_Mapping from the csv file and logs a message to indicate that the Type_HTG_Mapping has been loaded.
+        /// </summary>
+        public void LoadType_HTG_Mappings()
+        {
+            // Create an instance of the CsvdataImporter_Type_Htg_mapping class
+            csvdataImporter_Type_Htg_Mappings = CsvdataImporter_Type_Htg_mapping.ProcessCSV("in_data/type_htg_mapping.csv");
+            // Log a message to indicate that the Type_HTG_Mapping has been loaded
+            _logger.LogInformation("Type_HTG_Mapping lastet");
+        }
+        /// <summary>
+        /// Creates an instance of the CsvdataImporter_htg_ht_gt_mapping class and logs a message to indicate that the Htg_Ht_Gt_Mapping has been loaded.
+        /// </summary>
+        public void LoadHtg_Ht_Gt_Mappings()
+        {
+            // Create an instance of the CsvdataImporter_htg_ht_gt_mapping class
+            csvdataImporter_Htg_Ht_Gt_Mappings = CsvdataImporter_htg_ht_gt_mapping.ProcessCSV("in_data/htg_ht_gt_mapping.csv");
+            // Log a message to indicate that the Htg_Ht_Gt_Mapping has been loaded
+            _logger.LogInformation("Htg_Ht_Gt_Mapping lastet");
+        }
+
+
+        /// <summary>
+        /// Seeds the lookup data.
+        /// </summary>
+        private void SeedLookupData()
+        {
+            List<Versjon> domenes = new List<Versjon>();
+            domenes.Add(new Versjon() { Navn = "3.0" });
+            _context.SaveChanges();
+        }
+        public void LoadGrunntypedata()
+        {
+            if (_context.Grunntype.Count() == 0)
             {
-                var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Grunntype_kode == gt.Kode);
-                var hovedtype = _context.Hovedtype.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtype_kode);
-                //var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);//htg_ht_gt.Hove
-                var grunntype = new Grunntype()
+                //todo-sat: do impl. 
+                var grunntyper = CsvdataImporter_Grunntype.ProcessCSV("in_data/grunntyper.csv");
+                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                foreach (var gt in grunntyper)
                 {
-                    /* Id = Guid.NewGuid(), */
-                    Kode = gt.Kode,
-                    Navn = gt.Grunntypenavn,
-                    Versjon = domene,
-                    Delkode = gt.Grunntype,
-                    //Hovedtypegruppe = hovedtypegruppe,
-                    Hovedtype = hovedtype,
-                    Prosedyrekategori = gt.Prosedyrekategori 
-                };
-                _context.Add(grunntype);
+                    var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Grunntype_kode == gt.Kode);
+                    var hovedtype = _context.Hovedtype.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtype_kode);
+                    //var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);//htg_ht_gt.Hove
+                    var grunntype = new Grunntype()
+                    {
+                        /* Id = Guid.NewGuid(), */
+                        Kode = gt.Kode,
+                        Navn = gt.Grunntypenavn,
+                        Versjon = domene,
+                        Delkode = gt.Grunntype,
+                        //Hovedtypegruppe = hovedtypegruppe,
+                        Hovedtype = hovedtype,
+                        Prosedyrekategori = gt.Prosedyrekategori
+                    };
+                    _context.Add(grunntype);
+                }
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
-        }
-        else
-        {
-            _logger.LogInformation("Objecttype <<Grunntype>> allready has data!");
-        }
-    }
-
-    public void LoadHovedtypeData()
-    {
-        if (_context.Hovedtype.Count() == 0)
-        {
-            var hovedtyper = CsvdataImporter_Hovedtype.ProcessCSV("in_data/hovedtype.csv");
-            var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
-            foreach (var ht in hovedtyper)
+            else
             {
-                var psk = ht.Prosedyrekategori;
-                var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Hovedtype_kode == ht.Kode); // finn hovedtypegruppe koden gitt hovedtypekode fra mapping/relasjonstabell.
-                var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
+                _logger.LogInformation("Objecttype <<Grunntype>> allready has data!");
+            }
+        }
+
+        public void LoadHovedtypeData()
+        {
+            if (_context.Hovedtype.Count() == 0)
+            {
+                var hovedtyper = CsvdataImporter_Hovedtype.ProcessCSV("in_data/hovedtype.csv");
+                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                foreach (var ht in hovedtyper)
+                {
+                    var psk = ht.Prosedyrekategori;
+                    var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Hovedtype_kode == ht.Kode); // finn hovedtypegruppe koden gitt hovedtypekode fra mapping/relasjonstabell.
+                    var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
                     var hovedtype = new Hovedtype()
                     {
                         Id = Guid.NewGuid(),
@@ -258,68 +283,77 @@ namespace NiN.Infrastructure.Services
                         Delkode = ht.Hovedtype,
                         Navn = ht.Hovedtypenavn,
                         Prosedyrekategori = ht.Prosedyrekategori
-                };
-                _context.Add(hovedtype);
+                    };
+                    _context.Add(hovedtype);
+                }
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
-        }
-        else
-        {
-            _logger.LogInformation("Objecttype <<Hovedtype>> allready has data!");
-        }
-    }
-    public void LoadHovedtypeGruppeData()
-    {
-        var htg_count = _context.Hovedtypegruppe.Count();
-        if (_context.Hovedtypegruppe.Count() == 0)
-        {
-            var hovedtypegrupper = CsvdataImporter_Hovedtypegruppe.ProcessCSV("in_data/hovedtypegrupper.csv");
-            var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
-            foreach (var htg in hovedtypegrupper)
+            else
             {
-                //var tk2 = Typekategori2s.FirstOrDefault(s => s.Kode == htg.Typekategori2);
-                var hovedtg = new Hovedtypegruppe()
+                _logger.LogInformation("Objecttype <<Hovedtype>> allready has data!");
+            }
+        }
+        public void LoadHovedtypeGruppeData()
+        {
+            //q: fetch typer from _context
+            var typer = _context.Type.ToList();
+            var htg_count = _context.Hovedtypegruppe.Count();
+            if (_context.Hovedtypegruppe.Count() == 0)
+            {
+                var hovedtypegrupper = CsvdataImporter_Hovedtypegruppe.ProcessCSV("in_data/hovedtypegrupper.csv");
+                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                foreach (var htg in hovedtypegrupper)
                 {
-                    /* Id = Guid.NewGuid(), */
-                    Kode = htg.Kode,
-                    Typekategori2 = htg.Typekategori2,
-                    Versjon = domene,
-                    Delkode = htg.Hovedtypegruppe,
-                    Navn = htg.Hovedtypegruppenavn
-                };
-                _context.Add(hovedtg);
+                    //var tk2 = Typekategori2s.FirstOrDefault(s => s.Kode == htg.Typekategori2);
+                    //var typekode = //q: get typekode from csvdataimporter_type_hgt_mapping given htg.typekategori2 using linq
+                    var typeKode = csvdataImporter_Type_Htg_Mappings.Where(x => x.Typekategori2 == htg.Typekategori2.ToString()).Select(x => x.Type_kode).FirstOrDefault();
+                    //var type = //q: get type from typer given typeKode
+                    var type = typer.FirstOrDefault(s => s.Kode == typeKode);
+                    var hovedtg = new Hovedtypegruppe()
+                    {
+                        /* Id = Guid.NewGuid(), */
+                        Kode = htg.Kode,
+                        Typekategori2 = htg.Typekategori2,
+                        Versjon = domene,
+                        Delkode = htg.Hovedtypegruppe,
+                        Navn = htg.Hovedtypegruppenavn,
+                        Type = type       /// <summary>
+                    };
+                    _context.Add(hovedtg);
+                }
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
-        }
-        else
-        {
-            _logger.LogInformation("Objecttype <<Hovedtypegruppe>> allready has data!");
-        }
-    }
-
-    public void LoadTypeData()
-    {
-        var tp_count = _context.Hovedtypegruppe.Count();
-        if (_context.Type.Count() == 0)
-        {
-            var typer = CsvdataImporter_Type.ProcessCSV("in_data/type.csv");
-            var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
-            foreach (var type in typer)
+            else
             {
-                var t = new Type() { /* Id = Guid.NewGuid(), */ 
-                    Kode = type.Kode, 
-                    Ecosystnivaa = type.Ecosystnivaa, 
-                    Typekategori = type.Typekategori, 
-                    Typekategori2 = type.Typekategori2, 
-                    Versjon = domene };
-                _context.Add(t);
+                _logger.LogInformation("Objecttype <<Hovedtypegruppe>> allready has data!");
             }
-            _context.SaveChanges();
         }
-        else
+
+        public void LoadTypeData()
         {
-            _logger.LogInformation("Objecttype <<Type>> allready has data!");
+            var tp_count = _context.Hovedtypegruppe.Count();
+            if (_context.Type.Count() == 0)
+            {
+                var typer = CsvdataImporter_Type.ProcessCSV("in_data/type.csv");
+                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                foreach (var type in typer)
+                {
+                    var t = new Type()
+                    { /* Id = Guid.NewGuid(), */
+                        Kode = type.Kode,
+                        Ecosystnivaa = type.Ecosystnivaa,
+                        Typekategori = type.Typekategori,
+                        Typekategori2 = type.Typekategori2,
+                        Versjon = domene
+                    };
+                    _context.Add(t);
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                _logger.LogInformation("Objecttype <<Type>> allready has data!");
+            }
         }
-    }
     }
 }

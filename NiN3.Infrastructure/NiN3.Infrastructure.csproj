@@ -21,11 +21,17 @@
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\Infrastructure.Mapping\NiN3.Infrastructure.Mapping.csproj" />
 		<ProjectReference Include="..\NiN3.Core\NiN3.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Migrations\" />
 	  <Folder Include="Database\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="in_data\CsvdataImporter_Type_Htg_mapping.cs">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="in_data\grunntyper.csv">
@@ -41,6 +47,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="in_data\type.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="in_data\type_htg_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

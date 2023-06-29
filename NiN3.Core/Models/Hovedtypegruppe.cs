@@ -18,7 +18,9 @@ namespace NiN3.Core.Models
         public string Kode { get; set; }
         public string? Navn { get; set; }
         public Typekategori2Enum? Typekategori2 { get; set; }
+        [ForeignKey("TypeId")]
+        public Type Type { get; set; }
 
-        ICollection<Hovedtype> Hovedtyper { get; set; }
-    }
+        public ICollection<Hovedtype> Hovedtyper { get; set; }
+    }   
 }

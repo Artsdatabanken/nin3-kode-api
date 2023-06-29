@@ -11,13 +11,9 @@ namespace NiN3.Core.Models.DTOs
     public class TypeDto
     {
         public string Navn { get; set; }
-        public string Kategori { get; set; } = "Type";
+        public string Kategori { get; set; }
         public KodeDto Kode { get; set; } = new KodeDto();
-        public TypeDto(String navn, KodeDto kode, String kategori="Type") {
-            Navn = navn;
-            Kategori = kategori;
-        }
 
-        public TypeDto() { }    
+        public ICollection<HovedtypegruppeDto> Hovedtypegrupper { get; set; } = new List<HovedtypegruppeDto>();
     }
 }

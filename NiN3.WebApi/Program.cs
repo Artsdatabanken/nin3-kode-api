@@ -10,6 +10,7 @@ using NiN.Infrastructure.Services;
 using NLog;
 using NiN3.Infrastructure.Mapping.Profiles;
 using Microsoft.Extensions.DependencyInjection;
+using Azure;
 
 
 /*Log.Logger = new LoggerConfiguration()
@@ -30,14 +31,14 @@ if (builder.Environment.IsProduction() || builder.Environment.IsStaging())
 }*/
 
 
-var controllers_to_exclude_from_prod = new ArrayList() {"Admin", "Meta"};
+var controllers_to_exclude_from_prod = new ArrayList() { "Admin", "Meta" };
 
 // Add services to the container.
 //var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 builder.Services.AddControllers(o =>
 {
-    if (builder.Environment.IsDevelopment())
-    //if (builder.Environment.IsProduction())
+    //if (builder.Environment.IsDevelopment())
+    if (builder.Environment.IsProduction())
     {
         o.Conventions.Add(new ActionHidingConvention(controllers_to_exclude_from_prod));
     }
@@ -83,8 +84,22 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 //app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.MapGet("/", () => "Hello World!");
+//redirect to swagger ui
+
+//app.MapGet("/", () => $"Hello World! (env. : {app.Environment.EnvironmentName})");
+
 app.MapControllers();
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path == "/")
+    {
+        context.Response.Headers.Add("env", app.Environment.EnvironmentName);
+        context.Response.Redirect("/swagger/index.html");
+        return;
+    }
+
+    await next();
+});
 ////* One way to get key vault secrets */
 //var SService = app.Services.GetRequiredService<ISService>();
 ////SService.Startup();

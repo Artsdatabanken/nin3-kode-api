@@ -27,8 +27,10 @@ namespace Test_NiN3KodeAPI.Infrastructure
             .Options;
             var context = new NiN3DbContext(options);
             context.Database.EnsureCreated();
+
             return context;
         }
+
 
         //This code tests the LoadHovedtypeGruppeData() method of the LoaderService class. 
         //It creates an InMemoryDb object and passes it to the LoaderService constructor. 
@@ -42,11 +44,19 @@ namespace Test_NiN3KodeAPI.Infrastructure
             //Create a LoaderService object and pass the InMemoryDb object to its constructor
             var service = new LoaderService(null, inmemorydb, _logger);
             //Call the LoadHovedtypeGruppeData() method
+            service.LoadTypeData();
+            service.LoadType_HTG_Mappings();
             service.LoadHovedtypeGruppeData();
             //Get the number of Hovedtypegruppe objects in the InMemoryDb object
             var numOfHGD = inmemorydb.Hovedtypegruppe.Count();
+
+            //q: get the first Hovedtypegruppe object in the InMemoryDb object after ordering by Kode
+            var firstHGD = inmemorydb.Hovedtypegruppe.OrderBy(x => x.Kode).First();
+            var typeOfFirstHGD = firstHGD.Type;
             //Assert that the number of Hovedtypegruppe objects is equal to 70
             Assert.Equal(70, numOfHGD);
+            Assert.NotNull(typeOfFirstHGD);
+            Assert.Equal("A-LV-BM", typeOfFirstHGD.Kode);
         }
 
         [Fact]
@@ -59,15 +69,39 @@ namespace Test_NiN3KodeAPI.Infrastructure
 
             //Instantiate a LoaderService object
             var service = new LoaderService(null, inmemorydb, _logger);
-
             //Call the LoadHovedtypeGruppeData, LoadHtg_Ht_Gt_Mappings, and LoadHovedtypeData methods
+            service.LoadTypeData();
+            service.LoadType_HTG_Mappings();
             service.LoadHovedtypeGruppeData();
             service.LoadHtg_Ht_Gt_Mappings();
             service.LoadHovedtypeData();
 
             //Check that the number of Hovedtype objects in the in-memory database is equal to 445
             var numOfHD = inmemorydb.Hovedtype.Count();
-            Assert.Equal(445, numOfHD);
+            Assert.Equal(464, numOfHD);
+            var firstHovedtype = inmemorydb.Hovedtype.OrderBy(h => h.Kode).FirstOrDefault();
+            Assert.NotNull(firstHovedtype);
+            Assert.NotNull(firstHovedtype.Hovedtypegruppe);
+        }
+
+        [Fact]
+        public void TestHovedtypeFromHovedtypegruppe()
+        {
+            var inmemorydb = GetInMemoryDb();
+            //Instantiate a LoaderService object
+            var service = new LoaderService(null, inmemorydb, _logger);
+            service.load_all_data();
+            //q: get hovedtypegruppe with kode "A-LV-BM" from inmemorydb object
+            //Answer:
+            var c = inmemorydb.Hovedtypegruppe.Count();
+            var hovedtypegruppe = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-M")
+                .Include(h => h.Hovedtyper).FirstOrDefault();
+            //Q: get hovedtypegruppe with kode NA-I and fetch hovedtyper that has relation to it
+
+            //Answer: 
+            //var firstHGD = inmemorydb.Hovedtypegruppe.OrderBy(x => x.Kode).First();
+            Assert.NotNull(hovedtypegruppe);
+            Assert.Equal(23, hovedtypegruppe.Hovedtyper.Count);
         }
 
         // Rewritten code with comments
@@ -79,6 +113,8 @@ namespace Test_NiN3KodeAPI.Infrastructure
             // Create a new LoaderService instance
             var service = new LoaderService(null, inmemorydb, _logger);
             // Load the HovedtypeGruppeData, Htg_Ht_Gt_Mappings, and HovedtypeData
+            service.LoadTypeData();
+            service.LoadType_HTG_Mappings();
             service.LoadHovedtypeGruppeData();
             service.LoadHtg_Ht_Gt_Mappings();
             service.LoadHovedtypeData();
@@ -86,11 +122,11 @@ namespace Test_NiN3KodeAPI.Infrastructure
             // Get the number of Grunntype records
             var numOfGD = inmemorydb.Grunntype.Count();
             // Assert that the number of records is 166
-            Assert.Equal(166, numOfGD);
+            Assert.Equal(1405, numOfGD);
             // Get the Grunntype record with the code "M-A-01-05"
             var grunntype = inmemorydb.Grunntype.Where(gt => gt.Kode == "M-A-01-05").FirstOrDefault();
             // Assert that the name of the record is "sukkertareskog"
-            Assert.Equal("sukkertareskog", grunntype.Navn);
+            Assert.Equal("spiraltangbunn", grunntype.Navn);
             // Assert that the delkode of the record is "05"
             Assert.Equal("05", grunntype.Delkode);
         }
@@ -105,12 +141,22 @@ namespace Test_NiN3KodeAPI.Infrastructure
             // Load the TypeData
             service.LoadTypeData();
             service.LoadHtg_Ht_Gt_Mappings();
-           // service.LoadHovedtypeData();
+            // service.LoadHovedtypeData();
             // Get the number of Type records
             var numOfTD = inmemorydb.Type.Count();
             var typer = inmemorydb.Type.ToList();
             // Assert that the number of records is 10
             Assert.Equal(10, numOfTD);
+        }
+
+        [Fact]
+        public void TestLoadType_Htg_Mapping()
+        {
+            var inmemorydb = GetInMemoryDb();
+            // Create a new LoaderService instance
+            var service = new LoaderService(null, inmemorydb, _logger);
+            service.LoadType_HTG_Mappings();
+            Assert.Equal(70, service.csvdataImporter_Type_Htg_Mappings.Count());
         }
     }
 }

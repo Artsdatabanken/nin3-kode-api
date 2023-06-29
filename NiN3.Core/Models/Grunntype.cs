@@ -16,6 +16,7 @@ namespace NiN3.Core.Models
         public string? Navn { get; set; }
         public string Delkode { get; set; }
         public ProsedyrekategoriEnum Prosedyrekategori { get; set; }
+        [ForeignKey("HovedtypeId")]
         public Hovedtype Hovedtype { get; set; }
     }
 }

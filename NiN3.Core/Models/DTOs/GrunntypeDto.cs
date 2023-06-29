@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace NiN3.Core.Models.DTOs
 {
-    public class VersjonDto
+    public class GrunntypeDto
     {
         public string Navn { get; set; }
-        public ICollection<TypeDto> Typer { get; set; } = new List<TypeDto>();
+        public string Kategori { get; set; } = "Grunntype";
+        public KodeDto Kode { get; set; }
     }
 }

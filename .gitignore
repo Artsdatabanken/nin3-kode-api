@@ -13,3 +13,5 @@ NiN3.Core/bin/
 .idea/
 Infrastructure.Mapping/bin/
 Infrastructure.Mapping/obj/
+NiN3.WebApi/Properties/
+NiN3.WebApi/.config/dotnet-tools.json

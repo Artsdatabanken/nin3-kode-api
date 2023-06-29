@@ -9,7 +9,6 @@ namespace NiN3.Infrastructure.DbContexts
         public NiN3DbContext(DbContextOptions<NiN3DbContext> options)
     : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,10 +33,6 @@ namespace NiN3.Infrastructure.DbContexts
             modelBuilder.Entity<Versjon>().HasData(
                 new Versjon() { Id = Guid.NewGuid(), Navn = "3.0" }
             );
-            modelBuilder.Entity<Hovedtype>()
-                .HasOne(e => e.Hovedtypegruppe)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
             /*           modelBuilder.Entity<Hovedtypegruppe>()
                            .HasOne(e => e.Typekategori2)
                            .WithMany()
@@ -50,10 +45,6 @@ namespace NiN3.Infrastructure.DbContexts
                        .HasOne(e => e.Hovedtypegruppe)
                        .WithMany()
                        .OnDelete(DeleteBehavior.Restrict);*/
-            modelBuilder.Entity<Grunntype>()
-            .HasOne(e => e.Hovedtype)
-            .WithMany()
-            .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }
