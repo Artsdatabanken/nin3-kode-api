@@ -27,15 +27,13 @@ namespace NiN3.Infrastructure.Services
         private IMapper _mapper;
         private List<CsvdataImporter_htg_ht_gt_mapping> csvdataImporter_Htg_Ht_Gt_Mappings;
         private List<Versjon> Domenes;
-        private IMapper mapper;
         private NiN3DbContext inmemorydb;
         private ILogger<TypeApiService> logger;
 
-        public TypeApiService(IMapper mapper, NiN3DbContext context, ILogger<TypeApiService> logger)
+        public TypeApiService(NiN3DbContext context, ILogger<TypeApiService> logger)
         {
             _context = context;
             _logger = logger;
-            _mapper = mapper;
         }
 
 /// <summary>
@@ -45,13 +43,14 @@ namespace NiN3.Infrastructure.Services
 /// <returns>A VersjonDto containing all codes for the given version.</returns>
         public VersjonDto AllCodes(string versjon)
         {
+            var mapper = NiNkodeMapper.Instance;
             Versjon _versjon = _context.Versjon.Where(v => v.Navn == versjon)
             .Include(v => v.Typer.OrderBy(t => t.Kode))
                 .ThenInclude(type => type.Hovedtypegrupper.OrderBy(htg => htg.Kode))
                     .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Kode))
                         .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Kode))
             .First();
-            return NiNkodeMapper.Map(_versjon);
+            return mapper.Map(_versjon);
         }
 
         /*

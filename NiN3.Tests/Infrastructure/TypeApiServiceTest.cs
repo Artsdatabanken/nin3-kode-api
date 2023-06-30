@@ -15,6 +15,7 @@ using Moq;
 using NiN.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using static System.Net.WebRequestMethods;
+using NiN3.Infrastructure.Mapping;
 
 namespace NiN3.Tests.Infrastructure
 {
@@ -44,23 +45,13 @@ namespace NiN3.Tests.Infrastructure
         }
 
 
-        // q: create a method to create Microsoft.Extensions.Configuration.ConfigurationManager object with key and value "root_url": "http://localhost:5001"
-        public Microsoft.Extensions.Configuration.IConfigurationRoot CreateConfigurationManager(string key, string value)
-        {
-            var builder = new ConfigurationBuilder()
-                .AddInMemoryCollection(new Dictionary<string, string>
-                {
-                { "root_url", "http://localhost:5001" }
-            });
-
-            return builder.Build();
-        }
+        
         public IConfiguration CreateConfiguration()
         {
             var configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
-                    { "root_url", "http://localhost:5001" }
+                    { "root_url", "http://localhost:5001/v3.0" }
                 })
                 .Build();
 
@@ -87,8 +78,10 @@ namespace NiN3.Tests.Infrastructure
         {
             //rigMapper();
             var inmemorydb = GetInMemoryDb();
+            var mapper = NiNkodeMapper.Instance;
+            mapper.SetConfiguration(CreateConfiguration());
             var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
-            var service = new TypeApiService(_mapper, inmemorydb, _logger);
+            var service = new TypeApiService(inmemorydb, _logger);
             loader.OpprettInitDb();
             ////loader.LoadHovedtypeData();
             var v3allCodes = service.AllCodes("3.0");
@@ -99,8 +92,9 @@ namespace NiN3.Tests.Infrastructure
             var firstType = v3allCodes.Typer.First();
             Assert.Equal("A-LV-BM", firstType.Kode.Id);
             Assert.Equal("abiotisk landformvariasjon bremassiv", firstType.Navn);
-            Assert.Equal("https://nin-kode-api.artsdatabanken.no/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
-
+            //Assert.Equal("https://nin-kode-api.artsdatabanken.no/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
+            Assert.StartsWith("http", firstType.Kode.Definisjon);
+            Assert.EndsWith("/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
             Assert.Equal(10, firstType.Hovedtypegrupper.Count);
             var hovedtypegruppe = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").First();
             Assert.Equal("0-MS", hovedtypegruppe.Kode.Id);

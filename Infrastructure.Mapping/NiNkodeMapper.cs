@@ -1,13 +1,9 @@
 ﻿using NiN3.Core.Models.DTOs;
 using NiN3.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NiN3.Core.Models.Enums;
 using System.Data;
 using System.ComponentModel;
+using Microsoft.Extensions.Configuration;
 
 namespace NiN3.Infrastructure.Mapping
 {
@@ -17,15 +13,42 @@ namespace NiN3.Infrastructure.Mapping
     /// </summary>
     /// <param name="versjon">The Versjon object to be mapped.</param>
     /// <returns>A VersjonDto object with the mapped values.</returns>
-    public static class NiNkodeMapper
+    /// Usage: 
+    /// NiNkodeMapper ninkodeMapper = NiNkodeMapper.Instance;
+    /// ninkodeMapper.SetConfiguration(configuration);
+
+    public sealed class NiNkodeMapper
     {
+        private IConfiguration _configuration;
+        private static readonly NiNkodeMapper instance = new NiNkodeMapper();
+        private string _root_url;
+
+        /// <summary>
+        /// Gets the singleton instance of the NiNkodeMapper class.
+        /// </summary>
+        /// <returns>The singleton instance of the NiNkodeMapper class.</returns>
+        public static NiNkodeMapper Instance
+        {
+            get { return instance; }
+        }
+
+        /// <summary>
+        /// Sets the configuration for the application.
+        /// </summary>
+        /// <param name="configuration">The configuration to set.</param>
+        public void SetConfiguration(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _root_url = _configuration?["root_url"];
+        }
+
 
         /// <summary>
         /// Maps a Versjon object to a VersjonDto object.
         /// </summary>
         /// <param name="versjon">The Versjon object to be mapped.</param>
         /// <returns>A VersjonDto object with the mapped data.</returns>
-        public static VersjonDto Map(Versjon versjon)
+        public VersjonDto Map(Versjon versjon)
         {
             //Create a new VersjonDto object
             var versjonDto = new VersjonDto()
@@ -33,6 +56,8 @@ namespace NiN3.Infrastructure.Mapping
                 Navn = versjon.Navn,
             };
             //Loop through the list of Typer in the Versjon object
+            //q: change the following line to use parallell loop        
+            //a: 
             versjon.Typer.ToList().ForEach(t => versjonDto.Typer.Add(Map(t)));
             //Return the VersjonDto object
             return versjonDto;
@@ -44,7 +69,7 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="type">The NiN3.Core.Models.Type to map</param>
         /// <returns>A TypeDto with the mapped values</returns>
-        public static TypeDto Map(NiN3.Core.Models.Type type)
+        public TypeDto Map(NiN3.Core.Models.Type type)
         {
             var typedto = new TypeDto
             {
@@ -63,7 +88,7 @@ namespace NiN3.Infrastructure.Mapping
         /// <returns>
         /// A HovedtypegruppeDto object.
         /// </returns>
-        public static HovedtypegruppeDto Map(Hovedtypegruppe hovedtypegruppe)
+        public HovedtypegruppeDto Map(Hovedtypegruppe hovedtypegruppe)
         {
             var hovedtypegruppedto = new HovedtypegruppeDto()
             {
@@ -81,7 +106,7 @@ namespace NiN3.Infrastructure.Mapping
         /// <param name="hovedtype">The Hovedtype object to be mapped.</param>
         /// <returns>A HovedtypeDto object with the mapped values.</returns>
         //This method maps a Hovedtype object to a HovedtypeDto object
-        public static HovedtypeDto Map(Hovedtype hovedtype)
+        public HovedtypeDto Map(Hovedtype hovedtype)
         {
             var hovedtypedto = new HovedtypeDto()
             {
@@ -99,7 +124,7 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="grunntype">The Grunntype object to be mapped.</param>
         /// <returns>A GrunntypeDto object with the mapped values.</returns>
-        public static GrunntypeDto Map(Grunntype grunntype)
+        public GrunntypeDto Map(Grunntype grunntype)
         {
             var grunntypedto = new GrunntypeDto()
             {
@@ -115,9 +140,9 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="kode">The code to be mapped.</param>
         /// <returns>A KodeDto object containing the code and its definition.</returns>
-        public static KodeDto MapKode(String kode)
+        public KodeDto MapKode(String kode)
         {
-            var _root_url = "https://nin-kode-api.artsdatabanken.no/v3.0";
+            //var _root_url = "https://nin-kode-api.artsdatabanken.no/v3.0";
             var kodeDto = new KodeDto()
             {
                 Id = kode,

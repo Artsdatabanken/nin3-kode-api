@@ -1,25 +1,16 @@
-﻿// NiN3KodeAPI.Controllers;
-using NiN3.Core.Models;
-using NiN3.Core.Models.Enums;
+﻿using NiN3.Core.Models;
 using NiN3.Infrastructure.in_data;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq.Expressions;
-//using NiN3KodeAPI.Migrations;
-using Type = NiN3.Core.Models.Type;
-using System;
-using System.Threading.Tasks;
-//using Azure.Identity;
-//using Azure.Security.KeyVault.Secrets;
+//using Type = NiN3.Core.Models.Type;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using NiN3KodeAPI.in_data;
 using Newtonsoft.Json;
 using NiN3.Infrastructure.Services;
 using NiN3.Infrastructure.DbContexts;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-//using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Xml;
+
 
 namespace NiN.Infrastructure.Services
 {
@@ -30,7 +21,7 @@ namespace NiN.Infrastructure.Services
         private IConfiguration _conf;
         public List<CsvdataImporter_htg_ht_gt_mapping> csvdataImporter_Htg_Ht_Gt_Mappings { get; set; }
         public List<CsvdataImporter_Type_Htg_mapping> csvdataImporter_Type_Htg_Mappings { get; set; }
-        public List<Type> _typer { get; set; }
+        public List<NiN3.Core.Models.Type> _typer { get; set; }
         //private List<Prosedyrekategori> Prosedyrekategoris;
         //private List<Ecosystnivaa> Ecosystnivaas;
         //private List<Typekategori> Typekategoris;
@@ -57,87 +48,21 @@ namespace NiN.Infrastructure.Services
             return tableNames;
         }
 
+
         /*
-        private void PopulateEntitiesTypeDict() {
-            EntitiesTypeDict.Add("", typeof(Ecosystnivaa));
-            EntitiesTypeDict.Add("", typeof(Maalestokk));
-            EntitiesTypeDict.Add("", typeof(Prosedyrekategori));
-            EntitiesTypeDict.Add("", typeof(a));
-            EntitiesTypeDict.Add("", typeof(Ecosystnivaa));
-            EntitiesTypeDict.Add("", typeof(Ecosystnivaa));
-
-        }*/
-
-
-        public string Tabelldata(string tablename)
+        public List<dynamic> Tabelldata(string tablename)
         {
-            /*  "Versjon",
-                  "Grunntype",
-                  "Hovedtype",
-                  "Hovedtypegruppe",
-                  "Ecosystnivaa",
-                  "Maalestokk",
-                  "Prosedyrekategori",
-                  "Typekategori",
-                  "Typekategori2Enum",
-                  "Typekategori3",
-                  "Variabelkategori",
-                  "Variabelkategori2",
-                  "Variabeltype",
-                  "Type",
-                  "Undertype"*/
+            // write a switch that gets records based on tablename possible options are "Type, Hovedtypegruppe and Hovedtype"
             string res = "";
             dynamic rs = new List<dynamic>();
-            switch (tablename)
-            {
-                case "Versjon":
-                    //rs = _context.Versjon.Cast<Object>().ToList();
-                    rs = _context.Versjon.ToList();
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;
-                case "Grunntype":
-                    rs = _context.Grunntype.ToList();
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;
-                case "Hovedtype":
-                    rs = _context.Hovedtype.ToList();
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;
-                case "Hovedtypegruppe":
-                    rs = _context.Hovedtypegruppe.ToList();
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;
-                case "Ecosystnivaa":
-                    //rs = _context.Ecosystnivaa.ToList();
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;
-                /*case "Maalestokk":
-                    rs = _context.Maalestokk.ToList();
-
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;*/
-                /*case "Prosedyrekategori":
-                    rs = _context.Prosedyrekategori.ToList();
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;*/
-                /*case "Typekategori":
-                    rs = _context.Typekategori.ToList();
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;*/
-                /*case "Typekategori2Enum":
-                    rs = _context.Typekategori2.ToList();
-                    //res = JsonConvert.SerializeObject(rs);
-                    break;*/
-                case "Type":
-                    rs = _context.Type.ToList();
-                    break;
-                case null:
-                    break;
-            }
-            //return rs;
-            return JsonConvert.SerializeObject(rs);
+            //FormattableString sql = $"SELECT * FROM [{tablename}]";
+            //var result = _context.Database.FromRaw(sql);'
+            string typeName = "NiN3.Core.Model.{tablename}";
+            System.Type type = System.Type.GetType(typeName);
+            var result = _context.Set<dynamic>).FromSql($"select * from {tablename}").ToList();
+            return (List<object>)result;
         }
-
+        */
 
         public IEnumerable<Versjon> HentDomener()
         {
@@ -304,14 +229,10 @@ namespace NiN.Infrastructure.Services
                 var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
                 foreach (var htg in hovedtypegrupper)
                 {
-                    //var tk2 = Typekategori2s.FirstOrDefault(s => s.Kode == htg.Typekategori2);
-                    //var typekode = //q: get typekode from csvdataimporter_type_hgt_mapping given htg.typekategori2 using linq
                     var typeKode = csvdataImporter_Type_Htg_Mappings.Where(x => x.Typekategori2 == htg.Typekategori2.ToString()).Select(x => x.Type_kode).FirstOrDefault();
-                    //var type = //q: get type from typer given typeKode
                     var type = typer.FirstOrDefault(s => s.Kode == typeKode);
                     var hovedtg = new Hovedtypegruppe()
                     {
-                        /* Id = Guid.NewGuid(), */
                         Kode = htg.Kode,
                         Typekategori2 = htg.Typekategori2,
                         Versjon = domene,
@@ -338,8 +259,8 @@ namespace NiN.Infrastructure.Services
                 var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
                 foreach (var type in typer)
                 {
-                    var t = new Type()
-                    { /* Id = Guid.NewGuid(), */
+                    var t = new NiN3.Core.Models.Type()
+                    { 
                         Kode = type.Kode,
                         Ecosystnivaa = type.Ecosystnivaa,
                         Typekategori = type.Typekategori,
@@ -354,6 +275,11 @@ namespace NiN.Infrastructure.Services
             {
                 _logger.LogInformation("Objecttype <<Type>> allready has data!");
             }
+        }
+
+        public List<object> Tabelldata(string tablename)
+        {
+            throw new NotImplementedException();
         }
     }
 }

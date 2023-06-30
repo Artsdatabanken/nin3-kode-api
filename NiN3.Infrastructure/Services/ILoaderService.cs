@@ -14,7 +14,7 @@ namespace NiN3.Infrastructure.Services
 
         List<string> Tabeller();
 
-        string Tabelldata(string tablename);
+        List<object> Tabelldata(string tablename);
 
         //void Startup();
     }

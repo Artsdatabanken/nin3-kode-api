@@ -11,6 +11,7 @@ using NLog;
 using NiN3.Infrastructure.Mapping.Profiles;
 using Microsoft.Extensions.DependencyInjection;
 using Azure;
+using NiN3.Infrastructure.Mapping;
 
 
 /*Log.Logger = new LoggerConfiguration()
@@ -107,5 +108,7 @@ app.Use(async (context, next) =>
 
 ////var tokenService = host.Services.GetRequiredService<ITokenService>();
 ////tokenService.DoSomething();
-
+/// todo-sat: instantiate mapper singleton Infrastucture.Mapping.NiN3Mapper and set config.
+var mapper = NiNkodeMapper.Instance;
+mapper.SetConfiguration(builder.Configuration);
 app.Run();
