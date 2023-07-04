@@ -10,6 +10,7 @@ using NiN3.Infrastructure.Services;
 using NiN3.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Xml;
+using System;
 
 
 namespace NiN.Infrastructure.Services
@@ -277,6 +278,35 @@ namespace NiN.Infrastructure.Services
                 _logger.LogInformation("Objecttype <<Type>> allready has data!");
             }
         }
+
+        public void LoadKartleggingsenhet_m005() {
+            var m005list = CsvdataImporter_m005.ProcessCSV("in_data/m005.csv");
+            var m005_gtlist = CsvdataImporter_m005_grunntype_mapping.ProcessCSV("in_data/m005_grunntype_mapping.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).Count() == 0)
+            { 
+            foreach (var m005 in m005list)
+            {
+              var k = new NiN3.Core.Models.Kartleggingsenhet()
+                {
+                    Kode = m005.Kode,
+                    Navn = m005.Navn,
+                    Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M005,
+                    Versjon = _versjon
+                };
+                _context.Add(k);
+            }
+                //todo-sat: find grunntypekoder for m005
+                //loop grunntyper
+                //todo-sat: find grunntype from dbcontext
+                //todo-sat: add the grunntype to the kartleggingsenhet  
+                _context.SaveChanges();
+        }
+            else
+            {
+                _logger.LogInformation("Objecttype <<Type>> allready has data!");
+            }
+}
 
         public List<object> Tabelldata(string tablename)
         {

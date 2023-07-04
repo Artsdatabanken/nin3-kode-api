@@ -32,6 +32,35 @@ namespace Test_NiN3KodeAPI.Infrastructure
         }
 
 
+        [Fact]
+        public void TestLoadType()
+        {
+            // Get an instance of the InMemoryDb class
+            var inmemorydb = GetInMemoryDb();
+            // Create a new LoaderService instance
+            var service = new LoaderService(null, inmemorydb, _logger);
+            // Load the TypeData
+            service.LoadTypeData();
+            service.LoadHtg_Ht_Gt_Mappings();
+            // service.LoadHovedtypeData();
+            // Get the number of Type records
+            var numOfTD = inmemorydb.Type.Count();
+            var typer = inmemorydb.Type.ToList();
+            // Assert that the number of records is 10
+            Assert.Equal(10, numOfTD);
+        }
+
+
+        [Fact]
+        public void TestLoadType_Htg_Mapping()
+        {
+            var inmemorydb = GetInMemoryDb();
+            // Create a new LoaderService instance
+            var service = new LoaderService(null, inmemorydb, _logger);
+            service.LoadType_HTG_Mappings();
+            Assert.Equal(70, service.csvdataImporter_Type_Htg_Mappings.Count());
+        }
+
         //This code tests the LoadHovedtypeGruppeData() method of the LoaderService class. 
         //It creates an InMemoryDb object and passes it to the LoaderService constructor. 
         //It then calls the LoadHovedtypeGruppeData() method and checks the number of Hovedtypegruppe objects in the InMemoryDb object. 
@@ -128,31 +157,16 @@ namespace Test_NiN3KodeAPI.Infrastructure
         }
 
         [Fact]
-        public void TestLoadType()
-        {
-            // Get an instance of the InMemoryDb class
-            var inmemorydb = GetInMemoryDb();
-            // Create a new LoaderService instance
-            var service = new LoaderService(null, inmemorydb, _logger);
-            // Load the TypeData
-            service.LoadTypeData();
-            service.LoadHtg_Ht_Gt_Mappings();
-            // service.LoadHovedtypeData();
-            // Get the number of Type records
-            var numOfTD = inmemorydb.Type.Count();
-            var typer = inmemorydb.Type.ToList();
-            // Assert that the number of records is 10
-            Assert.Equal(10, numOfTD);
-        }
-
-        [Fact]
-        public void TestLoadType_Htg_Mapping()
+        public void TestLoadKartleggingsenhet_m005()
         {
             var inmemorydb = GetInMemoryDb();
             // Create a new LoaderService instance
             var service = new LoaderService(null, inmemorydb, _logger);
-            service.LoadType_HTG_Mappings();
-            Assert.Equal(70, service.csvdataImporter_Type_Htg_Mappings.Count());
+            service.load_all_data();
+            service.LoadKartleggingsenhet_m005();
+            var numOfKE = inmemorydb.Kartleggingsenhet.Count();
+            Assert.Equal(651, numOfKE);
+            //Assert.Equal(1405, service.csvdataImporter_Kartleggingsenhet_m005.Count());
         }
     }
 }

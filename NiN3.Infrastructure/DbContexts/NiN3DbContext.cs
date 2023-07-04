@@ -60,6 +60,8 @@ namespace NiN3.Infrastructure.DbContexts
         public DbSet<Hovedtypegruppe> Hovedtypegruppe { get; set; }
         public DbSet<Hovedtype> Hovedtype { get; set; }
         public DbSet<Grunntype> Grunntype { get; set; }
+        public DbSet<Kartleggingsenhet> Kartleggingsenhet { get; set; }
+        public DbSet<Hovedtype_Kartleggingsenhet> Hovedtype_Kartleggingsenhet { get; set; }
         //public DbSet<Undertype> Undertype { get; set; }
 
         //public DbSet<Variabeltype> Variabeltype { get; set;}
