@@ -16,3 +16,5 @@ Infrastructure.Mapping/obj/
 NiN3.WebApi/Properties/
 NiN3.WebApi/.config/dotnet-tools.json
 identifier.sqlite
+NiN3.WebApi/nin3kodeapi.db-shm
+NiN3.WebApi/nin3kodeapi.db-wal

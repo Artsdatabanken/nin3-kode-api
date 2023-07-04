@@ -77,7 +77,8 @@ namespace NiN3.Infrastructure.Mapping
                 Kategori = "Type",
                 Kode = MapKode(type.Kode)
             };
-            type.Hovedtypegrupper.ToList().ForEach(h => typedto.Hovedtypegrupper.Add(Map(h)));
+            //type.Hovedtypegrupper.ToList().ForEach(h => typedto.Hovedtypegrupper.Add(Map(h)));
+            Parallel.ForEach(type.Hovedtypegrupper.ToList(), g => typedto.Hovedtypegrupper.Add(Map(g)));
             return typedto;
         }
 
@@ -96,7 +97,8 @@ namespace NiN3.Infrastructure.Mapping
                 Kategori = "Hovedtypegruppe",
                 Kode = MapKode(hovedtypegruppe.Kode)
             };
-            hovedtypegruppe.Hovedtyper.ToList().ForEach(h => hovedtypegruppedto.Hovedtyper.Add(Map(h)));
+            // This code uses the Parallel.ForEach method to loop through a list of Hovedtyper and add them to a Hovedtypegruppedto. The Map method is used to map the Hovedtyper to the Hovedtypegruppedto.
+            Parallel.ForEach(hovedtypegruppe.Hovedtyper.ToList(), g => hovedtypegruppedto.Hovedtyper.Add(Map(g)));
             return hovedtypegruppedto;
         }
 
@@ -114,10 +116,10 @@ namespace NiN3.Infrastructure.Mapping
                 Kategori = "Hovedtype",
                 Kode = MapKode(hovedtype.Kode)
             };
-            hovedtype.Grunntyper.ToList().ForEach(g => hovedtypedto.Grunntyper.Add(Map(g)));
+            //q: rewrite next line to use parallel loop
+            Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => hovedtypedto.Grunntyper.Add(Map(g)));
             return hovedtypedto;
         }
-
 
         /// <summary>
         /// Maps a Grunntype object to a GrunntypeDto object.

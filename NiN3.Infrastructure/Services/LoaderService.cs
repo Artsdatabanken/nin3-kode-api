@@ -171,6 +171,7 @@ namespace NiN.Infrastructure.Services
                     {
                         /* Id = Guid.NewGuid(), */
                         Kode = gt.Kode,
+                        Langkode = gt.Langkode,
                         Navn = gt.Grunntypenavn,
                         Versjon = domene,
                         Delkode = gt.Grunntype,

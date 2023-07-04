@@ -12,18 +12,20 @@ namespace NiN3.Infrastructure.in_data
         public string Grunntypenavn { get; set; }
 
         public string Kode { get; set; }
+        public string Langkode { get; set; }
 
         internal static CsvdataImporter_Grunntype ParseRow(string row)
         {
             var columns = row.Split(';');
             return new CsvdataImporter_Grunntype()
             {
-                Hovedtype = columns[2],
-                Prosedyrekategori = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(columns[1]),
+                Langkode = columns[0],
+                Hovedtype = columns[3],
+                Prosedyrekategori = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(columns[2]),
                 //Hovedtypegruppe = columns[0],
-                Grunntype = columns[3],
-                Grunntypenavn = columns[4],
-                Kode = columns[5]
+                Grunntype = columns[4],
+                Grunntypenavn = columns[5],
+                Kode = columns[6]
             };
         }
 

@@ -113,18 +113,14 @@ namespace Test_NiN3KodeAPI.Infrastructure
             // Create a new LoaderService instance
             var service = new LoaderService(null, inmemorydb, _logger);
             // Load the HovedtypeGruppeData, Htg_Ht_Gt_Mappings, and HovedtypeData
-            service.LoadTypeData();
-            service.LoadType_HTG_Mappings();
-            service.LoadHovedtypeGruppeData();
-            service.LoadHtg_Ht_Gt_Mappings();
-            service.LoadHovedtypeData();
-            service.LoadGrunntypedata();
+            service.load_all_data();
             // Get the number of Grunntype records
             var numOfGD = inmemorydb.Grunntype.Count();
             // Assert that the number of records is 166
             Assert.Equal(1405, numOfGD);
             // Get the Grunntype record with the code "M-A-01-05"
             var grunntype = inmemorydb.Grunntype.Where(gt => gt.Kode == "M-A-01-05").FirstOrDefault();
+            Assert.Equal("NiN-3.0-T-C-PE-NA-MB-MA01-05", grunntype.Langkode);
             // Assert that the name of the record is "sukkertareskog"
             Assert.Equal("spiraltangbunn", grunntype.Navn);
             // Assert that the delkode of the record is "05"
