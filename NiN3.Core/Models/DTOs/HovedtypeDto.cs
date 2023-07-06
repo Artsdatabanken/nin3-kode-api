@@ -13,6 +13,6 @@ namespace NiN3.Core.Models.DTOs
         public KodeDto Kode { get; set; }
         // add icollection of grunntypeDtos
         public ICollection<GrunntypeDto> Grunntyper { get; set; } = new List<GrunntypeDto>();
-
+        public ICollection<KartleggingsenhetDto> Kartleggingsenheter { get; set; } = new List<KartleggingsenhetDto>();
     }
 }

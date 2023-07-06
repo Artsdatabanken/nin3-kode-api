@@ -13,7 +13,7 @@ namespace NiN3.Core.Models
         public string Navn { get; set; }
         public string Kode { get; set; }
         public MaalestokkEnum Maalestokk { get; set; }
-        public ICollection<Grunntype> Grunntype { get; set; }
+        public ICollection<Grunntype> Grunntyper { get; set; } = new List<Grunntype>();
         public Versjon Versjon { get; set; }
     }
 }

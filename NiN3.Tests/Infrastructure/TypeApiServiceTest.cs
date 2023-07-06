@@ -16,6 +16,8 @@ using NiN.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using static System.Net.WebRequestMethods;
 using NiN3.Infrastructure.Mapping;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
+using NiN3.Core.Models;
 
 namespace NiN3.Tests.Infrastructure
 {
@@ -26,10 +28,23 @@ namespace NiN3.Tests.Infrastructure
 
         private IMapper _mapper;
         private ILogger<TypeApiService> _logger;
+        private NiN3DbContext inmemorydb;
 
         public TypeApiServiceTest()
         {
             _logger = new Mock<ILogger<TypeApiService>>().Object;
+        }
+
+        private TypeApiService GetPrepearedTypeApiService()
+        {
+            inmemorydb = GetInMemoryDb();
+            var mapper = NiNkodeMapper.Instance;
+            mapper.SetConfiguration(CreateConfiguration());
+            var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+            var service = new TypeApiService(inmemorydb, _logger);
+            //loader.OpprettInitDb();
+            loader.load_all_data();
+            return service;
         }
 
         private static NiN3DbContext GetInMemoryDb()//out SqliteConnection connection, out DbContextOptions<NiN3DbContext> options)
@@ -44,7 +59,6 @@ namespace NiN3.Tests.Infrastructure
             return context;
         }
 
-
         
         public IConfiguration CreateConfiguration()
         {
@@ -58,31 +72,15 @@ namespace NiN3.Tests.Infrastructure
             return configuration;
         }
 
-        /*
-        private void rigMapper()
-        {
-            //var mappingProfile = new NiN3.Infrastructure.Mapping.Profiles.AllProfiles(CreateConfiguration());
-            var mappingProfile = new NiN3.Infrastructure.Mapping.Profiles.AllProfiles();
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(mappingProfile);
-                //cfg.ValidateInlineMaps = false;
-            });
-            _mapper = new Mapper(config);
-            config.AssertConfigurationIsValid();
-            //config.ValidateInlineMaps();
-        }*/
 
+        ///<summary>
+        ///Tests that all NiN-koder for "Typer" in version 3.0 can be loaded and parsed correctly.
+        ///</summary>
         [Fact]
         public void TestAllCodesVersjon()
         {
             //rigMapper();
-            var inmemorydb = GetInMemoryDb();
-            var mapper = NiNkodeMapper.Instance;
-            mapper.SetConfiguration(CreateConfiguration());
-            var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
-            var service = new TypeApiService(inmemorydb, _logger);
-            loader.OpprettInitDb();
+            TypeApiService service = GetPrepearedTypeApiService();
             ////loader.LoadHovedtypeData();
             var v3allCodes = service.AllCodes("3.0");
             Assert.Equal("3.0", v3allCodes.Navn);
@@ -105,6 +103,29 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(1, hovedtype.Grunntyper.Count);
             var grunntype = hovedtype.Grunntyper.First();
             Assert.Equal("MS-0-08-01", grunntype.Kode.Id);
+        }
+
+        ///<summary>
+        ///Tests that a Kartleggingsenhet exists under a Hovedtype 
+        ///and is placed correctly in the Type hierarchy.
+        ///</summary>
+        [Fact]
+        public void TestAllCodes_kartleggingsenhet_exist_under_hovedtype() {
+            var service = GetPrepearedTypeApiService();
+            var v3allCodes = service.AllCodes("3.0");
+            var type_C_PE_NA = v3allCodes.Typer.FirstOrDefault(t => t.Kode.Id == "C-PE-NA");
+            //assert not null
+            Assert.NotNull(type_C_PE_NA);
+            var htg_NA_I = type_C_PE_NA.Hovedtypegrupper.FirstOrDefault(htg => htg.Kode.Id == "NA-I");
+            //assert not null
+            Assert.NotNull(htg_NA_I);
+            var ht_I_A_01 = htg_NA_I.Hovedtyper.FirstOrDefault(ht => ht.Kode.Id == "I-A-01");
+            //assert not null
+            Assert.NotNull(ht_I_A_01);
+            var kl_LA02_M005 = ht_I_A_01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode == "NiN-3.0-T-C-PE-NA-MB-LA02-M005-03");
+            Assert.NotNull(kl_LA02_M005);
+            Assert.Equal("svært kalkfattig innsjø-sedimentbunn av silt til sand i plantebeltet", kl_LA02_M005.Navn);
+            Assert.Equal("Kartleggingsenhet", kl_LA02_M005.Kategori);
         }
     }
 }

@@ -26,7 +26,6 @@ void LoadDB() {
 }
 var buildtDbFileName = config.GetValue<string>("bildtDbFileName");
 var buildtDbFileFullPath = config.GetValue<string>("buildtDBFilePath");
-//var ex = config.GetConnectionString("Extract");
 using var loggerFactory = LoggerFactory.Create(builder =>
 {
     builder
@@ -76,8 +75,7 @@ while (run)
                 if (fi.Exists)
                 {
                     fi.Delete();
-                }
-                
+                }  
             }
             else
             {

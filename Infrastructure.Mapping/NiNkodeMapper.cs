@@ -118,6 +118,19 @@ namespace NiN3.Infrastructure.Mapping
             };
             //q: rewrite next line to use parallel loop
             Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => hovedtypedto.Grunntyper.Add(Map(g)));
+            var hovedtype_kartleggingsenheter = hovedtype.Hovedtype_Kartleggingsenheter.ToList();
+            
+            //Parallel.ForEach(hovedtype_kartleggingsenheter.ToList(), g => hovedtypedto.Kartleggingsenheter.Add(Map(g.kartleggingsenhet)));
+            foreach (var g in hovedtype_kartleggingsenheter)
+            {
+                if (g.Kartleggingsenhet != null)
+                {
+                    hovedtypedto.Kartleggingsenheter.Add(Map(g.Kartleggingsenhet));
+                }
+                else { 
+                    Console.WriteLine($"Kartleggingsenhet is null for hovedtype {hovedtype.Navn} (, ht_kl-object: {g.Id})");
+                }
+            }
             return hovedtypedto;
         }
 
@@ -136,6 +149,24 @@ namespace NiN3.Infrastructure.Mapping
             };
             return grunntypedto;
         }
+
+        /// <summary>
+        /// Maps a Kartleggingsenhet object to a KartleggingsenhetDto object.
+        /// </summary>
+        /// <param name="kartleggingsenhet">The object to map</param>
+        /// <returns>A newly created KartleggingsenhetDto object</returns>
+        public KartleggingsenhetDto Map(Kartleggingsenhet kartleggingsenhet)
+        {
+            var kartleggingsenhetdto = new KartleggingsenhetDto()
+            {
+                Navn = kartleggingsenhet.Navn,
+                Kategori = "Kartleggingsenhet",
+                Kode = kartleggingsenhet.Kode
+            };
+            Parallel.ForEach(kartleggingsenhet.Grunntyper.ToList(), g => kartleggingsenhetdto.Grunntyper.Add(Map(g)));
+            return kartleggingsenhetdto;
+        }
+
 
         /// <summary>
         /// Maps a code to a KodeDto object.

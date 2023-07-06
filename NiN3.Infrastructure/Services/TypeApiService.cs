@@ -36,11 +36,11 @@ namespace NiN3.Infrastructure.Services
             _logger = logger;
         }
 
-/// <summary>
-/// Retrieves all codes for a given version.
-/// </summary>
-/// <param name="versjon">The version to retrieve codes for.</param>
-/// <returns>A VersjonDto containing all codes for the given version.</returns>
+        /// <summary>
+        /// Retrieves all codes for a given version.
+        /// </summary>
+        /// <param name="versjon">The version to retrieve codes for.</param>
+        /// <returns>A VersjonDto containing all codes for the given version.</returns>
         public VersjonDto AllCodes(string versjon)
         {
             var mapper = NiNkodeMapper.Instance;
@@ -49,7 +49,13 @@ namespace NiN3.Infrastructure.Services
                 .ThenInclude(type => type.Hovedtypegrupper.OrderBy(htg => htg.Kode))
                     .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Kode))
                         .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Kode))
-            .First();
+                            .Include(v => v.Typer)
+        .ThenInclude(type => type.Hovedtypegrupper)
+            .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper)
+                .ThenInclude(hovedtype => hovedtype.Hovedtype_Kartleggingsenheter)
+                .ThenInclude(Hovedtype_Kartleggingsenheter => Hovedtype_Kartleggingsenheter.Kartleggingsenhet)
+                .ThenInclude(kartleggingsenhet => kartleggingsenhet.Grunntyper)
+             .First();
             return mapper.Map(_versjon);
         }
 

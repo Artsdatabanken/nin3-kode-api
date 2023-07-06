@@ -165,8 +165,10 @@ namespace Test_NiN3KodeAPI.Infrastructure
             service.load_all_data();
             service.LoadKartleggingsenhet_m005();
             var numOfKE = inmemorydb.Kartleggingsenhet.Count();
+            var firstKE = inmemorydb.Kartleggingsenhet.OrderBy(x => x.Kode).First();
+            var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
+            Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
             Assert.Equal(651, numOfKE);
-            //Assert.Equal(1405, service.csvdataImporter_Kartleggingsenhet_m005.Count());
         }
     }
 }

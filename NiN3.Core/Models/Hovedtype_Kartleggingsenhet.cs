@@ -9,9 +9,9 @@ namespace NiN3.Core.Models
     public class Hovedtype_Kartleggingsenhet
     {
         public Guid Id { get; set; }
-        Versjon versjon { get; set; }
+        public Versjon Versjon { get; set; }
 
-        Kartleggingsenhet kartleggingsenhet { get; set; }
-        Hovedtype hovedtype { get; set; }
+        public Kartleggingsenhet Kartleggingsenhet { get; set; }
+        public Hovedtype Hovedtype { get; set; }
     }
 }

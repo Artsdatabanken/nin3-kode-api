@@ -19,5 +19,6 @@ namespace NiN3.Core.Models
         [ForeignKey("HovedtypegruppeId")]
         public Hovedtypegruppe Hovedtypegruppe { get; set; }
         public ICollection<Grunntype> Grunntyper { get; set; }
+        public ICollection<Hovedtype_Kartleggingsenhet> Hovedtype_Kartleggingsenheter { get; set; } 
     }
 }
