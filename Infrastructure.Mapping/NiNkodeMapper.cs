@@ -119,19 +119,6 @@ namespace NiN3.Infrastructure.Mapping
             //q: rewrite next line to use parallel loop
             Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => hovedtypedto.Grunntyper.Add(Map(g)));
             var hovedtype_kartleggingsenheter = hovedtype.Hovedtype_Kartleggingsenheter.ToList();
-
-            //Parallel.ForEach(hovedtype_kartleggingsenheter.ToList(), g => hovedtypedto.Kartleggingsenheter.Add(Map(g.kartleggingsenhet)));
-            /*
-            foreach (var g in hovedtype_kartleggingsenheter)
-            {
-                if (g.Kartleggingsenhet != null)
-                {
-                    hovedtypedto.Kartleggingsenheter.Add(Map(g.Kartleggingsenhet));
-                }
-                else { 
-                    Console.WriteLine($"Kartleggingsenhet is null for hovedtype {hovedtype.Navn} (, ht_kl-object: {g.Id})");
-                }
-            }*/
             Parallel.ForEach(hovedtype_kartleggingsenheter, g =>
             {
                 if (g.Kartleggingsenhet != null)
@@ -157,7 +144,7 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = grunntype.Navn,
                 Kategori = "Grunntype",
-                Kode = MapKode(grunntype.Kode)
+                Kode = MapKode(grunntype.Kode, grunntype.Langkode)
             };
             return grunntypedto;
         }
@@ -186,7 +173,7 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="kode">The code to be mapped.</param>
         /// <returns>A KodeDto object containing the code and its definition.</returns>
-        public KodeDto MapKode(String kode)
+        public KodeDto MapKode(String kode, String? langkode=null)
         {
             //var _root_url = "https://nin-kode-api.artsdatabanken.no/v3.0";
             var kodeDto = new KodeDto()
@@ -194,6 +181,10 @@ namespace NiN3.Infrastructure.Mapping
                 Id = kode,
                 Definisjon = _root_url + "/typer/hentkode/" + kode,
             };
+            if(langkode != null)
+            {
+                kodeDto.Langkode = langkode;
+            }
             return kodeDto;
         }
     }
