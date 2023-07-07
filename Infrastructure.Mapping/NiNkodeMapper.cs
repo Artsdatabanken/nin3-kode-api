@@ -114,7 +114,8 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = hovedtype.Navn,
                 Kategori = "Hovedtype",
-                Kode = MapKode(hovedtype.Kode)
+                Kode = MapKode(hovedtype.Kode),
+                Prosedyrekategori = $"{hovedtype.Prosedyrekategori.ToString()}: {EnumUtil.ToDescription(hovedtype.Prosedyrekategori)}",
             };
             //q: rewrite next line to use parallel loop
             Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => hovedtypedto.Grunntyper.Add(Map(g)));

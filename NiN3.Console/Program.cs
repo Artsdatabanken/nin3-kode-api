@@ -62,9 +62,6 @@ while (run)
             var loader = new LoaderService(config, db, _logger);
             loader.load_all_data();
             // then exit program
-
-
-
             break;
         case "exit":
             return;
