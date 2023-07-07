@@ -70,18 +70,10 @@ namespace NiN.Infrastructure.Services
             return _context.Versjon.OrderBy(c => c.Navn).ToList();
         }
 
-        public void DoMigrations()
-        {// from adminController.
-            _context.Database.Migrate();
-        }
-
 
         //public bool OpprettInitDbAsync()
         public bool OpprettInitDb()
         {
-            //throw new NotImplementedException();
-            //SeedLookupData();
-
             LoadLookupData();
             LoadType_HTG_Mappings();
             LoadHtg_Ht_Gt_Mappings();
@@ -91,8 +83,6 @@ namespace NiN.Infrastructure.Services
                 _logger.LogInformation("Import of Types. Done");
                 LoadHovedtypeGruppeData();
                 _logger.LogInformation("Import of HTGdata. Done");
-                //todo-sat: load mapping csv
-
                 LoadHovedtypeData();
                 _logger.LogInformation("Import of HTdata. Done");
 
@@ -136,6 +126,7 @@ namespace NiN.Infrastructure.Services
             // Log a message to indicate that the Type_HTG_Mapping has been loaded
             _logger.LogInformation("Type_HTG_Mapping lastet");
         }
+        
         /// <summary>
         /// Creates an instance of the CsvdataImporter_htg_ht_gt_mapping class and logs a message to indicate that the Htg_Ht_Gt_Mapping has been loaded.
         /// </summary>
@@ -157,6 +148,11 @@ namespace NiN.Infrastructure.Services
             domenes.Add(new Versjon() { Navn = "3.0" });
             _context.SaveChanges();
         }
+        
+        /// <summary>
+        /// Loads data for the Grunntype entity type. 
+        /// It imports Grunntype data if the table is empty and saves it to the database.
+        /// </summary>
         public void LoadGrunntypedata()
         {
             if (_context.Grunntype.Count() == 0)
@@ -191,6 +187,9 @@ namespace NiN.Infrastructure.Services
             }
         }
 
+        /// <summary>
+        /// Loads the data for Hovedtype if there is no data available in the context.
+        /// </summary>
         public void LoadHovedtypeData()
         {
             if (_context.Hovedtype.Count() == 0)
@@ -221,6 +220,10 @@ namespace NiN.Infrastructure.Services
                 _logger.LogInformation("Objecttype <<Hovedtype>> allready has data!");
             }
         }
+        
+        /// <summary>
+        /// Loads data of hovedtypegruppe from CSV file to database, if data not already present.
+        /// </summary>
         public void LoadHovedtypeGruppeData()
         {
             //q: fetch typer from _context
@@ -253,6 +256,9 @@ namespace NiN.Infrastructure.Services
             }
         }
 
+        /// <summary>
+        /// Loads data for Type object if not already present in the database.
+        /// </summary>
         public void LoadTypeData()
         {
             var tp_count = _context.Hovedtypegruppe.Count();
@@ -279,7 +285,10 @@ namespace NiN.Infrastructure.Services
                 _logger.LogInformation("Objecttype <<Type>> allready has data!");
             }
         }
-
+        
+        /// <summary>
+        /// Loads data into database for kartleggingsenhet with maalestokk M005
+        /// </summary>
         public void LoadKartleggingsenhet_m005()
         {
             var m005list = CsvdataImporter_m005.ProcessCSV("in_data/m005.csv");

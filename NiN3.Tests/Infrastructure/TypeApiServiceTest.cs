@@ -90,11 +90,12 @@ namespace NiN3.Tests.Infrastructure
             var firstType = v3allCodes.Typer.First();
             Assert.Equal("A-LV-BM", firstType.Kode.Id);
             Assert.Equal("abiotisk landformvariasjon bremassiv", firstType.Navn);
-            //Assert.Equal("https://nin-kode-api.artsdatabanken.no/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
             Assert.StartsWith("http", firstType.Kode.Definisjon);
             Assert.EndsWith("/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
-            Assert.Equal(10, firstType.Hovedtypegrupper.Count);
-            var hovedtypegruppe = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").First();
+            Assert.Equal(10, firstType.Hovedtypegrupper.Count); 
+            var hovedtypegrupper = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").ToList();
+            Assert.True(hovedtypegrupper.Count == 1);
+            var hovedtypegruppe = hovedtypegrupper.First();
             Assert.Equal("0-MS", hovedtypegruppe.Kode.Id);
             Assert.Equal(11, hovedtypegruppe.Hovedtyper.Count);
             // get second hovedtype from firstHovedtypegruppe.Hovedtyper
@@ -126,6 +127,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(kl_IA01_M005_03);
             Assert.Equal("kryokonitt-preget breoverflate", kl_IA01_M005_03.Navn);
             Assert.Equal("Kartleggingsenhet", kl_IA01_M005_03.Kategori);
+            Assert.Equal("M005: kartleggingsenhet tilpasset 1:5000", kl_IA01_M005_03.Maalestokk);
         }
     }
 }

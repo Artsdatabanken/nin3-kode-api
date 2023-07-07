@@ -10,7 +10,7 @@ namespace NiN3.Infrastructure.Services
 
         //bool OpprettInitDbAsync();
         bool OpprettInitDb();
-        void DoMigrations();
+        //void DoMigrations();
 
         List<string> Tabeller();
 

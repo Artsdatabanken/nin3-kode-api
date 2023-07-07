@@ -119,8 +119,9 @@ namespace NiN3.Infrastructure.Mapping
             //q: rewrite next line to use parallel loop
             Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => hovedtypedto.Grunntyper.Add(Map(g)));
             var hovedtype_kartleggingsenheter = hovedtype.Hovedtype_Kartleggingsenheter.ToList();
-            
+
             //Parallel.ForEach(hovedtype_kartleggingsenheter.ToList(), g => hovedtypedto.Kartleggingsenheter.Add(Map(g.kartleggingsenhet)));
+            /*
             foreach (var g in hovedtype_kartleggingsenheter)
             {
                 if (g.Kartleggingsenhet != null)
@@ -130,7 +131,18 @@ namespace NiN3.Infrastructure.Mapping
                 else { 
                     Console.WriteLine($"Kartleggingsenhet is null for hovedtype {hovedtype.Navn} (, ht_kl-object: {g.Id})");
                 }
-            }
+            }*/
+            Parallel.ForEach(hovedtype_kartleggingsenheter, g =>
+            {
+                if (g.Kartleggingsenhet != null)
+                {
+                    hovedtypedto.Kartleggingsenheter.Add(Map(g.Kartleggingsenhet));
+                }
+                else
+                {
+                    Console.WriteLine($"Kartleggingsenhet is null for hovedtype {hovedtype.Navn} (, ht_kl-object: {g.Id})");
+                }
+            });
             return hovedtypedto;
         }
 
@@ -161,7 +173,8 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = kartleggingsenhet.Navn,
                 Kategori = "Kartleggingsenhet",
-                Kode = kartleggingsenhet.Kode
+                Kode = kartleggingsenhet.Kode,
+                Maalestokk = $"{MaalestokkEnum.M005.ToString()}: {EnumUtil.ToDescription(MaalestokkEnum.M005)}"
             };
             Parallel.ForEach(kartleggingsenhet.Grunntyper.ToList(), g => kartleggingsenhetdto.Grunntyper.Add(Map(g)));
             return kartleggingsenhetdto;

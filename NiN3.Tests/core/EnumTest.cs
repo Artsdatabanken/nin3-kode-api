@@ -54,5 +54,12 @@ namespace NiN3.Tests.Test.core
             Typekategori3Enum result = EnumUtil.ParseEnum<Typekategori3Enum>("NK");
             Assert.Equal("vannmassesystemer", EnumUtil.ToDescription(result));
         }
+
+        [Fact]
+        public void TestMaalestokkEnumDescription()
+        {
+            MaalestokkEnum result = EnumUtil.ParseEnum<MaalestokkEnum>("M005");
+            Assert.Equal("kartleggingsenhet tilpasset 1:5000", EnumUtil.ToDescription(result));
+        }
     }
 }
