@@ -52,6 +52,12 @@
 	  <None Update="in_data\m005_grunntype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="in_data\m020.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="in_data\m020_grunntype_mapping.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="in_data\type.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

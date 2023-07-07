@@ -161,7 +161,7 @@ namespace NiN3.Infrastructure.Mapping
                 Navn = kartleggingsenhet.Navn,
                 Kategori = "Kartleggingsenhet",
                 Kode = kartleggingsenhet.Kode,
-                Maalestokk = $"{MaalestokkEnum.M005.ToString()}: {EnumUtil.ToDescription(MaalestokkEnum.M005)}"
+                Maalestokk = $"{kartleggingsenhet.Maalestokk.ToString()}: {EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)}"
             };
             Parallel.ForEach(kartleggingsenhet.Grunntyper.ToList(), g => kartleggingsenhetdto.Grunntyper.Add(Map(g)));
             return kartleggingsenhetdto;

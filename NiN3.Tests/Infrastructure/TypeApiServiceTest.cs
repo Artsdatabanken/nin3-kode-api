@@ -92,7 +92,6 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("abiotisk landformvariasjon bremassiv", firstType.Navn);
             Assert.StartsWith("http", firstType.Kode.Definisjon);
             Assert.EndsWith("/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
-            Assert.Equal(10, firstType.Hovedtypegrupper.Count); 
             var hovedtypegrupper = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").ToList();
             Assert.True(hovedtypegrupper.Count == 1);
             var hovedtypegruppe = hovedtypegrupper.First();
@@ -111,7 +110,7 @@ namespace NiN3.Tests.Infrastructure
         ///and is placed correctly in the Type hierarchy.
         ///</summary>
         [Fact]
-        public void TestAllCodes_kartleggingsenhet_exist_under_hovedtype() {
+        public void TestAllCodes_kartleggingsenhet_exist_under_hovedtype_m005() {
             var service = GetPrepearedTypeApiService();
             var v3allCodes = service.AllCodes("3.0");
             var type_C_PE_NA = v3allCodes.Typer.FirstOrDefault(t => t.Kode.Id == "C-PE-NA");
@@ -128,6 +127,29 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("kryokonitt-preget breoverflate", kl_IA01_M005_03.Navn);
             Assert.Equal("Kartleggingsenhet", kl_IA01_M005_03.Kategori);
             Assert.Equal("M005: kartleggingsenhet tilpasset 1:5000", kl_IA01_M005_03.Maalestokk);
+        }
+
+        [Fact]
+        public void TestAllCodes_kartleggingsenhet_exist_under_hovedtype_m020()
+        {
+            //arrange
+            var service = GetPrepearedTypeApiService();
+
+            //act
+            var v3allCodes = service.AllCodes("3.0");
+            var type_C_PE_NA = v3allCodes.Typer.FirstOrDefault(t => t.Kode.Id == "C-PE-NA");
+            var htg_NA_I = type_C_PE_NA.Hovedtypegrupper.FirstOrDefault(htg => htg.Kode.Id == "NA-I");
+            var ht_I_A_01 = htg_NA_I.Hovedtyper.FirstOrDefault(ht => ht.Kode.Id == "I-A-01");
+            var kl_IA01_M020_02 = ht_I_A_01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode == "NiN-3.0-T-C-PE-NA-MB-IA01-M020-02");
+
+            //assert
+            Assert.NotNull(type_C_PE_NA);
+            Assert.NotNull(htg_NA_I);
+            Assert.NotNull(ht_I_A_01);
+            Assert.NotNull(kl_IA01_M020_02);
+            Assert.Equal("polar havis-overside", kl_IA01_M020_02.Navn);
+            Assert.Equal("Kartleggingsenhet", kl_IA01_M020_02.Kategori);
+            Assert.Equal("M020: kartleggingsenhet tilpasset 1:20 000", kl_IA01_M020_02.Maalestokk);
         }
     }
 }

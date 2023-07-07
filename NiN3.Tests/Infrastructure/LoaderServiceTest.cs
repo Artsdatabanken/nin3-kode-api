@@ -157,7 +157,7 @@ namespace Test_NiN3KodeAPI.Infrastructure
         }
 
         [Fact]
-        public void TestLoadKartleggingsenhet_m005()
+        public void TestLoadKartleggingsenhet_m005_m020()
         {
             var inmemorydb = GetInMemoryDb();
             // Create a new LoaderService instance
@@ -168,7 +168,7 @@ namespace Test_NiN3KodeAPI.Infrastructure
             var firstKE = inmemorydb.Kartleggingsenhet.OrderBy(x => x.Kode).First();
             var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
             Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
-            Assert.Equal(651, numOfKE);
+            Assert.Equal(1046, numOfKE);
         }
     }
 }
