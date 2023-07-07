@@ -168,7 +168,7 @@ namespace Test_NiN3KodeAPI.Infrastructure
             var firstKE = inmemorydb.Kartleggingsenhet.OrderBy(x => x.Kode).First();
             var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
             Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
-            Assert.Equal(1046, numOfKE);
+            Assert.Equal(1286, numOfKE);
         }
     }
 }

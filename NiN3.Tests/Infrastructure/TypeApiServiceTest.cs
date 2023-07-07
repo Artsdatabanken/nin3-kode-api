@@ -100,6 +100,8 @@ namespace NiN3.Tests.Infrastructure
             // get second hovedtype from firstHovedtypegruppe.Hovedtyper
             var hovedtype = hovedtypegruppe.Hovedtyper.Where(ht => ht.Kode.Id == "MS-0-08").First();
             Assert.Equal("MS-0-08", hovedtype.Kode.Id);
+            //assert prosedyrekategori
+            Assert.Equal("A: Normal variasjonsbredde. Variasjon i artssammensetning ikke betinget av strukturerende artsgruppe. Lite endret system.", hovedtype.Prosedyrekategori);
             Assert.Equal(1, hovedtype.Grunntyper.Count);
             var grunntype = hovedtype.Grunntyper.First();
             Assert.Equal("MS-0-08-01", grunntype.Kode.Id);
