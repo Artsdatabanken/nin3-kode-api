@@ -122,10 +122,10 @@ namespace NiN3.Tests.Infrastructure
             var ht_I_A_01 = htg_NA_I.Hovedtyper.FirstOrDefault(ht => ht.Kode.Id == "I-A-01");
             //assert not null
             Assert.NotNull(ht_I_A_01);
-            var kl_LA02_M005 = ht_I_A_01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode == "NiN-3.0-T-C-PE-NA-MB-LA02-M005-03");
-            Assert.NotNull(kl_LA02_M005);
-            Assert.Equal("svært kalkfattig innsjø-sedimentbunn av silt til sand i plantebeltet", kl_LA02_M005.Navn);
-            Assert.Equal("Kartleggingsenhet", kl_LA02_M005.Kategori);
+            var kl_IA01_M005_03 = ht_I_A_01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode == "NiN-3.0-T-C-PE-NA-MB-IA01-M005-03");
+            Assert.NotNull(kl_IA01_M005_03);
+            Assert.Equal("kryokonitt-preget breoverflate", kl_IA01_M005_03.Navn);
+            Assert.Equal("Kartleggingsenhet", kl_IA01_M005_03.Kategori);
         }
     }
 }

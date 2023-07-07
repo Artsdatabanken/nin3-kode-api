@@ -4,6 +4,10 @@ using System.Xml.Serialization;
 
 namespace NiN3.Tests.Test.core
 {
+
+    //<summary>
+    // Tests for various Enums using the EnumUtil Class.
+    //</summary>
     public class EnumTest
     {
 
@@ -37,14 +41,13 @@ namespace NiN3.Tests.Test.core
         [Fact]
         public void TestingProsedyrekategoriEnum()
         {
-            //Spesiell variasjonsbredde. Sterkt endret system.Hevdpreget.Jordbruksmark.
             var stringToParse = "O";
             ProsedyrekategoriEnum e = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(stringToParse);
             Assert.Equal(stringToParse, e.ToString());
             Assert.Equal("Spesiell variasjonsbredde. Sterkt endret system. Hevdpreget. Jordbruksmark.", EnumUtil.ToDescription(e));
         }
 
-        // q: write test that fetches Enum with EnumUtil.ParseEnum for value "NK", enum: TypeKategori3Enum, and checks the Description attribute for typekategori3enum using EnumUtil.ToDescription
+    
         [Fact]
         public void TestFetchEnumDescription()
         {

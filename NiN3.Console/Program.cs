@@ -65,6 +65,27 @@ while (run)
         case "exit":
             return;
             break;
+       /* case "status":
+            var tableNames = db.Model.GetEntityTypes()
+                .Select(t => t.GetTableName())
+                .Distinct()
+                .ToList();
+
+            var tableRowCounts = new Dictionary<string, int>();
+
+            foreach (var tableName in tableNames)
+            {
+                var tableType = db.Model.GetEntityTypes().FirstOrDefault(t => t.GetTableName() == tableName).ClrType;
+                var tableData = db.Set(tableType);
+                var rowCount = tableData.Count();
+                tableRowCounts.Add(tableName, rowCount);
+            }
+
+            foreach (var kvp in tableRowCounts)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
+            break;*/
         case "wipe":
             if (db == null)
             {
