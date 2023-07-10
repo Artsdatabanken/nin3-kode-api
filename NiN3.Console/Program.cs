@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using NiN.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Data.SqlClient;
 // See https://aka.ms/new-console-template for more information
 
 //IConfiguration config;
@@ -58,10 +59,15 @@ while (run)
             // ensure db is created
             LoadDB();
             db.Database.EnsureCreated();
+            
             // run loader
             var loader = new LoaderService(config, db, _logger);
             loader.load_all_data();
-            // then exit program
+            //..and flush pool to disk
+            using (Microsoft.Data.Sqlite.SqliteConnection connection = (Microsoft.Data.Sqlite.SqliteConnection)db.Database.GetDbConnection())
+            {
+                Microsoft.Data.Sqlite.SqliteConnection.ClearPool(connection);
+            }
             break;
         case "exit":
             return;
