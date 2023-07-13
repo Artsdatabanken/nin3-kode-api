@@ -20,3 +20,4 @@ NiN3.WebApi/nin3kodeapi.db-shm
 NiN3.WebApi/nin3kodeapi.db-wal
 db_webapi.session.sql
 .vscode/settings.json
+NiN3.WebApi/NiN3.WebApi.csproj.user

@@ -14,6 +14,12 @@ namespace NiN3.Core.Models.DTOs.type
         public string Kategori { get; set; }
         public KodeDto Kode { get; set; } = new KodeDto();
 
+        public string Ecosystnivaa { get; set; }
+
+        public string Typekategori { get; set; }
+
+        public string? Typekategori2 { get; set; }
+
         public ICollection<HovedtypegruppeDto> Hovedtypegrupper { get; set; } = new List<HovedtypegruppeDto>();
     }
 }
