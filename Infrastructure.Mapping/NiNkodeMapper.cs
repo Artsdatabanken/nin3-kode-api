@@ -68,6 +68,7 @@ namespace NiN3.Infrastructure.Mapping
         }
 
 
+
         /// <summary>
         /// Maps a NiN3.Core.Models.Type to a TypeDto
         /// </summary>
@@ -198,6 +199,12 @@ namespace NiN3.Infrastructure.Mapping
             return kodeDto;
         }
 
+        /// <summary>
+        /// Maps a <paramref name="variabel"/> to a <see cref="VariabelDto"/> object.
+        /// </summary>
+        /// <param name="variabel">The <see cref="Variabel"/> object to map.</param>
+        /// <returns>A new <see cref="VariabelDto"/> object that represents the mapped <paramref name="variabel"/>.</returns>
+
         public VariabelDto Map(Variabel variabel) {
             var variabelDto = new VariabelDto()
             {
@@ -207,7 +214,21 @@ namespace NiN3.Infrastructure.Mapping
                 Ecosystnivaa = $"{variabel.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(variabel.Ecosystnivaa)}",
                 Variabelkategori = $"{variabel.Variabelkategori.ToString()}: {EnumUtil.ToDescription(variabel.Variabelkategori)}"
             };
+            Parallel.ForEach(variabel.Variabelnavn.ToList(), vn => variabelDto.Variabelnavn.Add(Map(vn)));
             return variabelDto;
+        }
+
+        public VariabelnavnDto Map(Variabelnavn variabelnavn)
+        {
+            var variabelnavnDto = new VariabelnavnDto()
+            {
+                Navn = variabelnavn.Navn,
+                Kode = MapKode(variabelnavn.Kode, variabelnavn.Langkode, false),
+                Variabelkategori2 = $"{variabelnavn.Variabelkategori2.ToString()}: {EnumUtil.ToDescription(variabelnavn.Variabelkategori2)}",
+                Variabeltype = $"{variabelnavn.Variabeltype.ToString()}: {EnumUtil.ToDescription(variabelnavn.Variabeltype)}",
+                Variabelgruppe = $"{variabelnavn.Variabelgruppe.ToString()}: {EnumUtil.ToDescription(variabelnavn.Variabelgruppe)}",
+            };
+            return variabelnavnDto;
         }
     }
 }

@@ -80,7 +80,8 @@ namespace NiN3.Tests.Infrastructure
             var firstVariabel = variabler.First();
             Assert.Equal(4, variabler.Count);
             Assert.Equal("A-M", firstVariabel.Kode.Id);
-            Assert.Equal("Abiotisk menneskebetinget", variabler.First().Navn);
+            Assert.Equal("Abiotisk menneskebetinget", firstVariabel.Navn);
+            Assert.True(80<firstVariabel.Variabelnavn.Count);
         }
 
     }

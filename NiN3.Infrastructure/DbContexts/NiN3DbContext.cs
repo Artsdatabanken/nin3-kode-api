@@ -70,6 +70,7 @@ namespace NiN3.Infrastructure.DbContexts
 
         //VARIABLER
         public DbSet<Variabel> Variabel { get; set; }
+        public DbSet<Variabelnavn> Variabelnavn { get; set; }
 
         //ANDRE
         // ...

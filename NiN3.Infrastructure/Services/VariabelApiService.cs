@@ -36,7 +36,9 @@ namespace NiN3.Infrastructure.Services
             var mapper = NiNkodeMapper.Instance;
             Versjon _versjon = _context.Versjon.Where(v => v.Navn == versjon)
                 .Include(v => v.Variabler.OrderBy(v => v.Kode))
+                .ThenInclude(variabel => variabel.Variabelnavn)
                 .Select(v => new Versjon { Id = v.Id, Navn = v.Navn, Variabler = v.Variabler })
+                
                 .FirstOrDefault();
             return mapper.Map(_versjon);
         }

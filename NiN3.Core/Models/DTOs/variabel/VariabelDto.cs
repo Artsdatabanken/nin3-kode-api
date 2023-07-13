@@ -16,7 +16,7 @@ namespace NiN3.Core.Models.DTOs.variabel
         public string Ecosystnivaa { get; set; }
         public string Variabelkategori { get; set; }
 
-        //public ICollection<VariabelnavnDto> Variabelnavn { get; set; } = new List<VariabelnavnDto>();
+        public ICollection<VariabelnavnDto> Variabelnavn { get; set; } = new List<VariabelnavnDto>();
 
     }
 }

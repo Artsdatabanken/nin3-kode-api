@@ -110,6 +110,7 @@ namespace NiN.Infrastructure.Services
             LoadKartleggingsenhet_m020();
             LoadKartleggingsenhet_m050();
             LoadVariabel();
+            LoadVariabelnavn();
 
             _context.SaveChanges();
         }
@@ -430,6 +431,37 @@ namespace NiN.Infrastructure.Services
 
             _context.SaveChanges();
             return loadedVariabels;
+        }
+
+        public List<Variabelnavn> LoadVariabelnavn()
+        {
+            //parse csv file
+            var variabelList = CsvdataImporter_Variabelnavn.ProcessCSV("in_data/variabelnavn_variabel_mapping.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            var loadedVariabelnavn = new List<Variabelnavn>();
+            var parents = _context.Variabel.ToList();
+            //load variabel data to model class
+            foreach (var v in variabelList.OrderBy(v => v.Kode))
+            {
+                var parent = parents.FirstOrDefault(p => p.Kode == v.VariabelKode);
+                var variabel = new Variabelnavn()
+                {
+                    Kode = v.Kode,
+                    Navn = v.Navn,
+                    Versjon = _versjon,
+                    Variabelkategori2 = v.Variabelkategori2, // No semicolon here
+                    Variabeltype = v.Variabeltype,
+                    Variabelgruppe = v.Variabelgruppe,
+                    Variabel = parent,
+                    Langkode = v.Langkode,
+                    //Versjon = _versjon
+                };
+                _context.Add(variabel);
+                loadedVariabelnavn.Add(variabel);
+            }
+
+            _context.SaveChanges();
+            return loadedVariabelnavn;
         }
 
         public void LoadKartleggingsenhet_m050()

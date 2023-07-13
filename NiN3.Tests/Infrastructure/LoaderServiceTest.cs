@@ -188,5 +188,28 @@ namespace Test_NiN3KodeAPI.Infrastructure
             Assert.Equal("Abiotisk menneskebetinget", firstV.Navn);
             Assert.Equal(4, numOfV);
         }
+
+        [Fact]  
+        //write test that fetches variabelnavn from database
+        public void TestLoadVariabelnavn()
+        {
+            var inmemorydb = GetInMemoryDb();
+            // Create a new LoaderService instance
+            var service = new LoaderService(null, inmemorydb, _logger);
+            service.LoadVariabel();
+            var VariabelnavnList = service.LoadVariabelnavn();
+            var numOfVN = VariabelnavnList.Count();
+            var firstVN = VariabelnavnList.OrderBy(x => x.Kode).First();
+            Assert.NotNull(firstVN);
+
+            //Assert.NotNull(firstVN);
+            //Assert.Equal("A-M", firstVN.Kode);
+            //Assert.Equal("Abiotisk menneskebetinget", firstVN.Navn);
+            Assert.Equal(364, numOfVN);
+            Assert.True(firstVN.Kode == "AD-FA");
+            Assert.True(firstVN.Navn == "Farge");
+            //todo-sat: test more fields here
+        }
+
     }
 }

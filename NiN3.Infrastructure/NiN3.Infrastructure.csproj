@@ -25,6 +25,7 @@
 		<ProjectReference Include="..\NiN3.Core\NiN3.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="in_data\v30\" />
 	  <Folder Include="Migrations\" />
 	  <Folder Include="Database\" />
 	</ItemGroup>
@@ -71,6 +72,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="in_data\variabel.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="in_data\variabelnavn_variabel_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
