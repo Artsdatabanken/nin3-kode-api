@@ -12,6 +12,7 @@ namespace NiN3.Core.Models.Enums
         [Description("Elveløpsegenskaper")]
         EE,
         [Description("Skogbruksrelaterte egenskaper")]
+        
         SB,
         [Description("Liggende død ved (læger)")]
         DL,
@@ -57,9 +58,7 @@ namespace NiN3.Core.Models.Enums
         SU,
         [Description("Jordbruksrelaterte egenskaper")]
         JB,
-        [Description("Skogbruksegenskaper")]
-        SB,
-        [Description("Stående død ved (gadder)")]
+        [Description("Stående død ved (gadder)")]        
         DG,
         [Description("Relativ sammensetning av død ved")]
         DR,

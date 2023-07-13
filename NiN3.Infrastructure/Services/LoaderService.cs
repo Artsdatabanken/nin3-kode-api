@@ -11,7 +11,7 @@ using NiN3.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Xml;
 using System;
-
+using NiN3.Core.Models.Enums;
 
 namespace NiN.Infrastructure.Services
 {
@@ -109,6 +109,7 @@ namespace NiN.Infrastructure.Services
             LoadKartleggingsenhet_m005();
             LoadKartleggingsenhet_m020();
             LoadKartleggingsenhet_m050();
+            LoadVariabel();
 
             _context.SaveChanges();
         }
@@ -402,6 +403,34 @@ namespace NiN.Infrastructure.Services
             }
         }
 
+        //load variabel 
+        public List<Variabel> LoadVariabel()
+        {
+            //parse csv file
+            var variabelList = CsvDataImporter_Variabel.ProcessCSV("in_data/variabel.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            var loadedVariabels = new List<Variabel>();
+
+            //load variabel data to model class
+            foreach (var v in variabelList.OrderBy(v => v.Kode))
+            {
+                var _navn = $"{EnumUtil.ToDescription(v.Ecosystnivaa)} {EnumUtil.ToDescription(v.Variabelkategori)}".ToLower().Replace("_", " ");
+                _navn = char.ToUpper(_navn[0]) + _navn.Substring(1);
+                var variabel = new Variabel()
+                {
+                    Kode = v.Kode,
+                    Ecosystnivaa = v.Ecosystnivaa,
+                    Variabelkategori = v.Variabelkategori, // No semicolon here
+                    Navn = _navn,
+                    Versjon = _versjon
+                };
+                _context.Add(variabel);
+                loadedVariabels.Add(variabel);
+            }
+
+            _context.SaveChanges();
+            return loadedVariabels;
+        }
 
         public void LoadKartleggingsenhet_m050()
         {

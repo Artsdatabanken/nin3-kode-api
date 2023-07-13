@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NiN3.Core.Models.DTOs
+namespace NiN3.Core.Models.DTOs.type
 {
-    public class HovedtypegruppeDto
+    public class GrunntypeDto
     {
         public string Navn { get; set; }
-
-        public string Kategori { get; set; }
+        public string Kategori { get; set; } = "Grunntype";
         public KodeDto Kode { get; set; }
-        
-        public ICollection<HovedtypeDto> Hovedtyper { get; set; } = new List<HovedtypeDto>();
     }
 }

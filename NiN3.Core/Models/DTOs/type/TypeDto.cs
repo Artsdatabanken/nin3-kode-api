@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NiN3.Core.Models.DTOs
+namespace NiN3.Core.Models.DTOs.type
 {
     [JsonObject("Type")]
     public class TypeDto

@@ -89,7 +89,9 @@ namespace Test_NiN3KodeAPI.Infrastructure
         }
 
         [Fact]
-        //This code tests the LoadHovedtype method by creating an in-memory database, instantiating a LoaderService object, and then calling the LoadHovedtypeGruppeData, LoadHtg_Ht_Gt_Mappings, and LoadHovedtypeData methods. Finally, it checks that the number of Hovedtype objects in the in-memory database is equal to 445. 
+        //This code tests the LoadHovedtype method by creating an in-memory database,
+        //instantiating a LoaderService object, and then calling the LoadHovedtypeGruppeData, LoadHtg_Ht_Gt_Mappings,
+        //and LoadHovedtypeData methods. Finally, it checks that the number of Hovedtype objects in the in-memory database is equal to 445. 
 
         public void TestLoadHovedtype()
         {
@@ -169,6 +171,22 @@ namespace Test_NiN3KodeAPI.Infrastructure
             var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
             Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
             Assert.Equal(1286, numOfKE);
+        }
+
+        //create test for loadvariabel
+        [Fact]
+        public void TestLoadVariabel()
+        {
+            var inmemorydb = GetInMemoryDb();
+            // Create a new LoaderService instance
+            var service = new LoaderService(null, inmemorydb, _logger);
+            service.LoadVariabel();
+            var numOfV = inmemorydb.Variabel.Count();
+            var firstV = inmemorydb.Variabel.OrderBy(x => x.Kode).First();
+            Assert.NotNull(firstV);
+            Assert.Equal("A-M", firstV.Kode);
+            Assert.Equal("Abiotisk menneskebetinget", firstV.Navn);
+            Assert.Equal(4, numOfV);
         }
     }
 }

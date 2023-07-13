@@ -12,5 +12,6 @@ namespace NiN3.Core.Models
         [Required]
         public string Navn { get; set; } = string.Empty;
         public ICollection<Type> Typer { get; set; }
+        public ICollection<Variabel> Variabler { get; set; }
     }
 }

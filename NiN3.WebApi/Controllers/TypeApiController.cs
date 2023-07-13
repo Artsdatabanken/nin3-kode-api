@@ -5,7 +5,8 @@ using NiN3.Infrastructure.Services;
 namespace NiN3.WebApi.Controllers
 {
     //[ApiVersion("3.0")]
-    //[Route("v{version:apiVersion}/koder"), Tags("Kode")]
+    [ApiController]
+    [Route("v3.0/typer"), Tags("Typekoder")]
     public class TypeApiController : Controller
     {
         private readonly ITypeApiService _typeApiService;

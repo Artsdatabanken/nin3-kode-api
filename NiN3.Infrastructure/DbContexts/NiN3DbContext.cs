@@ -69,7 +69,7 @@ namespace NiN3.Infrastructure.DbContexts
         //public DbSet<Variabelgruppe> Variabelgruppe { get; set; }   
 
         //VARIABLER
-        // ...
+        public DbSet<Variabel> Variabel { get; set; }
 
         //ANDRE
         // ...

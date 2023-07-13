@@ -39,7 +39,7 @@ var controllers_to_exclude_from_prod = new ArrayList() { "Admin", "Meta" };
 builder.Services.AddControllers(o =>
 {
     //if (builder.Environment.IsDevelopment())
-    if (builder.Environment.IsProduction())
+    if (builder.Environment.IsProduction() || builder.Environment.IsStaging())
     {
         o.Conventions.Add(new ActionHidingConvention(controllers_to_exclude_from_prod));
     }
@@ -65,6 +65,7 @@ builder.Services.AddDbContext<NiN3DbContext>(options =>
 builder.Services.AddAutoMapper(typeof(AllProfiles));
 builder.Services.AddScoped<ILoaderService, LoaderService>();
 builder.Services.AddScoped<ITypeApiService, TypeApiService>();
+builder.Services.AddScoped<IVariabelApiService, VariabelApiService>();
 //builder.Services.AddSingleton<ISService, SService>();
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();

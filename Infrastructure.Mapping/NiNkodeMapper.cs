@@ -4,6 +4,8 @@ using NiN3.Core.Models.Enums;
 using System.Data;
 using System.ComponentModel;
 using Microsoft.Extensions.Configuration;
+using NiN3.Core.Models.DTOs.type;
+using NiN3.Core.Models.DTOs.variabel;
 
 namespace NiN3.Infrastructure.Mapping
 {
@@ -58,7 +60,9 @@ namespace NiN3.Infrastructure.Mapping
             //Loop through the list of Typer in the Versjon object
             //q: change the following line to use parallell loop        
             //a: 
-            versjon.Typer.ToList().ForEach(t => versjonDto.Typer.Add(Map(t)));
+           
+            versjon.Typer?.ToList().ForEach(t => versjonDto.Typer.Add(Map(t)));
+            versjon.Variabler?.ToList().ForEach(v => versjonDto.Variabler.Add(Map(v)));
             //Return the VersjonDto object
             return versjonDto;
         }
@@ -174,19 +178,32 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="kode">The code to be mapped.</param>
         /// <returns>A KodeDto object containing the code and its definition.</returns>
-        public KodeDto MapKode(String kode, String? langkode=null)
+        public KodeDto MapKode(String kode, String? langkode=null, bool fortyper = true)
         {
+            var typeOrVar = fortyper? "typer": "variabler";
             //var _root_url = "https://nin-kode-api.artsdatabanken.no/v3.0";
             var kodeDto = new KodeDto()
             {
                 Id = kode,
-                Definisjon = _root_url + "/typer/hentkode/" + kode,
+                Definisjon = _root_url + $"/{typeOrVar}/hentkode/" + kode,
             };
             if(langkode != null)
             {
                 kodeDto.Langkode = langkode;
             }
             return kodeDto;
+        }
+
+        public VariabelDto Map(Variabel variabel) {
+            var variabelDto = new VariabelDto()
+            {
+                Kode = MapKode(variabel.Kode, null, false),
+                Navn = variabel.Navn,
+                Kategori = "Variabel",
+                Ecosystnivaa = $"{variabel.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(variabel.Ecosystnivaa)}",
+                Variabelkategori = $"{variabel.Variabelkategori.ToString()}: {EnumUtil.ToDescription(variabel.Variabelkategori)}"
+            };
+            return variabelDto;
         }
     }
 }

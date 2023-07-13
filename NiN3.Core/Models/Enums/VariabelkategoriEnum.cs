@@ -4,7 +4,7 @@ namespace NiN3.Core.Models.Enums
 {
     public enum VariabelkategoriEnum
     {
-        [Description("Mennekebetinget")]
+        [Description("Menneskebetinget")]
         M,
         [Description("Naturgitt")]
         N
