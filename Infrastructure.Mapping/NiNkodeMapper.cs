@@ -6,6 +6,8 @@ using System.ComponentModel;
 using Microsoft.Extensions.Configuration;
 using NiN3.Core.Models.DTOs.type;
 using NiN3.Core.Models.DTOs.variabel;
+using System.Collections.Concurrent;
+using System;
 
 namespace NiN3.Infrastructure.Mapping
 {
@@ -50,6 +52,9 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="versjon">The Versjon object to be mapped.</param>
         /// <returns>A VersjonDto object with the mapped data.</returns>
+        
+
+
         public VersjonDto Map(Versjon versjon)
         {
             //Create a new VersjonDto object
@@ -57,12 +62,22 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = versjon.Navn,
             };
-            //Loop through the list of Typer in the Versjon object
-            //q: change the following line to use parallell loop        
-            //a: 
-           
-            versjon.Typer?.ToList().ForEach(t => versjonDto.Typer.Add(Map(t)));
-            versjon.Variabler?.ToList().ForEach(v => versjonDto.Variabler.Add(Map(v)));
+            // Create a ConcurrentBag for mapped Typer
+            if (versjon.Typer != null && versjon.Typer.Any())
+            {
+                var typerBag = new ConcurrentBag<TypeDto>();
+                Parallel.ForEach(versjon.Typer, t => typerBag.Add(Map(t)));
+                versjonDto.Typer = typerBag.ToList().OrderBy(t => t.Kode.Id).ToList();
+            }
+
+
+            // Create a ConcurrentBag for mapped Variabler
+            if(versjon.Variabler != null && versjon.Variabler.Any()) { 
+                var variablerBag = new ConcurrentBag<VariabelDto>();
+                Parallel.ForEach(versjon.Variabler, v => variablerBag.Add(Map(v)));
+                versjonDto.Variabler = variablerBag.ToList().OrderBy(v => v.Kode.Id).ToList();
+            }
+
             //Return the VersjonDto object
             return versjonDto;
         }
@@ -87,7 +102,9 @@ namespace NiN3.Infrastructure.Mapping
                 Kode = MapKode(type.Kode)
             };
             //type.Hovedtypegrupper.ToList().ForEach(h => typedto.Hovedtypegrupper.Add(Map(h)));
-            Parallel.ForEach(type.Hovedtypegrupper.ToList(), g => typedto.Hovedtypegrupper.Add(Map(g)));
+            var hovedtypegrupperBag = new ConcurrentBag<HovedtypegruppeDto>();
+            Parallel.ForEach(type.Hovedtypegrupper.ToList(), g => hovedtypegrupperBag.Add(Map(g)));
+            typedto.Hovedtypegrupper = hovedtypegrupperBag.ToList();
             return typedto;
         }
 
@@ -107,7 +124,10 @@ namespace NiN3.Infrastructure.Mapping
                 Kode = MapKode(hovedtypegruppe.Kode)
             };
             // This code uses the Parallel.ForEach method to loop through a list of Hovedtyper and add them to a Hovedtypegruppedto. The Map method is used to map the Hovedtyper to the Hovedtypegruppedto.
-            Parallel.ForEach(hovedtypegruppe.Hovedtyper.ToList(), g => hovedtypegruppedto.Hovedtyper.Add(Map(g)));
+            //Parallel.ForEach(hovedtypegruppe.Hovedtyper.ToList(), g => hovedtypegruppedto.Hovedtyper.Add(Map(g)));
+            var hovedtyperBag = new ConcurrentBag<HovedtypeDto>();
+            Parallel.ForEach(hovedtypegruppe.Hovedtyper.ToList(), g => hovedtyperBag.Add(Map(g)));
+            hovedtypegruppedto.Hovedtyper = hovedtyperBag.ToList();
             return hovedtypegruppedto;
         }
 
@@ -126,20 +146,22 @@ namespace NiN3.Infrastructure.Mapping
                 Kode = MapKode(hovedtype.Kode),
                 Prosedyrekategori = $"{hovedtype.Prosedyrekategori.ToString()}: {EnumUtil.ToDescription(hovedtype.Prosedyrekategori)}",
             };
-            //q: rewrite next line to use parallel loop
-            Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => hovedtypedto.Grunntyper.Add(Map(g)));
-            var hovedtype_kartleggingsenheter = hovedtype.Hovedtype_Kartleggingsenheter.ToList();
-            Parallel.ForEach(hovedtype_kartleggingsenheter, g =>
+            var grunntyperBag = new ConcurrentBag<GrunntypeDto>();
+            Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => grunntyperBag.Add(Map(g)));
+            hovedtypedto.Grunntyper = grunntyperBag.ToList();
+            var kartleggingsenheterBag = new ConcurrentBag<KartleggingsenhetDto>();
+            Parallel.ForEach(hovedtype.Hovedtype_Kartleggingsenheter.ToList(), g =>
             {
                 if (g.Kartleggingsenhet != null)
                 {
-                    hovedtypedto.Kartleggingsenheter.Add(Map(g.Kartleggingsenhet));
+                    kartleggingsenheterBag.Add(Map(g.Kartleggingsenhet));
                 }
                 else
                 {
                     Console.WriteLine($"Kartleggingsenhet is null for hovedtype {hovedtype.Navn} (, ht_kl-object: {g.Id})");
                 }
             });
+            hovedtypedto.Kartleggingsenheter = kartleggingsenheterBag.ToList();
             return hovedtypedto;
         }
 
@@ -173,7 +195,10 @@ namespace NiN3.Infrastructure.Mapping
                 Kode = kartleggingsenhet.Kode,
                 Maalestokk = $"{kartleggingsenhet.Maalestokk.ToString()}: {EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)}"
             };
-            Parallel.ForEach(kartleggingsenhet.Grunntyper.ToList(), g => kartleggingsenhetdto.Grunntyper.Add(Map(g)));
+            var grunntyperBag = new ConcurrentBag<GrunntypeDto>();
+            Parallel.ForEach(kartleggingsenhet.Grunntyper.ToList(), g => grunntyperBag.Add(Map(g)));
+            kartleggingsenhetdto.Grunntyper = grunntyperBag.ToList();
+
             return kartleggingsenhetdto;
         }
 
@@ -204,8 +229,8 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="variabel">The <see cref="Variabel"/> object to map.</param>
         /// <returns>A new <see cref="VariabelDto"/> object that represents the mapped <paramref name="variabel"/>.</returns>
-
-        public VariabelDto Map(Variabel variabel) {
+        public VariabelDto Map(Variabel variabel)
+        {
             var variabelDto = new VariabelDto()
             {
                 Kode = MapKode(variabel.Kode, null, false),
@@ -214,10 +239,20 @@ namespace NiN3.Infrastructure.Mapping
                 Ecosystnivaa = $"{variabel.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(variabel.Ecosystnivaa)}",
                 Variabelkategori = $"{variabel.Variabelkategori.ToString()}: {EnumUtil.ToDescription(variabel.Variabelkategori)}"
             };
-            Parallel.ForEach(variabel.Variabelnavn.ToList(), vn => variabelDto.Variabelnavn.Add(Map(vn)));
+
+            var variabelnavnBag = new ConcurrentBag<VariabelnavnDto>();
+            Parallel.ForEach(variabel.Variabelnavn.ToList(), vn => variabelnavnBag.Add(Map(vn)));
+            variabelDto.Variabelnavn = variabelnavnBag.ToList();
+
             return variabelDto;
         }
 
+
+        // <summary>
+        /// Maps a Variabelnavn object to a VariabelnavnDto object.
+        /// </summary>
+        /// <param name="variabelnavn">The Variabelnavn object to map.</param>
+        /// <returns>A VariabelnavnDto object mapping the values of the Variabelnavn parameter.</returns>
         public VariabelnavnDto Map(Variabelnavn variabelnavn)
         {
             var variabelnavnDto = new VariabelnavnDto()

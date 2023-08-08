@@ -77,7 +77,7 @@ namespace NiN3.Tests.Infrastructure
         ///Tests that all NiN-koder for "Typer" in version 3.0 can be loaded and parsed correctly.
         ///</summary>
         [Fact]
-        public void TestAllCodesVersjon()
+        public void TestAllTypeCodesInVersjon()
         {
             //rigMapper();
             TypeApiService service = GetPrepearedTypeApiService();

@@ -1,4 +1,4 @@
-﻿
+﻿/*
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -49,7 +49,7 @@ namespace NiN3.WebApi.Controllers
             return tdr;
         }
         */
-    }
+    /*}*/
     /*
     [HttpGet(Name = "HentDomener")]
     public async Task<ActionResult<IEnumerable<Versjon>>> HentDomener([FromHeader(Name = "admintoken")][Required] string admintokenHeader)
@@ -144,5 +144,4 @@ namespace NiN3.WebApi.Controllers
             return true;
         }
     }*/
-}
-
+/*}*/

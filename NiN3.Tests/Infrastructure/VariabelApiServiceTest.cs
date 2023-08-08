@@ -74,15 +74,15 @@ namespace NiN3.Tests.Infrastructure
             var service = GetPrepearedVariabelApiService();
             var versjon = "3.0";
             var result = service.AllCodes(versjon);
-            var variabler = result.Variabler
-                          .OrderBy(x => x.Kode.Id)
-                          .ToList();
+            var variabler = result.Variabler;
             var firstVariabel = variabler.First();
             Assert.Equal(4, variabler.Count);
             Assert.Equal("A-M", firstVariabel.Kode.Id);
+            var count = variabler.Count(x => x.Kode.Id == "A-M");
+            Assert.Equal(1, count);
             Assert.Equal("Abiotisk menneskebetinget", firstVariabel.Navn);
-            Assert.True(80<firstVariabel.Variabelnavn.Count);
+            const int minVariabelLength = 85;
+            Assert.True(firstVariabel.Variabelnavn.Count() == minVariabelLength);
         }
-
     }
 }

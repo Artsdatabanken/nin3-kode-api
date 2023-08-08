@@ -207,7 +207,12 @@ namespace Test_NiN3KodeAPI.Infrastructure
             //Assert.Equal("Abiotisk menneskebetinget", firstVN.Navn);
             Assert.Equal(364, numOfVN);
             Assert.True(firstVN.Kode == "AD-FA");
-            Assert.True(firstVN.Navn == "Farge");
+            Assert.True(firstVN.Navn == "fremmedartsantall");
+            Assert.True(firstVN.Variabelkategori2.ToString() == "AD");
+            Assert.True(firstVN.Variabelgruppe.ToString() == "FA");
+            Assert.True(firstVN.Variabeltype.ToString() == "GE");
+            Assert.True(firstVN.Versjon.Navn == "3.0");
+            //Assert.True(firstVN. == "");
             //todo-sat: test more fields here
         }
 
