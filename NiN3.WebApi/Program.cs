@@ -35,7 +35,7 @@ if (builder.Environment.IsProduction() || builder.Environment.IsStaging())
 var controllers_to_exclude_from_prod = new ArrayList() { "Admin", "Meta" };
 
 // Add services to the container.
-//var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+builder.Services.AddOutputCache();
 builder.Services.AddControllers(o =>
 {
     //if (builder.Environment.IsDevelopment())
@@ -55,8 +55,9 @@ builder.Services.AddDbContext<NiN3DbContext>(options =>
     {
         options.UseSqlite(builder.Configuration.GetConnectionString("default"));
     }*/
-
     options.UseSqlite(builder.Configuration.GetConnectionString("default"));
+    //options.UseSqlite(builder.Configuration.GetConnectionString("memory"));    // Assuming this is the method the developer wants to use inside the LoaderService class.
+
     //options.UseSqlite("../NiN3.Infrastructure/Database/nin3kapi.db");
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -72,6 +73,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.UseOutputCache();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
@@ -112,4 +114,14 @@ app.Use(async (context, next) =>
 /// todo-sat: instantiate mapper singleton Infrastucture.Mapping.NiN3Mapper and set config.
 var mapper = NiNkodeMapper.Instance;
 mapper.SetConfiguration(builder.Configuration);
+
+// Used if db is memory database, but had som problem with dissapearing tables.
+/*
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetService<NiN3DbContext>();
+    db.Database.EnsureCreated();
+    var loaderService = scope.ServiceProvider.GetService<ILoaderService>();
+    loaderService.load_all_data();
+}*/
 app.Run();

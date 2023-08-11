@@ -58,7 +58,7 @@ while (run)
         case "full":
             // ensure db is created
             LoadDB();
-            db.Database.EnsureCreated();
+            //db.Database.EnsureCreated();
             
             // run loader
             var loader = new LoaderService(config, db, _logger);

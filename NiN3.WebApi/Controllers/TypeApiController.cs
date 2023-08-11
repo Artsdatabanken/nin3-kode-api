@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using NiN3.Core.Models.DTOs;
 using NiN3.Infrastructure.Services;
 
@@ -27,13 +28,15 @@ namespace NiN3.WebApi.Controllers
         }
 
         //This code is a method that is used to get all 'Type'-codes from a service.
-        [HttpGet] //This is an attribute that indicates that this method will handle HTTP GET requests.
-        [Route("allekoder")] //This is an attribute that specifies the route for the method.
-        [ProducesResponseType(typeof(IEnumerable<VersjonDto>), StatusCodes.Status200OK)] //This is an attribute that specifies the type of response that will be returned from the method.
-        public IActionResult GetAll() //This is the method that will handle the request.
+        [HttpGet]
+        [Route("allekoder")]
+        [OutputCache(Duration = 86400)]// 24 timer
+        [ProducesResponseType(typeof(IEnumerable<VersjonDto>), StatusCodes.Status200OK)]
+        public IActionResult GetAll()
         {
-            var versjon = _typeApiService.AllCodes("3.0"); //This line calls the AllCodes() method of the _typeApiService.
-            return Ok(versjon); //This line returns an OK response with the data from the AllCodes() method.
+            var versjon = _typeApiService.AllCodes("3.0");
+            Response.Headers.Add("Cache-Control", "max-age=3600");
+            return Ok(versjon);
         }
     }
 }

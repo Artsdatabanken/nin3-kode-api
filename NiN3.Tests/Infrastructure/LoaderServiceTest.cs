@@ -6,7 +6,7 @@ using Moq;
 using NiN3.Infrastructure.DbContexts;
 using NiN.Infrastructure.Services;
 
-namespace Test_NiN3KodeAPI.Infrastructure
+namespace NiN3.Tests.Infrastructure
 {
 
     public class LoaderServiceTest
@@ -39,7 +39,11 @@ namespace Test_NiN3KodeAPI.Infrastructure
             var inmemorydb = GetInMemoryDb();
             // Create a new LoaderService instance
             var service = new LoaderService(null, inmemorydb, _logger);
+            service.SeedLookupData();
+            service.LoadLookupData();
             // Load the TypeData
+            //service.Load
+            service.LoadLookupData();
             service.LoadTypeData();
             service.LoadHtg_Ht_Gt_Mappings();
             // service.LoadHovedtypeData();
@@ -72,6 +76,8 @@ namespace Test_NiN3KodeAPI.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //Create a LoaderService object and pass the InMemoryDb object to its constructor
             var service = new LoaderService(null, inmemorydb, _logger);
+            service.SeedLookupData();
+            service.LoadLookupData();
             //Call the LoadHovedtypeGruppeData() method
             service.LoadTypeData();
             service.LoadType_HTG_Mappings();
@@ -100,6 +106,8 @@ namespace Test_NiN3KodeAPI.Infrastructure
 
             //Instantiate a LoaderService object
             var service = new LoaderService(null, inmemorydb, _logger);
+            service.SeedLookupData();
+            service.LoadLookupData();
             //Call the LoadHovedtypeGruppeData, LoadHtg_Ht_Gt_Mappings, and LoadHovedtypeData methods
             service.LoadTypeData();
             service.LoadType_HTG_Mappings();
@@ -180,6 +188,8 @@ namespace Test_NiN3KodeAPI.Infrastructure
             var inmemorydb = GetInMemoryDb();
             // Create a new LoaderService instance
             var service = new LoaderService(null, inmemorydb, _logger);
+            service.SeedLookupData();
+            service.LoadLookupData();
             service.LoadVariabel();
             var numOfV = inmemorydb.Variabel.Count();
             var firstV = inmemorydb.Variabel.OrderBy(x => x.Kode).First();
@@ -196,6 +206,8 @@ namespace Test_NiN3KodeAPI.Infrastructure
             var inmemorydb = GetInMemoryDb();
             // Create a new LoaderService instance
             var service = new LoaderService(null, inmemorydb, _logger);
+            service.SeedLookupData();
+            service.LoadLookupData();
             service.LoadVariabel();
             var VariabelnavnList = service.LoadVariabelnavn();
             var numOfVN = VariabelnavnList.Count();

@@ -16,6 +16,8 @@ namespace NiN3.Infrastructure.Services
 
         List<object> Tabelldata(string tablename);
 
+        void load_all_data();
+
         //void Startup();
     }
 }

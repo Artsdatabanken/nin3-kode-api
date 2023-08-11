@@ -9,6 +9,7 @@ namespace NiN3KodeAPI.in_data
         public TypekategoriEnum Typekategori { get; set; }
         public Typekategori2Enum Typekategori2 { get; set; }
         public string Kode { get; set; }
+        public string Langkode { get; set; }
 
         internal static CsvdataImporter_Type ParseRow(string row)
         {

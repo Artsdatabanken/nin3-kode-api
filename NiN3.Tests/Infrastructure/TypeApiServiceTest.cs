@@ -81,11 +81,9 @@ namespace NiN3.Tests.Infrastructure
         {
             //rigMapper();
             TypeApiService service = GetPrepearedTypeApiService();
-            ////loader.LoadHovedtypeData();
             var v3allCodes = service.AllCodes("3.0");
             Assert.Equal("3.0", v3allCodes.Navn);
             Assert.NotNull(v3allCodes);
-            //Assert.Null(v3alleCodes.Typer);
             Assert.Equal(10, v3allCodes.Typer.Count);
             var firstType = v3allCodes.Typer.First();
             Assert.Equal("A-LV-BM", firstType.Kode.Id);

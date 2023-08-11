@@ -36,10 +36,29 @@ namespace NiN.Infrastructure.Services
             _context = context;
             _logger = logger;
             _conf = configuration;
-            Domenes = _context.Versjon.ToList();
-            //PopulateEntitiesTypeDict();
+            //Assuming the method OpprettInitDb() is responsible for creating tables, add the following code to check if tables are already created before running the method. If they do not exist already, then execute the OpprettInitDb() method.
+
+            /* Trying to use memory database to increase performance, but not working at the moment, problems with tables dissapering after creation
+            if (!_context.Database.CanConnect())
+            {
+                _logger.LogInformation("Couldn't connect to database. Running migrations.");
+                _context.Database.Migrate();
+            }
+
+            if (!HasTable("Versjon"))
+            {
+                _context.Database.EnsureCreated();
+            }*/
         }
 
+        private bool HasTable(string tableName)
+        {
+            var tableNames = _context.Model.GetEntityTypes()
+            .Select(t => t.GetTableName())
+            .Distinct()
+            .ToList();
+            return tableNames.Contains(tableName);
+        }
         public List<string?> Tabeller()
         {
             var tableNames = _context.Model.GetEntityTypes()
@@ -100,6 +119,7 @@ namespace NiN.Infrastructure.Services
         public void load_all_data()
         {
             SeedLookupData();
+            LoadLookupData();
             LoadTypeData();
             LoadType_HTG_Mappings();
             LoadHovedtypeGruppeData();
@@ -115,7 +135,7 @@ namespace NiN.Infrastructure.Services
             _context.SaveChanges();
         }
 
-        private void LoadLookupData()
+        public void LoadLookupData()
         {
             Domenes = _context.Versjon.ToList();
         }
@@ -148,7 +168,7 @@ namespace NiN.Infrastructure.Services
         /// <summary>
         /// Seeds the lookup data.
         /// </summary>
-        private void SeedLookupData()
+        public void SeedLookupData()
         {
             List<Versjon> domenes = new List<Versjon>();
             domenes.Add(new Versjon() { Navn = "3.0" });
@@ -267,7 +287,8 @@ namespace NiN.Infrastructure.Services
         /// </summary>
         public void LoadTypeData()
         {
-            var tp_count = _context.Hovedtypegruppe.Count();
+            var tbls = Tabeller();
+            //var tp_count = _context.Hovedtypegruppe.Count();
             if (_context.Type.Count() == 0)
             {
                 var typer = CsvdataImporter_Type.ProcessCSV("in_data/type.csv");
@@ -276,7 +297,7 @@ namespace NiN.Infrastructure.Services
                 {
                     var t = new NiN3.Core.Models.Type()
                     {
-                        Kode = type.Kode,
+                        Kode = type.Kode,                       
                         Ecosystnivaa = type.Ecosystnivaa,
                         Typekategori = type.Typekategori,
                         Typekategori2 = type.Typekategori2,
@@ -462,6 +483,35 @@ namespace NiN.Infrastructure.Services
 
             _context.SaveChanges();
             return loadedVariabelnavn;
+        }
+
+        public string LangkodeForParent(string raw_langkode, string parentType)
+        {
+            // switch case to check type of parent and return corresponding langkode substring
+            // replace with actual code that gets the parent object's type
+            //Todo: Set actual parent types
+            if (raw_langkode != null)
+            {
+                var kodeledd_list = raw_langkode.Split("_");
+                switch (parentType)
+                {
+                    case "NiN3.Core.Models.Type":
+                        //if (kodeledd_list.Length == 1)
+                        return "not impl.";
+                    case "NiN3.Core.Models.Hovedtypegruppe":
+                        
+                        return raw_langkode.Substring(0, 3);
+                    case "NiN3.Core.Models.Hovedtype":
+                        return raw_langkode.Substring(0, 3);
+                    // add additional cases for other types
+                    default:
+                        throw new ArgumentException("Invalid parent type!");
+                }
+            }
+            else {
+                _logger.LogWarning("Langkode is null");
+                return "";
+            }
         }
 
         public void LoadKartleggingsenhet_m050()
