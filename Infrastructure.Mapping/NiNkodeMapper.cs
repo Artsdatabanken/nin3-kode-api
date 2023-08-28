@@ -108,7 +108,7 @@ namespace NiN3.Infrastructure.Mapping
                 Ecosystnivaa = $"{type.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(type.Ecosystnivaa)}",
                 Typekategori = $"{type.Typekategori.ToString()}: {EnumUtil.ToDescription(type.Typekategori)}",
                 Typekategori2 = $"{type.Typekategori2.ToString()}: {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
-                Kode = MapKode(type.Kode)
+                Kode = MapKode(type.Kode, type.Langkode)
             };
             //type.Hovedtypegrupper.ToList().ForEach(h => typedto.Hovedtypegrupper.Add(Map(h)));
             var hovedtypegrupperBag = new ConcurrentBag<HovedtypegruppeDto>();
@@ -130,7 +130,7 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = hovedtypegruppe.Navn,
                 Kategori = "Hovedtypegruppe",
-                Kode = MapKode(hovedtypegruppe.Kode)
+                Kode = MapKode(hovedtypegruppe.Kode, hovedtypegruppe.Langkode)
             };
             // This code uses the Parallel.ForEach method to loop through a list of Hovedtyper and add them to a Hovedtypegruppedto. The Map method is used to map the Hovedtyper to the Hovedtypegruppedto.
             //Parallel.ForEach(hovedtypegruppe.Hovedtyper.ToList(), g => hovedtypegruppedto.Hovedtyper.Add(Map(g)));
@@ -152,7 +152,7 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = hovedtype.Navn,
                 Kategori = "Hovedtype",
-                Kode = MapKode(hovedtype.Kode),
+                Kode = MapKode(hovedtype.Kode, hovedtype.Langkode),
                 Prosedyrekategori = $"{hovedtype.Prosedyrekategori.ToString()}: {EnumUtil.ToDescription(hovedtype.Prosedyrekategori)}",
             };
             var grunntyperBag = new ConcurrentBag<GrunntypeDto>();

@@ -71,6 +71,9 @@
 	  <None Update="in_data\type.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="in_data\typeklasser_langkode_mapping.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="in_data\type_htg_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

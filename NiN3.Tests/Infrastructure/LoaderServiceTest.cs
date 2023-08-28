@@ -117,6 +117,7 @@ namespace NiN3.Tests.Infrastructure
 
             //Check that the number of Hovedtype objects in the in-memory database is equal to 445
             var numOfHD = inmemorydb.Hovedtype.Count();
+            var hovedtyper = inmemorydb.Hovedtype.ToList();
             Assert.Equal(464, numOfHD);
             var firstHovedtype = inmemorydb.Hovedtype.OrderBy(h => h.Kode).FirstOrDefault();
             Assert.NotNull(firstHovedtype);

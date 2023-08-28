@@ -23,11 +23,9 @@ namespace NiN.Infrastructure.Services
         public List<CsvdataImporter_htg_ht_gt_mapping> csvdataImporter_Htg_Ht_Gt_Mappings { get; set; }
         public List<CsvdataImporter_Type_Htg_mapping> csvdataImporter_Type_Htg_Mappings { get; set; }
         public List<NiN3.Core.Models.Type> _typer { get; set; }
-        //private List<Prosedyrekategori> Prosedyrekategoris;
-        //private List<Ecosystnivaa> Ecosystnivaas;
-        //private List<Typekategori> Typekategoris;
-        //private List<Typekategori2> Typekategori2s;
         private List<Versjon> Domenes;
+
+        private List<CsvDataImporter_typeklasser_langkode> Langkoder_typeklasser;
         //private string AdminToken;
         private readonly Dictionary<string, dynamic> EntitiesTypeDict = new Dictionary<string, dynamic>();
 
@@ -49,6 +47,7 @@ namespace NiN.Infrastructure.Services
             {
                 _context.Database.EnsureCreated();
             }*/
+            LoadTypeklasser_langkoder();
         }
 
         private bool HasTable(string tableName)
@@ -227,10 +226,13 @@ namespace NiN.Infrastructure.Services
                     var psk = ht.Prosedyrekategori;
                     var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Hovedtype_kode == ht.Kode); // finn hovedtypegruppe koden gitt hovedtypekode fra mapping/relasjonstabell.
                     var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
+                    var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtype == ht.Kode);
+                    var langkodeForType = LangkodeForParent(langkode_grunntype.langkode, TypeklasseTypeEnum.HT);
                     var hovedtype = new Hovedtype()
                     {
                         Id = Guid.NewGuid(),
                         Kode = ht.Kode,
+                        Langkode = langkodeForType,
                         Hovedtypegruppe = hovedtypegruppe,
                         Versjon = domene,
                         Delkode = ht.Hovedtype,
@@ -263,9 +265,12 @@ namespace NiN.Infrastructure.Services
                 {
                     var typeKode = csvdataImporter_Type_Htg_Mappings.Where(x => x.Typekategori2 == htg.Typekategori2.ToString()).Select(x => x.Type_kode).FirstOrDefault();
                     var type = typer.FirstOrDefault(s => s.Kode == typeKode);
+                    var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtypegruppe == htg.Kode).langkode;
+                    var langkodeForType = LangkodeForParent(langkode_grunntype, TypeklasseTypeEnum.HTG);
                     var hovedtg = new Hovedtypegruppe()
                     {
                         Kode = htg.Kode,
+                        Langkode = langkodeForType,
                         Typekategori2 = htg.Typekategori2,
                         Versjon = domene,
                         Delkode = htg.Hovedtypegruppe,
@@ -285,6 +290,10 @@ namespace NiN.Infrastructure.Services
         /// <summary>
         /// Loads data for Type object if not already present in the database.
         /// </summary>
+        private void LoadTypeklasser_langkoder() { 
+            Console.WriteLine("Loading Typeklassekoder and Langkoder");
+            Langkoder_typeklasser= CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/typeklasser_langkode_mapping.csv");
+        }        
         public void LoadTypeData()
         {
             var tbls = Tabeller();
@@ -295,9 +304,12 @@ namespace NiN.Infrastructure.Services
                 var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
                 foreach (var type in typer)
                 {
+                    var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_type == type.Kode).langkode;
+                    var langkodeForType = LangkodeForParent(langkode_grunntype, TypeklasseTypeEnum.T);
                     var t = new NiN3.Core.Models.Type()
                     {
-                        Kode = type.Kode,                       
+                        Kode = type.Kode,                 
+                        Langkode = langkodeForType,
                         Ecosystnivaa = type.Ecosystnivaa,
                         Typekategori = type.Typekategori,
                         Typekategori2 = type.Typekategori2,
@@ -485,7 +497,7 @@ namespace NiN.Infrastructure.Services
             return loadedVariabelnavn;
         }
 
-        public string LangkodeForParent(string raw_langkode, string parentType)
+        public string LangkodeForParent(string raw_langkode, TypeklasseTypeEnum typeklasseType)
         {
             // switch case to check type of parent and return corresponding langkode substring
             // replace with actual code that gets the parent object's type
@@ -493,16 +505,18 @@ namespace NiN.Infrastructure.Services
             if (raw_langkode != null)
             {
                 var kodeledd_list = raw_langkode.Split("_");
-                switch (parentType)
+                switch (typeklasseType)
                 {
-                    case "NiN3.Core.Models.Type":
-                        //if (kodeledd_list.Length == 1)
-                        return "not impl.";
-                    case "NiN3.Core.Models.Hovedtypegruppe":
-                        
-                        return raw_langkode.Substring(0, 3);
-                    case "NiN3.Core.Models.Hovedtype":
-                        return raw_langkode.Substring(0, 3);
+                    case TypeklasseTypeEnum.T:
+                        //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
+                        return "type.langkodecutting not impl.";
+                    case TypeklasseTypeEnum.HTG:
+
+                        //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
+                        return "hovedtypegruppe.langkodecutting not impl.";
+                    case TypeklasseTypeEnum.HT:
+                        //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
+                        return "hovedtype.langkodecutting not impl.";
                     // add additional cases for other types
                     default:
                         throw new ArgumentException("Invalid parent type!");
@@ -510,7 +524,7 @@ namespace NiN.Infrastructure.Services
             }
             else {
                 _logger.LogWarning("Langkode is null");
-                return "";
+                return "langkode mangler";
             }
         }
 

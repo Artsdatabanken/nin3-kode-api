@@ -14,6 +14,7 @@ using NiN3.Core.Models.DTOs;
 using AutoMapper;
 using System.ComponentModel.Design;
 using NiN3.Infrastructure.Mapping;
+using NiN3.Core.Models.DTOs.type;
 // q: install AutoMapper from nuget 
 
 
@@ -57,6 +58,21 @@ namespace NiN3.Infrastructure.Services
                 .ThenInclude(kartleggingsenhet => kartleggingsenhet.Grunntyper)
              .First();
             return mapper.Map(_versjon);
+        }
+
+        public TypeDto GetType(string kode) {
+            var mapper = NiNkodeMapper.Instance;
+            Core.Models.Type _type = _context.Type.Where(t => t.Kode == kode)
+                .Include(type => type.Hovedtypegrupper.OrderBy(htg => htg.Kode))
+                    .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Kode))
+                        .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Kode))
+        .Include(type => type.Hovedtypegrupper)
+            .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper)
+                .ThenInclude(hovedtype => hovedtype.Hovedtype_Kartleggingsenheter)
+                .ThenInclude(Hovedtype_Kartleggingsenheter => Hovedtype_Kartleggingsenheter.Kartleggingsenhet)
+                .ThenInclude(kartleggingsenhet => kartleggingsenhet.Grunntyper)
+             .First();
+            return mapper.Map(_type);
         }
 
         /*

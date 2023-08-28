@@ -19,6 +19,7 @@ namespace NiN3.Core.Models
         public TypekategoriEnum Typekategori { get; set; }
         public Typekategori2Enum? Typekategori2 { get; set;}
         public string Kode { get; set; }
+        public string Langkode { get; set; }
         public ICollection<Hovedtypegruppe> Hovedtypegrupper { get; set; }
     }
 }

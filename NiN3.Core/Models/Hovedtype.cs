@@ -14,6 +14,7 @@ namespace NiN3.Core.Models
         public string Delkode { get; set; }
         [StringLength(255)]
         public string Kode { get; set; }
+        public string Langkode { get; set; }
         public string? Navn { get; set; }
         public ProsedyrekategoriEnum Prosedyrekategori { get; set; }
         [ForeignKey("HovedtypegruppeId")]

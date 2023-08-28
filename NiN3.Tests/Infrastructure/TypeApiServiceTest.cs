@@ -73,6 +73,8 @@ namespace NiN3.Tests.Infrastructure
         }
 
 
+
+
         ///<summary>
         ///Tests that all NiN-koder for "Typer" in version 3.0 can be loaded and parsed correctly.
         ///</summary>
