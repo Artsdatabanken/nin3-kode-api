@@ -103,12 +103,14 @@ namespace NiN3.Infrastructure.Mapping
             var _typekategori2 = type.Typekategori2 !=null ? $"{type.Typekategori2.ToString()}: {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}" : null;
             var typedto = new TypeDto
             {
-                Navn = $"{EnumUtil.ToDescription(type.Ecosystnivaa)} {EnumUtil.ToDescription(type.Typekategori)} {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
+                //Navn = $"{EnumUtil.ToDescription(type.Ecosystnivaa)} {EnumUtil.ToDescription(type.Typekategori)} {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
+                Navn = $"{EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
                 Kategori = "Type",
                 Ecosystnivaa = $"{type.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(type.Ecosystnivaa)}",
                 Typekategori = $"{type.Typekategori.ToString()}: {EnumUtil.ToDescription(type.Typekategori)}",
                 Typekategori2 = $"{type.Typekategori2.ToString()}: {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
-                Kode = MapKode(type.Kode, type.Langkode)
+                Kode = MapKode(type.Kode, type.Langkode),
+                Langkode = type.Langkode
             };
             //type.Hovedtypegrupper.ToList().ForEach(h => typedto.Hovedtypegrupper.Add(Map(h)));
             var hovedtypegrupperBag = new ConcurrentBag<HovedtypegruppeDto>();

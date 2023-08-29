@@ -12,7 +12,6 @@ namespace NiN3.Core.Models.Enums
         [Description("Elveløpsegenskaper")]
         EE,
         [Description("Skogbruksrelaterte egenskaper")]
-        
         SB,
         [Description("Liggende død ved (læger)")]
         DL,

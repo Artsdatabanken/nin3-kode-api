@@ -18,7 +18,6 @@ namespace NiN3.Core.Models
         public VariabelkategoriEnum Variabelkategori { get; set; }
         public String Navn { get; set; }
         public Versjon Versjon { get; set; }
-
         public ICollection<Variabelnavn> Variabelnavn { get; set; } = new List<Variabelnavn>();
     }
 }

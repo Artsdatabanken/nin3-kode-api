@@ -89,7 +89,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(10, v3allCodes.Typer.Count);
             var firstType = v3allCodes.Typer.First();
             Assert.Equal("A-LV-BM", firstType.Kode.Id);
-            Assert.Equal("abiotisk landformvariasjon bremassiv", firstType.Navn);
+            Assert.Equal("bremassiv", firstType.Navn);
             Assert.StartsWith("http", firstType.Kode.Definisjon);
             Assert.EndsWith("/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
             var hovedtypegrupper = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").ToList();
@@ -105,6 +105,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(1, hovedtype.Grunntyper.Count);
             var grunntype = hovedtype.Grunntyper.First();
             Assert.Equal("MS-0-08-01", grunntype.Kode.Id);
+            Assert.Equal("NIN-3.0-T-A-LV-BM", firstType.Langkode);
         }
 
         ///<summary>
