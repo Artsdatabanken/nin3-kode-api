@@ -132,6 +132,7 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = hovedtypegruppe.Navn,
                 Kategori = "Hovedtypegruppe",
+                Typekategori3 = hovedtypegruppe.Typekategori3 != null ? $"{hovedtypegruppe.Typekategori3.ToString()}: {EnumUtil.ToDescription(hovedtypegruppe.Typekategori3)}" : "",
                 Kode = MapKode(hovedtypegruppe.Kode, hovedtypegruppe.Langkode)
             };
             // This code uses the Parallel.ForEach method to loop through a list of Hovedtyper and add them to a Hovedtypegruppedto. The Map method is used to map the Hovedtyper to the Hovedtypegruppedto.

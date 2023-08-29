@@ -7,6 +7,7 @@ namespace NiN3KodeAPI.in_data
         public Typekategori2Enum Typekategori2 { get; set; }   
         public string Hovedtypegruppe { get; set;}
         public string Hovedtypegruppenavn { get; set;}
+        public Typekategori3Enum Typekategori3 { get; set; }
         public string Kode { get; set; }
         internal static CsvdataImporter_Hovedtypegruppe ParseRow(string row)
         {
@@ -16,7 +17,8 @@ namespace NiN3KodeAPI.in_data
                 Typekategori2 = EnumUtil.ParseEnum<Typekategori2Enum>(columns[0]),
                 Hovedtypegruppe = columns[1],
                 Hovedtypegruppenavn = columns[2],
-                Kode = columns[3]
+                Typekategori3 = EnumUtil.ParseEnum<Typekategori3Enum>(columns[3]),
+                Kode = columns[4]
             };
         }
 

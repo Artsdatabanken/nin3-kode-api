@@ -32,6 +32,7 @@ namespace NiN3.Core.Models.Enums
 
         public static string ToDescription(this Enum value)
         {
+            if (value!=null) { 
             try
             {
                 var da = (DescriptionAttribute[])(value.GetType().GetField(value.ToString())).GetCustomAttributes(typeof(DescriptionAttribute), false);
@@ -40,6 +41,11 @@ namespace NiN3.Core.Models.Enums
             catch (Exception ex)
             {
                 //todo-sat: Add logger to this class and logg the error-event to logfile.
+                return null;
+            }
+            }
+            else
+            {
                 return null;
             }
         }

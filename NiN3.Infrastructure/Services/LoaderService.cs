@@ -151,7 +151,7 @@ namespace NiN.Infrastructure.Services
             // Log a message to indicate that the Type_HTG_Mapping has been loaded
             _logger.LogInformation("Type_HTG_Mapping lastet");
         }
-        
+
         /// <summary>
         /// Creates an instance of the CsvdataImporter_htg_ht_gt_mapping class and logs a message to indicate that the Htg_Ht_Gt_Mapping has been loaded.
         /// </summary>
@@ -173,7 +173,7 @@ namespace NiN.Infrastructure.Services
             domenes.Add(new Versjon() { Navn = "3.0" });
             _context.SaveChanges();
         }
-        
+
         /// <summary>
         /// Loads data for the Grunntype entity type. 
         /// It imports Grunntype data if the table is empty and saves it to the database.
@@ -248,7 +248,7 @@ namespace NiN.Infrastructure.Services
                 _logger.LogInformation("Objecttype <<Hovedtype>> allready has data!");
             }
         }
-        
+
         /// <summary>
         /// Loads data of hovedtypegruppe from CSV file to database, if data not already present.
         /// </summary>
@@ -266,17 +266,18 @@ namespace NiN.Infrastructure.Services
                     var typeKode = csvdataImporter_Type_Htg_Mappings.Where(x => x.Typekategori2 == htg.Typekategori2.ToString()).Select(x => x.Type_kode).FirstOrDefault();
                     var type = typer.FirstOrDefault(s => s.Kode == typeKode);
                     var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtypegruppe == htg.Kode).langkode;
-                    var langkodeForType = LangkodeForParent(langkode_grunntype, TypeklasseTypeEnum.HTG, htg.Kode);
                     var hovedtg = new Hovedtypegruppe()
                     {
                         Kode = htg.Kode,
-                        Langkode = langkodeForType,
                         Typekategori2 = htg.Typekategori2,
+                        Typekategori3 = htg.Typekategori3,
                         Versjon = domene,
                         Delkode = htg.Hovedtypegruppe,
                         Navn = htg.Hovedtypegruppenavn,
                         Type = type       /// <summary>
                     };
+                    //Setting Langkode here  
+                    hovedtg.Langkode = LangkodeForParent(langkode_grunntype, TypeklasseTypeEnum.HTG, htg.Kode, hovedtg.Type, hovedtg);
                     _context.Add(hovedtg);
                 }
                 _context.SaveChanges();
@@ -290,10 +291,11 @@ namespace NiN.Infrastructure.Services
         /// <summary>
         /// Loads data for Type object if not already present in the database.
         /// </summary>
-        private void LoadTypeklasser_langkoder() { 
+        private void LoadTypeklasser_langkoder()
+        {
             Console.WriteLine("Loading Typeklassekoder and Langkoder");
-            Langkoder_typeklasser= CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/typeklasser_langkode_mapping.csv");
-        }        
+            Langkoder_typeklasser = CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/typeklasser_langkode_mapping.csv");
+        }
         public void LoadTypeData()
         {
             var tbls = Tabeller();
@@ -308,7 +310,7 @@ namespace NiN.Infrastructure.Services
                     var langkodeForType = LangkodeForParent(langkode_grunntype, TypeklasseTypeEnum.T, type.Kode);
                     var t = new NiN3.Core.Models.Type()
                     {
-                        Kode = type.Kode,                 
+                        Kode = type.Kode,
                         Langkode = langkodeForType,
                         Ecosystnivaa = type.Ecosystnivaa,
                         Typekategori = type.Typekategori,
@@ -324,7 +326,7 @@ namespace NiN.Infrastructure.Services
                 _logger.LogInformation("Objecttype <<Type>> allready has data!");
             }
         }
-        
+
         /// <summary>
         /// Loads data into database for kartleggingsenhet with maalestokk M005
         /// </summary>
@@ -354,8 +356,9 @@ namespace NiN.Infrastructure.Services
                             k.Grunntyper.Add(gt);
                             hovedtypeList.Add(gt.Hovedtype);
                         }
-                        else { 
-                        //logg the m005 kode that has no grunntype mapping  
+                        else
+                        {
+                            //logg the m005 kode that has no grunntype mapping  
                             _logger.Equals("m005 kode: " + m005.Kode + " has no grunntype mapping");
                         }
                     });
@@ -370,8 +373,8 @@ namespace NiN.Infrastructure.Services
                             Hovedtype = ht,
                             Kartleggingsenhet = k
 
-                        };  
-                    _context.Add(hovetype_kartleggingsenhet);
+                        };
+                        _context.Add(hovetype_kartleggingsenhet);
                     }
                 }
                 _context.SaveChanges();
@@ -497,7 +500,7 @@ namespace NiN.Infrastructure.Services
             return loadedVariabelnavn;
         }
 
-        public string LangkodeForParent(string raw_langkode, TypeklasseTypeEnum typeklasseType, string kortkode)
+        public string LangkodeForParent(string raw_langkode, TypeklasseTypeEnum typeklasseType, string kortkode, NiN3.Core.Models.Type typeForObject = null, object typeobject = null)
         {
             // switch case to check type of parent and return corresponding langkode substring
             // replace with actual code that gets the parent object's type
@@ -509,11 +512,21 @@ namespace NiN.Infrastructure.Services
                 {
                     case TypeklasseTypeEnum.T:
                         //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
-                        return "NIN-3.0-T-"+kortkode;
+                        return "NIN-3.0-T-" + kortkode;
                     case TypeklasseTypeEnum.HTG:
-
                         //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
-                        return "hovedtypegruppe.langkodecutting not impl.";
+                        var htg = typeobject as Hovedtypegruppe;
+                        var baseLangkode = "NIN-3.0-T-";
+                        var kodeArray = new List<string> { "NIN", "3.0", "T" };
+
+                        kodeArray.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 2
+                        kodeArray.Add(htg.Typekategori2.ToString());//kodeledd 3
+                        if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C) && (htg.Typekategori3.Equals("VM") || htg.Typekategori3.Equals("BM")))
+                        {
+                            kodeArray.Add(htg.Typekategori3.ToString()); //kodeledd 4
+                        }
+                        kodeArray.Add(htg.Kode);//kodeledd 5
+                        return string.Join("-", kodeArray);
                     case TypeklasseTypeEnum.HT:
                         //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
                         return "hovedtype.langkodecutting not impl.";
@@ -522,7 +535,8 @@ namespace NiN.Infrastructure.Services
                         throw new ArgumentException("Invalid parent type!");
                 }
             }
-            else {
+            else
+            {
                 _logger.LogWarning("Langkode is null");
                 return "langkode mangler";
             }

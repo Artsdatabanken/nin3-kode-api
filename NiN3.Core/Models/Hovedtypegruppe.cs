@@ -16,9 +16,10 @@ namespace NiN3.Core.Models
         public string Delkode { get; set; }
         [StringLength(255)]
         public string Kode { get; set; }
-        public string Langkode { get; set; }
+        public string? Langkode { get; set; }
         public string? Navn { get; set; }
         public Typekategori2Enum? Typekategori2 { get; set; }
+        public Typekategori3Enum? Typekategori3 { get; set; }
         [ForeignKey("TypeId")]
         public Type Type { get; set; }
 

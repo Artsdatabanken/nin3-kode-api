@@ -96,6 +96,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.True(hovedtypegrupper.Count == 1);
             var hovedtypegruppe = hovedtypegrupper.First();
             Assert.Equal("0-MS", hovedtypegruppe.Kode.Id);
+            Assert.Equal("VM: vannmassesystemer", hovedtypegruppe.Typekategori3);
             Assert.Equal(11, hovedtypegruppe.Hovedtyper.Count);
             // get second hovedtype from firstHovedtypegruppe.Hovedtyper
             var hovedtype = hovedtypegruppe.Hovedtyper.Where(ht => ht.Kode.Id == "MS-0-08").First();

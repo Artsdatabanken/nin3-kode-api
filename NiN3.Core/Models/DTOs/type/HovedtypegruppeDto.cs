@@ -13,6 +13,8 @@ namespace NiN3.Core.Models.DTOs.type
         public string Kategori { get; set; }
         public KodeDto Kode { get; set; }
 
+        public string Typekategori3 { get; set; }
+
         public ICollection<HovedtypeDto> Hovedtyper { get; set; } = new List<HovedtypeDto>();
     }
 }

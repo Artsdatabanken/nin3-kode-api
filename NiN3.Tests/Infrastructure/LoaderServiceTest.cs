@@ -89,9 +89,11 @@ namespace NiN3.Tests.Infrastructure
             var firstHGD = inmemorydb.Hovedtypegruppe.OrderBy(x => x.Kode).First();
             var typeOfFirstHGD = firstHGD.Type;
             //Assert that the number of Hovedtypegruppe objects is equal to 70
-            Assert.Equal(70, numOfHGD);
+            Assert.Equal(71, numOfHGD);
             Assert.NotNull(typeOfFirstHGD);
             Assert.Equal("A-LV-BM", typeOfFirstHGD.Kode);
+            Assert.Equal("NIN-3.0-T-A-LV-BM", typeOfFirstHGD.Langkode);
+            //Assert.Equal("", firstHGD.Langkode);
         }
 
         [Fact]
