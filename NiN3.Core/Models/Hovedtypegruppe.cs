@@ -22,7 +22,6 @@ namespace NiN3.Core.Models
         public Typekategori3Enum? Typekategori3 { get; set; }
         [ForeignKey("TypeId")]
         public Type Type { get; set; }
-
         public ICollection<Hovedtype> Hovedtyper { get; set; }
     }   
 }

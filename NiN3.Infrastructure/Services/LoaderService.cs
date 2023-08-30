@@ -226,19 +226,25 @@ namespace NiN.Infrastructure.Services
                     var psk = ht.Prosedyrekategori;
                     var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Hovedtype_kode == ht.Kode); // finn hovedtypegruppe koden gitt hovedtypekode fra mapping/relasjonstabell.
                     var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
-                    var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtype == ht.Kode);
-                    var langkodeForType = LangkodeForParent(langkode_grunntype.langkode, TypeklasseTypeEnum.HT, ht.Kode);
+                    //fetching type-parent for hovedtype via hovedtypegruppe
+                    var typehc = _context.Type.FirstOrDefault(s => s.Kode == "A-LV-BM");
+                    NiN3.Core.Models.Type? type = _context.Type.FirstOrDefault(s => s.Kode == hovedtypegruppe.Type.Kode);
+                    //var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtype == ht.Kode);
+                    //var langkodeForType = 
                     var hovedtype = new Hovedtype()
                     {
                         Id = Guid.NewGuid(),
                         Kode = ht.Kode,
-                        Langkode = langkodeForType,
+                        //Langkode = langkodeForType,
                         Hovedtypegruppe = hovedtypegruppe,
                         Versjon = domene,
                         Delkode = ht.Hovedtype,
                         Navn = ht.Hovedtypenavn,
                         Prosedyrekategori = ht.Prosedyrekategori
                     };
+                    //public string LangkodeForParent(string raw_langkode, TypeklasseTypeEnum typeklasseType, string kortkode, NiN3.Core.Models.Type typeForObject = null, object typeobject = null)
+                    //hovedtype.Langkode = LangkodeForParent(null, TypeklasseTypeEnum.HT, ht.Kode,type, hovedtype);
+                    hovedtype.Langkode = LangkodeForParent("baretull", TypeklasseTypeEnum.HT, ht.Kode, type, hovedtype);
                     _context.Add(hovedtype);
                 }
                 _context.SaveChanges();
@@ -514,9 +520,7 @@ namespace NiN.Infrastructure.Services
                     case TypeklasseTypeEnum.HTG:
                         //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
                         var htg = typeobject as Hovedtypegruppe;
-                        var baseLangkode = "NIN-3.0-T-";
                         var kodeArray = new List<string> { "NIN", "3.0", "T" };
-
                         kodeArray.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 2
                         kodeArray.Add(htg.Typekategori2.ToString());//kodeledd 3
                         if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C) && (htg.Typekategori3.Equals("VM") || htg.Typekategori3.Equals("BM")))
@@ -527,7 +531,16 @@ namespace NiN.Infrastructure.Services
                         return string.Join("-", kodeArray);
                     case TypeklasseTypeEnum.HT:
                         //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
-                        return "hovedtype.langkodecutting not impl.";
+                        var ht = typeobject as Hovedtype;
+                        var kodeArrayForHT = new List<string> { "NIN", "3.0", "T" };
+                        kodeArrayForHT.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 2
+                        kodeArrayForHT.Add(ht.Hovedtypegruppe.Typekategori2.ToString());//kodeledd 3
+                        if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C) && (ht.Hovedtypegruppe.Typekategori3.Equals("VM") || ht.Hovedtypegruppe.Typekategori3.Equals("BM")))
+                        {
+                            kodeArrayForHT.Add(ht.Hovedtypegruppe.Typekategori3.ToString()); //kodeledd 4
+                        }
+                        kodeArrayForHT.Add(ht.Kode);//kodeledd 5
+                        return string.Join("-", kodeArrayForHT);
                     // add additional cases for other types
                     default:
                         throw new ArgumentException("Invalid parent type!");

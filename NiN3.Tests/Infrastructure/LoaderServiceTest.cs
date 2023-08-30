@@ -124,6 +124,7 @@ namespace NiN3.Tests.Infrastructure
             var firstHovedtype = inmemorydb.Hovedtype.OrderBy(h => h.Kode).FirstOrDefault();
             Assert.NotNull(firstHovedtype);
             Assert.NotNull(firstHovedtype.Hovedtypegruppe);
+            Assert.Equal("NIN-3.0-T-C-NK-0-C-01", firstHovedtype.Langkode);
         }
 
         [Fact]
