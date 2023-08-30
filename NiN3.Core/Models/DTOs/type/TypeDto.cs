@@ -11,8 +11,9 @@ namespace NiN3.Core.Models.DTOs.type
     public class TypeDto
     {
         public string Navn { get; set; }
-        public string Kategori { get; set; }
         public KodeDto Kode { get; set; } = new KodeDto();
+        public string Kategori { get; set; }
+        
 
         public string Ecosystnivaa { get; set; }
 

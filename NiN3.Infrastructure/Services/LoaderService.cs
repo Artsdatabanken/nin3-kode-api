@@ -149,7 +149,7 @@ namespace NiN.Infrastructure.Services
             // Create an instance of the CsvdataImporter_Type_Htg_mapping class
             csvdataImporter_Type_Htg_Mappings = CsvdataImporter_Type_Htg_mapping.ProcessCSV("in_data/type_htg_mapping.csv");
             // Log a message to indicate that the Type_HTG_Mapping has been loaded
-            _logger.LogInformation("Type_HTG_Mapping lastet");
+            //_logger.LogInformation("Type_HTG_Mapping lastet");
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace NiN.Infrastructure.Services
             // Create an instance of the CsvdataImporter_htg_ht_gt_mapping class
             csvdataImporter_Htg_Ht_Gt_Mappings = CsvdataImporter_htg_ht_gt_mapping.ProcessCSV("in_data/htg_ht_gt_mapping.csv");
             // Log a message to indicate that the Htg_Ht_Gt_Mapping has been loaded
-            _logger.LogInformation("Htg_Ht_Gt_Mapping lastet");
+            //_logger.LogInformation("Htg_Ht_Gt_Mapping lastet");
         }
 
 
@@ -293,13 +293,11 @@ namespace NiN.Infrastructure.Services
         /// </summary>
         private void LoadTypeklasser_langkoder()
         {
-            Console.WriteLine("Loading Typeklassekoder and Langkoder");
             Langkoder_typeklasser = CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/typeklasser_langkode_mapping.csv");
         }
         public void LoadTypeData()
         {
             var tbls = Tabeller();
-            //var tp_count = _context.Hovedtypegruppe.Count();
             if (_context.Type.Count() == 0)
             {
                 var typer = CsvdataImporter_Type.ProcessCSV("in_data/type.csv");

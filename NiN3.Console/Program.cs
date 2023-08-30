@@ -19,7 +19,8 @@ IConfiguration config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 
-void LoadDB() {
+void LoadDB()
+{
     var optionsBuilder = new DbContextOptionsBuilder<NiN3DbContext>();
     optionsBuilder.UseSqlite(config.GetConnectionString("Extract"));
     db = new NiN3DbContext(optionsBuilder.Options);
@@ -59,7 +60,7 @@ while (run)
             // ensure db is created
             LoadDB();
             //db.Database.EnsureCreated();
-            
+
             // run loader
             var loader = new LoaderService(config, db, _logger);
             loader.load_all_data();
@@ -68,31 +69,32 @@ while (run)
             {
                 Microsoft.Data.Sqlite.SqliteConnection.ClearPool(connection);
             }
+            Console.WriteLine($"Created new db file (temporary database based on current model and csv-files)");
             break;
         case "exit":
             return;
             break;
-       /* case "status":
-            var tableNames = db.Model.GetEntityTypes()
-                .Select(t => t.GetTableName())
-                .Distinct()
-                .ToList();
+        /* case "status":
+             var tableNames = db.Model.GetEntityTypes()
+                 .Select(t => t.GetTableName())
+                 .Distinct()
+                 .ToList();
 
-            var tableRowCounts = new Dictionary<string, int>();
+             var tableRowCounts = new Dictionary<string, int>();
 
-            foreach (var tableName in tableNames)
-            {
-                var tableType = db.Model.GetEntityTypes().FirstOrDefault(t => t.GetTableName() == tableName).ClrType;
-                var tableData = db.Set(tableType);
-                var rowCount = tableData.Count();
-                tableRowCounts.Add(tableName, rowCount);
-            }
+             foreach (var tableName in tableNames)
+             {
+                 var tableType = db.Model.GetEntityTypes().FirstOrDefault(t => t.GetTableName() == tableName).ClrType;
+                 var tableData = db.Set(tableType);
+                 var rowCount = tableData.Count();
+                 tableRowCounts.Add(tableName, rowCount);
+             }
 
-            foreach (var kvp in tableRowCounts)
-            {
-                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
-            }
-            break;*/
+             foreach (var kvp in tableRowCounts)
+             {
+                 Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+             }
+             break;*/
         case "wipe":
             if (db == null)
             {
@@ -103,7 +105,8 @@ while (run)
                 if (fi.Exists)
                 {
                     fi.Delete();
-                }  
+                    Console.WriteLine($"Deleted temporary db file ({filename})");
+                }
             }
             else
             {
@@ -117,9 +120,13 @@ while (run)
             var sourcepath = buildtDbFileFullPath;
             //var destinationfile = config.GetValue<string>("webapiDBpath");
             var path = config.GetValue<string>("webapiDBpath");
-            try { 
-            File.Copy(sourcepath, path, true); //not working fix later
-            }catch (Exception ex)
+            try
+            {
+                File.Copy(sourcepath, path, true); //not working fix later
+                Console.WriteLine($"Copied new db file to webproject ({path})");
+
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             };

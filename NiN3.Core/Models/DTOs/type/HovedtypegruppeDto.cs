@@ -9,12 +9,9 @@ namespace NiN3.Core.Models.DTOs.type
     public class HovedtypegruppeDto
     {
         public string Navn { get; set; }
-
-        public string Kategori { get; set; }
         public KodeDto Kode { get; set; }
-
+        public string Kategori { get; set; }
         public string Typekategori3 { get; set; }
-
         public ICollection<HovedtypeDto> Hovedtyper { get; set; } = new List<HovedtypeDto>();
     }
 }
