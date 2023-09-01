@@ -52,6 +52,14 @@ namespace NiN3.Tests.Infrastructure
             var typer = inmemorydb.Type.ToList();
             // Assert that the number of records is 10
             Assert.Equal(10, numOfTD);
+
+            //Test a type langkode within ecosystnivaa = C
+            var type_eco_C = inmemorydb.Type.Where(t => t.Kode == "C-PE-NA").FirstOrDefault(); //Get Type with Kode = "C-PE-NA"
+            Assert.Equal("NIN-3.0-T-C-PE-NA", type_eco_C.Langkode);
+
+            //Test a type langkode within ecosystnivaa = A 
+            var type_eco_A = inmemorydb.Type.Where(t => t.Kode == "A-MV-0").FirstOrDefault(); //Get Type with Kode = "CA-MV-0"
+            Assert.Equal("NIN-3.0-T-A-MV-0", type_eco_A.Langkode);
         }
 
 
@@ -84,16 +92,18 @@ namespace NiN3.Tests.Infrastructure
             service.LoadHovedtypeGruppeData();
             //Get the number of Hovedtypegruppe objects in the InMemoryDb object
             var numOfHGD = inmemorydb.Hovedtypegruppe.Count();
-
             //q: get the first Hovedtypegruppe object in the InMemoryDb object after ordering by Kode
             var firstHGD = inmemorydb.Hovedtypegruppe.OrderBy(x => x.Kode).First();
-            var typeOfFirstHGD = firstHGD.Type;
-            //Assert that the number of Hovedtypegruppe objects is equal to 70
+            //Assert that the number of Hovedtypegruppe objects is equal to 71
             Assert.Equal(71, numOfHGD);
-            Assert.NotNull(typeOfFirstHGD);
-            Assert.Equal("A-LV-BM", typeOfFirstHGD.Kode);
-            Assert.Equal("NIN-3.0-T-A-LV-BM", typeOfFirstHGD.Langkode);
-            //Assert.Equal("", firstHGD.Langkode);
+
+
+            //Testing langkode for Hovedtypegruppe that should have typekategori3 embedded in langkode
+            var HTG_NA_T = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-T").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
+            
+            //Testing langkode for Hovedtypegruppe that should NOT have typekategori3 embedded in langkode
+
         }
 
         [Fact]
@@ -121,10 +131,14 @@ namespace NiN3.Tests.Infrastructure
             var numOfHD = inmemorydb.Hovedtype.Count();
             var hovedtyper = inmemorydb.Hovedtype.ToList();
             Assert.Equal(464, numOfHD);
-            var firstHovedtype = inmemorydb.Hovedtype.OrderBy(h => h.Kode).FirstOrDefault();
-            Assert.NotNull(firstHovedtype);
-            Assert.NotNull(firstHovedtype.Hovedtypegruppe);
-            Assert.Equal("NIN-3.0-T-C-NK-0-C-01", firstHovedtype.Langkode);
+            var HT_0_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "0-C-01").FirstOrDefault();
+            Assert.NotNull(HT_0_C_01);
+            Assert.NotNull(HT_0_C_01.Hovedtypegruppe);
+            Assert.Equal("NIN-3.0-T-C-SE-NK-0-C-01", HT_0_C_01.Langkode);
+
+            //testing that hovedtype 'T-M-01' has typekategori3 embedded in langkode, (child of HTG "NA-T")
+            var HT_T_M_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "T-M-01").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-T-M-01", HT_T_M_01.Langkode);
         }
 
         [Fact]
@@ -168,6 +182,9 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("spiraltangbunn", grunntype.Navn);
             // Assert that the delkode of the record is "05"
             Assert.Equal("05", grunntype.Delkode);
+
+            //Testing langkode for M-A-01-05
+            Assert.Equal("NiN-3.0-T-C-PE-NA-MB-MA01-05", grunntype.Langkode);
         }
 
         [Fact]

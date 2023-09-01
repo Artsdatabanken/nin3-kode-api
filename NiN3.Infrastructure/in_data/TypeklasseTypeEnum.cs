@@ -14,6 +14,8 @@ namespace NiN3.Infrastructure.in_data
         [Description("hovedtypegruppe")]
         HTG,
         [Description("hovedtype")]
-        HT
+        HT,
+        [Description("grunntype")]
+        GT,
     }
 }

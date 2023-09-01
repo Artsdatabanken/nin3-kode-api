@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Xml;
 using System;
 using NiN3.Core.Models.Enums;
+using System.Reflection.Metadata;
+using System.Text;
 
 namespace NiN.Infrastructure.Services
 {
@@ -175,44 +177,6 @@ namespace NiN.Infrastructure.Services
         }
 
         /// <summary>
-        /// Loads data for the Grunntype entity type. 
-        /// It imports Grunntype data if the table is empty and saves it to the database.
-        /// </summary>
-        public void LoadGrunntypedata()
-        {
-            if (_context.Grunntype.Count() == 0)
-            {
-                //todo-sat: do impl. 
-                var grunntyper = CsvdataImporter_Grunntype.ProcessCSV("in_data/grunntyper.csv");
-                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
-                foreach (var gt in grunntyper)
-                {
-                    var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Grunntype_kode == gt.Kode);
-                    var hovedtype = _context.Hovedtype.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtype_kode);
-                    //var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);//htg_ht_gt.Hove
-                    var grunntype = new Grunntype()
-                    {
-                        /* Id = Guid.NewGuid(), */
-                        Kode = gt.Kode,
-                        Langkode = gt.Langkode,
-                        Navn = gt.Grunntypenavn,
-                        Versjon = domene,
-                        Delkode = gt.Grunntype,
-                        //Hovedtypegruppe = hovedtypegruppe,
-                        Hovedtype = hovedtype,
-                        Prosedyrekategori = gt.Prosedyrekategori
-                    };
-                    _context.Add(grunntype);
-                }
-                _context.SaveChanges();
-            }
-            else
-            {
-                _logger.LogInformation("Objecttype <<Grunntype>> allready has data!");
-            }
-        }
-
-        /// <summary>
         /// Loads the data for Hovedtype if there is no data available in the context.
         /// </summary>
         public void LoadHovedtypeData()
@@ -227,7 +191,6 @@ namespace NiN.Infrastructure.Services
                     var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Hovedtype_kode == ht.Kode); // finn hovedtypegruppe koden gitt hovedtypekode fra mapping/relasjonstabell.
                     var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
                     //fetching type-parent for hovedtype via hovedtypegruppe
-                    var typehc = _context.Type.FirstOrDefault(s => s.Kode == "A-LV-BM");
                     NiN3.Core.Models.Type? type = _context.Type.FirstOrDefault(s => s.Kode == hovedtypegruppe.Type.Kode);
                     //var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtype == ht.Kode);
                     //var langkodeForType = 
@@ -242,9 +205,7 @@ namespace NiN.Infrastructure.Services
                         Navn = ht.Hovedtypenavn,
                         Prosedyrekategori = ht.Prosedyrekategori
                     };
-                    //public string LangkodeForParent(string raw_langkode, TypeklasseTypeEnum typeklasseType, string kortkode, NiN3.Core.Models.Type typeForObject = null, object typeobject = null)
-                    //hovedtype.Langkode = LangkodeForParent(null, TypeklasseTypeEnum.HT, ht.Kode,type, hovedtype);
-                    hovedtype.Langkode = LangkodeForParent("baretull", TypeklasseTypeEnum.HT, ht.Kode, type, hovedtype);
+                    hovedtype.Langkode = LangkodeForParent(TypeklasseTypeEnum.HT, ht.Kode, type, hovedtype);
                     _context.Add(hovedtype);
                 }
                 _context.SaveChanges();
@@ -252,6 +213,49 @@ namespace NiN.Infrastructure.Services
             else
             {
                 _logger.LogInformation("Objecttype <<Hovedtype>> allready has data!");
+            }
+        }
+
+        /// <summary>
+        /// Loads data for the Grunntype entity type. 
+        /// It imports Grunntype data if the table is empty and saves it to the database.
+        /// </summary>
+        public void LoadGrunntypedata()
+        {
+            if (_context.Grunntype.Count() == 0)
+            {
+                //todo-sat: do impl. 
+                var grunntyper = CsvdataImporter_Grunntype.ProcessCSV("in_data/grunntyper.csv");
+                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                foreach (var gt in grunntyper)
+                {
+
+                    var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Grunntype_kode == gt.Kode);
+                    var hovedtype = _context.Hovedtype.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtype_kode);
+                    var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
+                    //var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);//htg_ht_gt.Hove
+                    var grunntype = new Grunntype()
+                    {
+                        /* Id = Guid.NewGuid(), */
+                        Kode = gt.Kode,
+                        //Langkode = gt.Langkode,
+                        Navn = gt.Grunntypenavn,
+                        Versjon = domene,
+                        Delkode = gt.Grunntype,
+                        //Hovedtypegruppe = hovedtypegruppe,
+                        Hovedtype = hovedtype,
+                        Prosedyrekategori = gt.Prosedyrekategori
+                    };
+                    //bygger riktig langkode for grunntype
+                     NiN3.Core.Models.Type ? type = _context.Type.FirstOrDefault(s => s.Kode == hovedtypegruppe.Type.Kode);
+                    grunntype.Langkode = LangkodeForParent(TypeklasseTypeEnum.GT, grunntype.Kode, type, grunntype);
+                    _context.Add(grunntype);
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                _logger.LogInformation("Objecttype <<Grunntype>> allready has data!");
             }
         }
 
@@ -271,7 +275,7 @@ namespace NiN.Infrastructure.Services
                 {
                     var typeKode = csvdataImporter_Type_Htg_Mappings.Where(x => x.Typekategori2 == htg.Typekategori2.ToString()).Select(x => x.Type_kode).FirstOrDefault();
                     var type = typer.FirstOrDefault(s => s.Kode == typeKode);
-                    var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtypegruppe == htg.Kode).langkode;
+                    //var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtypegruppe == htg.Kode).langkode;
                     var hovedtg = new Hovedtypegruppe()
                     {
                         Kode = htg.Kode,
@@ -283,7 +287,7 @@ namespace NiN.Infrastructure.Services
                         Type = type       /// <summary>
                     };
                     //Setting Langkode here  
-                    hovedtg.Langkode = LangkodeForParent(langkode_grunntype, TypeklasseTypeEnum.HTG, htg.Kode, hovedtg.Type, hovedtg);
+                    hovedtg.Langkode = LangkodeForParent(TypeklasseTypeEnum.HTG, htg.Kode, hovedtg.Type, hovedtg);
                     _context.Add(hovedtg);
                 }
                 _context.SaveChanges();
@@ -310,17 +314,17 @@ namespace NiN.Infrastructure.Services
                 var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
                 foreach (var type in typer)
                 {
-                    var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_type == type.Kode).langkode;
-                    var langkodeForType = LangkodeForParent(langkode_grunntype, TypeklasseTypeEnum.T, type.Kode);
+                    //var langkodeForType 
                     var t = new NiN3.Core.Models.Type()
                     {
                         Kode = type.Kode,
-                        Langkode = langkodeForType,
+                        //Langkode = langkodeForType,
                         Ecosystnivaa = type.Ecosystnivaa,
                         Typekategori = type.Typekategori,
                         Typekategori2 = type.Typekategori2,
                         Versjon = domene
                     };
+                    t.Langkode = LangkodeForParent(TypeklasseTypeEnum.T, type.Kode, t);
                     _context.Add(t);
                 }
                 _context.SaveChanges();
@@ -504,52 +508,87 @@ namespace NiN.Infrastructure.Services
             return loadedVariabelnavn;
         }
 
-        public string LangkodeForParent(string raw_langkode, TypeklasseTypeEnum typeklasseType, string kortkode, NiN3.Core.Models.Type typeForObject = null, object typeobject = null)
+        //<summary>
+        //1.TypeklasseTypeEnum typeklasseType - this is an enumeration value that determines the type of parent. It can be one of the three possible values: T, HTG, or HT.
+        //2.string kortkode - this parameter is a string that represents the kortkode value of the parent.
+        //3.NiN3.Core.Models.Type typeForObject - this is an optional parameter of type NiN3.Core.Models.Type.It represents the Type object associated with the parent.
+        //4.object typeobject - this is another optional parameter that can represent the parent object if it is available.
+        //</summary>
+        public string LangkodeForParent(TypeklasseTypeEnum typeklasseType, string kortkode, NiN3.Core.Models.Type typeForObject = null, object typeobject = null)
         {
-            // switch case to check type of parent and return corresponding langkode substring
-            // replace with actual code that gets the parent object's type
-            //Todo: Set actual parent types
-            if (raw_langkode != null)
+            // switch case to check type of parent and return corresponding langkode
+            var initKodeArray = new List<string> { "NIN", "3.0", "T" };
+            switch (typeklasseType)
             {
-                var kodeledd_list = raw_langkode.Split("_");
-                switch (typeklasseType)
-                {
-                    case TypeklasseTypeEnum.T:
-                        //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
-                        return "NIN-3.0-T-" + kortkode;
-                    case TypeklasseTypeEnum.HTG:
-                        //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
-                        var htg = typeobject as Hovedtypegruppe;
-                        var kodeArray = new List<string> { "NIN", "3.0", "T" };
-                        kodeArray.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 2
-                        kodeArray.Add(htg.Typekategori2.ToString());//kodeledd 3
-                        if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C) && (htg.Typekategori3.Equals("VM") || htg.Typekategori3.Equals("BM")))
+                case TypeklasseTypeEnum.T:
+                    //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
+                    //return string.Join("-", initKodeArray) + typeForObject.Typekategori.ToString() + "-" + kortkode;
+                    var sb = new StringBuilder();
+                    sb.Append(string.Join("-", initKodeArray));
+                    sb.Append("-");
+                    sb.Append(kortkode);
+                    return sb.ToString();
+                    //return string.Join("-", initKodeArray) + "-" + kortkode;
+                case TypeklasseTypeEnum.HTG:
+                    //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
+                    var htg = typeobject as Hovedtypegruppe;
+                    var kodeArray = new List<string> { };
+                    kodeArray.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 2
+                    kodeArray.Add(typeForObject.Typekategori.ToString());//kodeledd 3
+                    kodeArray.Add(htg.Typekategori2.ToString());//kodeledd 4
+                                                                //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
+                    if (htg.Typekategori2.Equals(Typekategori2Enum.NA))
+                    {
+                        if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
+                            && ((htg.Typekategori3.ToString().Equals("VM") || htg.Typekategori3.ToString().Equals("MB"))))
                         {
                             kodeArray.Add(htg.Typekategori3.ToString()); //kodeledd 4
                         }
-                        kodeArray.Add(htg.Kode);//kodeledd 5
-                        return string.Join("-", kodeArray);
-                    case TypeklasseTypeEnum.HT:
-                        //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
-                        var ht = typeobject as Hovedtype;
-                        var kodeArrayForHT = new List<string> { "NIN", "3.0", "T" };
-                        kodeArrayForHT.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 2
-                        kodeArrayForHT.Add(ht.Hovedtypegruppe.Typekategori2.ToString());//kodeledd 3
-                        if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C) && (ht.Hovedtypegruppe.Typekategori3.Equals("VM") || ht.Hovedtypegruppe.Typekategori3.Equals("BM")))
+                    }
+                    kodeArray.Add(htg.Kode);//kodeledd 5
+                    var mergedKodeArrayHTG = initKodeArray.Concat(kodeArray).ToList();
+                    return string.Join("-", mergedKodeArrayHTG);
+                case TypeklasseTypeEnum.HT:
+                    //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
+                    var ht = typeobject as Hovedtype;
+                    var typekategori2ForHovedtype = ht.Hovedtypegruppe.Typekategori2;
+                    var kodeArrayForHT = new List<string> { "NIN", "3.0", "T" };
+                    kodeArrayForHT.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 2
+                    kodeArrayForHT.Add(typeForObject.Typekategori.ToString());//kodeledd 3
+                    kodeArrayForHT.Add(typekategori2ForHovedtype.ToString());//kodeledd 3
+                                                                                                                                             //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
+                    if (typekategori2ForHovedtype.Equals(Typekategori2Enum.NA))
+                    {
+                        if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
+                            && (ht.Hovedtypegruppe.Typekategori3.ToString().Equals("VM") || ht.Hovedtypegruppe.Typekategori3.ToString().Equals("MB")))
                         {
                             kodeArrayForHT.Add(ht.Hovedtypegruppe.Typekategori3.ToString()); //kodeledd 4
                         }
-                        kodeArrayForHT.Add(ht.Kode);//kodeledd 5
-                        return string.Join("-", kodeArrayForHT);
-                    // add additional cases for other types
-                    default:
-                        throw new ArgumentException("Invalid parent type!");
-                }
-            }
-            else
-            {
-                _logger.LogWarning("Langkode is null");
-                return "langkode mangler";
+                    }
+                    kodeArrayForHT.Add(ht.Kode);//kodeledd 5
+                    return string.Join("-", kodeArrayForHT);
+                // add additional cases for other types
+                case TypeklasseTypeEnum.GT:
+                    //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
+                    var gt = typeobject as Grunntype;
+                    var typekategori2ForGrunntype = gt.Hovedtype.Hovedtypegruppe.Typekategori2;
+                    var kodeArrayForGT = new List<string> { "NIN", "3.0", "T" };
+                    kodeArrayForGT.Add(typeForObject.Ecosystnivaa.ToString());
+                    kodeArrayForGT.Add(typeForObject.Typekategori.ToString());
+                    kodeArrayForGT.Add(typekategori2ForGrunntype.ToString());
+                    //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
+                    if (typekategori2ForGrunntype.Equals(Typekategori2Enum.NA))
+                    {
+                        if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
+                            && (gt.Hovedtype.Hovedtypegruppe.Typekategori3.ToString().Equals("VM") || gt.Hovedtype.Hovedtypegruppe.Typekategori3.ToString().Equals("MB")))
+                        {
+                            kodeArrayForGT.Add(gt.Hovedtype.Hovedtypegruppe.Typekategori3.ToString()); //kodeledd 4
+                        }
+                    }
+                    kodeArrayForGT.Add(gt.Kode);//kodeledd 5
+                    return string.Join("-", kodeArrayForGT);
+                default:
+                    throw new ArgumentException("Invalid parent type!");
             }
         }
 

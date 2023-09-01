@@ -30,7 +30,7 @@ namespace NiN3.WebApi.Controllers
         //This code is a method that is used to get all 'Type'-codes from a service.
         [HttpGet]
         [Route("allekoder")]
-        [OutputCache(Duration = 86400)]// 24 timer
+        //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<VersjonDto>), StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
