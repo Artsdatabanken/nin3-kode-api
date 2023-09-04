@@ -31,21 +31,8 @@ namespace NiN3.Infrastructure.DbContexts
 
             // Versjon
             modelBuilder.Entity<Versjon>().HasData(
-                new Versjon() { Id = Guid.NewGuid(), Navn = "3.0" }
+                new Versjon() { Id = 1, Navn = "3.0" }
             );
-            /*           modelBuilder.Entity<Hovedtypegruppe>()
-                           .HasOne(e => e.Typekategori2)
-                           .WithMany()
-                           .OnDelete(DeleteBehavior.Restrict);*/
-            /*           modelBuilder.Entity<Undertype>()
-                           .HasOne(e => e.Hovedtype)
-                           .WithMany()
-                           .OnDelete(DeleteBehavior.Restrict);
-                       modelBuilder.Entity<Undertype>()
-                       .HasOne(e => e.Hovedtypegruppe)
-                       .WithMany()
-                       .OnDelete(DeleteBehavior.Restrict);*/
-
             base.OnModelCreating(modelBuilder);
         }
 

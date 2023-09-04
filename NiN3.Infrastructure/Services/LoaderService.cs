@@ -196,7 +196,7 @@ namespace NiN.Infrastructure.Services
                     //var langkodeForType = 
                     var hovedtype = new Hovedtype()
                     {
-                        Id = Guid.NewGuid(),
+                        //Id = Guid.NewGuid(),
                         Kode = ht.Kode,
                         //Langkode = langkodeForType,
                         Hovedtypegruppe = hovedtypegruppe,
@@ -259,7 +259,7 @@ namespace NiN.Infrastructure.Services
             }
         }
 
-        /// <summary>
+        /// <summary>g
         /// Loads data of hovedtypegruppe from CSV file to database, if data not already present.
         /// </summary>
         public void LoadHovedtypeGruppeData()

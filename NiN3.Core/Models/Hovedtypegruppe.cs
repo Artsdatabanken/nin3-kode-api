@@ -10,7 +10,9 @@ namespace NiN3.Core.Models
     [Index(nameof(Kode), IsUnique = false)]
     public class Hovedtypegruppe //: BaseEntity
     {
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
+        public int Id { get; set; }
+        //public Guid Id { get; set; }
         [Required]
         public Versjon Versjon { get; set; }
         public string Delkode { get; set; }

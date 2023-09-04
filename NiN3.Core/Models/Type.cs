@@ -12,7 +12,9 @@ namespace NiN3.Core.Models
     public class Type 
     {
         [Key]
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
+        public int Id { get; set; }
+        //public Guid Id { get; set; }
         [ForeignKey("VersjonId")]
         public Versjon Versjon { get; set; }
         public EcosystnivaaEnum Ecosystnivaa { get; set; }

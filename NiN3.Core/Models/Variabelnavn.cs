@@ -11,8 +11,11 @@ namespace NiN3.Core.Models
 {
     public class Variabelnavn
     {
+
         [Key]
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
+        public int Id { get; set; }
+
         public string Kode { get; set; }
         public string? Langkode { get; set; }
         public Variabelkategori2Enum Variabelkategori2 { get; set; }

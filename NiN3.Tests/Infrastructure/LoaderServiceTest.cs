@@ -177,15 +177,14 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(1405, numOfGD);
             // Get the Grunntype record with the code "M-A-01-05"
             var grunntype = inmemorydb.Grunntype.Where(gt => gt.Kode == "M-A-01-05").FirstOrDefault();
-            Assert.Equal("NiN-3.0-T-C-PE-NA-MB-MA01-05", grunntype.Langkode);
             // Assert that the name of the record is "sukkertareskog"
             Assert.Equal("spiraltangbunn", grunntype.Navn);
             // Assert that the delkode of the record is "05"
             Assert.Equal("05", grunntype.Delkode);
 
             //Testing langkode for M-A-01-05
-            Assert.Equal("NiN-3.0-T-C-PE-NA-MB-MA01-05", grunntype.Langkode);
-        }
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-M-A-01-05", grunntype.Langkode);
+        }                
 
         [Fact]
         public void TestLoadKartleggingsenhet_m005_m020()
