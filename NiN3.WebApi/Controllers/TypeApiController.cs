@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.ResponseCompression;
 using NiN3.Core.Models.DTOs;
 using NiN3.Infrastructure.Services;
 

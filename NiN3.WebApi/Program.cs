@@ -12,6 +12,7 @@ using NiN3.Infrastructure.Mapping.Profiles;
 using Microsoft.Extensions.DependencyInjection;
 using Azure;
 using NiN3.Infrastructure.Mapping;
+using Microsoft.AspNetCore.ResponseCompression;
 
 
 /*Log.Logger = new LoggerConfiguration()
@@ -72,7 +73,19 @@ builder.Services.AddScoped<IVariabelApiService, VariabelApiService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Trying to use gzip to help with performance on large responses
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<GzipCompressionProvider>();
+});
+builder.Services.AddResponseCompression(options =>
+{
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "text/html", "application/json" });
+});
+
 var app = builder.Build();
+app.UseResponseCompression();
 app.UseOutputCache();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
@@ -85,12 +98,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
     //if (db != null) { db.Database.Migrate(); };
 }
 
-//app.UseHttpsRedirection();
-
 app.UseAuthorization();
-//redirect to swagger ui
 
-//app.MapGet("/", () => $"Hello World! (env. : {app.Environment.EnvironmentName})");
 
 app.MapControllers();
 app.Use(async (context, next) =>
