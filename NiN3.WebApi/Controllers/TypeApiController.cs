@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.ResponseCompression;
 using NiN3.Core.Models.DTOs;
 using NiN3.Infrastructure.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using NiN3.Core.Models.Enums;
 
 namespace NiN3.WebApi.Controllers
 {
@@ -14,13 +17,13 @@ namespace NiN3.WebApi.Controllers
         private readonly ITypeApiService _typeApiService;
         /*private readonly ILogger _logger;*/
         private readonly IConfiguration _configuration;
-
+        //<summary>
         // This constructor initializes the TypeApiController class with the necessary services,
         // logger, and configuration. The ITypeApiService, ILogger,
         // and IConfiguration parameters are injected into the constructor
         // and assigned to the corresponding private fields. 
         // This allows the TypeApiController to access the services, logger, and configuration when needed.
-        
+        //</summary>
         public TypeApiController(ITypeApiService typeApiService, /*ILogger logger,*/ IConfiguration configuration)
         {
             _typeApiService = typeApiService;
@@ -37,6 +40,8 @@ namespace NiN3.WebApi.Controllers
         {
             var versjon = _typeApiService.AllCodes("3.0");
             Response.Headers.Add("Cache-Control", "max-age=3600");
+            //var json = JsonConvert.SerializeObject(versjon, new StringEnumConverter());
+            //return Ok(versjon);
             return Ok(versjon);
         }
     }

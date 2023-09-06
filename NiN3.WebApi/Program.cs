@@ -13,6 +13,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Azure;
 using NiN3.Infrastructure.Mapping;
 using Microsoft.AspNetCore.ResponseCompression;
+using System.Text.Json.Serialization;
+using NiN3.WebApi.Filters;
+using Microsoft.OpenApi.Models;
+using System.Xml.Linq;
+using System.Reflection;
 
 
 /*Log.Logger = new LoggerConfiguration()
@@ -44,7 +49,8 @@ builder.Services.AddControllers(o =>
     {
         o.Conventions.Add(new ActionHidingConvention(controllers_to_exclude_from_prod));
     }
-});
+}).AddJsonOptions(options =>
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddDbContext<NiN3DbContext>(options =>
 {
     /*
@@ -71,7 +77,16 @@ builder.Services.AddScoped<IVariabelApiService, VariabelApiService>();
 //builder.Services.AddSingleton<ISService, SService>();
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton(x => XDocument.Load("NiN3.WebApi.xml"));
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NiN3 API", Version = "v3.0" });
+    var xmlFile = "NiN3.WebApi.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlFile);
+    //c.SchemaFilter<EnumDescriptionSchemaFilter>();
+    //c.SchemaFilter<EnumSummarySchemaFilter>();
+});
 
 //Trying to use gzip to help with performance on large responses
 builder.Services.AddResponseCompression(options =>

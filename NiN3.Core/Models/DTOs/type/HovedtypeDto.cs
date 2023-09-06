@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NiN3.Core.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,9 @@ namespace NiN3.Core.Models.DTOs.type
         public string Kategori { get; set; } = "Hovedtype";
         public KodeDto Kode { get; set; }
 
-        public string Prosedyrekategori { get; set; }
+        //public string Prosedyrekategori { get; set; }
+        public ProsedyrekategoriEnum ProsedyrekategoriEnum { get; set; }
+        public string ProsedyrekategoriNavn { get; set; }
         // add icollection of grunntypeDtos
         public ICollection<GrunntypeDto> Grunntyper { get; set; } = new List<GrunntypeDto>();
         public ICollection<KartleggingsenhetDto> Kartleggingsenheter { get; set; } = new List<KartleggingsenhetDto>();

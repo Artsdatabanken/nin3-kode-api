@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace NiN3.Core.Models.Enums
 {
     public enum EcosystnivaaEnum
     {
+        [EnumMember(Value = "A")]
         [Description("abiotisk")]
         A,
-
+        [EnumMember(Value = "B")]
         [Description("biotisk")]
         B,
-
-        [Description("økodiversitet")]  
+        [EnumMember(Value = "C")]
+        [Description("økodiversitet")]
         C
     }
 }

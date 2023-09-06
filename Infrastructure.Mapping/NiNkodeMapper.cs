@@ -106,9 +106,13 @@ namespace NiN3.Infrastructure.Mapping
                 //Navn = $"{EnumUtil.ToDescription(type.Ecosystnivaa)} {EnumUtil.ToDescription(type.Typekategori)} {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
                 Navn = $"{EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
                 Kategori = "Type",
-                Ecosystnivaa = $"{type.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(type.Ecosystnivaa)}",
-                Typekategori = $"{type.Typekategori.ToString()}: {EnumUtil.ToDescription(type.Typekategori)}",
-                Typekategori2 = $"{type.Typekategori2.ToString()}: {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
+                //Ecosystnivaa = $"{type.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(type.Ecosystnivaa)}",
+                EcosystnivaaEnum = type.Ecosystnivaa,
+                EcosystnivaaNavn = EnumUtil.ToDescription(type.Ecosystnivaa),
+                TypekategoriEnum = type.Typekategori,
+                TypekategoriNavn = EnumUtil.ToDescription(type.Typekategori),
+                Typekategori2Enum = type.Typekategori2,
+                Typekategori2Navn = EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2),
                 Kode = MapKode(type.Kode, type.Langkode),
                 Langkode = type.Langkode
             };
@@ -132,7 +136,9 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = hovedtypegruppe.Navn,
                 Kategori = "Hovedtypegruppe",
-                Typekategori3 = hovedtypegruppe.Typekategori3 != null ? $"{hovedtypegruppe.Typekategori3.ToString()}: {EnumUtil.ToDescription(hovedtypegruppe.Typekategori3)}" : "",
+                //Typekategori3 = hovedtypegruppe.Typekategori3 != null ? $"{hovedtypegruppe.Typekategori3.ToString()}: {EnumUtil.ToDescription(hovedtypegruppe.Typekategori3)}" : "",
+                Typekategori3Enum = (Typekategori3Enum)hovedtypegruppe.Typekategori3,
+                Typekategori3Navn = EnumUtil.ToDescription(hovedtypegruppe.Typekategori3),
                 Kode = MapKode(hovedtypegruppe.Kode, hovedtypegruppe.Langkode)
             };
             // This code uses the Parallel.ForEach method to loop through a list of Hovedtyper and add them to a Hovedtypegruppedto. The Map method is used to map the Hovedtyper to the Hovedtypegruppedto.
@@ -156,7 +162,9 @@ namespace NiN3.Infrastructure.Mapping
                 Navn = hovedtype.Navn,
                 Kategori = "Hovedtype",
                 Kode = MapKode(hovedtype.Kode, hovedtype.Langkode),
-                Prosedyrekategori = $"{hovedtype.Prosedyrekategori.ToString()}: {EnumUtil.ToDescription(hovedtype.Prosedyrekategori)}",
+                //Prosedyrekategori = $"{hovedtype.Prosedyrekategori.ToString()}: {EnumUtil.ToDescription(hovedtype.Prosedyrekategori)}",
+                ProsedyrekategoriEnum = hovedtype.Prosedyrekategori,
+                ProsedyrekategoriNavn = EnumUtil.ToDescription(hovedtype.Prosedyrekategori),
             };
             var grunntyperBag = new ConcurrentBag<GrunntypeDto>();
             Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => grunntyperBag.Add(Map(g)));
@@ -205,7 +213,9 @@ namespace NiN3.Infrastructure.Mapping
                 Navn = kartleggingsenhet.Navn,
                 Kategori = "Kartleggingsenhet",
                 Kode = kartleggingsenhet.Kode,
-                Maalestokk = $"{kartleggingsenhet.Maalestokk.ToString()}: {EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)}"
+                //Maalestokk = $"{kartleggingsenhet.Maalestokk.ToString()}: {EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)}"
+                MaalestokkEnum = kartleggingsenhet.Maalestokk,
+                MaalestokkNavn = EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)
             };
             var grunntyperBag = new ConcurrentBag<GrunntypeDto>();
             Parallel.ForEach(kartleggingsenhet.Grunntyper.ToList(), g => grunntyperBag.Add(Map(g)));

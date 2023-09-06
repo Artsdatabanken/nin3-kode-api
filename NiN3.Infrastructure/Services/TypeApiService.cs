@@ -46,7 +46,7 @@ namespace NiN3.Infrastructure.Services
         {
             var mapper = NiNkodeMapper.Instance;
             Versjon _versjon = _context.Versjon.Where(v => v.Navn == versjon)
-            .Include(v => v.Typer.OrderBy(t => t.Kode))
+            .Include(v => v.Typer.Where(t => t.Kode == "C-PE-NA").OrderBy(t => t.Kode))
                 .ThenInclude(type => type.Hovedtypegrupper.OrderBy(htg => htg.Kode))
                     .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Kode))
                         .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Kode))

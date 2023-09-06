@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<doc>
+	<assembly>
+		<name>NiN3.WebApi</name>
+	</assembly>
+	<members>
+		<member name="T:NiN3.Core.Models.Enums.EcosystnivaaEnum">
+			<summary>
+				Possible values for Ecosystnivå:
+
+				A = abiotisk<br />
+				B = biotisk<br />
+				C = økodiversitet
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.TypekategoriEnum">
+			<summary>
+				Possible values for Typekategori:
+
+
+				LI = livsmedium<br />
+				LV = landformvariasjon<br />
+				MV = marine vannmasser<br />
+				PE = primært økodiversitetsnivå<br />
+				SE = sekundært økodiversitetsnivå
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.Typekategori2Enum">
+			<summary>
+				Possible values for Typekategori2:
+
+				BM = bremassiv<br />
+				EL = elveløp<br />
+				FL = landformer i fast fjell og løsmasser<br />
+				IB = innsjøbasseng<br />
+				LA = landskapstype<br />
+				NA = natursystem<br />
+				NK = naturkompleks<br />
+				TM = torvmarksmassiv
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.Typekategori3Enum">
+			<summary>
+				Possible values for Typekategori3:
+
+				VM = vannmassesystemer<br />
+				MB = mark- og bunnsystemer
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.ProsedyrekategoriEnum">
+			<summary>
+				Possible values for Prosedyrekategori:
+
+				A = Normal variasjonsbredde. Variasjon i artssammensetning ikke betinget av strukturerende artsgruppe. Lite endret system.<br />
+				B = Normal variasjonsbredde. Variasjon i artssammensetning betinget av strukturerende artsgruppe. Lite endret system.<br />
+				C = Spesiell variasjonsbredde. Variasjon i artssammensetning ikke betinget av strukturerende artsgruppe. Lite endret system. Preget av miljøstress.<br />
+				D = Spesiell variasjonsbredde. Variasjon i artssammensetning ikke betinget av strukturerende artsgruppe. Lite endret system. Preget av aktiv regulerende forstyrrelse .<br />
+				E = Spesiell variasjonsbredde. Variasjon i artssammensetning betinget av strukturerende artsgruppe. Lite endret system. Preget av aktiv destabiliserende forstyrrelse.<br />
+				F = Spesiell variasjonsbredde. Variasjon i artssammensetning betinget av strukturerende artsgruppe. Lite endret system. Preget av aktiv regulerende forstyrrelse .<br />
+				G = Spesiell variasjonsbredde. Ny mark eller bunn . Klart endret system. Preget av historisk forstyrrelse. . .<br />
+				H = Spesiell variasjonsbredde. Variasjon i artssammensetning betinget av bortfall av strukturerende artsgruppe. Klart endret system. Uten preg av hevd.<br />
+				I = Spesiell variasjonsbredde. Variasjon i artssammensetning betinget av strukturerende artsgruppe. Klart endret system. Uten preg av hevd.<br />
+				J = Spesiell variasjonsbredde. Klart endret system. Hevdpreget. Uten jordbruksproduksjon.<br />
+				K = Spesiell variasjonsbredde. Klart endret system. Hevdpreget. Semi-naturlig system. Med historisk dybde.<br />
+				L = Spesiell variasjonsbredde. Klart endret system. Hevdpreget. Semi-naturlig system. Uten historisk dybde.<br />
+				M = Spesiell variasjonsbredde. Ny mark eller bunn . Sterkt endret system. Uten preg av hevd.<br />
+				N = Spesiell variasjonsbredde. Sterkt endret system. Hevdpreget. Uten jordbruksproduksjon.<br />
+				O = Spesiell variasjonsbredde. Sterkt endret system. Hevdpreget. Jordbruksmark.
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.MaalestokkEnum">
+			<summary>
+				Possible values for Maalestokk:
+
+				M005 = kartleggingsenhet tilpasset 1:5000<br />
+				M010 = kartleggingsenhet tilpasset 1:10 000<br />
+				M020 = kartleggingsenhet tilpasset 1:20 000<br />
+				M050 = kartleggingsenhet tilpasset 1:50 000<br />
+				M100 = kartleggingsenhet tilpasset 1:100 000
+			</summary>
+		</member>
+	</members>
+</doc>
