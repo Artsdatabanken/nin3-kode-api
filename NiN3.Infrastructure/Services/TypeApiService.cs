@@ -15,7 +15,6 @@ using AutoMapper;
 using System.ComponentModel.Design;
 using NiN3.Infrastructure.Mapping;
 using NiN3.Core.Models.DTOs.type;
-// q: install AutoMapper from nuget 
 
 
 namespace NiN3.Infrastructure.Services
@@ -42,21 +41,21 @@ namespace NiN3.Infrastructure.Services
         /// </summary>
         /// <param name="versjon">The version to retrieve codes for.</param>
         /// <returns>A VersjonDto containing all codes for the given version.</returns>
-        public VersjonDto AllCodes(string versjon)
+        public async Task<VersjonDto> AllCodesAsync(string versjon)
         {
             var mapper = NiNkodeMapper.Instance;
-            Versjon _versjon = _context.Versjon.Where(v => v.Navn == versjon)
-            .Include(v => v.Typer.Where(t => t.Kode == "C-PE-NA").OrderBy(t => t.Kode))
+            Versjon _versjon = await _context.Versjon.Where(v => v.Navn == versjon)
+                .Include(v => v.Typer/*.Where(t => t.Kode == "C-PE-NA")*/.OrderBy(t => t.Kode))
                 .ThenInclude(type => type.Hovedtypegrupper.OrderBy(htg => htg.Kode))
-                    .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Kode))
-                        .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Kode))
-                            .Include(v => v.Typer)
-        .ThenInclude(type => type.Hovedtypegrupper)
-            .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper)
+                .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Kode))
+                .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Kode))
+                .Include(v => v.Typer)
+                .ThenInclude(type => type.Hovedtypegrupper)
+                .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper)
                 .ThenInclude(hovedtype => hovedtype.Hovedtype_Kartleggingsenheter)
                 .ThenInclude(Hovedtype_Kartleggingsenheter => Hovedtype_Kartleggingsenheter.Kartleggingsenhet)
                 .ThenInclude(kartleggingsenhet => kartleggingsenhet.Grunntyper)
-             .First();
+                .FirstAsync();
             return mapper.Map(_versjon);
         }
 

@@ -9,6 +9,6 @@ namespace NiN3.Infrastructure.Services
 {
     public interface ITypeApiService
     {
-        public VersjonDto AllCodes(string versjon);
+        public Task<VersjonDto> AllCodesAsync(string versjon);
     }
 }

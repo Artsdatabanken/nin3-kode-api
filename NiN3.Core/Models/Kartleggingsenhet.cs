@@ -1,4 +1,5 @@
-﻿using NiN3.Core.Models.Enums;
+﻿using Microsoft.EntityFrameworkCore;
+using NiN3.Core.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace NiN3.Core.Models
 {
+    [Index(nameof(Kode), IsUnique = false)]
     public class Kartleggingsenhet
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id

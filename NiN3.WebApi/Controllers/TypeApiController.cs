@@ -36,12 +36,10 @@ namespace NiN3.WebApi.Controllers
         [Route("allekoder")]
         //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<VersjonDto>), StatusCodes.Status200OK)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
-            var versjon = _typeApiService.AllCodes("3.0");
+            var versjon = await _typeApiService.AllCodesAsync("3.0");
             Response.Headers.Add("Cache-Control", "max-age=3600");
-            //var json = JsonConvert.SerializeObject(versjon, new StringEnumConverter());
-            //return Ok(versjon);
             return Ok(versjon);
         }
     }

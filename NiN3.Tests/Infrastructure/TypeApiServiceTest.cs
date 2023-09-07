@@ -79,11 +79,11 @@ namespace NiN3.Tests.Infrastructure
         ///Tests that all NiN-koder for "Typer" in version 3.0 can be loaded and parsed correctly.
         ///</summary>
         [Fact]
-        public void TestAllTypeCodesInVersjon()
+        public async Task TestAllTypeCodesInVersjon()
         {
             //rigMapper();
             TypeApiService service = GetPrepearedTypeApiService();
-            var v3allCodes = service.AllCodes("3.0");
+            var v3allCodes = await service.AllCodesAsync("3.0");
             Assert.Equal("3.0", v3allCodes.Navn);
             Assert.NotNull(v3allCodes);
             Assert.Equal(10, v3allCodes.Typer.Count);
@@ -96,13 +96,13 @@ namespace NiN3.Tests.Infrastructure
             Assert.True(hovedtypegrupper.Count == 1);
             var hovedtypegruppe = hovedtypegrupper.First();
             Assert.Equal("0-MS", hovedtypegruppe.Kode.Id);
-            Assert.Equal("VM: vannmassesystemer", hovedtypegruppe.Typekategori3);
+            Assert.Equal("vannmassesystemer", hovedtypegruppe.Typekategori3Navn);
             Assert.Equal(11, hovedtypegruppe.Hovedtyper.Count);
             // get second hovedtype from firstHovedtypegruppe.Hovedtyper
             var hovedtype = hovedtypegruppe.Hovedtyper.Where(ht => ht.Kode.Id == "MS-0-08").First();
             Assert.Equal("MS-0-08", hovedtype.Kode.Id);
             //assert prosedyrekategori
-            Assert.Equal("A: Normal variasjonsbredde. Variasjon i artssammensetning ikke betinget av strukturerende artsgruppe. Lite endret system.", hovedtype.Prosedyrekategori);
+            Assert.Equal("Normal variasjonsbredde. Variasjon i artssammensetning ikke betinget av strukturerende artsgruppe. Lite endret system.", hovedtype.ProsedyrekategoriNavn);
             Assert.Equal(1, hovedtype.Grunntyper.Count);
             var grunntype = hovedtype.Grunntyper.First();
             Assert.Equal("MS-0-08-01", grunntype.Kode.Id);
@@ -114,9 +114,12 @@ namespace NiN3.Tests.Infrastructure
         ///and is placed correctly in the Type hierarchy.
         ///</summary>
         [Fact]
-        public void TestAllCodes_kartleggingsenhet_exist_under_hovedtype_m005() {
+        public async Task TestAllCodes_kartleggingsenhet_exist_under_hovedtype_m005()
+        {
             var service = GetPrepearedTypeApiService();
-            var v3allCodes = service.AllCodes("3.0");
+            var v3allCodesTask = service.AllCodesAsync("3.0");
+
+            var v3allCodes = await v3allCodesTask.ConfigureAwait(false);
             var type_C_PE_NA = v3allCodes.Typer.FirstOrDefault(t => t.Kode.Id == "C-PE-NA");
             //assert not null
             Assert.NotNull(type_C_PE_NA);
@@ -130,17 +133,17 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(kl_IA01_M005_03);
             Assert.Equal("kryokonitt-preget breoverflate", kl_IA01_M005_03.Navn);
             Assert.Equal("Kartleggingsenhet", kl_IA01_M005_03.Kategori);
-            Assert.Equal("M005: kartleggingsenhet tilpasset 1:5000", kl_IA01_M005_03.Maalestokk);
+            Assert.Equal("kartleggingsenhet tilpasset 1:5000", kl_IA01_M005_03.MaalestokkNavn);
         }
 
         [Fact]
-        public void TestAllCodes_kartleggingsenhet_exist_under_hovedtype_m020()
+        public async Task TestAllCodes_kartleggingsenhet_exist_under_hovedtype_m020()
         {
             //arrange
             var service = GetPrepearedTypeApiService();
 
             //act
-            var v3allCodes = service.AllCodes("3.0");
+            var v3allCodes = await service.AllCodesAsync("3.0");
             var type_C_PE_NA = v3allCodes.Typer.FirstOrDefault(t => t.Kode.Id == "C-PE-NA");
             var htg_NA_I = type_C_PE_NA.Hovedtypegrupper.FirstOrDefault(htg => htg.Kode.Id == "NA-I");
             var ht_I_A_01 = htg_NA_I.Hovedtyper.FirstOrDefault(ht => ht.Kode.Id == "I-A-01");
@@ -153,7 +156,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(kl_IA01_M020_02);
             Assert.Equal("polar havis-overside", kl_IA01_M020_02.Navn);
             Assert.Equal("Kartleggingsenhet", kl_IA01_M020_02.Kategori);
-            Assert.Equal("M020: kartleggingsenhet tilpasset 1:20 000", kl_IA01_M020_02.Maalestokk);
+            Assert.Equal("kartleggingsenhet tilpasset 1:20 000", kl_IA01_M020_02.MaalestokkNavn);
         }
     }
 }
