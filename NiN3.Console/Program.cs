@@ -47,6 +47,7 @@ var meny = @"Commands:
             wipe    : delete databasefile
             full    : Full import of datasets
             copy    : Move new db file to webproject
+            info    : Show info about db files (last time changed)
             exit    : Close program";
 while (run)
 {
@@ -115,6 +116,26 @@ while (run)
             //File.Delete(filename);
             break;
         case "copy":
+            var arr = config.GetConnectionString("Extract").Split("=");
+            var sourcepath = buildtDbFileFullPath;
+            var path = config.GetValue<string>("webapiDBpath");
+            try
+            {
+                using (var sourceStream = new FileStream(sourcepath, FileMode.Open))
+                {
+                    using (var destinationStream = new FileStream(path, FileMode.Create))
+                    {
+                        sourceStream.CopyTo(destinationStream);
+                    }
+                }
+                Console.WriteLine($"Copied new db file to webproject ({path})");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            };
+            break;
+        /*case "copy":
             //webapiDBpath // copy manually
             var arr = config.GetConnectionString("Extract").Split("=");
             var sourcepath = buildtDbFileFullPath;
@@ -130,6 +151,26 @@ while (run)
             {
                 Console.WriteLine(ex.ToString());
             };
+            break;*/
+        /*
+        case "info":
+            var sourcedbpath = buildtDbFileFullPath;
+            //var destinationfile = config.GetValue<string>("webapiDBpath");
+            var webdbpath = config.GetValue<string>("webapiDBpath");
+            Console.WriteLine($"Changed time of source db file: {File.GetLastWriteTime(sourcedbpath)}");
+            Console.WriteLine($"Changed time of web db file: {File.GetLastWriteTime(webdbpath)}");
+            break;*/
+        case "info":
+            var sourcedbpath = buildtDbFileFullPath;
+            var webdbpath = config.GetValue<string>("webapiDBpath");
+
+            var sourceInfo = new FileInfo(sourcedbpath);
+            sourceInfo.Refresh();
+            Console.WriteLine($"Changed time of source db file: {sourceInfo.LastWriteTime}");
+
+            var webInfo = new FileInfo(webdbpath);
+            webInfo.Refresh();
+            Console.WriteLine($"Changed time of web db file: {webInfo.LastWriteTime}");
             break;
         default:
             Console.WriteLine("No knows command, options:");

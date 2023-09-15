@@ -10,6 +10,8 @@ namespace NiN3.Infrastructure.in_data
     public class CsvdataImporter_m005
     {
         public string Kode { get; set; }
+
+        public string Kortkode { get; set; }
         public string Navn { get; set; }
 
         internal static CsvdataImporter_m005 ParseRow(string row)
@@ -18,7 +20,8 @@ namespace NiN3.Infrastructure.in_data
             return new CsvdataImporter_m005()
             {
                 Kode = columns[0],
-                Navn = columns[1]
+                Navn = columns[1],
+                Kortkode = columns[2]
             };
         }
 

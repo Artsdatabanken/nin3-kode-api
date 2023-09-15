@@ -44,6 +44,8 @@ namespace NiN3.Infrastructure.Services
         public async Task<VersjonDto> AllCodesAsync(string versjon)
         {
             var mapper = NiNkodeMapper.Instance;
+            var typer =  await _context.Type.ToListAsync();
+
             Versjon _versjon = await _context.Versjon.Where(v => v.Navn == versjon)
                 .Include(v => v.Typer/*.Where(t => t.Kode == "C-PE-NA")*/.OrderBy(t => t.Kode))
                 .ThenInclude(type => type.Hovedtypegrupper.OrderBy(htg => htg.Kode))

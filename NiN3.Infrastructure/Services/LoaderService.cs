@@ -353,6 +353,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kode = m005.Kode,
                         Navn = m005.Navn,
+                        Kortkode = m005.Kortkode,
                         Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M005,
                         Versjon = _versjon
                     };
@@ -408,6 +409,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kode = m020.Kode,
                         Navn = m020.Navn,
+                        Kortkode = m020.Kortkode,
                         Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M020,
                         Versjon = _versjon
                     };
@@ -607,6 +609,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kode = m050.Kode,
                         Navn = m050.Navn,
+                        Kortkode = m050.Kortkode,
                         Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M050,
                         Versjon = _versjon
                     };

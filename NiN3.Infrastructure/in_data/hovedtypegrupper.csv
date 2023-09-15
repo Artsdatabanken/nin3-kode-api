@@ -11,12 +11,14 @@ Typekategori2;Hovedtypegruppe;Hovedtypegruppenavn;Typekategori3;Kode
 BM;A;bremassiv;0;BM-A
 EL;A;elveløp i fast fjell;0;EL-A
 EL;B;elveløp preget av fluviale prosesser;0;EL-B
+EL;B;forsenkninger;0;EL-B
 EL;C;elveløp preget av glasiale og fluviale prosesser;0;EL-C
 EL;D;elveløp i og gjennom kohesive sedimenter;0;EL-D
 EL;E;kompleks elvemunning;0;EL-E
 EL;F;elveløp med klart endret hydromorfologi;0;EL-F
 EL;G;kunstige elveløp og elveløp med sterkt endret hydromorfologi;0;EL-G
 FL;A;breelvlandformer;0;FL-A
+FL;A;breelvlandformer;;FL-A
 FL;B;biogene landformer;0;FL-B
 FL;C;bresjølandformer;0;FL-C
 FL;D;elvelandformer;0;FL-D
@@ -59,7 +61,7 @@ NA;S;marine vannmassesystemer;VM;NA-S
 NA;T;fastmarkssystemer;MB;NA-T
 NA;V;våtmarkssystemer;MB;NA-V
 NK;0;0;0;NK-0
-NK;C;;0;NK-C
+NK;C;naturkompleks betinget av miljøstress;0;NK-C
 NK;D;naturkompleks betinget av regulerende forstyrrelse;0;NK-D
 NK;E;naturkompleks betinget av destabiliserende forstyrrelse;0;NK-E
 TM;A;topogene torvmassiv;0;TM-A

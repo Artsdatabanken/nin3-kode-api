@@ -95,7 +95,7 @@ namespace NiN3.Tests.Infrastructure
             //q: get the first Hovedtypegruppe object in the InMemoryDb object after ordering by Kode
             var firstHGD = inmemorydb.Hovedtypegruppe.OrderBy(x => x.Kode).First();
             //Assert that the number of Hovedtypegruppe objects is equal to 71
-            Assert.Equal(71, numOfHGD);
+            Assert.Equal(73, numOfHGD);
 
 
             //Testing langkode for Hovedtypegruppe that should have typekategori3 embedded in langkode
@@ -174,7 +174,7 @@ namespace NiN3.Tests.Infrastructure
             // Get the number of Grunntype records
             var numOfGD = inmemorydb.Grunntype.Count();
             // Assert that the number of records is 166
-            Assert.Equal(1405, numOfGD);
+            Assert.Equal(1403, numOfGD);
             // Get the Grunntype record with the code "M-A-01-05"
             var grunntype = inmemorydb.Grunntype.Where(gt => gt.Kode == "M-A-01-05").FirstOrDefault();
             // Assert that the name of the record is "sukkertareskog"
@@ -187,7 +187,7 @@ namespace NiN3.Tests.Infrastructure
         }                
 
         [Fact]
-        public void TestLoadKartleggingsenhet_m005_m020()
+        public void TestLoadKartleggingsenhet_m005()
         {
             var inmemorydb = GetInMemoryDb();
             // Create a new LoaderService instance
@@ -198,7 +198,7 @@ namespace NiN3.Tests.Infrastructure
             var firstKE = inmemorydb.Kartleggingsenhet.OrderBy(x => x.Kode).First();
             var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
             Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
-            Assert.Equal(1286, numOfKE);
+            Assert.Equal(1278, numOfKE);
         }
 
         //create test for loadvariabel

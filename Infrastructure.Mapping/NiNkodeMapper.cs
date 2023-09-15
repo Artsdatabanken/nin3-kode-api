@@ -213,6 +213,7 @@ namespace NiN3.Infrastructure.Mapping
                 Navn = kartleggingsenhet.Navn,
                 Kategori = "Kartleggingsenhet",
                 Kode = kartleggingsenhet.Kode,
+                Kortkode = kartleggingsenhet.Kortkode,
                 //Maalestokk = $"{kartleggingsenhet.Maalestokk.ToString()}: {EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)}"
                 MaalestokkEnum = kartleggingsenhet.Maalestokk,
                 MaalestokkNavn = EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)

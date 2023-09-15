@@ -115,7 +115,7 @@ Hovedtype;Prosedyrekategori;Hovedtypegruppe;Hovedtypenavn;Kode
 01;0;TU;snø og is på land;TU-0-01
 01;0;U;substratfrie livsmedier i ferskvann;U-0-01
 01;A;F;lagdelte, fullsirkulerende, naturlig fisketomme innsjø-vannmassesystemer;F-A-01
-01;A;I;snø- og isdekt mark;I-A-01
+01;A;I;snø og isflater;I-A-01
 01;A;L;eufotisk fast innsjøbunn;L-A-01
 01;A;M;fast saltvanns-fjærebeltebunn;M-A-01
 01;A;O;fast elvebunn;O-A-01
@@ -244,7 +244,7 @@ Hovedtype;Prosedyrekategori;Hovedtypegruppe;Hovedtypenavn;Kode
 02;M;S;marine vannmassesystemer preget av kronisk fysisk påvirkning;S-M-02
 02;M;T;ny hard fastmark på tørrlagt ferskvannsbunn;T-M-02
 02;M;V;ny torvmark på tidligere ferskvannsbunn;V-M-02
-02;N;T;vegkanter, plener, parker og liknende med semi-naturlig hevdpreg;T-N-02
+02;N;T;blomsterenger, usprøytete vegkanter og liknende med semi-naturlig hevdpreg;T-N-02
 02;O;T;oppdyrket mark med semi-naturlig engpreg;T-O-02
 03;0;A;elveløp i karstfjell;A-0-03
 03;0;A;gjel;A-0-03
@@ -253,7 +253,7 @@ Hovedtype;Prosedyrekategori;Hovedtypegruppe;Hovedtypenavn;Kode
 03;0;B;bakkemyr;B-0-03
 03;0;B;fluvialt elveløp med kulp-strykmorfologi ;B-0-03
 03;0;B;stabilisert varmt intermediært fjordvann;B-0-03
-03;0;C; glasifluvialtelveløp med kulp-strykmorfologi;C-0-03
+03;0;C; glasifluvialt elveløp med kulp-strykmorfologi;C-0-03
 03;0;C;flomdyne fra bresjøtapping;C-0-03
 03;0;D;enkelt elveløp gjennom torv, med sedimentbunn;D-0-03
 03;0;D;meanderbue;D-0-03
@@ -431,7 +431,7 @@ Hovedtype;Prosedyrekategori;Hovedtypegruppe;Hovedtypenavn;Kode
 07;C;M;varm havkilde;M-C-07
 07;C;S;marine vannmassesystemer på polar havis;S-C-07
 07;C;T;fugletopp;T-C-07
-07;E;T;feskvannsdriftvoll;T-E-07
+07;E;T;ferskvannsdriftvoll;T-E-07
 08;0;A;isfonn;A-0-08
 08;0;A;spylefelt;A-0-08
 08;0;D;elveslette;D-0-08

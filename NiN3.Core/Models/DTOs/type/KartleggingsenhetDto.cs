@@ -16,6 +16,7 @@ namespace NiN3.Core.Models.DTOs.type
         public string MaalestokkNavn { get; set; }
         public string Navn { get; set; }
         public string Kode { get; set; }
+        public string Kortkode { get; set; }
         public ICollection<GrunntypeDto> Grunntyper { get; set; } = new List<GrunntypeDto>();
     }
 }
