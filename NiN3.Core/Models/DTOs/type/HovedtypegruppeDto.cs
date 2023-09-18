@@ -16,5 +16,6 @@ namespace NiN3.Core.Models.DTOs.type
         public NiN3.Core.Models.Enums.Typekategori3Enum Typekategori3Enum { get; set; }
         public string Typekategori3Navn { get; set; }
         public ICollection<HovedtypeDto> Hovedtyper { get; set; } = new List<HovedtypeDto>();
+        public ICollection<HovedoekosystemDto> Hovedoekosystemer { get; set; } = new List<HovedoekosystemDto>();
     }
 }
