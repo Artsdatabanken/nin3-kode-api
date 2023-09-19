@@ -79,5 +79,81 @@
 				M100 = kartleggingsenhet tilpasset 1:100 000
 			</summary>
 		</member>
+		<member name="T:NiN3.Core.Models.Enums.VariabelgruppeEnum">
+			<summary>
+				Possible values for Variabelgruppe:
+
+				EE = Elveløpsegenskaper <br />
+				SB = Skogbruksrelaterte egenskaper <br />
+				DL = Liggende død ved (læger) <br />
+				W = Artsforekomst/-mengde <br />
+				AG = Artsgruppesammensetning <br />
+				AR = Relativ del-artsgruppesammensetning <br />
+				BO = Naturgitte breobjekter <br />
+				EB = Elvebanker <br />
+				EO = Andre naturgitte elveløpsobjekter <br />
+				IO = Naturgitte innsjøobjekter <br />
+				TA = Torvmarksmassiv: Myrsegment <br />
+				TB = Torvmarksmassiv: Myrstruktur <br />
+				TC = Torvmarksmassiv: Mikrostruktur <br />
+				SE = Skogegenskaper <br />
+				IE = Innsjøbassengegenskaper <br />
+				GE = Generelle egenskaper <br />
+				GT = Generelle terrengegenskaper <br />
+				HE = Havegenskaper <br />
+				BE = Bremassivegenskaper <br />
+				OE = Menneskeskapt objekt i elv <br />
+				OI = Menneskeskapt objekt i innsjø eller til havs <br />
+				OT = Menneskeskapt terrestrisk objekt <br />
+				SU = Suksesjonsrelaterte egenskaper <br />
+				JB = Jordbruksrelaterte egenskaper <br />
+				DG = Stående død ved (gadder) <br />
+				DR = Relativ sammensetning av død ved <br /> 
+				TE = Generelle treegenskaper <br /> 
+				TG = Gammelt tre <br /> 
+				TL = Tre med spesielt livsmedium <br /> 
+				TM = Trær med gitt minstestørrelse <br /> 
+				TS = Trær med gitt størrelse <br /> 
+				FA = Fremmedartsegenskaper 
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.VariabeltypeEnum">
+			<summary>
+				Possible values for Variabeltype:
+
+				FE = enkel, ikke-ordnet faktorvariabel <br />
+				FK = kompleks, ikke-ordnet faktorvariabel <br />
+				GE = enkel gradient <br />
+				GK = kompleks gradient
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.VariabelkategoriEnum">
+			<summary>
+				Possible values for Variabelkategori:
+
+				M = Menneskebetinget <br />
+				N = Naturgitt
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.Variabelkategori2Enum">
+			<summary>
+				Possible values for Variabelkategori2:
+
+				AD = Artssammensetningsdynamikk <br />
+				BE = Bergarter <br />
+				KM = Korttidsmiljøvariabel <br />
+				LM = Lokal miljøvariabel <br />
+				LO = Landform-objekter <br />
+				MD = Miljødynamikk <br />
+				MO = Menneskeskapt objekt <br />
+				NO = Naturgitt objekt <br />
+				RA = Romlig artsfordelingsmønster <br />
+				RM = Regional miljøvariabel <br />
+				RS = Romlig strukturvariasjon <br />
+				SA = Strukturerende og funksjonelle artsgrupper <br />
+				TF = Terrengformvariasjon <br />
+				VS = Vertikal struktur
+			</summary>
+		</member>
 	</members>
 </doc>

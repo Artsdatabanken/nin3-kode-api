@@ -13,8 +13,10 @@ namespace NiN3.Core.Models.DTOs.variabel
         public string Navn { get; set; }
 
         public string Kategori { get; set; }
-        public string Ecosystnivaa { get; set; }
-        public string Variabelkategori { get; set; }
+        public EcosystnivaaEnum EcosystnivaaEnum { get; set; }
+        public string EcosystnivaaNavn { get; set; }
+        public VariabelkategoriEnum VariabelkategoriEnum { get; set; }
+        public string VariabelkategoriNavn { get; set; }
 
         public ICollection<VariabelnavnDto> Variabelnavn { get; set; } = new List<VariabelnavnDto>();
 

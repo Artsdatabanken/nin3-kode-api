@@ -16,9 +16,8 @@ namespace NiN3.Core.Models
         public int Id { get; set; }
         //public Guid Id { get; set; }
         public string Navn { get; set; }
-        public string Kode { get; set; }
-
-        public string Kortkode { get; set; } // added nullable suffix
+        public string Kode { get; set; }// added nullable suffix
+        public string Langkode { get; set; } 
         public MaalestokkEnum Maalestokk { get; set; }
         public ICollection<Grunntype> Grunntyper { get; set; } = new List<Grunntype>();
         public Versjon Versjon { get; set; }

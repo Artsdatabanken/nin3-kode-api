@@ -28,7 +28,7 @@ namespace NiN3.Core.Models.DTOs.type
         public Typekategori2Enum? Typekategori2Enum { get; set; }
         public string? Typekategori2Navn { get; set; }
         //public string? Typekategori2 { get; set; }
-        public string? Langkode { get; set; }
+        //public string? Langkode { get; set; }
         public ICollection<HovedtypegruppeDto> Hovedtypegrupper { get; set; } = new List<HovedtypegruppeDto>();
     }
 }

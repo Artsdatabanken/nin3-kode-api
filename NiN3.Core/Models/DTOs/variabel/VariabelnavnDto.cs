@@ -1,3 +1,4 @@
+using NiN3.Core.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,13 @@ namespace NiN3.Core.Models.DTOs.variabel
     {
         public string Navn { get; set; }
         public KodeDto Kode { get; set; } = new KodeDto();
-        public string Variabelkategori2 { get; set; }
-        public string Variabeltype { get; set; }
-        public string Variabelgruppe { get; set; }
+
+        public Variabelkategori2Enum Variabelkategori2Enum { get; set; }
+        public string Variabelkategori2Navn { get; set; }
+        public VariabeltypeEnum VariabeltypeEnum { get; set; }
+        public string VariabeltypeNavn { get; set; }
+        //public string Variabelgruppe { get; set; }
+        public VariabelgruppeEnum VariabelgruppeEnum { get; set; }
+        public string VariabelgruppeNavn { get; set; }
     }
 }

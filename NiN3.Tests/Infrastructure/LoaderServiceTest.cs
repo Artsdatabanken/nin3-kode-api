@@ -199,6 +199,7 @@ namespace NiN3.Tests.Infrastructure
             var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
             Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
             Assert.Equal(1278, numOfKE);
+            Assert.Equal("NiN-3.0-T-C-PE-NA-MB-IA01-M005-01", firstKE.Langkode);
         }
 
         //create test for loadvariabel

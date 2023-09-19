@@ -113,8 +113,8 @@ namespace NiN3.Infrastructure.Mapping
                 TypekategoriNavn = EnumUtil.ToDescription(type.Typekategori),
                 Typekategori2Enum = type.Typekategori2,
                 Typekategori2Navn = EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2),
-                Kode = MapKode(type.Kode, type.Langkode),
-                Langkode = type.Langkode
+                Kode = MapKode(type.Kode, type.Langkode)
+                //Langkode = type.Langkode
             };
             //type.Hovedtypegrupper.ToList().ForEach(h => typedto.Hovedtypegrupper.Add(Map(h)));
             var hovedtypegrupperBag = new ConcurrentBag<HovedtypegruppeDto>();
@@ -212,8 +212,9 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = kartleggingsenhet.Navn,
                 Kategori = "Kartleggingsenhet",
-                Kode = kartleggingsenhet.Kode,
-                Kortkode = kartleggingsenhet.Kortkode,
+                //Kode = kartleggingsenhet.Kode,
+                //Kortkode = kartleggingsenhet.Kortkode,
+                Kode = MapKode(kartleggingsenhet.Kode, kartleggingsenhet.Langkode, false),
                 //Maalestokk = $"{kartleggingsenhet.Maalestokk.ToString()}: {EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)}"
                 MaalestokkEnum = kartleggingsenhet.Maalestokk,
                 MaalestokkNavn = EnumUtil.ToDescription(kartleggingsenhet.Maalestokk)
@@ -259,8 +260,11 @@ namespace NiN3.Infrastructure.Mapping
                 Kode = MapKode(variabel.Kode, null, false),
                 Navn = variabel.Navn,
                 Kategori = "Variabel",
-                Ecosystnivaa = $"{variabel.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(variabel.Ecosystnivaa)}",
-                Variabelkategori = $"{variabel.Variabelkategori.ToString()}: {EnumUtil.ToDescription(variabel.Variabelkategori)}"
+                EcosystnivaaEnum = variabel.Ecosystnivaa,
+                EcosystnivaaNavn = EnumUtil.ToDescription(variabel.Ecosystnivaa),
+                //{EnumUtil.ToDescription(variabel.Ecosystnivaa)}",
+                VariabelkategoriEnum = variabel.Variabelkategori,
+                VariabelkategoriNavn = EnumUtil.ToDescription(variabel.Variabelkategori)
             };
 
             var variabelnavnBag = new ConcurrentBag<VariabelnavnDto>();
@@ -282,9 +286,13 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = variabelnavn.Navn,
                 Kode = MapKode(variabelnavn.Kode, variabelnavn.Langkode, false),
-                Variabelkategori2 = $"{variabelnavn.Variabelkategori2.ToString()}: {EnumUtil.ToDescription(variabelnavn.Variabelkategori2)}",
-                Variabeltype = $"{variabelnavn.Variabeltype.ToString()}: {EnumUtil.ToDescription(variabelnavn.Variabeltype)}",
-                Variabelgruppe = $"{variabelnavn.Variabelgruppe.ToString()}: {EnumUtil.ToDescription(variabelnavn.Variabelgruppe)}",
+                Variabelkategori2Enum = variabelnavn.Variabelkategori2,
+                Variabelkategori2Navn = EnumUtil.ToDescription(variabelnavn.Variabelkategori2),
+                VariabeltypeEnum = variabelnavn.Variabeltype,
+                //$"{EnumUtil.ToDescription(variabelnavn.Variabeltype)}",
+                VariabeltypeNavn = EnumUtil.ToDescription(variabelnavn.Variabeltype),
+                VariabelgruppeEnum = variabelnavn.Variabelgruppe,
+                VariabelgruppeNavn = EnumUtil.ToDescription(variabelnavn.Variabelgruppe)
             };
             return variabelnavnDto;
         }
