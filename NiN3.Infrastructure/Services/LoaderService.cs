@@ -205,7 +205,7 @@ namespace NiN.Infrastructure.Services
                         Navn = ht.Hovedtypenavn,
                         Prosedyrekategori = ht.Prosedyrekategori
                     };
-                    hovedtype.Langkode = LangkodeForParent(TypeklasseTypeEnum.HT, ht.Kode, type, hovedtype);
+                    hovedtype.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.HT, ht.Kode, type, hovedtype);
                     _context.Add(hovedtype);
                 }
                 _context.SaveChanges();
@@ -247,8 +247,8 @@ namespace NiN.Infrastructure.Services
                         Prosedyrekategori = gt.Prosedyrekategori
                     };
                     //bygger riktig langkode for grunntype
-                     NiN3.Core.Models.Type ? type = _context.Type.FirstOrDefault(s => s.Kode == hovedtypegruppe.Type.Kode);
-                    grunntype.Langkode = LangkodeForParent(TypeklasseTypeEnum.GT, grunntype.Kode, type, grunntype);
+                    NiN3.Core.Models.Type? type = _context.Type.FirstOrDefault(s => s.Kode == hovedtypegruppe.Type.Kode);
+                    grunntype.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.GT, grunntype.Kode, type, grunntype);
                     _context.Add(grunntype);
                 }
                 _context.SaveChanges();
@@ -287,7 +287,7 @@ namespace NiN.Infrastructure.Services
                         Type = type       /// <summary>
                     };
                     //Setting Langkode here  
-                    hovedtg.Langkode = LangkodeForParent(TypeklasseTypeEnum.HTG, htg.Kode, hovedtg.Type, hovedtg);
+                    hovedtg.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.HTG, htg.Kode, hovedtg.Type, hovedtg);
                     _context.Add(hovedtg);
                 }
                 _context.SaveChanges();
@@ -324,7 +324,7 @@ namespace NiN.Infrastructure.Services
                         Typekategori2 = type.Typekategori2,
                         Versjon = domene
                     };
-                    t.Langkode = LangkodeForParent(TypeklasseTypeEnum.T, type.Kode, t);
+                    t.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.T, type.Kode, t);
                     _context.Add(t);
                 }
                 _context.SaveChanges();
@@ -468,9 +468,11 @@ namespace NiN.Infrastructure.Services
                     Kode = v.Kode,
                     Ecosystnivaa = v.Ecosystnivaa,
                     Variabelkategori = v.Variabelkategori, // No semicolon here
+                    //Langkode = LangkodeForTypeObject(VariabelklasseTypeEnum.V, v.Kode),
                     Navn = _navn,
                     Versjon = _versjon
                 };
+                variabel.Langkode = LangkodeForVariabelType(VariabelklasseTypeEnum.V, variabel);
                 _context.Add(variabel);
                 loadedVariabels.Add(variabel);
             }
@@ -516,7 +518,7 @@ namespace NiN.Infrastructure.Services
         //3.NiN3.Core.Models.Type typeForObject - this is an optional parameter of type NiN3.Core.Models.Type.It represents the Type object associated with the parent.
         //4.object typeobject - this is another optional parameter that can represent the parent object if it is available.
         //</summary>
-        public string LangkodeForParent(TypeklasseTypeEnum typeklasseType, string kortkode, NiN3.Core.Models.Type typeForObject = null, object typeobject = null)
+        public string LangkodeForTypeObject(TypeklasseTypeEnum typeklasseType, string kortkode, NiN3.Core.Models.Type typeForObject = null, object typeobject = null)
         {
             // switch case to check type of parent and return corresponding langkode
             var initKodeArray = new List<string> { "NIN", "3.0", "T" };
@@ -530,7 +532,7 @@ namespace NiN.Infrastructure.Services
                     sb.Append("-");
                     sb.Append(kortkode);
                     return sb.ToString();
-                    //return string.Join("-", initKodeArray) + "-" + kortkode;
+                //return string.Join("-", initKodeArray) + "-" + kortkode;
                 case TypeklasseTypeEnum.HTG:
                     //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
                     var htg = typeobject as Hovedtypegruppe;
@@ -558,7 +560,7 @@ namespace NiN.Infrastructure.Services
                     kodeArrayForHT.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 2
                     kodeArrayForHT.Add(typeForObject.Typekategori.ToString());//kodeledd 3
                     kodeArrayForHT.Add(typekategori2ForHovedtype.ToString());//kodeledd 3
-                                                                                                                                             //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
+                                                                             //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
                     if (typekategori2ForHovedtype.Equals(Typekategori2Enum.NA))
                     {
                         if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
@@ -589,6 +591,22 @@ namespace NiN.Infrastructure.Services
                     }
                     kodeArrayForGT.Add(gt.Kode);//kodeledd 5
                     return string.Join("-", kodeArrayForGT);
+                default:
+                    throw new ArgumentException("Invalid parent type!");
+            }
+        }
+
+        public string LangkodeForVariabelType(VariabelklasseTypeEnum variabelklasseType, NiN3.Core.Models.Variabel VariabelForObject = null, object variabelobject = null)
+        {
+            var initKodeArray = new List<string> { "NIN", "3.0", "V" };
+            switch (variabelklasseType)
+            {
+                case VariabelklasseTypeEnum.V:
+                    var sb = new StringBuilder();
+                    sb.Append(string.Join("-", initKodeArray));
+                    sb.Append("-");
+                    sb.Append(VariabelForObject.Kode);
+                    return sb.ToString();
                 default:
                     throw new ArgumentException("Invalid parent type!");
             }

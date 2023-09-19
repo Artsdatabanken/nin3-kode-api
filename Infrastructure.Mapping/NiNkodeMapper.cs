@@ -257,12 +257,12 @@ namespace NiN3.Infrastructure.Mapping
         {
             var variabelDto = new VariabelDto()
             {
-                Kode = MapKode(variabel.Kode, null, false),
+                Kode = MapKode(variabel.Kode, variabel.Langkode, false),
                 Navn = variabel.Navn,
                 Kategori = "Variabel",
                 EcosystnivaaEnum = variabel.Ecosystnivaa,
                 EcosystnivaaNavn = EnumUtil.ToDescription(variabel.Ecosystnivaa),
-                //{EnumUtil.ToDescription(variabel.Ecosystnivaa)}",
+                //{EnumUtil.ToDescription(variabel.Ecosystnivaa)}", 
                 VariabelkategoriEnum = variabel.Variabelkategori,
                 VariabelkategoriNavn = EnumUtil.ToDescription(variabel.Variabelkategori)
             };

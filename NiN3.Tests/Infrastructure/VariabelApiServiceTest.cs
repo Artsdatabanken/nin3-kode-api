@@ -75,7 +75,7 @@ namespace NiN3.Tests.Infrastructure
             var versjon = "3.0";
             var result = service.AllCodes(versjon);
             var variabler = result.Variabler;
-            var firstVariabel = variabler.First();
+            var firstVariabel = variabler.OrderBy(x => x.Kode.Id).First();
             Assert.Equal(4, variabler.Count);
             Assert.Equal("A-M", firstVariabel.Kode.Id);
             var count = variabler.Count(x => x.Kode.Id == "A-M");
@@ -83,6 +83,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("Abiotisk menneskebetinget", firstVariabel.Navn);
             const int minVariabelLength = 85;
             Assert.True(firstVariabel.Variabelnavn.Count() == minVariabelLength);
+            Assert.Equal("NIN-3.0-V-A-M", firstVariabel.Kode.Langkode);
         }
     }
 }

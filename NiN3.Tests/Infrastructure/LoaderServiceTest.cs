@@ -218,6 +218,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("A-M", firstV.Kode);
             Assert.Equal("Abiotisk menneskebetinget", firstV.Navn);
             Assert.Equal(4, numOfV);
+            Assert.Equal("NIN-3.0-V-A-M", firstV.Langkode);
         }
 
         [Fact]  
