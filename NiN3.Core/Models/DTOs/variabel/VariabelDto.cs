@@ -9,9 +9,8 @@ namespace NiN3.Core.Models.DTOs.variabel
 {
     public class VariabelDto
     {
-        public KodeDto Kode { get; set; } = new KodeDto();
         public string Navn { get; set; }
-
+        public KodeDto Kode { get; set; } = new KodeDto();       
         public string Kategori { get; set; }
         public EcosystnivaaEnum EcosystnivaaEnum { get; set; }
         public string EcosystnivaaNavn { get; set; }

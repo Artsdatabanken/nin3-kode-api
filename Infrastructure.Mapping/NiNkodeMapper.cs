@@ -52,7 +52,7 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="versjon">The Versjon object to be mapped.</param>
         /// <returns>A VersjonDto object with the mapped data.</returns>
-        
+
 
 
         public VersjonDto Map(Versjon versjon)
@@ -81,7 +81,8 @@ namespace NiN3.Infrastructure.Mapping
 
 
             // Create a ConcurrentBag for mapped Variabler
-            if (versjon.Variabler != null && versjon.Variabler.Any()) { 
+            if (versjon.Variabler != null && versjon.Variabler.Any())
+            {
                 var variablerBag = new ConcurrentBag<VariabelDto>();
                 Parallel.ForEach(versjon.Variabler, v => variablerBag.Add(Map(v)));
                 versjonDto.Variabler = variablerBag.ToList().OrderBy(v => v.Kode.Id).ToList();
@@ -100,7 +101,7 @@ namespace NiN3.Infrastructure.Mapping
         /// <returns>A TypeDto with the mapped values</returns>
         public TypeDto Map(NiN3.Core.Models.Type type)
         {
-            var _typekategori2 = type.Typekategori2 !=null ? $"{type.Typekategori2.ToString()}: {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}" : null;
+            var _typekategori2 = type.Typekategori2 != null ? $"{type.Typekategori2.ToString()}: {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}" : null;
             var typedto = new TypeDto
             {
                 //Navn = $"{EnumUtil.ToDescription(type.Ecosystnivaa)} {EnumUtil.ToDescription(type.Typekategori)} {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
@@ -146,7 +147,23 @@ namespace NiN3.Infrastructure.Mapping
             var hovedtyperBag = new ConcurrentBag<HovedtypeDto>();
             Parallel.ForEach(hovedtypegruppe.Hovedtyper.ToList(), g => hovedtyperBag.Add(Map(g)));
             hovedtypegruppedto.Hovedtyper = hovedtyperBag.ToList();
+            foreach (var hovedoekosystem in hovedtypegruppe.Hovedoekosystemer)
+            {
+                hovedtypegruppedto.Hovedoekosystemer.Add(Map(hovedoekosystem));
+            }
             return hovedtypegruppedto;
+        }
+
+
+        public HovedoekosystemDto Map(Hovedtypegruppe_Hovedoekosystem hovedtypegruppe_Hovedoekosystem)
+        {
+            var hovedoekosystemdto = new HovedoekosystemDto()
+            {
+                HovedoekosystemEnum = hovedtypegruppe_Hovedoekosystem.HovedoekosystemEnum,
+                Navn = EnumUtil.ToDescription(hovedtypegruppe_Hovedoekosystem.HovedoekosystemEnum),
+
+            };
+            return hovedoekosystemdto;
         }
 
         /// <summary>
@@ -232,16 +249,16 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="kode">The code to be mapped.</param>
         /// <returns>A KodeDto object containing the code and its definition.</returns>
-        public KodeDto MapKode(String kode, String? langkode=null, bool fortyper = true)
+        public KodeDto MapKode(String kode, String? langkode = null, bool fortyper = true)
         {
-            var typeOrVar = fortyper? "typer": "variabler";
+            var typeOrVar = fortyper ? "typer" : "variabler";
             //var _root_url = "https://nin-kode-api.artsdatabanken.no/v3.0";
             var kodeDto = new KodeDto()
             {
                 Id = kode,
                 Definisjon = _root_url + $"/{typeOrVar}/hentkode/" + kode,
             };
-            if(langkode != null)
+            if (langkode != null)
             {
                 kodeDto.Langkode = langkode;
             }

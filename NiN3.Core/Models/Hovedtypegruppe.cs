@@ -25,5 +25,6 @@ namespace NiN3.Core.Models
         [ForeignKey("TypeId")]
         public Type Type { get; set; }
         public ICollection<Hovedtype> Hovedtyper { get; set; }
+        public ICollection<Hovedtypegruppe_Hovedoekosystem> Hovedoekosystemer { get; set; }
     }   
 }

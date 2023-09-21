@@ -35,7 +35,7 @@ namespace NiN3.Infrastructure.Services
         {
             var mapper = NiNkodeMapper.Instance;
             Versjon _versjon = _context.Versjon.Where(v => v.Navn == versjon)
-                .Include(v => v.Variabler.OrderBy(v => v.Kode))
+                .Include(v => v.Variabler.OrderBy(v => v.Langkode))
                 .ThenInclude(variabel => variabel.Variabelnavn)
                 .Select(v => new Versjon { Id = v.Id, Navn = v.Navn, Variabler = v.Variabler })
                 .AsNoTracking()

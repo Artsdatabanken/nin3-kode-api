@@ -58,6 +58,7 @@ namespace NiN3.Infrastructure.DbContexts
         //VARIABLER
         public DbSet<Variabel> Variabel { get; set; }
         public DbSet<Variabelnavn> Variabelnavn { get; set; }
+        public DbSet<Hovedtypegruppe_Hovedoekosystem> Hovedtypegruppe_Hovedoekosystem { get; set; }
 
         //ANDRE
         // ...

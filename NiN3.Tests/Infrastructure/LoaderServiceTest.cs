@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NiN3.Infrastructure.DbContexts;
 using NiN.Infrastructure.Services;
+using NiN3.Core.Models.Enums;
+using FluentAssertions;
 
 namespace NiN3.Tests.Infrastructure
 {
@@ -104,6 +106,36 @@ namespace NiN3.Tests.Infrastructure
             
             //Testing langkode for Hovedtypegruppe that should NOT have typekategori3 embedded in langkode
 
+        }
+
+        [Fact]
+        public void TestLoadhovedtypeGruppeAndCheckHovedoekosystem() {
+            //Create an InMemoryDb object
+            var inmemorydb = GetInMemoryDb();
+            //Create a LoaderService object and pass the InMemoryDb object to its constructor
+            var service = new LoaderService(null, inmemorydb, _logger);
+            service.SeedLookupData();
+            service.LoadLookupData();
+            //Call the LoadHovedtypeGruppeData() method
+            service.LoadTypeData();
+            service.LoadType_HTG_Mappings();
+            service.LoadHovedtypeGruppeData();
+            service.LoadHovedtypegruppeHovedoekosystemer();
+
+            //Testing a Hovedtypegruppe with one Hovedoekosystem
+            var HTG_NA_T = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-T").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
+            Assert.Equal(1, HTG_NA_T.Hovedoekosystemer.Count);
+            var Hovedtypgruppe_Hovedoekosystem = HTG_NA_T.Hovedoekosystemer.FirstOrDefault();
+            Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem.HovedoekosystemEnum);
+
+            //Testing a Hovedtypegruppe with multiple Hovedoekosystemer
+            var HTG_FL_I = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "FL-I").FirstOrDefault();
+            Assert.Equal(2, HTG_FL_I.Hovedoekosystemer.Count);
+            var Hovedtypgruppe_Hovedoekosystem_First = HTG_FL_I.Hovedoekosystemer.FirstOrDefault();
+            var Hovedtypgruppe_Hovedoekosystem_Second = HTG_FL_I.Hovedoekosystemer.LastOrDefault();
+            Assert.Equal(HovedoekosystemEnum.H, Hovedtypgruppe_Hovedoekosystem_First.HovedoekosystemEnum);
+            Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem_Second.HovedoekosystemEnum);
         }
 
         [Fact]

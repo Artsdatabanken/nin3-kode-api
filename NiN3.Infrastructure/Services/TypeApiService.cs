@@ -45,33 +45,39 @@ namespace NiN3.Infrastructure.Services
         {
             var mapper = NiNkodeMapper.Instance;
             var typer =  await _context.Type.ToListAsync();
-
+           
             Versjon _versjon = await _context.Versjon.Where(v => v.Navn == versjon)
-                .Include(v => v.Typer/*.Where(t => t.Kode == "C-PE-NA")*/.OrderBy(t => t.Kode))
-                .ThenInclude(type => type.Hovedtypegrupper.OrderBy(htg => htg.Kode))
-                .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Kode))
-                .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Kode))
+                .Include(v => v.Typer.OrderBy(t => t.Langkode))
+                .ThenInclude(type => type.Hovedtypegrupper.OrderBy(htg => htg.Langkode))
+                .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Langkode))
+                .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Langkode))
                 .Include(v => v.Typer)
                 .ThenInclude(type => type.Hovedtypegrupper)
                 .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper)
                 .ThenInclude(hovedtype => hovedtype.Hovedtype_Kartleggingsenheter)
                 .ThenInclude(Hovedtype_Kartleggingsenheter => Hovedtype_Kartleggingsenheter.Kartleggingsenhet)
                 .ThenInclude(kartleggingsenhet => kartleggingsenhet.Grunntyper)
+                .Include(v => v.Typer.OrderBy(t => t.Langkode))
+                .ThenInclude(type => type.Hovedtypegrupper.OrderBy(htg => htg.Langkode))
+                .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedoekosystemer)
+                .AsNoTracking()
                 .FirstAsync();
+
             return mapper.Map(_versjon);
         }
 
         public TypeDto GetType(string kode) {
             var mapper = NiNkodeMapper.Instance;
-            Core.Models.Type _type = _context.Type.Where(t => t.Kode == kode)
-                .Include(type => type.Hovedtypegrupper.OrderBy(htg => htg.Kode))
-                    .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Kode))
-                        .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Kode))
+            Core.Models.Type _type = _context.Type.Where(t => t.Langkode == kode)
+                .Include(type => type.Hovedtypegrupper.OrderBy(htg => htg.Langkode))
+                    .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Langkode))
+                        .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Langkode))
         .Include(type => type.Hovedtypegrupper)
             .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper)
                 .ThenInclude(hovedtype => hovedtype.Hovedtype_Kartleggingsenheter)
                 .ThenInclude(Hovedtype_Kartleggingsenheter => Hovedtype_Kartleggingsenheter.Kartleggingsenhet)
                 .ThenInclude(kartleggingsenhet => kartleggingsenhet.Grunntyper)
+             .AsNoTracking()
              .First();
             return mapper.Map(_type);
         }

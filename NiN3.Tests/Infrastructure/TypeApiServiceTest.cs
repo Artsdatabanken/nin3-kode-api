@@ -136,6 +136,9 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("kartleggingsenhet tilpasset 1:5000", kl_IA01_M005_03.MaalestokkNavn);
         }
 
+        /// <summary>
+        /// This is a unit test for TypeApiService.
+        /// </summary>|
         [Fact]
         public async Task TestAllCodes_kartleggingsenhet_exist_under_hovedtype_m020()
         {

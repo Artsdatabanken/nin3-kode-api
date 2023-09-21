@@ -124,6 +124,7 @@ namespace NiN.Infrastructure.Services
             LoadTypeData();
             LoadType_HTG_Mappings();
             LoadHovedtypeGruppeData();
+            LoadHovedtypegruppeHovedoekosystemer();
             LoadHtg_Ht_Gt_Mappings();
             LoadHovedtypeData();
             LoadGrunntypedata();
@@ -392,6 +393,47 @@ namespace NiN.Infrastructure.Services
             {
                 _logger.LogInformation("Objecttype <<Type>> allready has data!");
             }
+        }
+
+        public void LoadHovedtypegruppeHovedoekosystemer()
+        {
+            //fetch a list of all hovedtypegrupper
+            var hovedtypegrupper = _context.Hovedtypegruppe.ToList();
+
+            //loop list and fetch oekosystekode
+            Dictionary<char, string> HTG_DelkodeOekosyskodeMap = new Dictionary<char, string>()
+            {
+                {'M', "H"},
+                {'L', "F"},
+                {'O', "F"},
+                {'T', "L"},
+                {'V', "L"},
+                {'I', "HL"},
+                {'S', "F"},
+                {'F', "F"},
+            };
+
+            foreach (var hovedtypegruppe in hovedtypegrupper)
+            {
+                var hovedtypegruppeDelimiter = hovedtypegruppe?.Delkode?[0] ?? default(char);
+                if (HTG_DelkodeOekosyskodeMap.TryGetValue(hovedtypegruppeDelimiter, out var oekosystemKode))
+                {
+                    if (hovedtypegruppeDelimiter == 'I') {
+                        Console.WriteLine("I");
+                    }
+                    var oekoCollection = oekosystemKode.Select(c => c.ToString()).ToList(); //splitting letters into collection of one-letter strings
+                    foreach (var oeko in oekoCollection)
+                    {
+                        var htg_hovedoekosystem = new Hovedtypegruppe_Hovedoekosystem()
+                        {
+                            Hovedtypegruppe = hovedtypegruppe,
+                            HovedoekosystemEnum = EnumUtil.ParseEnum<HovedoekosystemEnum>(oeko)
+                        };
+                        _context.Add(htg_hovedoekosystem);
+                    }
+                }
+            }
+            _context.SaveChanges();
         }
 
         public void LoadKartleggingsenhet_m020()
