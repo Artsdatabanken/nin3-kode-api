@@ -395,6 +395,15 @@ namespace NiN.Infrastructure.Services
             }
         }
 
+
+
+        /// <summary>
+        /// Loads hovedtypegruppe-hovedoekosystem data into the database.
+        /// 
+        /// H = Hav
+        /// F = Ferskvann
+        /// L = Land
+        /// </summary>
         public void LoadHovedtypegruppeHovedoekosystemer()
         {
             //fetch a list of all hovedtypegrupper
@@ -418,7 +427,8 @@ namespace NiN.Infrastructure.Services
                 var hovedtypegruppeDelimiter = hovedtypegruppe?.Delkode?[0] ?? default(char);
                 if (HTG_DelkodeOekosyskodeMap.TryGetValue(hovedtypegruppeDelimiter, out var oekosystemKode))
                 {
-                    if (hovedtypegruppeDelimiter == 'I') {
+                    if (hovedtypegruppeDelimiter == 'I')
+                    {
                         Console.WriteLine("I");
                     }
                     var oekoCollection = oekosystemKode.Select(c => c.ToString()).ToList(); //splitting letters into collection of one-letter strings
