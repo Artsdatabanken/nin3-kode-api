@@ -123,6 +123,7 @@ namespace NiN.Infrastructure.Services
             LoadMaaleskala();
             LoadTrinn();
             MakeTrinnMappingForVariabelnavn();
+            LoadAlleKortkoderForType();
             _context.SaveChanges();
         }
 
@@ -416,10 +417,10 @@ namespace NiN.Infrastructure.Services
                 var hovedtypegruppeDelimiter = hovedtypegruppe?.Delkode?[0] ?? default(char);
                 if (HTG_DelkodeOekosyskodeMap.TryGetValue(hovedtypegruppeDelimiter, out var oekosystemKode))
                 {
-                    if (hovedtypegruppeDelimiter == 'I')
+                    /*if (hovedtypegruppeDelimiter == 'I')
                     {
                         Console.WriteLine("I");
-                    }
+                    }*/
                     var oekoCollection = oekosystemKode.Select(c => c.ToString()).ToList(); //splitting letters into collection of one-letter strings
                     foreach (var oeko in oekoCollection)
                     {
@@ -786,6 +787,61 @@ namespace NiN.Infrastructure.Services
                 }                                                
             }
             _context.SaveChanges();
+        }
+
+        public void LoadAlleKortkoderForType() {
+            // load kortkoder from type
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            foreach (var t in _context.Type.ToList()) {
+                var kortkode = new AlleKortkoderForType()
+                {
+                    Kortkode = t.Kode,
+                    TypeKlasseEnum = TypeKlasseEnum.T,
+                    Versjon = _versjon
+                };
+                _context.Add(kortkode);                
+            }
+            foreach (var htg in _context.Hovedtypegruppe.ToList()) {
+                var kortkode = new AlleKortkoderForType()
+                {
+                    Kortkode = htg.Kode,
+                    TypeKlasseEnum = TypeKlasseEnum.HTG,
+                    Versjon = _versjon
+                };
+                _context.Add(kortkode);
+            }
+            foreach (var ht in _context.Hovedtype.ToList()) { 
+                var kortkode = new AlleKortkoderForType()
+                {
+                    Kortkode = ht.Kode,
+                    TypeKlasseEnum = TypeKlasseEnum.HT,
+                    Versjon = _versjon
+                };
+                _context.Add(kortkode);
+            }
+            foreach (var gt in _context.Grunntype.ToList()) {
+                var kortkode = new AlleKortkoderForType()
+                {
+                    Kortkode = gt.Kode,
+                    TypeKlasseEnum = TypeKlasseEnum.GT,
+                    Versjon = _versjon
+                };
+                _context.Add(kortkode);
+            }
+            foreach (var ke in _context.Kartleggingsenhet.ToList()) {
+                var kortkode = new AlleKortkoderForType() { 
+                    Kortkode = ke.Kode,
+                    TypeKlasseEnum = TypeKlasseEnum.KE,
+                    Versjon = _versjon
+                };
+                _context.Add(kortkode);
+            }
+            _context.SaveChanges();
+            // load kortkoder from hovedtypegruppe
+            // load kartkoder from hovedtype
+            // load kortkoder from grunntype
+            // load kortkoder from kartleggingsenhet
+        
         }
     }
 }

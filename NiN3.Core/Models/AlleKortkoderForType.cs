@@ -15,6 +15,7 @@ namespace NiN3.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
         public int Id { get; set; }
         public string Kortkode { get; set; }
+        public string? KortkodeV2 { get; set; }
         public TypeKlasseEnum TypeKlasseEnum { get; set; }
         public Versjon Versjon { get; set; }
     }
