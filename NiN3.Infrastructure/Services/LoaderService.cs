@@ -36,19 +36,6 @@ namespace NiN.Infrastructure.Services
             _context = context;
             _logger = logger;
             _conf = configuration;
-            //Assuming the method OpprettInitDb() is responsible for creating tables, add the following code to check if tables are already created before running the method. If they do not exist already, then execute the OpprettInitDb() method.
-
-            /* Trying to use memory database to increase performance, but not working at the moment, problems with tables dissapering after creation
-            if (!_context.Database.CanConnect())
-            {
-                _logger.LogInformation("Couldn't connect to database. Running migrations.");
-                _context.Database.Migrate();
-            }
-
-            if (!HasTable("Versjon"))
-            {
-                _context.Database.EnsureCreated();
-            }*/
             LoadTypeklasser_langkoder();
         }
 
@@ -744,7 +731,6 @@ namespace NiN.Infrastructure.Services
         }
 
         public void LoadTrinn() {
-
             //Loop csvdata and add trinn to trinn-class/db
             var trinnList = CsvDataImporter_MaaleskalaTrinn.ProcessCSV("in_data/maaleskala_trinn.csv");
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
@@ -752,9 +738,6 @@ namespace NiN.Infrastructure.Services
             List<string> TrinnsAdded = new List<string>();
             foreach (var t in trinnList) { 
                 var maaleskala = MaaleskalaList.Where(m => m.MaaleskalatypeEnum == t.MaaleskalatypeEnum).FirstOrDefault();
-                //now create the damn trinn..
-                Console.WriteLine("hepp");
-                // add trinnkode do trinn added
                 if (!TrinnsAdded.Contains(t.Trinn)) { 
                 
                     var trinn = new Trinn()
