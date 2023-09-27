@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.ResponseCompression;
 using NiN3.Core.Models.DTOs;
+using NiN3.Core.Models.DTOs.type;
 using NiN3.Infrastructure.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -41,6 +42,85 @@ namespace NiN3.WebApi.Controllers
             var versjon = await _typeApiService.AllCodesAsync("3.0");
             Response.Headers.Add("Cache-Control", "max-age=3600");
             return Ok(versjon);
+        }
+
+        [HttpGet]
+        [Route("hentklasse")]
+        //[OutputCache(Duration = 86400)]// 24 timer
+        [ProducesResponseType(typeof(IEnumerable<TypeKlasseDto>), StatusCodes.Status200OK)]
+        public TypeKlasseDto HentType(string kortkode)
+        {
+            //var versjon = _typeApiService.HentKlasse(kortkode);
+            //Response.Headers.Add("Cache-Control", "max-age=3600");
+            //return Ok("Not yet implemented");
+            //return NOT
+            Console.WriteLine(kortkode);
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        [Route("hentkodeforType")]
+        //[OutputCache(Duration = 86400)]// 24 timer
+        [ProducesResponseType(typeof(IEnumerable<TypeDto>), StatusCodes.Status200OK)]
+        public TypeDto hentkodeForType(string kortkode)
+        {
+            //var versjon = _typeApiService.HentKlasse(kortkode);
+            //Response.Headers.Add("Cache-Control", "max-age=3600");
+            //return Ok("Not yet implemented");
+            //return NOT
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        [Route("hentkodeforHovedtypegruppe")]
+        //[OutputCache(Duration = 86400)]// 24 timer
+        [ProducesResponseType(typeof(IEnumerable<HovedtypegruppeDto>), StatusCodes.Status200OK)]
+        public HovedtypegruppeDto hentkodeForHovedtypegruppe(string kortkode)
+        {
+            //var versjon = _typeApiService.HentKlasse(kortkode);
+            //Response.Headers.Add("Cache-Control", "max-age=3600");
+            //return Ok("Not yet implemented");
+            //return NOT
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        [Route("hentkodeforHovedtype")]
+        //[OutputCache(Duration = 86400)]// 24 timer
+        [ProducesResponseType(typeof(IEnumerable<HovedtypeDto>), StatusCodes.Status200OK)]
+        public HovedtypeDto hentkodeForHovedtype(string kortkode)
+        {
+            //var versjon = _typeApiService.HentKlasse(kortkode);
+            //Response.Headers.Add("Cache-Control", "max-age=3600");
+            //return Ok("Not yet implemented");
+            //return NOT
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        [Route("hentkodeforGrunntype")]
+        //[OutputCache(Duration = 86400)]// 24 timer
+        [ProducesResponseType(typeof(IEnumerable<GrunntypeDto>), StatusCodes.Status200OK)]
+        public GrunntypeDto hentkodeForGrunntype(string kortkode)
+        {
+            //var versjon = _typeApiService.HentKlasse(kortkode);
+            //Response.Headers.Add("Cache-Control", "max-age=3600");
+            //return Ok("Not yet implemented");
+            //return NOT
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        [Route("hentkodeforKartleggingsenhet")]
+        //[OutputCache(Duration = 86400)]// 24 timer
+        [ProducesResponseType(typeof(IEnumerable<KartleggingsenhetDto>), StatusCodes.Status200OK)]
+        public KartleggingsenhetDto hentkodeForKartleggingsenhet(string kortkode)
+        {
+            //var versjon = _typeApiService.HentKlasse(kortkode);
+            //Response.Headers.Add("Cache-Control", "max-age=3600");
+            //return Ok("Not yet implemented");
+            //return NOT
+            throw new NotImplementedException();
         }
     }
 }

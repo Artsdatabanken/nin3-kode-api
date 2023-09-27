@@ -85,5 +85,16 @@ namespace NiN3.Tests.Infrastructure
             Assert.True(firstVariabel.Variabelnavn.Count() == minVariabelLength);
             Assert.Equal("NIN-3.0-V-A-M", firstVariabel.Kode.Langkode);
         }
+
+        [Fact]
+        public void TestGetAllCodesWithMaaleskalaTrinn()
+        {
+            var service = GetPrepearedVariabelApiService();
+            var versjon = "3.0";
+            var result = service.AllCodes(versjon);
+            var vn_RM_MS = result.Variabler.SelectMany(x => x.Variabelnavn).Where(x => x.Kode.Id == "RM-MS").FirstOrDefault();
+            Assert.NotNull(vn_RM_MS);
+            Assert.Equal(5, vn_RM_MS.MaaleskalaTrinn.Count);
+        }
     }
 }

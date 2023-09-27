@@ -37,9 +37,20 @@ namespace NiN3.Infrastructure.Services
             Versjon _versjon = _context.Versjon.Where(v => v.Navn == versjon)
                 .Include(v => v.Variabler.OrderBy(v => v.Langkode))
                 .ThenInclude(variabel => variabel.Variabelnavn)
+                .Include(v => v.Variabler.OrderBy(v => v.Langkode))
+                .ThenInclude(variabel => variabel.Variabelnavn)
+                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
+                .ThenInclude(maaletrinn => maaletrinn.Maaleskala)
+                .Include(v => v.Variabler.OrderBy(v => v.Langkode))
+                .ThenInclude(variabel => variabel.Variabelnavn)
+                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
+                .ThenInclude(maaletrinn => maaletrinn.Trinn)
                 .Select(v => new Versjon { Id = v.Id, Navn = v.Navn, Variabler = v.Variabler })
                 .AsNoTracking()
                 .FirstOrDefault();
+            /*var AllMaaleskalaTrinn = _context.VariabelnavnMaaleskalaTrinn
+                .AsNoTracking()
+                .ToList();*/
             return mapper.Map(_versjon);
         }
     }

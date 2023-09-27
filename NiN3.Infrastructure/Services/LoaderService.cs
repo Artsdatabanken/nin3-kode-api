@@ -133,7 +133,9 @@ namespace NiN.Infrastructure.Services
             LoadKartleggingsenhet_m050();
             LoadVariabel();
             LoadVariabelnavn();
-
+            LoadMaaleskala();
+            LoadTrinn();
+            MakeTrinnMappingForVariabelnavn();
             _context.SaveChanges();
         }
 
@@ -502,68 +504,6 @@ namespace NiN.Infrastructure.Services
             }
         }
 
-        //load variabel 
-        public List<Variabel> LoadVariabel()
-        {
-            //parse csv file
-            var variabelList = CsvDataImporter_Variabel.ProcessCSV("in_data/variabel.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-            var loadedVariabels = new List<Variabel>();
-
-            //load variabel data to model class
-            foreach (var v in variabelList.OrderBy(v => v.Kode))
-            {
-                var _navn = $"{EnumUtil.ToDescription(v.Ecosystnivaa)} {EnumUtil.ToDescription(v.Variabelkategori)}".ToLower().Replace("_", " ");
-                _navn = char.ToUpper(_navn[0]) + _navn.Substring(1);
-                var variabel = new Variabel()
-                {
-                    Kode = v.Kode,
-                    Ecosystnivaa = v.Ecosystnivaa,
-                    Variabelkategori = v.Variabelkategori, // No semicolon here
-                    //Langkode = LangkodeForTypeObject(VariabelklasseTypeEnum.V, v.Kode),
-                    Navn = _navn,
-                    Versjon = _versjon
-                };
-                variabel.Langkode = LangkodeForVariabelType(VariabelklasseTypeEnum.V, variabel);
-                _context.Add(variabel);
-                loadedVariabels.Add(variabel);
-            }
-
-            _context.SaveChanges();
-            return loadedVariabels;
-        }
-
-        public List<Variabelnavn> LoadVariabelnavn()
-        {
-            //parse csv file
-            var variabelList = CsvdataImporter_Variabelnavn.ProcessCSV("in_data/variabelnavn_variabel_mapping.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-            var loadedVariabelnavn = new List<Variabelnavn>();
-            var parents = _context.Variabel.ToList();
-            //load variabel data to model class
-            foreach (var v in variabelList.OrderBy(v => v.Kode))
-            {
-                var parent = parents.FirstOrDefault(p => p.Kode == v.VariabelKode);
-                var variabel = new Variabelnavn()
-                {
-                    Kode = v.Kode,
-                    Navn = v.Navn,
-                    Versjon = _versjon,
-                    Variabelkategori2 = v.Variabelkategori2, // No semicolon here
-                    Variabeltype = v.Variabeltype,
-                    Variabelgruppe = v.Variabelgruppe,
-                    Variabel = parent,
-                    Langkode = v.Langkode,
-                    //Versjon = _versjon
-                };
-                _context.Add(variabel);
-                loadedVariabelnavn.Add(variabel);
-            }
-
-            _context.SaveChanges();
-            return loadedVariabelnavn;
-        }
-
         //<summary>
         //1.TypeklasseTypeEnum typeklasseType - this is an enumeration value that determines the type of parent. It can be one of the three possible values: T, HTG, or HT.
         //2.string kortkode - this parameter is a string that represents the kortkode value of the parent.
@@ -722,6 +662,147 @@ namespace NiN.Infrastructure.Services
         public List<object> Tabelldata(string tablename)
         {
             throw new NotImplementedException();
+        }
+
+
+        //load variabel 
+        public List<Variabel> LoadVariabel()
+        {
+            //parse csv file
+            var variabelList = CsvDataImporter_Variabel.ProcessCSV("in_data/variabel.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            var loadedVariabels = new List<Variabel>();
+
+            //load variabel data to model class
+            foreach (var v in variabelList.OrderBy(v => v.Kode))
+            {
+                var _navn = $"{EnumUtil.ToDescription(v.Ecosystnivaa)} {EnumUtil.ToDescription(v.Variabelkategori)}".ToLower().Replace("_", " ");
+                _navn = char.ToUpper(_navn[0]) + _navn.Substring(1);
+                var variabel = new Variabel()
+                {
+                    Kode = v.Kode,
+                    Ecosystnivaa = v.Ecosystnivaa,
+                    Variabelkategori = v.Variabelkategori, // No semicolon here
+                    //Langkode = LangkodeForTypeObject(VariabelklasseTypeEnum.V, v.Kode),
+                    Navn = _navn,
+                    Versjon = _versjon
+                };
+                variabel.Langkode = LangkodeForVariabelType(VariabelklasseTypeEnum.V, variabel);
+                _context.Add(variabel);
+                loadedVariabels.Add(variabel);
+            }
+
+            _context.SaveChanges();
+            return loadedVariabels;
+        }
+
+        public List<Variabelnavn> LoadVariabelnavn()
+        {
+            //parse csv file
+            var variabelList = CsvdataImporter_Variabelnavn.ProcessCSV("in_data/variabelnavn_variabel_mapping.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            var loadedVariabelnavn = new List<Variabelnavn>();
+            var parents = _context.Variabel.ToList();
+            //load variabel data to model class
+            foreach (var v in variabelList.OrderBy(v => v.Kode))
+            {
+                var parent = parents.FirstOrDefault(p => p.Kode == v.VariabelKode);
+                var variabel = new Variabelnavn()
+                {
+                    Kode = v.Kode,
+                    Navn = v.Navn,
+                    Versjon = _versjon,
+                    Variabelkategori2 = v.Variabelkategori2, // No semicolon here
+                    Variabeltype = v.Variabeltype,
+                    Variabelgruppe = v.Variabelgruppe,
+                    Variabel = parent,
+                    Langkode = v.Langkode,
+                    //Versjon = _versjon
+                };
+                _context.Add(variabel);
+                loadedVariabelnavn.Add(variabel);
+            }
+
+            _context.SaveChanges();
+            return loadedVariabelnavn;
+        }
+
+        public void LoadMaaleskala()
+        {
+            var MaaleskalaList = CsvdataImporter_maaleskala_enhet.ProcessCSV("in_data/maaleskala_enhet.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            foreach(var m in MaaleskalaList)
+            {
+                var maaleskala = new Maaleskala()
+                {
+                  EnhetEnum = m.EnhetEnum,
+                  MaaleskalatypeEnum = m.MaaleskalatypeEnum,
+                };
+                _context.Add(maaleskala);
+            }
+            _context.SaveChanges();
+        }
+
+        public void LoadTrinn() {
+
+            //Loop csvdata and add trinn to trinn-class/db
+            var trinnList = CsvDataImporter_MaaleskalaTrinn.ProcessCSV("in_data/maaleskala_trinn.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            List<Maaleskala> MaaleskalaList = _context.Maaleskala.ToList();
+            List<string> TrinnsAdded = new List<string>();
+            foreach (var t in trinnList) { 
+                var maaleskala = MaaleskalaList.Where(m => m.MaaleskalatypeEnum == t.MaaleskalatypeEnum).FirstOrDefault();
+                //now create the damn trinn..
+                Console.WriteLine("hepp");
+                // add trinnkode do trinn added
+                if (!TrinnsAdded.Contains(t.Trinn)) { 
+                
+                    var trinn = new Trinn()
+                    {
+                        Navn = t.Trinn,
+                        Verdi = t.Trinnverdi,
+                        Maaleskala = maaleskala
+                        //Versjon = _versjon
+                    };
+                    TrinnsAdded.Add(t.Trinn);
+                    _context.Add(trinn);
+                }
+                _context.SaveChanges();
+            }
+        }
+        public void MakeTrinnMappingForVariabelnavn()
+        {
+            //todo-sat: impl.
+            var trinnListCsv = CsvDataImporter_MaaleskalaTrinn.ProcessCSV("in_data/maaleskala_trinn.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            List<Variabelnavn> variabelnavnList = _context.Variabelnavn.ToList();
+            List<Maaleskala> MaaleskalaList = _context.Maaleskala.ToList();
+            List<Trinn> TrinnList = _context.Trinn.ToList();
+            foreach (var t in trinnListCsv) { 
+                //find trinn by navn
+                var trinn = TrinnList.Where(tr => tr.Navn == t.Trinn).FirstOrDefault();
+                //find variabelnavn by kode
+                var variabelnavn = variabelnavnList.Where(vn => vn.Kode == t.VNKortkode).FirstOrDefault();
+                //find maaleskala by enum
+                var maaleskala = MaaleskalaList.Where(m => m.MaaleskalatypeEnum == t.MaaleskalatypeEnum).FirstOrDefault();
+                //create mapppingobject
+                if (variabelnavn != null)
+                {
+                    // execute this code block if variabelnavn is not null
+                    var variabelnavn_trinn = new VariabelnavnMaaleskalaTrinn()
+                    {
+                        Trinn = trinn,
+                        Variabelnavn = variabelnavn,
+                        Maaleskala = maaleskala
+                    };
+                    //add to db
+                    _context.Add(variabelnavn_trinn);
+                }
+                else {
+                    Console.Write($"Could not find variabelnavn.Kode: {t.VNKortkode}");
+                }                                                
+            }
+            _context.SaveChanges();
         }
     }
 }

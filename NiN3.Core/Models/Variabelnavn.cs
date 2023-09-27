@@ -28,5 +28,7 @@ namespace NiN3.Core.Models
         public Versjon Versjon { get; set; }
         [ForeignKey("VariabelId")]
         public Variabel Variabel { get; set; }
+
+        public ICollection<VariabelnavnMaaleskalaTrinn> VariabelnavnMaaleTrinn { get; set; } = new List<VariabelnavnMaaleskalaTrinn>();
     }
 }

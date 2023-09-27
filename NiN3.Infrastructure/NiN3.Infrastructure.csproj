@@ -68,6 +68,15 @@
 	  <None Update="in_data\m050_grunntype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="in_data\maaleskala_enhet.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="in_data\maaleskala_trinn.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="in_data\maaleskala_trinn_md.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="in_data\type.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

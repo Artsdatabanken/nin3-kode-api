@@ -155,5 +155,44 @@
 				VS = Vertikal struktur
 			</summary>
 		</member>
+		<member name="T:NiN3.Core.Models.Enums.MaaleskalatypeEnum">
+			<summary>
+				Possible values for MaaleskalatypeEnum:
+
+				B = binær <br />
+				D = telleskala, observert antall <br />
+				D0 = telleskala, observert antall <br />
+				D1a = telleskala, observert antall <br />
+				D1b = telleskala, observert antall <br />
+				K = kontinuerlig, observert verdi <br />
+				P = generisk måleskala for andelsvariabel <br />
+				P6a = generisk måleskala for andelsvariabel <br />
+				P6c = generisk måleskala for andelsvariabel <br />
+				P9a = Prosentskala <br />
+				Pnm = generisk måleskala for andelsvariabel, der n angir trinn om m angir variant <br />
+				SI = Variabelspesifikk, ikke-ordnet faktorverdi <br />
+				SO = Variabelspesifikk, ordnet faktorverdi <br />
+				T = tetthetsskala, 2-logaritmisk <br />
+				T0 = tetthetsskala, 2-logaritmisk <br />
+				T1a = tetthetsskala, 2-logaritmisk <br />
+				T1b = tetthetsskala, 2-logaritmisk <br />
+				T1c = tetthetsskala, 2-logaritmisk
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.EnhetEnum">
+			<summary>
+				Possible values for EnhetEnum:
+
+				B = binær <br />
+				G = grader <br />
+				OA = observert antall <br />
+				P = prosent <br />
+				T = tetthet <br />
+				U = ukjent, ikke angitt <br />
+				VSI = Variabelspesifikk trinndeling, ikke-ordnet faktorvariabel <br />
+				VSO = Variabelspesifikk trinndeling, ordnet faktorvariabel
+			</summary>
+		</member>
+
 	</members>
 </doc>

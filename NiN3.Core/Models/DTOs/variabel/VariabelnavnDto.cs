@@ -19,5 +19,7 @@ namespace NiN3.Core.Models.DTOs.variabel
         //public string Variabelgruppe { get; set; }
         public VariabelgruppeEnum VariabelgruppeEnum { get; set; }
         public string VariabelgruppeNavn { get; set; }
+
+        public ICollection<MaaleskalaTrinnDto> MaaleskalaTrinn { get; set; } = new List<MaaleskalaTrinnDto>();
     }
 }

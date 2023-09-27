@@ -8,6 +8,7 @@ using NiN3.Core.Models.DTOs.type;
 using NiN3.Core.Models.DTOs.variabel;
 using System.Collections.Concurrent;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace NiN3.Infrastructure.Mapping
 {
@@ -311,7 +312,41 @@ namespace NiN3.Infrastructure.Mapping
                 VariabelgruppeEnum = variabelnavn.Variabelgruppe,
                 VariabelgruppeNavn = EnumUtil.ToDescription(variabelnavn.Variabelgruppe)
             };
+            var maaleskalatrinnBag = new ConcurrentBag<MaaleskalaTrinnDto>();
+            Parallel.ForEach(variabelnavn.VariabelnavnMaaleTrinn.ToList(), g => maaleskalatrinnBag.Add(Map(g)));
+            variabelnavnDto.MaaleskalaTrinn = maaleskalatrinnBag.ToList();
             return variabelnavnDto;
+        }
+
+        public MaaleskalaTrinnDto Map(VariabelnavnMaaleskalaTrinn variabelnavnMaaleskalaTrinn)
+        {
+            var MaaleskalaTrinnDto = new MaaleskalaTrinnDto()
+            {
+                MaaleskalaDto = Map(variabelnavnMaaleskalaTrinn.Maaleskala),
+                TrinnDto = Map(variabelnavnMaaleskalaTrinn.Trinn)
+            };
+            return MaaleskalaTrinnDto;
+        }
+
+        public MaaleskalaDto Map(Maaleskala maaleskala) {
+            var MaaleskalaDto = new MaaleskalaDto()
+            {
+                MaaleskalatypeEnum = maaleskala.MaaleskalatypeEnum,
+                MaaleskalatypeNavn = EnumUtil.ToDescription(maaleskala.MaaleskalatypeEnum),
+                EnhetEnum = maaleskala.EnhetEnum,
+                EnhetNavn = EnumUtil.ToDescription(maaleskala.EnhetEnum)
+
+            };
+            return MaaleskalaDto;
+        }
+
+        public TrinnDto Map(Trinn trinn) { 
+            var TrinnDto = new TrinnDto()
+            {
+                Verdi = trinn.Verdi,
+                Navn = trinn.Navn
+            };
+            return TrinnDto;
         }
     }
 }
