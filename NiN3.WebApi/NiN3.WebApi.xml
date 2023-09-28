@@ -193,6 +193,17 @@
 				VSO = Variabelspesifikk trinndeling, ordnet faktorvariabel
 			</summary>
 		</member>
+		<member name="T:NiN3.Core.Models.Enums.TypeKlasseEnum">
+			<summary>
+				Possible values for TypeKlasseEnum:
+
+				T = Type <br />
+				HTG = Hovedtypegruppe <br />
+				HT = Hovedtype <br />
+				GT = Grunntype <br />
+				KE = Kartleggingsenhet
+			</summary>
+		</member>
 
 	</members>
 </doc>

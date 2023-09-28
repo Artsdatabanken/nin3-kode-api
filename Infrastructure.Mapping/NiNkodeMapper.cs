@@ -348,5 +348,15 @@ namespace NiN3.Infrastructure.Mapping
             };
             return TrinnDto;
         }
+
+        public TypeKlasseDto Map(AlleKortkoderForType alleKortkoderForType)
+        {
+            var TypeKlasseDto = new TypeKlasseDto()
+            {
+                typeKlasseEnum = alleKortkoderForType.TypeKlasseEnum,
+                typeKlasseNavn = EnumUtil.ToDescription(alleKortkoderForType.TypeKlasseEnum)
+            };
+            return TypeKlasseDto;
+        }
     }
 }

@@ -7,6 +7,9 @@ using NiN3.Infrastructure.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NiN3.Core.Models.Enums;
+using System.Net;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace NiN3.WebApi.Controllers
 {
@@ -32,7 +35,12 @@ namespace NiN3.WebApi.Controllers
             _configuration = configuration;
         }
 
-        //This code is a method that is used to get all 'Type'-codes from a service.
+        /// <summary> 
+        /// This method gets all 'Type'-codes, arranged heir 
+        /// </summary>
+        /// <returns> 
+        /// The list of 'Type'-codes. 
+        /// </returns>
         [HttpGet]
         [Route("allekoder")]
         //[OutputCache(Duration = 86400)]// 24 timer
@@ -48,79 +56,80 @@ namespace NiN3.WebApi.Controllers
         [Route("hentklasse")]
         //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<TypeKlasseDto>), StatusCodes.Status200OK)]
-        public TypeKlasseDto HentType(string kortkode)
+        //[ProducesResponseType(typeof(IEnumerable<TypeKlasseDto>), StatusCodes.Status200OK)]
+        public ActionResult HentType([Required]string kortkode= "D-0-0")
         {
             //var versjon = _typeApiService.HentKlasse(kortkode);
             //Response.Headers.Add("Cache-Control", "max-age=3600");
             //return Ok("Not yet implemented");
-            //return NOT
-            Console.WriteLine(kortkode);
-            throw new NotImplementedException();
+            var typeklasseDto = _typeApiService.GetTypeklasse(kortkode);
+            if (typeklasseDto != null)
+            {
+                return Ok(typeklasseDto);
+            }
+            else { 
+                return NotFound();
+            }  
         }
 
         [HttpGet]
         [Route("hentkodeforType")]
         //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<TypeDto>), StatusCodes.Status200OK)]
-        public TypeDto hentkodeForType(string kortkode)
+        public IActionResult hentkodeForType([Required] string kortkode= "A-LV-EL")
         {
             //var versjon = _typeApiService.HentKlasse(kortkode);
             //Response.Headers.Add("Cache-Control", "max-age=3600");
             //return Ok("Not yet implemented");
-            //return NOT
-            throw new NotImplementedException();
+            return StatusCode(501);
         }
 
         [HttpGet]
         [Route("hentkodeforHovedtypegruppe")]
         //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<HovedtypegruppeDto>), StatusCodes.Status200OK)]
-        public HovedtypegruppeDto hentkodeForHovedtypegruppe(string kortkode)
+        public IActionResult hentkodeForHovedtypegruppe([Required] string kortkode= "FL-G")
         {
             //var versjon = _typeApiService.HentKlasse(kortkode);
             //Response.Headers.Add("Cache-Control", "max-age=3600");
             //return Ok("Not yet implemented");
-            //return NOT
-            throw new NotImplementedException();
+            return StatusCode(501);
         }
 
         [HttpGet]
         [Route("hentkodeforHovedtype")]
         //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<HovedtypeDto>), StatusCodes.Status200OK)]
-        public HovedtypeDto hentkodeForHovedtype(string kortkode)
+        public IActionResult hentkodeForHovedtype([Required] string kortkode = "H-0-29")
         {
             //var versjon = _typeApiService.HentKlasse(kortkode);
             //Response.Headers.Add("Cache-Control", "max-age=3600");
             //return Ok("Not yet implemented");
-            //return NOT
-            throw new NotImplementedException();
+            return StatusCode(501);
         }
 
         [HttpGet]
         [Route("hentkodeforGrunntype")]
         //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<GrunntypeDto>), StatusCodes.Status200OK)]
-        public GrunntypeDto hentkodeForGrunntype(string kortkode)
+        public IActionResult hentkodeForGrunntype([Required] string kortkode = "K-0-02-006")
         {
             //var versjon = _typeApiService.HentKlasse(kortkode);
             //Response.Headers.Add("Cache-Control", "max-age=3600");
             //return Ok("Not yet implemented");
-            //return NOT
-            throw new NotImplementedException();
+            return StatusCode(501);
         }
 
         [HttpGet]
         [Route("hentkodeforKartleggingsenhet")]
         //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<KartleggingsenhetDto>), StatusCodes.Status200OK)]
-        public KartleggingsenhetDto hentkodeForKartleggingsenhet(string kortkode)
+        public IActionResult hentkodeForKartleggingsenhet([Required] string kortkode = "LA01-M005-13")
         {
             //var versjon = _typeApiService.HentKlasse(kortkode);
             //Response.Headers.Add("Cache-Control", "max-age=3600");
             //return Ok("Not yet implemented");
-            //return NOT
-            throw new NotImplementedException();
+            return StatusCode(501);
         }
     }
 }

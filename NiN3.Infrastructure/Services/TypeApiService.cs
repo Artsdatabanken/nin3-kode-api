@@ -82,6 +82,11 @@ namespace NiN3.Infrastructure.Services
             return mapper.Map(_type);
         }
 
+        public TypeKlasseDto GetTypeklasse(string kortkode) {
+            var alleKortkoderForType = _context.AlleKortkoderForType.Where(a => a.Kortkode == kortkode).FirstOrDefault();
+            return NiNkodeMapper.Instance.Map(alleKortkoderForType);
+        }
+
         /*
  public VersjonDto AllCodesDummy() {
      //return empty ICollection<VersjonDto>

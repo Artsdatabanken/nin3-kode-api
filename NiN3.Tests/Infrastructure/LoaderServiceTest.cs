@@ -401,7 +401,5 @@ namespace NiN3.Tests.Infrastructure
             Assert.True(numOfGrunntyper == countGtinAlleKortkoder);
             Assert.True(numOfKartleggingsenheter == countKeinAlleKortkoder);
         }
-
-
     }
 }
