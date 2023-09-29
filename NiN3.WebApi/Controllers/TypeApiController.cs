@@ -10,6 +10,9 @@ using NiN3.Core.Models.Enums;
 using System.Net;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.ComponentModel;
+using NiN3.WebApi.settings;
+using Microsoft.Extensions.Options;
 
 namespace NiN3.WebApi.Controllers
 {
@@ -21,6 +24,9 @@ namespace NiN3.WebApi.Controllers
         private readonly ITypeApiService _typeApiService;
         /*private readonly ILogger _logger;*/
         private readonly IConfiguration _configuration;
+
+        private string _versjon =  "3.0";
+        //private readonly int _cacheDuration;
         //<summary>
         // This constructor initializes the TypeApiController class with the necessary services,
         // logger, and configuration. The ITypeApiService, ILogger,
@@ -28,11 +34,12 @@ namespace NiN3.WebApi.Controllers
         // and assigned to the corresponding private fields. 
         // This allows the TypeApiController to access the services, logger, and configuration when needed.
         //</summary>
-        public TypeApiController(ITypeApiService typeApiService, /*ILogger logger,*/ IConfiguration configuration)
+        public TypeApiController(ITypeApiService typeApiService, /*ILogger logger,*/ IConfiguration configuration/*, IOptions<CacheSettings> cacheSettings*/)
         {
             _typeApiService = typeApiService;
             /*_logger = logger;*/
             _configuration = configuration;
+            //_cacheDuration = cacheSettings.Value.Duration;
         }
 
         /// <summary> 
@@ -43,7 +50,8 @@ namespace NiN3.WebApi.Controllers
         /// </returns>
         [HttpGet]
         [Route("allekoder")]
-        //[OutputCache(Duration = 86400)]// 24 timer
+        //[OutputCache(Duration = 0/*_cacheDuration*/)]// 24 timer // almost no use in serverside-cache here,
+        //browser side rendering is the penalty here
         [ProducesResponseType(typeof(IEnumerable<VersjonDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -52,43 +60,60 @@ namespace NiN3.WebApi.Controllers
             return Ok(versjon);
         }
 
+        /// <summary> 
+        /// This method retrieves a 'Type'-kode by its 'kortkode'. 
+        /// </summary>
+        /// <param name="kortkode"> The 'kortkode' of the 'Type'-kode to retrieve. </param>
+        /// <returns> 
+        /// An 'IEnumerable' of the 'TypeKlasseDto' class for the requested 'Type'-kode. 
+        /// </returns>
+        /// <response code="200"> 
+        /// Returns an 'IEnumerable' of the 'TypeKlasseDto' class, along with a status code of 200 (OK).
+        /// </response>
+        /// <response code="400"> 
+        /// If the 'kortkode' parameter is not provided, returns a status code of 400 (Bad Request). 
+        /// </response>
+        /// <response code="404"> 
+        /// If the requested 'Type'-kode does not exist, returns a status code of 404 (Not Found). 
+        /// </response>
         [HttpGet]
         [Route("hentklasse")]
-        //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<TypeKlasseDto>), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(IEnumerable<TypeKlasseDto>), StatusCodes.Status200OK)]
-        public ActionResult HentType([Required]string kortkode= "D-0-0")
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult HentKlasse([Required] string kortkode = "D-0-0")
         {
-            //var versjon = _typeApiService.HentKlasse(kortkode);
-            //Response.Headers.Add("Cache-Control", "max-age=3600");
-            //return Ok("Not yet implemented");
-            var typeklasseDto = _typeApiService.GetTypeklasse(kortkode);
+            var typeklasseDto = _typeApiService.GetTypeklasse(kortkode, _versjon);
             if (typeklasseDto != null)
             {
                 return Ok(typeklasseDto);
             }
-            else { 
+            else
+            {
                 return NotFound();
-            }  
+            }
         }
 
         [HttpGet]
         [Route("hentkodeforType")]
-        //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<TypeDto>), StatusCodes.Status200OK)]
-        public IActionResult hentkodeForType([Required] string kortkode= "A-LV-EL")
+        public IActionResult hentkodeForType([Required] string kortkode = "A-LV-EL")
         {
-            //var versjon = _typeApiService.HentKlasse(kortkode);
-            //Response.Headers.Add("Cache-Control", "max-age=3600");
-            //return Ok("Not yet implemented");
-            return StatusCode(501);
+            var typeDto = _typeApiService.GetTypeByKortkode(kortkode, _versjon);
+            if (typeDto != null)
+            {
+                return Ok(typeDto);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
         [Route("hentkodeforHovedtypegruppe")]
-        //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<HovedtypegruppeDto>), StatusCodes.Status200OK)]
-        public IActionResult hentkodeForHovedtypegruppe([Required] string kortkode= "FL-G")
+        public IActionResult hentkodeForHovedtypegruppe([Required] string kortkode = "FL-G")
         {
             //var versjon = _typeApiService.HentKlasse(kortkode);
             //Response.Headers.Add("Cache-Control", "max-age=3600");
@@ -98,7 +123,6 @@ namespace NiN3.WebApi.Controllers
 
         [HttpGet]
         [Route("hentkodeforHovedtype")]
-        //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<HovedtypeDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForHovedtype([Required] string kortkode = "H-0-29")
         {
@@ -110,7 +134,6 @@ namespace NiN3.WebApi.Controllers
 
         [HttpGet]
         [Route("hentkodeforGrunntype")]
-        //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<GrunntypeDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForGrunntype([Required] string kortkode = "K-0-02-006")
         {
@@ -122,7 +145,6 @@ namespace NiN3.WebApi.Controllers
 
         [HttpGet]
         [Route("hentkodeforKartleggingsenhet")]
-        //[OutputCache(Duration = 86400)]// 24 timer
         [ProducesResponseType(typeof(IEnumerable<KartleggingsenhetDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForKartleggingsenhet([Required] string kortkode = "LA01-M005-13")
         {

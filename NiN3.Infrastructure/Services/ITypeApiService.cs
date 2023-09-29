@@ -11,6 +11,8 @@ namespace NiN3.Infrastructure.Services
     public interface ITypeApiService
     {
         public Task<VersjonDto> AllCodesAsync(string versjon);
-        public TypeKlasseDto GetTypeklasse(string kortkode);
+        public TypeKlasseDto GetTypeklasse(string kortkode, string versjon);
+
+        public TypeDto GetTypeByKortkode(string kortkode, string versjon);
     }
 }

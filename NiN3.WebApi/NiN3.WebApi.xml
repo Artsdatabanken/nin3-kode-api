@@ -4,6 +4,15 @@
 		<name>NiN3.WebApi</name>
 	</assembly>
 	<members>
+		<!-- CONTROLLERS -->
+		<member name="M:NiN3.WebApi.Controllers.TypeApiController.HentKlasse(string,System.String)">
+			<summary>
+				Sample endpoint for Swagger documentation
+			</summary>
+			<param name="kortkode">kortkoden for en typeklasse-objekt (Type, Hovedtypegruppe, Hovedtype, Grunntype, Kartleggingsenhet)</param>
+			<param name="kortnavn">kortnavnet for en typeklasse-objekt (Type, Hovedtypegruppe, Hovedtype, Grunntype, Kartleggingsenhet)</param>
+		</member>
+		<!-- CLASSES AND ENUMS -->
 		<member name="T:NiN3.Core.Models.Enums.EcosystnivaaEnum">
 			<summary>
 				Possible values for Ecosystnivå:
@@ -204,6 +213,5 @@
 				KE = Kartleggingsenhet
 			</summary>
 		</member>
-
 	</members>
 </doc>

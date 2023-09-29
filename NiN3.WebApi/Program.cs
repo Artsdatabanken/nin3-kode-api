@@ -18,6 +18,7 @@ using NiN3.WebApi.Filters;
 using Microsoft.OpenApi.Models;
 using System.Xml.Linq;
 using System.Reflection;
+using NiN3.WebApi.settings;
 
 
 /*Log.Logger = new LoggerConfiguration()

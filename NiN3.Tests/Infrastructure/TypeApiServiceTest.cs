@@ -18,6 +18,7 @@ using static System.Net.WebRequestMethods;
 using NiN3.Infrastructure.Mapping;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using NiN3.Core.Models;
+using NiN3.Core.Models.Enums;
 
 namespace NiN3.Tests.Infrastructure
 {
@@ -28,7 +29,7 @@ namespace NiN3.Tests.Infrastructure
 
         private IMapper _mapper;
         private ILogger<TypeApiService> _logger;
-        private NiN3DbContext inmemorydb;
+        private NiN3DbContext inmemorydb;     
 
         public TypeApiServiceTest()
         {
@@ -109,6 +110,21 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("NIN-3.0-T-A-LV-BM", firstType.Kode.Langkode);
         }
 
+        [Fact]
+        public void TestGetTypeKlasse() {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var typeklasse = service.GetTypeklasse("A-LV-BM", "3.0");
+            Assert.NotNull(typeklasse);
+            Assert.Equal("Type", typeklasse.typeKlasseNavn);
+            Assert.Equal(TypeKlasseEnum.T, typeklasse.typeKlasseEnum);
+        }
+        
+        [Fact]
+        public void TestGetTypeByKortkode() {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var type = service.GetTypeByKortkode("A-LV-BM", "3.0");
+            Assert.NotNull(type);
+        }
         ///<summary>
         ///Tests that a Kartleggingsenhet exists under a Hovedtype 
         ///and is placed correctly in the Type hierarchy.

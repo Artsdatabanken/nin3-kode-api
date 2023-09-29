@@ -66,9 +66,9 @@ namespace NiN3.Infrastructure.Services
             return mapper.Map(_versjon);
         }
 
-        public TypeDto GetType(string kode) {
+        public TypeDto GetTypeByKortkode(string kode, string versjon) {
             var mapper = NiNkodeMapper.Instance;
-            Core.Models.Type _type = _context.Type.Where(t => t.Langkode == kode)
+            Core.Models.Type _type = _context.Type.Where(t => t.Kode == kode && t.Versjon.Navn == versjon)
                 .Include(type => type.Hovedtypegrupper.OrderBy(htg => htg.Langkode))
                     .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Langkode))
                         .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Langkode))
@@ -77,14 +77,17 @@ namespace NiN3.Infrastructure.Services
                 .ThenInclude(hovedtype => hovedtype.Hovedtype_Kartleggingsenheter)
                 .ThenInclude(Hovedtype_Kartleggingsenheter => Hovedtype_Kartleggingsenheter.Kartleggingsenhet)
                 .ThenInclude(kartleggingsenhet => kartleggingsenhet.Grunntyper)
+        .Include(type => type.Hovedtypegrupper.OrderBy(htg => htg.Langkode))
+            .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedoekosystemer)
+        .Include(type =>type.Versjon)
              .AsNoTracking()
              .First();
             return mapper.Map(_type);
         }
 
-        public TypeKlasseDto GetTypeklasse(string kortkode) {
-            var alleKortkoderForType = _context.AlleKortkoderForType.Where(a => a.Kortkode == kortkode).FirstOrDefault();
-            return NiNkodeMapper.Instance.Map(alleKortkoderForType);
+        public TypeKlasseDto GetTypeklasse(string kortkode, string versjon) {
+            var alleKortkoderForType = _context.AlleKortkoderForType.Where(a => a.Kortkode == kortkode && a.Versjon.Navn == versjon).FirstOrDefault();
+           return NiNkodeMapper.Instance.Map(alleKortkoderForType);
         }
 
         /*
