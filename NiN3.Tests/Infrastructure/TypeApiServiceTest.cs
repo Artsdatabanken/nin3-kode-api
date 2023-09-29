@@ -125,6 +125,42 @@ namespace NiN3.Tests.Infrastructure
             var type = service.GetTypeByKortkode("A-LV-BM", "3.0");
             Assert.NotNull(type);
         }
+
+        [Fact]
+        public void TestGetHovedtypegruppeByKortkode()
+        {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var hovedtypegruppe = service.GetHovedtypegruppeByKortkode("FL-G", "3.0");
+            Assert.NotNull(hovedtypegruppe);
+        }
+
+        [Fact]
+        public void TestGetHovedtypeByKortkode()
+        {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var hovedtype = service.GetHovedtypeByKortkode("M-A-06", "3.0");
+            Assert.NotNull(hovedtype);
+        }
+
+
+        [Fact]
+        public void TestGetGrunntypeByKortkode()
+        {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var grunntype = service.GetGrunntypeByKortkode("K-0-02-006", "3.0");
+            Assert.NotNull(grunntype);
+        }
+
+
+        [Fact]
+        public void TestGetKartleggingsenhetByKortkode()
+        {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var kartleggingsenhet = service.GetKartleggingsenhetByKortkode("LA01-M005-13", "3.0");
+            Assert.NotNull(kartleggingsenhet);
+        }
+
+
         ///<summary>
         ///Tests that a Kartleggingsenhet exists under a Hovedtype 
         ///and is placed correctly in the Type hierarchy.

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using System.ComponentModel;
 using NiN3.WebApi.settings;
 using Microsoft.Extensions.Options;
+using NiN3.Core.Models;
 
 namespace NiN3.WebApi.Controllers
 {
@@ -115,21 +116,28 @@ namespace NiN3.WebApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<HovedtypegruppeDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForHovedtypegruppe([Required] string kortkode = "FL-G")
         {
-            //var versjon = _typeApiService.HentKlasse(kortkode);
-            //Response.Headers.Add("Cache-Control", "max-age=3600");
-            //return Ok("Not yet implemented");
-            return StatusCode(501);
+            var hovedtypegruppe = _typeApiService.GetHovedtypegruppeByKortkode(kortkode, _versjon);
+
+            if (hovedtypegruppe != null)
+            {
+                return Ok(hovedtypegruppe);
+            }
+
+            return NotFound();
         }
 
         [HttpGet]
-        [Route("hentkodeforHovedtype")]
+        [Route("hentKodeForHovedtype")]
         [ProducesResponseType(typeof(IEnumerable<HovedtypeDto>), StatusCodes.Status200OK)]
-        public IActionResult hentkodeForHovedtype([Required] string kortkode = "H-0-29")
-        {
-            //var versjon = _typeApiService.HentKlasse(kortkode);
-            //Response.Headers.Add("Cache-Control", "max-age=3600");
-            //return Ok("Not yet implemented");
-            return StatusCode(501);
+        public IActionResult HentKodeForHovedtype([Required] string kortkode = "M-A-06")
+        { 
+            var hovedtype = _typeApiService.GetHovedtypeByKortkode(kortkode, _versjon);
+            if (hovedtype != null)
+            {
+                return Ok(hovedtype);
+            }
+
+            return NotFound();
         }
 
         [HttpGet]
@@ -137,10 +145,12 @@ namespace NiN3.WebApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<GrunntypeDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForGrunntype([Required] string kortkode = "K-0-02-006")
         {
-            //var versjon = _typeApiService.HentKlasse(kortkode);
-            //Response.Headers.Add("Cache-Control", "max-age=3600");
-            //return Ok("Not yet implemented");
-            return StatusCode(501);
+            var grunntype = _typeApiService.GetGrunntypeByKortkode(kortkode, _versjon);
+            if (grunntype != null)
+            {
+                return Ok(grunntype);
+            }
+            return NotFound();
         }
 
         [HttpGet]
@@ -148,10 +158,12 @@ namespace NiN3.WebApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<KartleggingsenhetDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForKartleggingsenhet([Required] string kortkode = "LA01-M005-13")
         {
-            //var versjon = _typeApiService.HentKlasse(kortkode);
-            //Response.Headers.Add("Cache-Control", "max-age=3600");
-            //return Ok("Not yet implemented");
-            return StatusCode(501);
+            var kartleggingsenhet = _typeApiService.GetKartleggingsenhetByKortkode(kortkode, _versjon);
+            if (kartleggingsenhet != null)
+            {
+                return Ok(kartleggingsenhet);
+            }
+            return NotFound();
         }
     }
 }
