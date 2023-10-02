@@ -9,6 +9,7 @@ namespace NiN3.Infrastructure.Services
 {
     public interface IRapportService
     {
-        public KodeoversiktDto GetKodeSummary(string versjon);
+        public List<KodeoversiktDto> GetKodeSummary(string versjon);
+        public string MakeKodeoversiktCSV(string versjon);
     }
 }

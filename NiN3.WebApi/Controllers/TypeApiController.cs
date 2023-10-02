@@ -66,10 +66,10 @@ namespace NiN3.WebApi.Controllers
         /// </summary>
         /// <param name="kortkode"> The 'kortkode' of the 'Type'-kode to retrieve. </param>
         /// <returns> 
-        /// An 'IEnumerable' of the 'TypeKlasseDto' class for the requested 'Type'-kode. 
+        /// An 'IEnumerable' of the 'KlasseDto' class for the requested 'Type'-kode. 
         /// </returns>
         /// <response code="200"> 
-        /// Returns an 'IEnumerable' of the 'TypeKlasseDto' class, along with a status code of 200 (OK).
+        /// Returns an 'IEnumerable' of the 'KlasseDto' class, along with a status code of 200 (OK).
         /// </response>
         /// <response code="400"> 
         /// If the 'kortkode' parameter is not provided, returns a status code of 400 (Bad Request). 
@@ -79,7 +79,7 @@ namespace NiN3.WebApi.Controllers
         /// </response>
         [HttpGet]
         [Route("hentklasse")]
-        [ProducesResponseType(typeof(IEnumerable<TypeKlasseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<KlasseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult HentKlasse([Required] string kortkode = "D-0-0")

@@ -796,7 +796,7 @@ namespace NiN.Infrastructure.Services
                 var kortkode = new AlleKortkoderForType()
                 {
                     Kortkode = t.Kode,
-                    TypeKlasseEnum = TypeKlasseEnum.T,
+                    TypeKlasseEnum = KlasseEnum.T,
                     Versjon = _versjon
                 };
                 _context.Add(kortkode);                
@@ -805,7 +805,7 @@ namespace NiN.Infrastructure.Services
                 var kortkode = new AlleKortkoderForType()
                 {
                     Kortkode = htg.Kode,
-                    TypeKlasseEnum = TypeKlasseEnum.HTG,
+                    TypeKlasseEnum = KlasseEnum.HTG,
                     Versjon = _versjon
                 };
                 _context.Add(kortkode);
@@ -814,7 +814,7 @@ namespace NiN.Infrastructure.Services
                 var kortkode = new AlleKortkoderForType()
                 {
                     Kortkode = ht.Kode,
-                    TypeKlasseEnum = TypeKlasseEnum.HT,
+                    TypeKlasseEnum = KlasseEnum.HT,
                     Versjon = _versjon
                 };
                 _context.Add(kortkode);
@@ -823,7 +823,7 @@ namespace NiN.Infrastructure.Services
                 var kortkode = new AlleKortkoderForType()
                 {
                     Kortkode = gt.Kode,
-                    TypeKlasseEnum = TypeKlasseEnum.GT,
+                    TypeKlasseEnum = KlasseEnum.GT,
                     Versjon = _versjon
                 };
                 _context.Add(kortkode);
@@ -831,7 +831,7 @@ namespace NiN.Infrastructure.Services
             foreach (var ke in _context.Kartleggingsenhet.ToList()) {
                 var kortkode = new AlleKortkoderForType() { 
                     Kortkode = ke.Kode,
-                    TypeKlasseEnum = TypeKlasseEnum.KE,
+                    TypeKlasseEnum = KlasseEnum.KE,
                     Versjon = _versjon
                 };
                 _context.Add(kortkode);

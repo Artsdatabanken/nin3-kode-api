@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace NiN3.Core.Models.Enums
 {
-    public enum TypeKlasseEnum
+    public enum KlasseEnum
     {
         [Description("Type")]
         T,
@@ -19,5 +19,9 @@ namespace NiN3.Core.Models.Enums
         GT,
         [Description("Kartleggingsenhet")]
         KE,
+        [Description("Variabel")]
+        V,
+        [Description("Variabelnavn")]
+        VN
     }
 }

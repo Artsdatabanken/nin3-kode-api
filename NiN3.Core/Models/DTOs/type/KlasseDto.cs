@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace NiN3.Core.Models.DTOs.type
 {
-    public class TypeKlasseDto
+    public class KlasseDto
     {
-        public TypeKlasseEnum typeKlasseEnum { get; set; }
-        public string typeKlasseNavn { get; set; }
+        public KlasseEnum KlasseEnum { get; set; }
+        public string KlasseNavn { get; set; }
     }
 }

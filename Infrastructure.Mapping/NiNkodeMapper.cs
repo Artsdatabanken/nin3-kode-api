@@ -9,6 +9,7 @@ using NiN3.Core.Models.DTOs.variabel;
 using System.Collections.Concurrent;
 using System;
 using System.ComponentModel.DataAnnotations;
+using NiN3.Core.Models.DTOs.rapport;
 
 namespace NiN3.Infrastructure.Mapping
 {
@@ -349,14 +350,26 @@ namespace NiN3.Infrastructure.Mapping
             return TrinnDto;
         }
 
-        public TypeKlasseDto Map(AlleKortkoderForType alleKortkoderForType)
+        public KlasseDto Map(AlleKortkoderForType alleKortkoderForType)
         {
-            var TypeKlasseDto = new TypeKlasseDto()
+            var TypeKlasseDto = new KlasseDto()
             {
-                typeKlasseEnum = alleKortkoderForType.TypeKlasseEnum,
-                typeKlasseNavn = EnumUtil.ToDescription(alleKortkoderForType.TypeKlasseEnum)
+                KlasseEnum = alleKortkoderForType.TypeKlasseEnum,
+                KlasseNavn = EnumUtil.ToDescription(alleKortkoderForType.TypeKlasseEnum)
             };
             return TypeKlasseDto;
+        }
+
+        public KodeoversiktDto Map(Kodeoversikt kodeoversikt)
+        {
+            var KodeoversiktDto = new KodeoversiktDto()
+            {
+                Langkode = kodeoversikt.Langkode,
+                Kortkode = kodeoversikt.Kortkode,
+                Navn = kodeoversikt.Navn,
+                Klasse = kodeoversikt.Klasse
+            };
+            return KodeoversiktDto;
         }
     }
 }

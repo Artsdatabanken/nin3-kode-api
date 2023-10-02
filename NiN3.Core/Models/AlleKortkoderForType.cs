@@ -16,7 +16,7 @@ namespace NiN3.Core.Models
         public int Id { get; set; }
         public string Kortkode { get; set; }
         public string? KortkodeV2 { get; set; }
-        public TypeKlasseEnum TypeKlasseEnum { get; set; }
+        public KlasseEnum TypeKlasseEnum { get; set; }
         public Versjon Versjon { get; set; }
     }
 }

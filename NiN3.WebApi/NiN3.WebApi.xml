@@ -202,15 +202,17 @@
 				VSO = Variabelspesifikk trinndeling, ordnet faktorvariabel
 			</summary>
 		</member>
-		<member name="T:NiN3.Core.Models.Enums.TypeKlasseEnum">
+		<member name="T:NiN3.Core.Models.Enums.KlasseEnum">
 			<summary>
-				Possible values for TypeKlasseEnum:
+				Possible values for KlasseEnum:
 
 				T = Type <br />
 				HTG = Hovedtypegruppe <br />
 				HT = Hovedtype <br />
 				GT = Grunntype <br />
-				KE = Kartleggingsenhet
+				KE = Kartleggingsenhet <br />
+				V = Variabel <br />
+				VN = Variabelnavn 
 			</summary>
 		</member>
 	</members>

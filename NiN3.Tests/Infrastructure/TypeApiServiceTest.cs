@@ -115,8 +115,8 @@ namespace NiN3.Tests.Infrastructure
             TypeApiService service = GetPrepearedTypeApiService();
             var typeklasse = service.GetTypeklasse("A-LV-BM", "3.0");
             Assert.NotNull(typeklasse);
-            Assert.Equal("Type", typeklasse.typeKlasseNavn);
-            Assert.Equal(TypeKlasseEnum.T, typeklasse.typeKlasseEnum);
+            Assert.Equal("Type", typeklasse.KlasseNavn);
+            Assert.Equal(KlasseEnum.T, typeklasse.KlasseEnum);
         }
         
         [Fact]

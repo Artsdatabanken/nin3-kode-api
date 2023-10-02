@@ -383,18 +383,18 @@ namespace NiN3.Tests.Infrastructure
             var kortkode = inmemorydb.AlleKortkoderForType.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);
-            Assert.Equal(TypeKlasseEnum.HTG, kortkode.TypeKlasseEnum);
+            Assert.Equal(KlasseEnum.HTG, kortkode.TypeKlasseEnum);
             Assert.Null(kortkode.KortkodeV2); // not yet impl.
             var numOfTyper= inmemorydb.Type.Count();
             var numOfHovedtypegrupper = inmemorydb.Hovedtypegruppe.Count();
             var numOfHovedtyper = inmemorydb.Hovedtype.Count();
             var numOfGrunntyper = inmemorydb.Grunntype.Count();
             var numOfKartleggingsenheter = inmemorydb.Kartleggingsenhet.Count();
-            var countHTinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == TypeKlasseEnum.HT);
-            var countTypeinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == TypeKlasseEnum.T);
-            var countHtginAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == TypeKlasseEnum.HTG);
-            var countGtinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == TypeKlasseEnum.GT);
-            var countKeinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == TypeKlasseEnum.KE);
+            var countHTinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.HT);
+            var countTypeinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.T);
+            var countHtginAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.HTG);
+            var countGtinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.GT);
+            var countKeinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.KE);
             Assert.True(numOfTyper == countTypeinAlleKortkoder);
             Assert.True(numOfHovedtypegrupper == countHtginAlleKortkoder);
             Assert.Equal(numOfHovedtyper,countHTinAlleKortkoder);

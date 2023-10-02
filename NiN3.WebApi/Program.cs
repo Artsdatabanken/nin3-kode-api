@@ -1,24 +1,16 @@
-global using NiN3.Core.Models;
 //global using Microsoft.EntityFrameworkCore;
-using NiN3.Infrastructure.DbContexts;
-using NiN3.Infrastructure.Services;
-using System.Collections;
-using Azure.Identity;
-using NiN3.WebApi;
-using Microsoft.EntityFrameworkCore;
-using NiN.Infrastructure.Services;
-using NLog;
-using NiN3.Infrastructure.Mapping.Profiles;
-using Microsoft.Extensions.DependencyInjection;
-using Azure;
-using NiN3.Infrastructure.Mapping;
 using Microsoft.AspNetCore.ResponseCompression;
-using System.Text.Json.Serialization;
-using NiN3.WebApi.Filters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using NiN.Infrastructure.Services;
+using NiN3.Infrastructure.DbContexts;
+using NiN3.Infrastructure.Mapping;
+using NiN3.Infrastructure.Mapping.Profiles;
+using NiN3.Infrastructure.Services;
+using NiN3.WebApi;
+using System.Collections;
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
-using System.Reflection;
-using NiN3.WebApi.settings;
 
 
 /*Log.Logger = new LoggerConfiguration()
@@ -75,6 +67,7 @@ builder.Services.AddAutoMapper(typeof(AllProfiles));
 builder.Services.AddScoped<ILoaderService, LoaderService>();
 builder.Services.AddScoped<ITypeApiService, TypeApiService>();
 builder.Services.AddScoped<IVariabelApiService, VariabelApiService>();
+builder.Services.AddScoped<IRapportService, RapportService>();
 //builder.Services.AddSingleton<ISService, SService>();
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
@@ -107,12 +100,16 @@ app.UseOutputCache();
 if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(config => config.ConfigObject.AdditionalItems["syntaxHighlight"] = new Dictionary<string, object>
+    {
+        ["activated"] = false
+    });
     var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetService<NiN3DbContext>();
     db.Database.EnsureCreated();
     //if (db != null) { db.Database.Migrate(); };
 }
+
 
 app.UseAuthorization();
 
