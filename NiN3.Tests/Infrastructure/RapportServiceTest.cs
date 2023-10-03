@@ -65,7 +65,9 @@ namespace NiN3.Tests.Infrastructure
             var service = GetPrepearedRapportService();
             var result = service.GetKodeSummary("3.0");
             Assert.NotNull(result);
-            Assert.Equal(2318, result.Count);
+            var kartleggingsenheter = result.Where(result => result.Klasse == "Kartleggingsenhet").ToList();
+            Assert.Equal(1278, kartleggingsenheter.Count);//test for #133
+            Assert.Equal(3596, result.Count);
         }
     }
 }

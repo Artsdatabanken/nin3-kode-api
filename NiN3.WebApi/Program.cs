@@ -77,7 +77,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "NiN3 API", Version = "v3.0" });
     var xmlFile = "NiN3.WebApi.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlFile);
+    c.IncludeXmlComments(xmlPath);
     //c.SchemaFilter<EnumDescriptionSchemaFilter>();
     //c.SchemaFilter<EnumSummarySchemaFilter>();
 });

@@ -117,13 +117,13 @@
 				SU = Suksesjonsrelaterte egenskaper <br />
 				JB = Jordbruksrelaterte egenskaper <br />
 				DG = Stående død ved (gadder) <br />
-				DR = Relativ sammensetning av død ved <br /> 
-				TE = Generelle treegenskaper <br /> 
-				TG = Gammelt tre <br /> 
-				TL = Tre med spesielt livsmedium <br /> 
-				TM = Trær med gitt minstestørrelse <br /> 
-				TS = Trær med gitt størrelse <br /> 
-				FA = Fremmedartsegenskaper 
+				DR = Relativ sammensetning av død ved <br />
+				TE = Generelle treegenskaper <br />
+				TG = Gammelt tre <br />
+				TL = Tre med spesielt livsmedium <br />
+				TM = Trær med gitt minstestørrelse <br />
+				TS = Trær med gitt størrelse <br />
+				FA = Fremmedartsegenskaper
 			</summary>
 		</member>
 		<member name="T:NiN3.Core.Models.Enums.VariabeltypeEnum">
@@ -212,7 +212,7 @@
 				GT = Grunntype <br />
 				KE = Kartleggingsenhet <br />
 				V = Variabel <br />
-				VN = Variabelnavn 
+				VN = Variabelnavn
 			</summary>
 		</member>
 	</members>

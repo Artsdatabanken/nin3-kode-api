@@ -67,6 +67,14 @@ namespace NiN3.Infrastructure.Services
                 Klasse = "Grunntype"
             }).ToList();
             kodeoversiktList.AddRange(grunntyper);
+            var kartleggingsenheter = _context.Kartleggingsenhet.Select(ke => new Kodeoversikt()
+            {
+                Kortkode = ke.Kode,
+                Langkode = ke.Langkode,
+                Navn = ke.Navn,
+                Klasse = "Kartleggingsenhet"
+            }).ToList();
+            kodeoversiktList.AddRange(kartleggingsenheter);
             var variabler = _context.Variabel.Select(htg => new Kodeoversikt()
             {
                 Kortkode = htg.Kode,
