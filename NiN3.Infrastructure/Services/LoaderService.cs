@@ -167,6 +167,78 @@ namespace NiN.Infrastructure.Services
             _context.SaveChanges();
         }
 
+
+        public void LoadTypeData()
+        {
+            var tbls = Tabeller();
+            if (_context.Type.Count() == 0)
+            {
+                var typer = CsvdataImporter_Type.ProcessCSV("in_data/type.csv");
+                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                foreach (var type in typer)
+                {
+                    //var langkodeForType 
+                    var t = new NiN3.Core.Models.Type()
+                    {
+                        Navn = EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2),
+                        Kode = type.Kode,
+                        //Langkode = langkodeForType,
+                        Ecosystnivaa = type.Ecosystnivaa,
+                        Typekategori = type.Typekategori,
+                        Typekategori2 = type.Typekategori2,
+                        Versjon = domene
+                    };
+                    t.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.T, type.Kode, t);
+                    _context.Add(t);
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                _logger.LogInformation("Objecttype <<Type>> allready has data!");
+            }
+        }
+
+
+        /// <summary>
+        /// Loads data of hovedtypegruppe from CSV file to database, if data not already present.
+        /// </summary>
+        public void LoadHovedtypeGruppeData()
+        {
+            //q: fetch typer from _context
+            var typer = _context.Type.ToList();
+            var htg_count = _context.Hovedtypegruppe.Count();
+            if (_context.Hovedtypegruppe.Count() == 0)
+            {
+                var hovedtypegrupper = CsvdataImporter_Hovedtypegruppe.ProcessCSV("in_data/hovedtypegrupper.csv");
+                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                foreach (var htg in hovedtypegrupper)
+                {
+                    var typeKode = csvdataImporter_Type_Htg_Mappings.Where(x => x.Typekategori2 == htg.Typekategori2.ToString()).Select(x => x.Type_kode).FirstOrDefault();
+                    var type = typer.FirstOrDefault(s => s.Kode == typeKode);
+                    //var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtypegruppe == htg.Kode).langkode;
+                    var hovedtg = new Hovedtypegruppe()
+                    {
+                        Kode = htg.Kode,
+                        Typekategori2 = htg.Typekategori2,
+                        Typekategori3 = htg.Typekategori3,
+                        Versjon = domene,
+                        Delkode = htg.Hovedtypegruppe,
+                        Navn = htg.Hovedtypegruppenavn,
+                        Type = type       /// <summary>
+                    };
+                    //Setting Langkode here  
+                    hovedtg.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.HTG, htg.Kode, hovedtg.Type, hovedtg);
+                    _context.Add(hovedtg);
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                _logger.LogInformation("Objecttype <<Hovedtypegruppe>> allready has data!");
+            }
+        }
+
         /// <summary>
         /// Loads the data for Hovedtype if there is no data available in the context.
         /// </summary>
@@ -250,45 +322,6 @@ namespace NiN.Infrastructure.Services
             }
         }
 
-        /// <summary>g
-        /// Loads data of hovedtypegruppe from CSV file to database, if data not already present.
-        /// </summary>
-        public void LoadHovedtypeGruppeData()
-        {
-            //q: fetch typer from _context
-            var typer = _context.Type.ToList();
-            var htg_count = _context.Hovedtypegruppe.Count();
-            if (_context.Hovedtypegruppe.Count() == 0)
-            {
-                var hovedtypegrupper = CsvdataImporter_Hovedtypegruppe.ProcessCSV("in_data/hovedtypegrupper.csv");
-                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
-                foreach (var htg in hovedtypegrupper)
-                {
-                    var typeKode = csvdataImporter_Type_Htg_Mappings.Where(x => x.Typekategori2 == htg.Typekategori2.ToString()).Select(x => x.Type_kode).FirstOrDefault();
-                    var type = typer.FirstOrDefault(s => s.Kode == typeKode);
-                    //var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtypegruppe == htg.Kode).langkode;
-                    var hovedtg = new Hovedtypegruppe()
-                    {
-                        Kode = htg.Kode,
-                        Typekategori2 = htg.Typekategori2,
-                        Typekategori3 = htg.Typekategori3,
-                        Versjon = domene,
-                        Delkode = htg.Hovedtypegruppe,
-                        Navn = htg.Hovedtypegruppenavn,
-                        Type = type       /// <summary>
-                    };
-                    //Setting Langkode here  
-                    hovedtg.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.HTG, htg.Kode, hovedtg.Type, hovedtg);
-                    _context.Add(hovedtg);
-                }
-                _context.SaveChanges();
-            }
-            else
-            {
-                _logger.LogInformation("Objecttype <<Hovedtypegruppe>> allready has data!");
-            }
-        }
-
         /// <summary>
         /// Loads data for Type object if not already present in the database.
         /// </summary>
@@ -296,35 +329,7 @@ namespace NiN.Infrastructure.Services
         {
             Langkoder_typeklasser = CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/typeklasser_langkode_mapping.csv");
         }
-        public void LoadTypeData()
-        {
-            var tbls = Tabeller();
-            if (_context.Type.Count() == 0)
-            {
-                var typer = CsvdataImporter_Type.ProcessCSV("in_data/type.csv");
-                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
-                foreach (var type in typer)
-                {
-                    //var langkodeForType 
-                    var t = new NiN3.Core.Models.Type()
-                    {
-                        Kode = type.Kode,
-                        //Langkode = langkodeForType,
-                        Ecosystnivaa = type.Ecosystnivaa,
-                        Typekategori = type.Typekategori,
-                        Typekategori2 = type.Typekategori2,
-                        Versjon = domene
-                    };
-                    t.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.T, type.Kode, t);
-                    _context.Add(t);
-                }
-                _context.SaveChanges();
-            }
-            else
-            {
-                _logger.LogInformation("Objecttype <<Type>> allready has data!");
-            }
-        }
+
 
         /// <summary>
         /// Loads data into database for kartleggingsenhet with maalestokk M005

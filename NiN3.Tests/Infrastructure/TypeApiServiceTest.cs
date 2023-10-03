@@ -90,14 +90,14 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(10, v3allCodes.Typer.Count);
             var firstType = v3allCodes.Typer.First();
             Assert.Equal("A-LV-BM", firstType.Kode.Id);
-            Assert.Equal("bremassiv", firstType.Navn);
+            Assert.Equal("Bremassiv", firstType.Navn);
             Assert.StartsWith("http", firstType.Kode.Definisjon);
             Assert.EndsWith("/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
             var hovedtypegrupper = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").ToList();
             Assert.True(hovedtypegrupper.Count == 1);
             var hovedtypegruppe = hovedtypegrupper.First();
             Assert.Equal("0-MS", hovedtypegruppe.Kode.Id);
-            Assert.Equal("vannmassesystemer", hovedtypegruppe.Typekategori3Navn);
+            Assert.Equal("Vannmassesystemer", hovedtypegruppe.Typekategori3Navn);
             Assert.Equal(11, hovedtypegruppe.Hovedtyper.Count);
             // get second hovedtype from firstHovedtypegruppe.Hovedtyper
             var hovedtype = hovedtypegruppe.Hovedtyper.Where(ht => ht.Kode.Id == "MS-0-08").First();
@@ -183,9 +183,9 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(ht_I_A_01);
             var kl_IA01_M005_03 = ht_I_A_01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode.Langkode == "NiN-3.0-T-C-PE-NA-MB-IA01-M005-03");
             Assert.NotNull(kl_IA01_M005_03);
-            Assert.Equal("kryokonitt-preget breoverflate", kl_IA01_M005_03.Navn);
+            Assert.Equal("Kryokonitt-preget breoverflate", kl_IA01_M005_03.Navn);
             Assert.Equal("Kartleggingsenhet", kl_IA01_M005_03.Kategori);
-            Assert.Equal("kartleggingsenhet tilpasset 1:5000", kl_IA01_M005_03.MaalestokkNavn);
+            Assert.Equal("Kartleggingsenhet tilpasset 1:5000", kl_IA01_M005_03.MaalestokkNavn);
         }
 
         /// <summary>
@@ -209,9 +209,9 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(htg_NA_I);
             Assert.NotNull(ht_I_A_01);
             Assert.NotNull(kl_IA01_M020_02);
-            Assert.Equal("polar havis-overside", kl_IA01_M020_02.Navn);
+            Assert.Equal("Polar havis-overside", kl_IA01_M020_02.Navn);
             Assert.Equal("Kartleggingsenhet", kl_IA01_M020_02.Kategori);
-            Assert.Equal("kartleggingsenhet tilpasset 1:20 000", kl_IA01_M020_02.MaalestokkNavn);
+            Assert.Equal("Kartleggingsenhet tilpasset 1:20 000", kl_IA01_M020_02.MaalestokkNavn);
         }
     }
 }

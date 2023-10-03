@@ -16,7 +16,7 @@ namespace NiN3KodeAPI.in_data
             {
                 Typekategori2 = EnumUtil.ParseEnum<Typekategori2Enum>(columns[0]),
                 Hovedtypegruppe = columns[1],
-                Hovedtypegruppenavn = columns[2],
+                Hovedtypegruppenavn = char.ToUpper(columns[2][0]) + columns[2].Substring(1),
                 Typekategori3 = EnumUtil.ParseEnum<Typekategori3Enum>(columns[3]),
                 Kode = columns[4]
             };

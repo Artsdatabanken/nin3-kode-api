@@ -17,43 +17,42 @@
 			<summary>
 				Possible values for Ecosystnivå:
 
-				A = abiotisk<br />
-				B = biotisk<br />
-				C = økodiversitet
+				A = Abiotisk<br />
+				B = Biotisk<br />
+				C = Økodiversitet
 			</summary>
 		</member>
 		<member name="T:NiN3.Core.Models.Enums.TypekategoriEnum">
 			<summary>
 				Possible values for Typekategori:
 
-
-				LI = livsmedium<br />
-				LV = landformvariasjon<br />
-				MV = marine vannmasser<br />
-				PE = primært økodiversitetsnivå<br />
-				SE = sekundært økodiversitetsnivå
+				LI = Livsmedium<br />
+				LV = Landformvariasjon<br />
+				MV = Marine vannmasser<br />
+				PE = Primært økodiversitetsnivå<br />
+				SE = Sekundært økodiversitetsnivå
 			</summary>
 		</member>
 		<member name="T:NiN3.Core.Models.Enums.Typekategori2Enum">
 			<summary>
 				Possible values for Typekategori2:
 
-				BM = bremassiv<br />
-				EL = elveløp<br />
-				FL = landformer i fast fjell og løsmasser<br />
-				IB = innsjøbasseng<br />
-				LA = landskapstype<br />
-				NA = natursystem<br />
-				NK = naturkompleks<br />
-				TM = torvmarksmassiv
+				BM = Bremassiv<br />
+				EL = Elveløp<br />
+				FL = Landformer i fast fjell og løsmasser<br />
+				IB = Innsjøbasseng<br />
+				LA = Landskapstype<br />
+				NA = Natursystem<br />
+				NK = Naturkompleks<br />
+				TM = Torvmarksmassiv
 			</summary>
 		</member>
 		<member name="T:NiN3.Core.Models.Enums.Typekategori3Enum">
 			<summary>
 				Possible values for Typekategori3:
 
-				VM = vannmassesystemer<br />
-				MB = mark- og bunnsystemer
+				VM = Vannmassesystemer<br />
+				MB = Mark- og bunnsystemer
 			</summary>
 		</member>
 		<member name="T:NiN3.Core.Models.Enums.ProsedyrekategoriEnum">
@@ -81,12 +80,13 @@
 			<summary>
 				Possible values for Maalestokk:
 
-				M005 = kartleggingsenhet tilpasset 1:5000<br />
-				M010 = kartleggingsenhet tilpasset 1:10 000<br />
-				M020 = kartleggingsenhet tilpasset 1:20 000<br />
-				M050 = kartleggingsenhet tilpasset 1:50 000<br />
-				M100 = kartleggingsenhet tilpasset 1:100 000
+				M005 = Kartleggingsenhet tilpasset 1:5000<br />
+				M010 = Kartleggingsenhet tilpasset 1:10 000<br />
+				M020 = Kartleggingsenhet tilpasset 1:20 000<br />
+				M050 = Kartleggingsenhet tilpasset 1:50 000<br />
+				M100 = Kartleggingsenhet tilpasset 1:100 000
 			</summary>
+
 		</member>
 		<member name="T:NiN3.Core.Models.Enums.VariabelgruppeEnum">
 			<summary>
@@ -130,10 +130,10 @@
 			<summary>
 				Possible values for Variabeltype:
 
-				FE = enkel, ikke-ordnet faktorvariabel <br />
-				FK = kompleks, ikke-ordnet faktorvariabel <br />
-				GE = enkel gradient <br />
-				GK = kompleks gradient
+				FE = Enkel, ikke-ordnet faktorvariabel <br />
+				FK = Kompleks, ikke-ordnet faktorvariabel <br />
+				GE = Enkel gradient <br />
+				GK = Kompleks gradient
 			</summary>
 		</member>
 		<member name="T:NiN3.Core.Models.Enums.VariabelkategoriEnum">
@@ -168,36 +168,37 @@
 			<summary>
 				Possible values for MaaleskalatypeEnum:
 
-				B = binær <br />
-				D = telleskala, observert antall <br />
-				D0 = telleskala, observert antall <br />
-				D1a = telleskala, observert antall <br />
-				D1b = telleskala, observert antall <br />
-				K = kontinuerlig, observert verdi <br />
-				P = generisk måleskala for andelsvariabel <br />
-				P6a = generisk måleskala for andelsvariabel <br />
-				P6c = generisk måleskala for andelsvariabel <br />
+				B = Binær <br />
+				D = Telleskala, observert antall <br />
+				D0 = Telleskala, observert antall <br />
+				D1a = Telleskala, observert antall <br />
+				D1b = Telleskala, observert antall <br />
+				K = Kontinuerlig, observert verdi <br />
+				P = Generisk måleskala for andelsvariabel <br />
+				P6a = Generisk måleskala for andelsvariabel <br />
+				P6c = Generisk måleskala for andelsvariabel <br />
 				P9a = Prosentskala <br />
-				Pnm = generisk måleskala for andelsvariabel, der n angir trinn om m angir variant <br />
+				Pnm = Generisk måleskala for andelsvariabel, der n angir trinn om m angir variant <br />
 				SI = Variabelspesifikk, ikke-ordnet faktorverdi <br />
 				SO = Variabelspesifikk, ordnet faktorverdi <br />
-				T = tetthetsskala, 2-logaritmisk <br />
-				T0 = tetthetsskala, 2-logaritmisk <br />
-				T1a = tetthetsskala, 2-logaritmisk <br />
-				T1b = tetthetsskala, 2-logaritmisk <br />
-				T1c = tetthetsskala, 2-logaritmisk
+				T = Tetthetsskala, 2-logaritmisk <br />
+				T0 = Tetthetsskala, 2-logaritmisk <br />
+				T1a = Tetthetsskala, 2-logaritmisk <br />
+				T1b = Tetthetsskala, 2-logaritmisk <br />
+				T1c = Tetthetsskala, 2-logaritmisk
 			</summary>
+
 		</member>
 		<member name="T:NiN3.Core.Models.Enums.EnhetEnum">
 			<summary>
 				Possible values for EnhetEnum:
 
-				B = binær <br />
-				G = grader <br />
-				OA = observert antall <br />
-				P = prosent <br />
-				T = tetthet <br />
-				U = ukjent, ikke angitt <br />
+				B = Binær <br />
+				G = Grader <br />
+				OA = Observert antall <br />
+				P = Prosent <br />
+				T = Tetthet <br />
+				U = Ukjent, ikke angitt <br />
 				VSI = Variabelspesifikk trinndeling, ikke-ordnet faktorvariabel <br />
 				VSO = Variabelspesifikk trinndeling, ordnet faktorvariabel
 			</summary>

@@ -20,7 +20,7 @@ namespace NiN3.Infrastructure.in_data
             return new CsvdataImporter_m005()
             {
                 Kode = columns[0],
-                Navn = columns[1],
+                Navn = char.ToUpper(columns[1][0]) + columns[1].Substring(1),
                 Kortkode = columns[2]
             };
         }

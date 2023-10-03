@@ -63,6 +63,7 @@ namespace NiN3.Tests.Infrastructure
             //Test a type langkode within ecosystnivaa = A 
             var type_eco_A = inmemorydb.Type.Where(t => t.Kode == "A-MV-0").FirstOrDefault(); //Get Type with Kode = "CA-MV-0"
             Assert.Equal("NIN-3.0-T-A-MV-0", type_eco_A.Langkode);
+            Assert.Equal("Bremassiv", type_eco_A.Navn);
         }
 
 
@@ -126,6 +127,7 @@ namespace NiN3.Tests.Infrastructure
             //Testing a Hovedtypegruppe with one Hovedoekosystem
             var HTG_NA_T = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-T").FirstOrDefault();
             Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
+            Assert.Equal("Fastmarkssystemer", HTG_NA_T.Navn);
             Assert.Equal(1, HTG_NA_T.Hovedoekosystemer.Count);
             var Hovedtypgruppe_Hovedoekosystem = HTG_NA_T.Hovedoekosystemer.FirstOrDefault();
             Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem.HovedoekosystemEnum);
@@ -166,6 +168,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(464, numOfHD);
             var HT_0_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "0-C-01").FirstOrDefault();
             Assert.NotNull(HT_0_C_01);
+            Assert.Equal("Varmkildekompleks", HT_0_C_01.Navn);
             Assert.NotNull(HT_0_C_01.Hovedtypegruppe);
             Assert.Equal("NIN-3.0-T-C-SE-NK-0-C-01", HT_0_C_01.Langkode);
 
@@ -211,10 +214,9 @@ namespace NiN3.Tests.Infrastructure
             // Get the Grunntype record with the code "M-A-01-05"
             var grunntype = inmemorydb.Grunntype.Where(gt => gt.Kode == "M-A-01-05").FirstOrDefault();
             // Assert that the name of the record is "sukkertareskog"
-            Assert.Equal("spiraltangbunn", grunntype.Navn);
+            Assert.Equal("Spiraltangbunn", grunntype.Navn);
             // Assert that the delkode of the record is "05"
             Assert.Equal("05", grunntype.Delkode);
-
             //Testing langkode for M-A-01-05
             Assert.Equal("NIN-3.0-T-C-PE-NA-MB-M-A-01-05", grunntype.Langkode);
         }                
@@ -231,6 +233,7 @@ namespace NiN3.Tests.Infrastructure
             var firstKE = inmemorydb.Kartleggingsenhet.OrderBy(x => x.Kode).First();
             var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
             Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
+            Assert.Equal("Varig snø", firstKE.Navn);
             Assert.Equal(1278, numOfKE);
             Assert.Equal("NiN-3.0-T-C-PE-NA-MB-IA01-M005-01", firstKE.Langkode);
         }
@@ -269,7 +272,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(firstVN);
             Assert.Equal(364, numOfVN);
             Assert.True(firstVN.Kode == "AD-FA");
-            Assert.True(firstVN.Navn == "fremmedartsantall");
+            Assert.True(firstVN.Navn == "Fremmedartsantall");
             Assert.True(firstVN.Variabelkategori2.ToString() == "AD");
             Assert.True(firstVN.Variabelgruppe.ToString() == "FA");
             Assert.True(firstVN.Variabeltype.ToString() == "GE");
@@ -339,7 +342,7 @@ namespace NiN3.Tests.Infrastructure
             var trinnMapping = inmemorydb.VariabelnavnMaaleskalaTrinn.Where(x => x.Variabelnavn.Kode == "RM-MS").OrderBy(x => x.Trinn.Navn).FirstOrDefault();
             Assert.NotNull(trinnMapping);
             Assert.Equal("RM-MS", trinnMapping.Variabelnavn.Kode);
-            Assert.Equal("marine bioklimatiske soner", trinnMapping.Variabelnavn.Navn);
+            Assert.Equal("Marine bioklimatiske soner", trinnMapping.Variabelnavn.Navn);
             Assert.Equal("MS-a", trinnMapping.Trinn.Navn);
             Assert.Equal("Nordsjøen og Skagerrak", trinnMapping.Trinn.Verdi);
             Assert.Equal(MaaleskalatypeEnum.SO, trinnMapping.Maaleskala.MaaleskalatypeEnum);

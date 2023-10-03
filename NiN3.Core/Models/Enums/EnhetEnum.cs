@@ -4,17 +4,17 @@ namespace NiN3.Core.Models.Enums
 {
     public enum EnhetEnum
     {
-        [Description("binær")]
+        [Description("Binær")]
         B,
-        [Description("grader")]
+        [Description("Grader")]
         G,
-        [Description("observert antall")]
+        [Description("Observert antall")]
         OA,
-        [Description("prosent")]
+        [Description("Prosent")]
         P,
-        [Description("tetthet")]
+        [Description("Tetthet")]
         T,
-        [Description("ukjent, ikke angitt")]
+        [Description("Ukjent, ikke angitt")]
         U,
         [Description("Variabelspesifikk trinndeling, ikke-ordnet faktorvariabel")]
         VSI,

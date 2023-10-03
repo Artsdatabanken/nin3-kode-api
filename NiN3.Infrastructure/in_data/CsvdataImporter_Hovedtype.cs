@@ -19,7 +19,7 @@ namespace NiN3KodeAPI.in_data
                 Hovedtype = columns[0],
                 Prosedyrekategori = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(columns[1]),
                 Hovedtypegruppe = columns[2],
-                Hovedtypenavn = columns[3],
+                Hovedtypenavn = char.ToUpper(columns[3][0]) + columns[3].Substring(1),
                 Kode = columns[4]
             };
         }

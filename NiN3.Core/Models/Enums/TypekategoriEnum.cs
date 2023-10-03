@@ -5,15 +5,15 @@ namespace NiN3.Core.Models.Enums
 {
     public enum TypekategoriEnum
     {
-        [Description("livsmedium")]
+        [Description("Livsmedium")]
         LI,
-        [Description("landformvariasjon")]
+        [Description("Landformvariasjon")]
         LV,
-        [Description("marine vannmasser")]
+        [Description("Marine vannmasser")]
         MV,
-        [Description("primært økodiversitetsnivå")]
+        [Description("Primært økodiversitetsnivå")]
         PE,
-        [Description("sekundært økodiversitetsnivå")]
+        [Description("Sekundært økodiversitetsnivå")]
         SE
     }
 }

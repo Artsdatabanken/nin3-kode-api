@@ -30,7 +30,7 @@ namespace NiN3.Infrastructure.in_data
                 Variabelgruppe = EnumUtil.ParseEnum<VariabelgruppeEnum>(columns[6]),
                 Variabeltype = EnumUtil.ParseEnum<VariabeltypeEnum>(columns[5]),
                 Delkode = columns[7],
-                Navn = columns[8],
+                Navn = char.ToUpper(columns[8][0]) + columns[8].Substring(1),
                 VariabelKode = columns[9]
 
             };

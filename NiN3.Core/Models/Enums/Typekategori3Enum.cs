@@ -11,9 +11,9 @@ namespace NiN3.Core.Models.Enums
 {
     public enum Typekategori3Enum
     {
-        [Description("vannmassesystemer")]
+        [Description("Vannmassesystemer")]
         VM,
-        [Description("mark- og bunnsystemer")]
+        [Description("Mark- og bunnsystemer")]
         MB
     }
 }

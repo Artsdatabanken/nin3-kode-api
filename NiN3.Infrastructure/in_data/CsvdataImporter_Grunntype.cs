@@ -24,7 +24,7 @@ namespace NiN3.Infrastructure.in_data
                 Prosedyrekategori = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(columns[2]),
                 //Hovedtypegruppe = columns[0],
                 Grunntype = columns[4],
-                Grunntypenavn = columns[5],
+                Grunntypenavn = char.ToUpper(columns[5][0]) + columns[5].Substring(1),
                 Kode = columns[6]
             };
         }

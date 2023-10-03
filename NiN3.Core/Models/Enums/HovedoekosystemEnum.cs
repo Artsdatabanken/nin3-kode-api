@@ -9,11 +9,11 @@ namespace NiN3.Core.Models.Enums
 {
     public enum HovedoekosystemEnum
     {
-        [Description("hav")]
+        [Description("Hav")]
         H,
-        [Description("ferskvann")]
+        [Description("Ferskvann")]
         F,
-        [Description("land")]
+        [Description("Land")]
         L,
     }
 }

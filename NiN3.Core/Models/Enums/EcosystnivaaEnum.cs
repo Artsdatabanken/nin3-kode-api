@@ -11,13 +11,13 @@ namespace NiN3.Core.Models.Enums
     public enum EcosystnivaaEnum
     {
         [EnumMember(Value = "A")]
-        [Description("abiotisk")]
+        [Description("Abiotisk")]
         A,
         [EnumMember(Value = "B")]
-        [Description("biotisk")]
+        [Description("Biotisk")]
         B,
         [EnumMember(Value = "C")]
-        [Description("økodiversitet")]
+        [Description("Økodiversitet")]
         C
     }
 }

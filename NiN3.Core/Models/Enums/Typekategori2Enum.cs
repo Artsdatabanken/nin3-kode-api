@@ -5,21 +5,21 @@ namespace NiN3.Core.Models.Enums
 {
     public enum Typekategori2Enum
     {
-        [Description("bremassiv")]
+        [Description("Bremassiv")]
         BM,
-        [Description("elveløp")]
+        [Description("Elveløp")]
         EL,
-        [Description("landformer i fast fjell og løsmasser")]
+        [Description("Landformer i fast fjell og løsmasser")]
         FL,
-        [Description("innsjøbasseng")]
+        [Description("Innsjøbasseng")]
         IB,
-        [Description("landskapstype")]
+        [Description("Landskapstype")]
         LA,
-        [Description("natursystem")]
+        [Description("Natursystem")]
         NA,
-        [Description("naturkompleks")]
+        [Description("Naturkompleks")]
         NK,
-        [Description("torvmarksmassiv")]
+        [Description("Torvmarksmassiv")]
         TM
     }
 }

@@ -18,7 +18,7 @@ namespace NiN3.Tests.Test.core
             var stringToParse = "B";
             EcosystnivaaEnum e = EnumUtil.ParseEnum<EcosystnivaaEnum>(stringToParse);
             Assert.Equal(stringToParse, e.ToString());
-            Assert.Equal("biotisk", EnumUtil.ToDescription(e));
+            Assert.Equal("Biotisk", EnumUtil.ToDescription(e));
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace NiN3.Tests.Test.core
             var stringToParse = "PE";
             TypekategoriEnum e = EnumUtil.ParseEnum<TypekategoriEnum>(stringToParse);
             Assert.Equal(stringToParse, e.ToString());
-            Assert.Equal("primært økodiversitetsnivå", EnumUtil.ToDescription(e));
+            Assert.Equal("Primært økodiversitetsnivå", EnumUtil.ToDescription(e));
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace NiN3.Tests.Test.core
             var stringToParse = "NK";
             Typekategori2Enum e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse);
             Assert.Equal(stringToParse, e.ToString());
-            Assert.Equal("naturkompleks", EnumUtil.ToDescription(e));
+            Assert.Equal("Naturkompleks", EnumUtil.ToDescription(e));
         }
 
         [Fact]
@@ -53,14 +53,14 @@ namespace NiN3.Tests.Test.core
         public void TestFetchEnumDescription()
         {
             Typekategori3Enum result = EnumUtil.ParseEnum<Typekategori3Enum>("NK");
-            Assert.Equal("vannmassesystemer", EnumUtil.ToDescription(result));
+            Assert.Equal("Vannmassesystemer", EnumUtil.ToDescription(result));
         }
 
         [Fact]
         public void TestMaalestokkEnumDescription()
         {
             MaalestokkEnum result = EnumUtil.ParseEnum<MaalestokkEnum>("M005");
-            Assert.Equal("kartleggingsenhet tilpasset 1:5000", EnumUtil.ToDescription(result));
+            Assert.Equal("Kartleggingsenhet tilpasset 1:5000", EnumUtil.ToDescription(result));
         }
 
         [Fact]
