@@ -78,7 +78,8 @@ namespace NiN3.WebApi.Controllers
         /// If the requested 'Type'-kode does not exist, returns a status code of 404 (Not Found). 
         /// </response>
         [HttpGet]
-        [Route("hentklasse")]
+        [Route("klasse/{kortkode}")]
+        [Description("Henter klassetypen til objektet som kortkoden er tilknyttet")]
         [ProducesResponseType(typeof(IEnumerable<KlasseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -96,7 +97,7 @@ namespace NiN3.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("hentkodeforType")]
+        [Route("kodeforType/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<TypeDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForType([Required] string kortkode = "A-LV-EL")
         {
@@ -112,7 +113,7 @@ namespace NiN3.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("hentkodeforHovedtypegruppe")]
+        [Route("kodeforHovedtypegruppe/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<HovedtypegruppeDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForHovedtypegruppe([Required] string kortkode = "FL-G")
         {
@@ -127,7 +128,7 @@ namespace NiN3.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("hentKodeForHovedtype")]
+        [Route("kodeForHovedtype/kortkode")]
         [ProducesResponseType(typeof(IEnumerable<HovedtypeDto>), StatusCodes.Status200OK)]
         public IActionResult HentKodeForHovedtype([Required] string kortkode = "M-A-06")
         { 
@@ -141,7 +142,7 @@ namespace NiN3.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("hentkodeforGrunntype")]
+        [Route("kodeforGrunntype/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<GrunntypeDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForGrunntype([Required] string kortkode = "K-0-02-006")
         {
@@ -154,7 +155,7 @@ namespace NiN3.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("hentkodeforKartleggingsenhet")]
+        [Route("kodeforKartleggingsenhet/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<KartleggingsenhetDto>), StatusCodes.Status200OK)]
         public IActionResult hentkodeForKartleggingsenhet([Required] string kortkode = "LA01-M005-13")
         {
