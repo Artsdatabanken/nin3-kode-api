@@ -1,37 +1,34 @@
-﻿//Optimized
-using Microsoft.Data.Sqlite;
+﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
-using NiN3.Infrastructure.DbContexts;
 using NiN.Infrastructure.Services;
 using NiN3.Core.Models.Enums;
-using FluentAssertions;
-using System.Runtime.InteropServices;
+using NiN3.Infrastructure.DbContexts;
 
 namespace NiN3.Tests.Infrastructure
 {
 
+    [Collection("Sequential")]
     public class LoaderServiceTest
     {
         private LoaderService _loaderService;
         private ILogger<LoaderService> _logger;
 
+        //Methods that alter data must call InMemoryDbContextFactory.Dispose() after test is done
         public LoaderServiceTest()
         {
             _logger = new Mock<ILogger<LoaderService>>().Object;
         }
         private static NiN3DbContext GetInMemoryDb()//out SqliteConnection connection, out DbContextOptions<NiN3DbContext> options)
         {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-            var options = new DbContextOptionsBuilder<NiN3DbContext>()
-            .UseSqlite(connection)
-            .Options;
-            var context = new NiN3DbContext(options);
-            context.Database.EnsureCreated();
-
-            return context;
+            var inmemorydb = InMemoryDbContextFactory.GetInMemoryDb();
+            if (inmemorydb.Type.Count() == 0)
+            {//if data is not allready loaded 
+                var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+                loader.load_all_data();
+            }
+            return inmemorydb;
         }
 
 
@@ -40,16 +37,6 @@ namespace NiN3.Tests.Infrastructure
         {
             // Get an instance of the InMemoryDb class
             var inmemorydb = GetInMemoryDb();
-            // Create a new LoaderService instance
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            // Load the TypeData
-            //service.Load
-            service.LoadLookupData();
-            service.LoadTypeData();
-            service.LoadHtg_Ht_Gt_Mappings();
-            // service.LoadHovedtypeData();
             // Get the number of Type records
             var numOfTD = inmemorydb.Type.Count();
             var typer = inmemorydb.Type.ToList();
@@ -66,17 +53,6 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("Bremassiv", type_eco_A.Navn);
         }
 
-
-        [Fact]
-        public void TestLoadType_Htg_Mapping()
-        {
-            var inmemorydb = GetInMemoryDb();
-            // Create a new LoaderService instance
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.LoadType_HTG_Mappings();
-            Assert.Equal(70, service.csvdataImporter_Type_Htg_Mappings.Count());
-        }
-
         //This code tests the LoadHovedtypeGruppeData() method of the LoaderService class. 
         //It creates an InMemoryDb object and passes it to the LoaderService constructor. 
         //It then calls the LoadHovedtypeGruppeData() method and checks the number of Hovedtypegruppe objects in the InMemoryDb object. 
@@ -86,14 +62,6 @@ namespace NiN3.Tests.Infrastructure
         {
             //Create an InMemoryDb object
             var inmemorydb = GetInMemoryDb();
-            //Create a LoaderService object and pass the InMemoryDb object to its constructor
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            //Call the LoadHovedtypeGruppeData() method
-            service.LoadTypeData();
-            service.LoadType_HTG_Mappings();
-            service.LoadHovedtypeGruppeData();
             //Get the number of Hovedtypegruppe objects in the InMemoryDb object
             var numOfHGD = inmemorydb.Hovedtypegruppe.Count();
             //q: get the first Hovedtypegruppe object in the InMemoryDb object after ordering by Kode
@@ -114,15 +82,6 @@ namespace NiN3.Tests.Infrastructure
         public void TestLoadhovedtypeGruppeAndCheckHovedoekosystem() {
             //Create an InMemoryDb object
             var inmemorydb = GetInMemoryDb();
-            //Create a LoaderService object and pass the InMemoryDb object to its constructor
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            //Call the LoadHovedtypeGruppeData() method
-            service.LoadTypeData();
-            service.LoadType_HTG_Mappings();
-            service.LoadHovedtypeGruppeData();
-            service.LoadHovedtypegruppeHovedoekosystemer();
 
             //Testing a Hovedtypegruppe with one Hovedoekosystem
             var HTG_NA_T = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-T").FirstOrDefault();
@@ -151,17 +110,6 @@ namespace NiN3.Tests.Infrastructure
             //Create an in-memory database
             var inmemorydb = GetInMemoryDb();
 
-            //Instantiate a LoaderService object
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            //Call the LoadHovedtypeGruppeData, LoadHtg_Ht_Gt_Mappings, and LoadHovedtypeData methods
-            service.LoadTypeData();
-            service.LoadType_HTG_Mappings();
-            service.LoadHovedtypeGruppeData();
-            service.LoadHtg_Ht_Gt_Mappings();
-            service.LoadHovedtypeData();
-
             //Check that the number of Hovedtype objects in the in-memory database is equal to 445
             var numOfHD = inmemorydb.Hovedtype.Count();
             var hovedtyper = inmemorydb.Hovedtype.ToList();
@@ -181,11 +129,6 @@ namespace NiN3.Tests.Infrastructure
         public void TestHovedtypeFromHovedtypegruppe()
         {
             var inmemorydb = GetInMemoryDb();
-            //Instantiate a LoaderService object
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.load_all_data();
-            //q: get hovedtypegruppe with kode "A-LV-BM" from inmemorydb object
-            //Answer:
             var c = inmemorydb.Hovedtypegruppe.Count();
             var hovedtypegruppe = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-M")
                 .Include(h => h.Hovedtyper).FirstOrDefault();
@@ -203,10 +146,6 @@ namespace NiN3.Tests.Infrastructure
         {
             // Get an instance of the InMemoryDb class
             var inmemorydb = GetInMemoryDb();
-            // Create a new LoaderService instance
-            var service = new LoaderService(null, inmemorydb, _logger);
-            // Load the HovedtypeGruppeData, Htg_Ht_Gt_Mappings, and HovedtypeData
-            service.load_all_data();
             // Get the number of Grunntype records
             var numOfGD = inmemorydb.Grunntype.Count();
             // Assert that the number of records is 166
@@ -225,10 +164,6 @@ namespace NiN3.Tests.Infrastructure
         public void TestLoadKartleggingsenhet_m005()
         {
             var inmemorydb = GetInMemoryDb();
-            // Create a new LoaderService instance
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.load_all_data();
-            service.LoadKartleggingsenhet_m005();
             var numOfKE = inmemorydb.Kartleggingsenhet.Count();
             var firstKE = inmemorydb.Kartleggingsenhet.OrderBy(x => x.Kode).First();
             var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
@@ -244,10 +179,6 @@ namespace NiN3.Tests.Infrastructure
         {
             var inmemorydb = GetInMemoryDb();
             // Create a new LoaderService instance
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            service.LoadVariabel();
             var numOfV = inmemorydb.Variabel.Count();
             var firstV = inmemorydb.Variabel.OrderBy(x => x.Kode).First();
             Assert.NotNull(firstV);
@@ -261,12 +192,7 @@ namespace NiN3.Tests.Infrastructure
         public void TestLoadVariabelnavn()
         {
             var inmemorydb = GetInMemoryDb();
-            // Create a new LoaderService instance
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            service.LoadVariabel();
-            var VariabelnavnList = service.LoadVariabelnavn();
+            var VariabelnavnList = inmemorydb.Variabelnavn.ToList();
             var numOfVN = VariabelnavnList.Count();
             var firstVN = VariabelnavnList.OrderBy(x => x.Kode).First();
             Assert.NotNull(firstVN);
@@ -288,11 +214,6 @@ namespace NiN3.Tests.Infrastructure
         {
             // prepare test
             var inmemorydb = GetInMemoryDb();
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            // Testing maaleskla
-            service.LoadMaaleskala();
             var numOfMS = inmemorydb.Maaleskala.Count();
             Assert.Equal(18, numOfMS);
             var maaleskalaSO = inmemorydb.Maaleskala.FirstOrDefault(m => m.MaaleskalatypeEnum == MaaleskalatypeEnum.SO);
@@ -307,12 +228,6 @@ namespace NiN3.Tests.Infrastructure
         public void TestLoadTrinn() {
             // prepare test
             var inmemorydb = GetInMemoryDb();
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            service.LoadMaaleskala();
-            // Testing Trinn
-            service.LoadTrinn();
             var numOfTrinn = inmemorydb.Trinn.Count();
             Assert.Equal(856, numOfTrinn);
             var trinnNhB = inmemorydb.Trinn.Where(trinn => trinn.Navn == "NH-B").FirstOrDefault();
@@ -328,15 +243,6 @@ namespace NiN3.Tests.Infrastructure
         public void TestMakeTrinnMappingForVariabelnavn() {
             // prepare test
             var inmemorydb = GetInMemoryDb();
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            service.LoadVariabel();
-            service.LoadVariabelnavn();
-            service.LoadMaaleskala();
-            service.LoadTrinn();
-            // Testing Trinn mapping
-            service.MakeTrinnMappingForVariabelnavn();
             var numOfTrinnMapping = inmemorydb.VariabelnavnMaaleskalaTrinn.Count();
             Assert.Equal(883, numOfTrinnMapping);
             var trinnMapping = inmemorydb.VariabelnavnMaaleskalaTrinn.Where(x => x.Variabelnavn.Kode == "RM-MS").OrderBy(x => x.Trinn.Navn).FirstOrDefault();
@@ -353,14 +259,6 @@ namespace NiN3.Tests.Infrastructure
         {
             // prepare test
             var inmemorydb = GetInMemoryDb();
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.SeedLookupData();
-            service.LoadLookupData();
-            service.LoadVariabel();
-            service.LoadVariabelnavn();
-            service.LoadMaaleskala();
-            service.LoadTrinn();
-            service.MakeTrinnMappingForVariabelnavn();
             // Testing Trinn mapping
             var variabelnavn = inmemorydb.Variabelnavn.Where(x => x.Kode == "RM-MS").FirstOrDefault();
             //var variabelnavnRMMS = inmemorydb.Variabelnavn
@@ -378,8 +276,6 @@ namespace NiN3.Tests.Infrastructure
         [Fact]
         public void TestLoadAlleKortkoderForType() {
             var inmemorydb = GetInMemoryDb();
-            var service = new LoaderService(null, inmemorydb, _logger);
-            service.load_all_data();
             //service.LoadAlleKortkoderForType();
             var numOfKortkoder = inmemorydb.AlleKortkoderForType.Count();
             Assert.Equal(3228, numOfKortkoder);

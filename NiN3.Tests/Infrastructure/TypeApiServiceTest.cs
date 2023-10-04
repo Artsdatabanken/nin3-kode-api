@@ -1,27 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static NiN.Infrastructure.Services.LoaderService;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using NiN3.Infrastructure.DbContexts;
-using NiN3.Infrastructure.Services;
-using AutoMapper;
-using Castle.Core.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NiN.Infrastructure.Services;
-using Microsoft.Extensions.Configuration;
-using static System.Net.WebRequestMethods;
-using NiN3.Infrastructure.Mapping;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
-using NiN3.Core.Models;
 using NiN3.Core.Models.Enums;
+using NiN3.Infrastructure.DbContexts;
+using NiN3.Infrastructure.Mapping;
+using NiN3.Infrastructure.Services;
 
 namespace NiN3.Tests.Infrastructure
 {
+    [Collection("Sequential")]
     public class TypeApiServiceTest
     {
 
@@ -29,25 +18,34 @@ namespace NiN3.Tests.Infrastructure
 
         private IMapper _mapper;
         private ILogger<TypeApiService> _logger;
-        private NiN3DbContext inmemorydb;     
+        private NiN3DbContext inmemorydb;
 
+        
         public TypeApiServiceTest()
         {
             _logger = new Mock<ILogger<TypeApiService>>().Object;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reloadDB"></param>
+        /// <returns></returns>
 
-        private TypeApiService GetPrepearedTypeApiService()
+        private TypeApiService GetPrepearedTypeApiService(bool reloadDB = false)
         {
-            inmemorydb = GetInMemoryDb();
+            inmemorydb = InMemoryDbContextFactory.GetInMemoryDb(reloadDB);
             var mapper = NiNkodeMapper.Instance;
             mapper.SetConfiguration(CreateConfiguration());
-            var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+            if (inmemorydb.Type.Count() == 0) {//if data is not allready loaded 
+                var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+                loader.load_all_data();
+            }
             var service = new TypeApiService(inmemorydb, _logger);
             //loader.OpprettInitDb();
-            loader.load_all_data();
             return service;
         }
 
+        /*
         private static NiN3DbContext GetInMemoryDb()//out SqliteConnection connection, out DbContextOptions<NiN3DbContext> options)
         {
             var connection = new SqliteConnection("DataSource=:memory:");
@@ -58,7 +56,7 @@ namespace NiN3.Tests.Infrastructure
             var context = new NiN3DbContext(options);
             context.Database.EnsureCreated();
             return context;
-        }
+        }*/
 
         
         public IConfiguration CreateConfiguration()

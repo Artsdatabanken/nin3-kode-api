@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NiN3.Core.Models;
 using NiN3.Core.Models.DTOs;
+using NiN3.Core.Models.DTOs.type;
 using NiN3.Infrastructure.DbContexts;
 using NiN3.Infrastructure.Mapping;
 using System;
@@ -18,6 +20,7 @@ namespace NiN3.Infrastructure.Services
         private readonly ILogger<VariabelApiService> _logger;
         private NiN3DbContext inmemorydb;
         private ILogger<VariabelApiService> logger;
+        private IMapper _mapper;
 
         /*public VariabelApiService(NiN3DbContext context, ILogger<VariabelApiService> logger)
         {
@@ -33,7 +36,6 @@ namespace NiN3.Infrastructure.Services
 
         public VersjonDto AllCodes(string versjon)
         {
-            var mapper = NiNkodeMapper.Instance;
             Versjon _versjon = _context.Versjon.Where(v => v.Navn == versjon)
                 .Include(v => v.Variabler.OrderBy(v => v.Langkode))
                 .ThenInclude(variabel => variabel.Variabelnavn)
@@ -51,7 +53,8 @@ namespace NiN3.Infrastructure.Services
             /*var AllMaaleskalaTrinn = _context.VariabelnavnMaaleskalaTrinn
                 .AsNoTracking()
                 .ToList();*/
-            return mapper.Map(_versjon);
+            return NiNkodeMapper.Instance.Map(_versjon);
+            //return _mapper.Map<VersjonDto>(_versjon);
         }
     }
 }

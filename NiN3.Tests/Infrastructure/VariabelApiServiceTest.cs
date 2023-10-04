@@ -1,27 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NiN.Infrastructure.Services;
-using NiN3.Core.Models;
 using NiN3.Infrastructure.DbContexts;
 using NiN3.Infrastructure.Mapping;
 using NiN3.Infrastructure.Services;
-using Xunit;
 
 namespace NiN3.Tests.Infrastructure
 {
+    [Collection("Sequential")]
     public class VariabelApiServiceTest
     {
 
@@ -29,22 +17,29 @@ namespace NiN3.Tests.Infrastructure
         private ILogger<VariabelApiService> _logger;
         private NiN3DbContext inmemorydb;
 
+
+        //Tests that alter data must call InMemoryDbContextFactory.Dispose() after test is done
         public VariabelApiServiceTest()
         {
             _logger = new Mock<ILogger<VariabelApiService>>().Object;
         }
 
-        private VariabelApiService GetPrepearedVariabelApiService()
+
+        private VariabelApiService GetPrepearedVariabelApiService(bool reloadDB = false)
         {
-            inmemorydb = GetInMemoryDb();
+            inmemorydb = InMemoryDbContextFactory.GetInMemoryDb(reloadDB);
             var mapper = NiNkodeMapper.Instance;
             mapper.SetConfiguration(CreateConfiguration());
-            var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
-
-            loader.load_all_data();
-            return new VariabelApiService(inmemorydb, _logger);
+            if (inmemorydb.Type.Count() == 0)
+            {//if data is not allready loaded 
+                var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+                loader.load_all_data();
+            }
+            var service = new VariabelApiService(inmemorydb, _logger);
+            return service;
         }
 
+        /*
         private static NiN3DbContext GetInMemoryDb()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
@@ -55,7 +50,7 @@ namespace NiN3.Tests.Infrastructure
             var context = new NiN3DbContext(options);
             context.Database.EnsureCreated();
             return context;
-        }
+        }*/
 
         public IConfiguration CreateConfiguration()
         {

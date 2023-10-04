@@ -12,6 +12,7 @@ using NiN3.Infrastructure.Services;
 
 namespace NiN3.Tests.Infrastructure
 {
+    [Collection("Sequential")]
     public class RapportServiceTest
     {
         private IMapper _mapper;
@@ -34,15 +35,18 @@ namespace NiN3.Tests.Infrastructure
 
             return configuration;
         }
-        private RapportService GetPrepearedRapportService()
+
+        private RapportService GetPrepearedRapportService(bool reloadDB = false)
         {
-            inmemorydb = GetInMemoryDb();
+            inmemorydb = InMemoryDbContextFactory.GetInMemoryDb(reloadDB);
             var mapper = NiNkodeMapper.Instance;
             mapper.SetConfiguration(CreateConfiguration());
-            var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+            if (inmemorydb.Type.Count() == 0)
+            {//if data is not allready loaded 
+                var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+                loader.load_all_data();
+            }
             var service = new RapportService(inmemorydb, _logger);
-            //loader.OpprettInitDb();
-            loader.load_all_data();
             return service;
         }
 

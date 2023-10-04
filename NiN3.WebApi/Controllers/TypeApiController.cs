@@ -1,19 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OutputCaching;
-using Microsoft.AspNetCore.ResponseCompression;
+using Newtonsoft.Json;
 using NiN3.Core.Models.DTOs;
 using NiN3.Core.Models.DTOs.type;
 using NiN3.Infrastructure.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using NiN3.Core.Models.Enums;
-using System.Net;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http.HttpResults;
 using System.ComponentModel;
-using NiN3.WebApi.settings;
-using Microsoft.Extensions.Options;
-using NiN3.Core.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace NiN3.WebApi.Controllers
 {

@@ -69,7 +69,7 @@ builder.Services.AddScoped<ITypeApiService, TypeApiService>();
 builder.Services.AddScoped<IVariabelApiService, VariabelApiService>();
 builder.Services.AddScoped<IRapportService, RapportService>();
 //builder.Services.AddSingleton<ISService, SService>();
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton(x => XDocument.Load("NiN3.WebApi.xml"));
 builder.Services.AddSwaggerGen(c =>
