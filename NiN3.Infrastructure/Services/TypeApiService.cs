@@ -68,7 +68,11 @@ namespace NiN3.Infrastructure.Services
 
         public TypeDto GetTypeByKortkode(string kode, string versjon) {
             var mapper = NiNkodeMapper.Instance;
-            Core.Models.Type _type = _context.Type.Where(t => t.Kode == kode && t.Versjon.Navn == versjon)
+            //check if kode exist first before execution of complex query
+            var typecount = _context.Type.Where(t => t.Kode == kode && t.Versjon.Navn == versjon).Count();
+            if (typecount == 0) return null;
+
+            NiN3.Core.Models.Type type = _context.Type.Where(t => t.Kode == kode && t.Versjon.Navn == versjon)
                 .Include(type => type.Hovedtypegrupper.OrderBy(htg => htg.Langkode))
                     .ThenInclude(hovedtypegruppe => hovedtypegruppe.Hovedtyper.OrderBy(ht => ht.Langkode))
                         .ThenInclude(hovedtype => hovedtype.Grunntyper.OrderBy(t => t.Langkode))
@@ -82,12 +86,13 @@ namespace NiN3.Infrastructure.Services
         .Include(type =>type.Versjon)
              .AsNoTracking()
              .First();
-            return mapper.Map(_type);
+            return type != null ? mapper.Map(type) : null;
         }
 
         public KlasseDto GetTypeklasse(string kortkode, string versjon) {
+            var mapper = NiNkodeMapper.Instance;
             var alleKortkoderForType = _context.AlleKortkoderForType.Where(a => a.Kortkode == kortkode && a.Versjon.Navn == versjon).FirstOrDefault();
-           return NiNkodeMapper.Instance.Map(alleKortkoderForType);
+            return alleKortkoderForType != null ? mapper.Map(alleKortkoderForType) : null;            
         }
 
         public HovedtypegruppeDto GetHovedtypegruppeByKortkode(string kode, string versjon)
@@ -104,8 +109,7 @@ namespace NiN3.Infrastructure.Services
                 .Include(htg => htg.Versjon)
                 .AsNoTracking()
                 .FirstOrDefault();
-
-            return mapper.Map(hovedtypegruppe);
+            return hovedtypegruppe != null ? mapper.Map(hovedtypegruppe) : null;
         }
 
         public HovedtypeDto GetHovedtypeByKortkode(string kode, string versjon)
@@ -119,8 +123,7 @@ namespace NiN3.Infrastructure.Services
                 .Include(ht => ht.Versjon)
                 .AsNoTracking()
                 .FirstOrDefault();
-
-            return mapper.Map(hovedtype);
+            return hovedtype != null ? mapper.Map(hovedtype) : null;
         }
 
         public GrunntypeDto GetGrunntypeByKortkode(string kode, string versjon)
@@ -130,7 +133,7 @@ namespace NiN3.Infrastructure.Services
                 .Include(gt => gt.Versjon)
                 .AsNoTracking()
                 .FirstOrDefault();
-            return mapper.Map(grunntype);
+            return grunntype != null ? mapper.Map(grunntype) : null;
         }
 
 
@@ -142,7 +145,7 @@ namespace NiN3.Infrastructure.Services
                 .Include(kartleggingsenhet => kartleggingsenhet.Grunntyper)
                 .AsNoTracking()
                 .FirstOrDefault();
-            return mapper.Map(kartleggingsenhet);
+            return kartleggingsenhet != null ? mapper.Map(kartleggingsenhet) : null;
         }
         /*
  public VersjonDto AllCodesDummy() {
