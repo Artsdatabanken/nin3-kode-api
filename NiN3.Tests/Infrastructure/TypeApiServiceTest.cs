@@ -75,7 +75,7 @@ namespace NiN3.Tests.Infrastructure
 
 
         ///<summary>
-        ///Tests that all NiN-koder for "Typer" in version 3.0 can be loaded and parsed correctly.
+        ///Tests that all NiN-koder for "TypeDto" in version 3.0 can be loaded and parsed correctly.
         ///</summary>
         [Fact]
         public async Task TestAllTypeCodesInVersjon()

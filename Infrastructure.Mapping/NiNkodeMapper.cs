@@ -10,6 +10,8 @@ using System.Collections.Concurrent;
 using System;
 using System.ComponentModel.DataAnnotations;
 using NiN3.Core.Models.DTOs.rapport;
+using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace NiN3.Infrastructure.Mapping
 {
@@ -258,7 +260,7 @@ namespace NiN3.Infrastructure.Mapping
             var kodeDto = new KodeDto()
             {
                 Id = kode,
-                Definisjon = _root_url + $"/{typeOrVar}/hentkode/" + kode,
+                Definisjon = _root_url + $"/v3.0/{typeOrVar}/{GetEndpointnameByLangkode(langkode)}/" + kode,
             };
             if (langkode != null)
             {
@@ -281,7 +283,6 @@ namespace NiN3.Infrastructure.Mapping
                 Kategori = "Variabel",
                 EcosystnivaaEnum = variabel.Ecosystnivaa,
                 EcosystnivaaNavn = EnumUtil.ToDescription(variabel.Ecosystnivaa),
-                //{EnumUtil.ToDescription(variabel.Ecosystnivaa)}", 
                 VariabelkategoriEnum = variabel.Variabelkategori,
                 VariabelkategoriNavn = EnumUtil.ToDescription(variabel.Variabelkategori)
             };
@@ -308,7 +309,6 @@ namespace NiN3.Infrastructure.Mapping
                 Variabelkategori2Enum = variabelnavn.Variabelkategori2,
                 Variabelkategori2Navn = EnumUtil.ToDescription(variabelnavn.Variabelkategori2),
                 VariabeltypeEnum = variabelnavn.Variabeltype,
-                //$"{EnumUtil.ToDescription(variabelnavn.Variabeltype)}",
                 VariabeltypeNavn = EnumUtil.ToDescription(variabelnavn.Variabeltype),
                 VariabelgruppeEnum = variabelnavn.Variabelgruppe,
                 VariabelgruppeNavn = EnumUtil.ToDescription(variabelnavn.Variabelgruppe)
@@ -370,6 +370,29 @@ namespace NiN3.Infrastructure.Mapping
                 Klasse = kodeoversikt.Klasse
             };
             return KodeoversiktDto;
+        }
+
+
+
+        /// <summary>
+        /// Helper method to get the endpoint name for a given langkode.
+        /// </summary>
+        /// <param name="langkode"></param>
+        /// <returns></returns>
+        public string GetEndpointnameByLangkode(string langkode) {
+                var endpointname = "unknown";
+                ArrayList langkodeList = new ArrayList(langkode.Split('-'));
+                var trinncount = langkodeList.Count;
+                if (trinncount == 6) { endpointname = "kodeforType"; }
+                else if (trinncount == 8) { endpointname = "kodeforHovedtypegruppe"; }
+                else if (trinncount == 11) { endpointname = "kodeforGrunntype"; }
+                else if (trinncount == 9 && Regex.IsMatch(langkodeList[8].ToString(), @"^[a-zA-Z]+$")) { endpointname = "kodeforHovedtypegruppe"; }
+                else if (trinncount == 10 && langkodeList[8].ToString().StartsWith("M0")) { endpointname = "kodeforKartleggingsenhet"; }
+                else if (trinncount == 9 && Regex.IsMatch(langkodeList[8].ToString(), @"^0|[1-9]\d*$")) { endpointname = "kodeforHovedtype"; }
+                else if (trinncount == 10 && (langkodeList[6].ToString() == "MB" || langkodeList[6].ToString() == "VM")) { endpointname = "kodeforHovedtype"; }
+                else if (trinncount == 10 && (langkodeList[4].ToString() == "LV" || langkodeList[4].ToString() == "PE")) { endpointname = "kodeforGrunntype"; }
+                else if (trinncount == 10 && (langkodeList[4].ToString() != "LV" || langkodeList[4].ToString() != "PE")) { endpointname = "kodeforHovedtype"; }
+                return endpointname;
         }
     }
 }
