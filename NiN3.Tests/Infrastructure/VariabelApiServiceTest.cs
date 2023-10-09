@@ -91,5 +91,9 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(vn_RM_MS);
             Assert.Equal(5, vn_RM_MS.MaaleskalaTrinn.Count);
         }
+
+        [Fact]
+        public void TestGetKlasseByKortkode() { 
+        }
     }
 }

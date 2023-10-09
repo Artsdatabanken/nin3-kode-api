@@ -276,10 +276,10 @@ namespace NiN3.Tests.Infrastructure
         [Fact]
         public void TestLoadAlleKortkoderForType() {
             var inmemorydb = GetInMemoryDb();
-            //service.LoadAlleKortkoderForType();
-            var numOfKortkoder = inmemorydb.AlleKortkoderForType.Count();
-            Assert.Equal(3228, numOfKortkoder);
-            var kortkode = inmemorydb.AlleKortkoderForType.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
+            //service.LoadAlleKortkoder();
+            var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
+            Assert.Equal(3596, numOfKortkoder);
+            var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);
             Assert.Equal(KlasseEnum.HTG, kortkode.TypeKlasseEnum);
@@ -289,16 +289,25 @@ namespace NiN3.Tests.Infrastructure
             var numOfHovedtyper = inmemorydb.Hovedtype.Count();
             var numOfGrunntyper = inmemorydb.Grunntype.Count();
             var numOfKartleggingsenheter = inmemorydb.Kartleggingsenhet.Count();
-            var countHTinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.HT);
-            var countTypeinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.T);
-            var countHtginAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.HTG);
-            var countGtinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.GT);
-            var countKeinAlleKortkoder = inmemorydb.AlleKortkoderForType.Count(x => x.TypeKlasseEnum == KlasseEnum.KE);
+            var countHTinAlleKortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.HT);
+            var countTypeinAlleKortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.T);
+            var countHtginAlleKortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.HTG);
+            var countGtinAlleKortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.GT);
+            var countKeinAlleKortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.KE);
             Assert.True(numOfTyper == countTypeinAlleKortkoder);
             Assert.True(numOfHovedtypegrupper == countHtginAlleKortkoder);
             Assert.Equal(numOfHovedtyper,countHTinAlleKortkoder);
             Assert.True(numOfGrunntyper == countGtinAlleKortkoder);
             Assert.True(numOfKartleggingsenheter == countKeinAlleKortkoder);
+        }
+
+        [Fact]
+        public void TestLoadAlleKortkoder_Variabler() {
+            var inmemorydb = GetInMemoryDb();
+            var numOfVariabelAllekortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.V);
+            var numOfVariabelnavnAllekortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.VN);
+            Assert.Equal(4, numOfVariabelAllekortkoder);
+            Assert.Equal(364,numOfVariabelnavnAllekortkoder);
         }
 
         [Fact]

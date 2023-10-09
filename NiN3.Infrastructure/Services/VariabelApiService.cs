@@ -50,11 +50,13 @@ namespace NiN3.Infrastructure.Services
                 .Select(v => new Versjon { Id = v.Id, Navn = v.Navn, Variabler = v.Variabler })
                 .AsNoTracking()
                 .FirstOrDefault();
-            /*var AllMaaleskalaTrinn = _context.VariabelnavnMaaleskalaTrinn
-                .AsNoTracking()
-                .ToList();*/
             return NiNkodeMapper.Instance.Map(_versjon);
             //return _mapper.Map<VersjonDto>(_versjon);
+        }
+
+        public KlasseDto GetVariabelKlasse(string kortkode, string versjon) {
+            var alleKortkoder = _context.AlleKortkoder.Where(a => a.Kortkode == kortkode && a.Versjon.Navn == versjon).FirstOrDefault();
+            return alleKortkoder != null ? NiNkodeMapper.Instance.Map(alleKortkoder) : null;
         }
     }
 }

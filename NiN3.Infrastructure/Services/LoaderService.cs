@@ -126,7 +126,7 @@ namespace NiN.Infrastructure.Services
             LoadMaaleskala();
             LoadTrinn();
             MakeTrinnMappingForVariabelnavn();
-            LoadAlleKortkoderForType();
+            LoadAlleKortkoder();
             LoadEnumoppslag();
             _context.SaveChanges();
         }
@@ -798,11 +798,11 @@ namespace NiN.Infrastructure.Services
             _context.SaveChanges();
         }
 
-        public void LoadAlleKortkoderForType() {
+        public void LoadAlleKortkoder() {
             // load kortkoder from type
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             foreach (var t in _context.Type.ToList()) {
-                var kortkode = new AlleKortkoderForType()
+                var kortkode = new AlleKortkoder()
                 {
                     Kortkode = t.Kode,
                     TypeKlasseEnum = KlasseEnum.T,
@@ -811,7 +811,7 @@ namespace NiN.Infrastructure.Services
                 _context.Add(kortkode);                
             }
             foreach (var htg in _context.Hovedtypegruppe.ToList()) {
-                var kortkode = new AlleKortkoderForType()
+                var kortkode = new AlleKortkoder()
                 {
                     Kortkode = htg.Kode,
                     TypeKlasseEnum = KlasseEnum.HTG,
@@ -820,7 +820,7 @@ namespace NiN.Infrastructure.Services
                 _context.Add(kortkode);
             }
             foreach (var ht in _context.Hovedtype.ToList()) { 
-                var kortkode = new AlleKortkoderForType()
+                var kortkode = new AlleKortkoder()
                 {
                     Kortkode = ht.Kode,
                     TypeKlasseEnum = KlasseEnum.HT,
@@ -829,7 +829,7 @@ namespace NiN.Infrastructure.Services
                 _context.Add(kortkode);
             }
             foreach (var gt in _context.Grunntype.ToList()) {
-                var kortkode = new AlleKortkoderForType()
+                var kortkode = new AlleKortkoder()
                 {
                     Kortkode = gt.Kode,
                     TypeKlasseEnum = KlasseEnum.GT,
@@ -838,13 +838,34 @@ namespace NiN.Infrastructure.Services
                 _context.Add(kortkode);
             }
             foreach (var ke in _context.Kartleggingsenhet.ToList()) {
-                var kortkode = new AlleKortkoderForType() { 
+                var kortkode = new AlleKortkoder() { 
                     Kortkode = ke.Kode,
                     TypeKlasseEnum = KlasseEnum.KE,
                     Versjon = _versjon
                 };
                 _context.Add(kortkode);
             }
+            foreach (var v in _context.Variabel.ToList())
+            {
+                var kortkode = new AlleKortkoder()
+                {
+                    Kortkode = v.Kode,
+                    TypeKlasseEnum = KlasseEnum.V,
+                    Versjon = _versjon
+                };
+                _context.Add(kortkode);
+            }
+            foreach (var vn in _context.Variabelnavn.ToList())
+            {
+                var kortkode = new AlleKortkoder()
+                {
+                    Kortkode = vn.Kode,
+                    TypeKlasseEnum = KlasseEnum.VN,
+                    Versjon = _versjon
+                };
+                _context.Add(kortkode);
+            }
+
             _context.SaveChanges();
             // load kortkoder from hovedtypegruppe
             // load kartkoder from hovedtype
