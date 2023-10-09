@@ -90,7 +90,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("A-LV-BM", firstType.Kode.Id);
             Assert.Equal("Bremassiv", firstType.Navn);
             Assert.StartsWith("http", firstType.Kode.Definisjon);
-            Assert.EndsWith("/v3.0/typer/hentkode/A-LV-BM", firstType.Kode.Definisjon);
+            Assert.EndsWith("/v3.0/typer/kodeforType/A-LV-BM", firstType.Kode.Definisjon);
             var hovedtypegrupper = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").ToList();
             Assert.True(hovedtypegrupper.Count == 1);
             var hovedtypegruppe = hovedtypegrupper.First();

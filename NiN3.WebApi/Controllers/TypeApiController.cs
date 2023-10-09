@@ -119,7 +119,7 @@ namespace NiN3.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("kodeForHovedtype/kortkode")]
+        [Route("kodeForHovedtype/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<HovedtypeDto>), StatusCodes.Status200OK)]
         public IActionResult HentKodeForHovedtype([Required] string kortkode = "M-A-06")
         { 

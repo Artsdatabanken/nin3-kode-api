@@ -300,5 +300,38 @@ namespace NiN3.Tests.Infrastructure
             Assert.True(numOfGrunntyper == countGtinAlleKortkoder);
             Assert.True(numOfKartleggingsenheter == countKeinAlleKortkoder);
         }
+
+        [Fact]
+        public void TestLoadEnumoppslag() {
+            var inmemorydb = GetInMemoryDb();
+            var EnumoppslagEcosystnivaa = inmemorydb.Enumoppslag.Where(e => e.Enumtype== "EcosysnivaaEnum").ToList();
+            Assert.Equal(3, EnumoppslagEcosystnivaa.Count);
+            var EnumoppslagEnhetEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "EnhetEnum").ToList();
+            Assert.Equal(8, EnumoppslagEnhetEnum.Count);
+            var EnumoppslagHovedoekosystemEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "HovedoekosystemEnum").ToList();
+            Assert.Equal(3, EnumoppslagHovedoekosystemEnum.Count);
+            var EnumoppslagKlasseEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "KlasseEnum").ToList(); 
+            Assert.Equal(7, EnumoppslagKlasseEnum.Count);
+            var EnumoppslagMaaleskalatypeEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "MaaleskalatypeEnum").ToList();
+            Assert.Equal(18, EnumoppslagMaaleskalatypeEnum.Count);
+            var EnumoppslagProsedyrekategoriEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "ProsedyrekategoriEnum").ToList();
+            Assert.Equal(15, EnumoppslagProsedyrekategoriEnum.Count);
+            var EnumoppslagMaalestokkEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "MaalestokkEnum").ToList();
+            Assert.Equal(5, EnumoppslagMaalestokkEnum.Count);
+            var EnumoppslagTypekategoriEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "TypekategoriEnum").ToList();
+            Assert.Equal(5, EnumoppslagTypekategoriEnum.Count);
+            var EnumoppslagTypekategori2Enum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "Typekategori2Enum").ToList();
+            Assert.Equal(8, EnumoppslagTypekategori2Enum.Count);
+            var EnumoppslagTypekategori3Enum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "Typekategori3Enum").ToList();
+            Assert.Equal(2, EnumoppslagTypekategori3Enum.Count);
+            var EnumoppslagVariabelgruppeEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "VariabelgruppeEnum").ToList(); 
+            Assert.Equal(32, EnumoppslagVariabelgruppeEnum.Count);
+            var EnumoppslagVariabeltypeEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "VariabeltypeEnum").ToList();
+            Assert.Equal(4, EnumoppslagVariabeltypeEnum.Count);
+            var EnumoppslagVariabelkategoriEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "VariabelkategoriEnum").ToList();
+            Assert.Equal(2, EnumoppslagVariabelkategoriEnum.Count);
+            var EnumoppslagVariabelkategori2Enum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "Variabelkategori2Enum").ToList();
+            Assert.Equal(14, EnumoppslagVariabelkategori2Enum.Count);
+        }
     }
 }

@@ -44,8 +44,8 @@ ILogger<LoaderService> _logger = loggerFactory.CreateLogger<LoaderService>();
 // api klient
 var run = true;
 var meny = @"Commands:
-            wipe    : delete databasefile
-            full    : Full import of datasets
+            wipe    : delete temporary databasefile
+            makeDB  : Full import of datasets, use 'wipe' before this
             copy    : Move new db file to webproject
             info    : Show info about db files (last time changed)
             exit    : Close program";
@@ -57,11 +57,10 @@ while (run)
         case "help":
             Console.WriteLine(meny);
             break;
-        case "full":
+        case "makeDB":
             // ensure db is created
             LoadDB();
             //db.Database.EnsureCreated();
-
             // run loader
             var loader = new LoaderService(config, db, _logger);
             loader.load_all_data();
@@ -106,7 +105,7 @@ while (run)
                 if (fi.Exists)
                 {
                     fi.Delete();
-                    Console.WriteLine($"Deleted temporary db file ({filename})");
+                    Console.WriteLine($"Deleted temporary db file ({filename}), you can now run 'makeDB' to create fresh dbfile");
                 }
             }
             else

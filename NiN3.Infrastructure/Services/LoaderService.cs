@@ -14,6 +14,9 @@ using System;
 using NiN3.Core.Models.Enums;
 using System.Reflection.Metadata;
 using System.Text;
+using System.ComponentModel;
+using System.Reflection;
+using Newtonsoft.Json.Linq;
 
 namespace NiN.Infrastructure.Services
 {
@@ -124,6 +127,7 @@ namespace NiN.Infrastructure.Services
             LoadTrinn();
             MakeTrinnMappingForVariabelnavn();
             LoadAlleKortkoderForType();
+            LoadEnumoppslag();
             _context.SaveChanges();
         }
 
@@ -847,6 +851,77 @@ namespace NiN.Infrastructure.Services
             // load kortkoder from grunntype
             // load kortkoder from kartleggingsenhet
         
+        }
+        public void LoadEnumoppslag() {
+            var versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            foreach (EcosystnivaaEnum value in Enum.GetValues(typeof(EcosystnivaaEnum)))
+            {
+                _context.Add(MakeEnumoppslag("EcosysnivaaEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (EnhetEnum value in Enum.GetValues(typeof(EnhetEnum)))
+            {
+                _context.Add(MakeEnumoppslag("EnhetEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (HovedoekosystemEnum value in Enum.GetValues(typeof(HovedoekosystemEnum)))
+            {
+                _context.Add(MakeEnumoppslag("HovedoekosystemEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (KlasseEnum value in Enum.GetValues(typeof(KlasseEnum)))
+            {
+                _context.Add(MakeEnumoppslag("KlasseEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (MaaleskalatypeEnum value in Enum.GetValues(typeof(MaaleskalatypeEnum)))
+            {
+                _context.Add(MakeEnumoppslag("MaaleskalatypeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (MaalestokkEnum value in Enum.GetValues(typeof(MaalestokkEnum)))
+            {
+                _context.Add(MakeEnumoppslag("MaalestokkEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (ProsedyrekategoriEnum value in Enum.GetValues(typeof(ProsedyrekategoriEnum)))
+            {
+                _context.Add(MakeEnumoppslag("ProsedyrekategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (TypekategoriEnum value in Enum.GetValues(typeof(TypekategoriEnum)))
+            {
+                _context.Add(MakeEnumoppslag("TypekategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (Typekategori2Enum value in Enum.GetValues(typeof(Typekategori2Enum)))
+            {
+                _context.Add(MakeEnumoppslag("Typekategori2Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (Typekategori3Enum value in Enum.GetValues(typeof(Typekategori3Enum)))
+            {
+                _context.Add(MakeEnumoppslag("Typekategori3Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (VariabelgruppeEnum value in Enum.GetValues(typeof(VariabelgruppeEnum)))
+            {
+                _context.Add(MakeEnumoppslag("VariabelgruppeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (VariabelkategoriEnum value in Enum.GetValues(typeof(VariabelkategoriEnum)))
+            {
+                _context.Add(MakeEnumoppslag("VariabelkategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (Variabelkategori2Enum value in Enum.GetValues(typeof(Variabelkategori2Enum)))
+            {
+                _context.Add(MakeEnumoppslag("Variabelkategori2Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            foreach (VariabeltypeEnum value in Enum.GetValues(typeof(VariabeltypeEnum)))
+            {
+                _context.Add(MakeEnumoppslag("VariabeltypeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+            }
+            _context.SaveChanges();
+        }
+        public Enumoppslag MakeEnumoppslag(string enumtype, int ordinal, string verdi, string beskrivelse, Versjon versjon)
+        {
+            return new Enumoppslag()
+            {
+                Ordinal = ordinal,
+                Verdi = verdi,
+                Enumtype = enumtype,
+                Beskrivelse = beskrivelse,
+                Versjon = versjon
+            };
         }
     }
 }
