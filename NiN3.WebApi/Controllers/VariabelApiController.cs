@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NiN3.Core.Models.DTOs;
+using NiN3.Core.Models.DTOs.type;
 using NiN3.Infrastructure.Services;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace NiN3.WebApi.Controllers
 {
@@ -14,6 +17,7 @@ namespace NiN3.WebApi.Controllers
 
         private readonly IVariabelApiService _variabelApiService;
         private readonly IConfiguration _configuration;
+        private string _versjon = "3.0";
 
         public VariabelApiController(IVariabelApiService variabelApiService, IConfiguration configuration)
         {
@@ -28,6 +32,25 @@ namespace NiN3.WebApi.Controllers
         {
             var versjon = _variabelApiService.AllCodes("3.0"); //This line calls the AllCodes() method of the _typeApiService.
             return Ok(versjon); //This line returns an OK response with the data from the AllCodes() method.
+        }
+
+        [HttpGet]
+        [Route("klasse/{kortkode}")]
+        [Description("Henter klassetypen til objektet som kortkoden er tilknyttet")]
+        [ProducesResponseType(typeof(IEnumerable<KlasseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult HentKlasse([Required] string kortkode = "AD-TE")
+        {
+            var variabelklasseDto = _variabelApiService.GetVariabelKlasse(kortkode, _versjon);
+            if (variabelklasseDto != null)
+            {
+                return Ok(variabelklasseDto);
+            }
+            else
+            {
+                return NotFound("Ugyldig kortkode");
+            }
         }
     }
 }

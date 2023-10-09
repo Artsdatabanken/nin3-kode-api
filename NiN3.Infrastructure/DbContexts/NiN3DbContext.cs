@@ -65,7 +65,7 @@ namespace NiN3.Infrastructure.DbContexts
         public DbSet<Maaleskala> Maaleskala { get; set; }
         public DbSet<Trinn> Trinn { get; set; }
 
-        public DbSet<AlleKortkoderForType> AlleKortkoderForType { get; set; }
+        public DbSet<AlleKortkoder> AlleKortkoder { get; set; }
         public DbSet<Enumoppslag> Enumoppslag { get; set;}
 
         //ANDRE

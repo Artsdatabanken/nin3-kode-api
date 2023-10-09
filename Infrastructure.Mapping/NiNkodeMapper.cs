@@ -350,7 +350,7 @@ namespace NiN3.Infrastructure.Mapping
             return TrinnDto;
         }
 
-        public KlasseDto Map(AlleKortkoderForType alleKortkoderForType)
+        public KlasseDto Map(AlleKortkoder alleKortkoderForType)
         {
             var TypeKlasseDto = new KlasseDto()
             {

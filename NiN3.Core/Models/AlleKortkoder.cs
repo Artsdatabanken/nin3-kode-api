@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NiN3.Core.Models
 {
-    public class AlleKortkoderForType
+    public class AlleKortkoder
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
