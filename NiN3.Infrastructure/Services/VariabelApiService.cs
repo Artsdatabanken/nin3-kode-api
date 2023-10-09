@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using NiN3.Core.Models;
 using NiN3.Core.Models.DTOs;
 using NiN3.Core.Models.DTOs.type;
+using NiN3.Core.Models.DTOs.variabel;
 using NiN3.Infrastructure.DbContexts;
 using NiN3.Infrastructure.Mapping;
 using System;
@@ -57,6 +58,34 @@ namespace NiN3.Infrastructure.Services
         public KlasseDto GetVariabelKlasse(string kortkode, string versjon) {
             var alleKortkoder = _context.AlleKortkoder.Where(a => a.Kortkode == kortkode && a.Versjon.Navn == versjon).FirstOrDefault();
             return alleKortkoder != null ? NiNkodeMapper.Instance.Map(alleKortkoder) : null;
+        }
+
+        public VariabelDto GetVariabelByKortkode(string kode, string versjon) {
+            //TODO: Implement
+            Variabel variabel = _context.Variabel.Where(v => v.Kode == kode && v.Versjon.Navn == versjon)
+                .Include(variabel => variabel.Variabelnavn)
+                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
+                .ThenInclude(maaletrinn => maaletrinn.Maaleskala)
+                .Include(variabel => variabel.Variabelnavn)
+                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
+                .ThenInclude(maaletrinn => maaletrinn.Trinn)
+                .AsNoTracking()
+                .FirstOrDefault();
+            //return new VariabelnavnDto();
+            return variabel != null ? NiNkodeMapper.Instance.Map(variabel) : null;
+        }
+
+        public VariabelnavnDto GetVariabelnavnByKortkode(string kode, string versjon)
+        {
+            Variabelnavn variabelnavn = _context.Variabelnavn.Where(v => v.Kode == kode && v.Versjon.Navn == versjon)
+                .Include(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
+                .ThenInclude(maaletrinn => maaletrinn.Maaleskala)
+                .Include(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
+                .ThenInclude(maaletrinn => maaletrinn.Trinn)
+                .AsNoTracking()
+                .FirstOrDefault();
+            //return new VariabelnavnDto();
+            return variabelnavn != null ? NiNkodeMapper.Instance.Map(variabelnavn) : null;
         }
     }
 }

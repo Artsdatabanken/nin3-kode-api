@@ -4,6 +4,7 @@ using NiN3.Core.Models.DTOs.type;
 using NiN3.Infrastructure.Services;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using NiN3.Core.Models.DTOs.variabel;
 
 namespace NiN3.WebApi.Controllers
 {
@@ -51,6 +52,35 @@ namespace NiN3.WebApi.Controllers
             {
                 return NotFound("Ugyldig kortkode");
             }
+        }
+
+        [HttpGet]
+        [Route("kodeForVariabel/{kortkode}")]
+        [ProducesResponseType(typeof(IEnumerable<VariabelDto>), StatusCodes.Status200OK)]
+        public IActionResult HentKodeForVariabel([Required] string kortkode = "B-M")
+        {
+            var variabelDto = _variabelApiService.GetVariabelByKortkode(kortkode, _versjon);
+            if (variabelDto != null)
+            {
+                return Ok(variabelDto);
+            }
+
+            return NotFound("Ugyldig kortkode");
+        }
+
+
+        [HttpGet]
+        [Route("kodeForVariabelnavn/{kortkode}")]
+        [ProducesResponseType(typeof(IEnumerable<VariabelDto>), StatusCodes.Status200OK)]
+        public IActionResult HentKodeForVariabelnavn([Required] string kortkode = "AD-TE")
+        {
+            var variabelnavnDto = _variabelApiService.GetVariabelnavnByKortkode(kortkode, _versjon);
+            if (variabelnavnDto != null)
+            {
+                return Ok(variabelnavnDto);
+            }
+
+            return NotFound("Ugyldig kortkode");
         }
     }
 }

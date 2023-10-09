@@ -63,6 +63,7 @@ namespace NiN3.Tests.Infrastructure
             return configuration;
         }
 
+
         [Fact]
         public void TestGetAllCodes()
         {
@@ -81,6 +82,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("NIN-3.0-V-A-M", firstVariabel.Kode.Langkode);
         }
 
+
         [Fact]
         public void TestGetAllCodesWithMaaleskalaTrinn()
         {
@@ -92,8 +94,12 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(5, vn_RM_MS.MaaleskalaTrinn.Count);
         }
 
+
         [Fact]
-        public void TestGetKlasseByKortkode() { 
+        public void TestGetKlasseByKortkode() {
+            var service = GetPrepearedVariabelApiService();
+            var versjon = "3.0";
+            var result = service.GetVariabelKlasse("RM-MS", versjon);
         }
     }
 }
