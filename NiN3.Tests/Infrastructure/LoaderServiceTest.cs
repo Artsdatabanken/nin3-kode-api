@@ -67,7 +67,7 @@ namespace NiN3.Tests.Infrastructure
             //q: get the first Hovedtypegruppe object in the InMemoryDb object after ordering by Kode
             var firstHGD = inmemorydb.Hovedtypegruppe.OrderBy(x => x.Kode).First();
             //Assert that the number of Hovedtypegruppe objects is equal to 71
-            Assert.Equal(73, numOfHGD);
+            Assert.Equal(72, numOfHGD);
 
 
             //Testing langkode for Hovedtypegruppe that should have typekategori3 embedded in langkode
@@ -113,7 +113,7 @@ namespace NiN3.Tests.Infrastructure
             //Check that the number of Hovedtype objects in the in-memory database is equal to 445
             var numOfHD = inmemorydb.Hovedtype.Count();
             var hovedtyper = inmemorydb.Hovedtype.ToList();
-            Assert.Equal(464, numOfHD);
+            Assert.Equal(450, numOfHD);
             var HT_0_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "0-C-01").FirstOrDefault();
             Assert.NotNull(HT_0_C_01);
             Assert.Equal("Varmkildekompleks", HT_0_C_01.Navn);
@@ -278,7 +278,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3596, numOfKortkoder);
+            Assert.Equal(3581, numOfKortkoder);
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);

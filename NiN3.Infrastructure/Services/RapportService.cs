@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using NiN3.Core.Models;
 using NiN3.Core.Models.Enums;
 using NiN3.Infrastructure.Mapping;
+//using OfficeOpenXml;
+using ClosedXML.Excel;
 
 namespace NiN3.Infrastructure.Services
 {
@@ -107,6 +109,72 @@ namespace NiN3.Infrastructure.Services
                 csv.AppendLine(newLine);
             }
             return csv.ToString();
+        }
+
+        /* using EPPlus: 
+                public byte[] MakeKodeoversiktXlsx(string versjon)
+                {
+                    var kodeoversiktDtoList = GetKodeSummary(versjon);
+
+                    using (var package = new ExcelPackage())
+                    {
+                        var worksheet = package.Workbook.Worksheets.Add("Kodeoversikt");
+
+                        // Set the headers
+                        worksheet.Cells[1, 1].Value = "Klasse";
+                        worksheet.Cells[1, 2].Value = "Navn";
+                        worksheet.Cells[1, 3].Value = "Kortkode";
+                        worksheet.Cells[1, 4].Value = "Langkode";
+
+                        // Fill the rows with data
+                        int i = 2;
+                        foreach (var kodeoversiktDto in kodeoversiktDtoList)
+                        {
+                            worksheet.Cells[i, 1].Value = kodeoversiktDto.Klasse;
+                            worksheet.Cells[i, 2].Value = kodeoversiktDto.Navn;
+                            worksheet.Cells[i, 3].Value = kodeoversiktDto.Kortkode;
+                            worksheet.Cells[i, 4].Value = kodeoversiktDto.Langkode;
+                            i++;
+                        }
+
+                        // Save the spreadsheet
+                        var stream = new MemoryStream();
+                        package.SaveAs(stream);
+                        return stream.ToArray();
+                    }
+                }*/
+        public byte[] MakeKodeoversiktXlsx(string versjon)
+        {
+            var kodeoversiktDtoList = GetKodeSummary(versjon);
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Kodeoversikt");
+
+                // Set the headers
+                worksheet.Cell(1, 1).Value = "Klasse";
+                worksheet.Cell(1, 2).Value = "Navn";
+                worksheet.Cell(1, 3).Value = "Kortkode";
+                worksheet.Cell(1, 4).Value = "Langkode";
+
+                // Fill the rows with data
+                int i = 2;
+                foreach (var kodeoversiktDto in kodeoversiktDtoList)
+                {
+                    worksheet.Cell(i, 1).Value = kodeoversiktDto.Klasse;
+                    worksheet.Cell(i, 2).Value = kodeoversiktDto.Navn ?? ""; //Null coalescing operator to avoid null reference
+                    worksheet.Cell(i, 3).Value = kodeoversiktDto.Kortkode;
+                    worksheet.Cell(i, 4).Value = kodeoversiktDto.Langkode;
+                    i++;
+                }
+
+                // Save the spreadsheet
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    return stream.ToArray();
+                }
+            }
         }
     }
 }

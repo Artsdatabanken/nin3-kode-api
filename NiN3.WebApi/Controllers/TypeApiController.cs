@@ -83,7 +83,7 @@ namespace NiN3.WebApi.Controllers
             }
             else
             {
-                return NotFound();
+                return NotFound("Ugyldig kortkode");
             }
         }
 
@@ -99,7 +99,7 @@ namespace NiN3.WebApi.Controllers
             }
             else
             {
-                return NotFound();
+                return NotFound("Ugyldig kortkode");
             }
         }
 
@@ -115,7 +115,7 @@ namespace NiN3.WebApi.Controllers
                 return Ok(hovedtypegruppe);
             }
 
-            return NotFound();
+            return NotFound("Ugyldig kortkode");
         }
 
         [HttpGet]
@@ -129,7 +129,7 @@ namespace NiN3.WebApi.Controllers
                 return Ok(hovedtype);
             }
 
-            return NotFound();
+            return NotFound("Ugyldig kortkode");
         }
 
         [HttpGet]
@@ -142,7 +142,7 @@ namespace NiN3.WebApi.Controllers
             {
                 return Ok(grunntype);
             }
-            return NotFound();
+            return NotFound("Ugyldig kortkode");
         }
 
         [HttpGet]
@@ -155,7 +155,7 @@ namespace NiN3.WebApi.Controllers
             {
                 return Ok(kartleggingsenhet);
             }
-            return NotFound();
+            return NotFound("Ugyldig kortkode");
         }
     }
 }

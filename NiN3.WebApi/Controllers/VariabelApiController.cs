@@ -35,6 +35,7 @@ namespace NiN3.WebApi.Controllers
             return Ok(versjon); //This line returns an OK response with the data from the AllCodes() method.
         }
 
+
         [HttpGet]
         [Route("klasse/{kortkode}")]
         [Description("Henter klassetypen til objektet som kortkoden er tilknyttet")]
@@ -54,6 +55,7 @@ namespace NiN3.WebApi.Controllers
             }
         }
 
+
         [HttpGet]
         [Route("kodeForVariabel/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<VariabelDto>), StatusCodes.Status200OK)]
@@ -67,6 +69,7 @@ namespace NiN3.WebApi.Controllers
 
             return NotFound("Ugyldig kortkode");
         }
+
 
 
         [HttpGet]
