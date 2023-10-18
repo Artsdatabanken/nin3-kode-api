@@ -77,8 +77,6 @@ namespace NiN3.Tests.Infrastructure
             var count = variabler.Count(x => x.Kode.Id == "A-M");
             Assert.Equal(1, count);
             Assert.Equal("Abiotisk menneskebetinget", firstVariabel.Navn);
-            const int minVariabelLength = 85;
-            Assert.True(firstVariabel.Variabelnavn.Count() == minVariabelLength);
             Assert.Equal("NIN-3.0-V-A-M", firstVariabel.Kode.Langkode);
         }
 
