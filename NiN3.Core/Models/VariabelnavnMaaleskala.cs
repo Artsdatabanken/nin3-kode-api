@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace NiN3.Core.Models
 {
-    public class VariabelnavnMaaleskalaTrinn
+    public class VariabelnavnMaaleskala
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
         public int Id { get; set; }
         public Variabelnavn Variabelnavn { get; set; }
-        //public Maaleskala maaleskala { get; set; }
+        //public Variabeltrinn maaleskala { get; set; }
         public Maaleskala Maaleskala { get; set; }
-        public Trinn Trinn { get; set; }
     }
 }

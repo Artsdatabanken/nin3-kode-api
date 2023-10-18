@@ -11,6 +11,7 @@ namespace NiN3.Infrastructure.in_data
     {
         public MaaleskalatypeEnum MaaleskalatypeEnum { get; set; }
         public EnhetEnum EnhetEnum { get; set; }    
+        public string Maaleskalanavn { get; set; }
 
         public static CsvdataImporter_maaleskala_enhet ParseRow(string row)
         {
@@ -18,7 +19,8 @@ namespace NiN3.Infrastructure.in_data
             return new CsvdataImporter_maaleskala_enhet()
             {
                 MaaleskalatypeEnum = EnumUtil.ParseEnum<MaaleskalatypeEnum>(columns[0]),
-                EnhetEnum = EnumUtil.ParseEnum<EnhetEnum>(columns[1])
+                EnhetEnum = EnumUtil.ParseEnum<EnhetEnum>(columns[1]),
+                Maaleskalanavn = columns[2],
             };
         }
         public static List<CsvdataImporter_maaleskala_enhet> ProcessCSV(string path)

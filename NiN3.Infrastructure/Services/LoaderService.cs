@@ -125,10 +125,12 @@ namespace NiN.Infrastructure.Services
             LoadVariabelnavn();
             LoadMaaleskala();
             LoadTrinn();
-            MakeTrinnMappingForVariabelnavn();
+            MakeMaalestokkMappingForVariabelnavn();
+            //MakeTrinnMappingForVariabelnavn();
             LoadAlleKortkoder();
-            LoadEnumoppslag();
+            LoadEnumoppslag();            
             _context.SaveChanges();
+            CreateMaaleskalaView();
         }
 
         public void LoadLookupData()
@@ -693,7 +695,7 @@ namespace NiN.Infrastructure.Services
             return loadedVariabels;
         }
 
-        public List<Variabelnavn> LoadVariabelnavn()
+        public void LoadVariabelnavn()
         {
             //parse csv file
             var variabelList = CsvdataImporter_Variabelnavn.ProcessCSV("in_data/variabelnavn_variabel_mapping.csv");
@@ -717,11 +719,10 @@ namespace NiN.Infrastructure.Services
                     //Versjon = _versjon
                 };
                 _context.Add(variabel);
-                loadedVariabelnavn.Add(variabel);
+                //loadedVariabelnavn.Add(variabel);
             }
 
             _context.SaveChanges();
-            return loadedVariabelnavn;
         }
 
         public void LoadMaaleskala()
@@ -734,6 +735,7 @@ namespace NiN.Infrastructure.Services
                 {
                   EnhetEnum = m.EnhetEnum,
                   MaaleskalatypeEnum = m.MaaleskalatypeEnum,
+                  MaaleskalaNavn = m.Maaleskalanavn
                 };
                 _context.Add(maaleskala);
             }
@@ -741,15 +743,19 @@ namespace NiN.Infrastructure.Services
         }
 
         public void LoadTrinn() {
+            //TODO: change lookup on maaleskala with maaleskalanavn instead of enum
             //Loop csvdata and add trinn to trinn-class/db
             var trinnList = CsvDataImporter_MaaleskalaTrinn.ProcessCSV("in_data/maaleskala_trinn.csv");
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             List<Maaleskala> MaaleskalaList = _context.Maaleskala.ToList();
             List<string> TrinnsAdded = new List<string>();
             foreach (var t in trinnList) { 
-                var maaleskala = MaaleskalaList.Where(m => m.MaaleskalatypeEnum == t.MaaleskalatypeEnum).FirstOrDefault();
-                if (!TrinnsAdded.Contains(t.Trinn)) { 
-                
+                var maaleskala = MaaleskalaList.Where(m => m.MaaleskalaNavn == t.Maaleskalanavn).FirstOrDefault();
+                if (t.Maaleskalanavn == "B") {
+                    Console.WriteLine($"{t.Trinn}:{t.Trinnverdi}");
+                }
+                //if (!TrinnsAdded.Contains(t.Trinn)) {
+
                     var trinn = new Trinn()
                     {
                         Navn = t.Trinn,
@@ -757,19 +763,54 @@ namespace NiN.Infrastructure.Services
                         Maaleskala = maaleskala
                         //Versjon = _versjon
                     };
-                    TrinnsAdded.Add(t.Trinn);
-                    _context.Add(trinn);
-                }
+                    //TrinnsAdded.Add(t.Trinn);
+                    if (trinn.Maaleskala != null) { 
+                        _context.Add(trinn);
+                    }
+                    else {
+                        Console.WriteLine(t.Maaleskalanavn + " not found" + $"trinn was {t.Trinn}: {t.Trinnverdi}");
+                    }                
+                //}
                 _context.SaveChanges();
             }
         }
+
+        public void MakeMaalestokkMappingForVariabelnavn() { 
+            var variabelnavn_maaleskalaList = CsvdataImporter_Variabelnavn_maaleskala.ProcessCSV("in_data/variabelnavn_maaleskala_mapping.csv");
+            foreach (var vm in variabelnavn_maaleskalaList) { 
+                // find variabelnavn by kode
+                var variabelnavn = _context.Variabelnavn.FirstOrDefault(vn => vn.Kode == vm.VaribelnavnKode);
+                // find maaleskala by navn
+                var maaleskala = _context.Maaleskala.FirstOrDefault(m => m.MaaleskalaNavn == vm.Maaleskalanavn);
+
+                if (maaleskala != null && variabelnavn != null)
+                {
+                    var vn_ms = new VariabelnavnMaaleskala()
+                    {
+                        Maaleskala = maaleskala,
+                        Variabelnavn = variabelnavn
+                    };
+                    _context.Add(vn_ms);
+                }
+                else {
+                    Console.WriteLine($"Maaleskala or Variabelnavn not found for vn: {vm.VaribelnavnKode}, ms: {vm.Maaleskalanavn}");
+                }
+                // create VariabelnavnMaaleskala object
+                // add to db
+                _context.SaveChanges();            
+            }
+            //savechanges
+        
+        }
+        
+        /* //Trinnmapping shall only happen between typeclasses and trinn not variabelnavn and trinn
         public void MakeTrinnMappingForVariabelnavn()
         {
             //todo-sat: impl.
             var trinnListCsv = CsvDataImporter_MaaleskalaTrinn.ProcessCSV("in_data/maaleskala_trinn.csv");
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             List<Variabelnavn> variabelnavnList = _context.Variabelnavn.ToList();
-            List<Maaleskala> MaaleskalaList = _context.Maaleskala.ToList();
+            List<Variabeltrinn> MaaleskalaList = _context.Variabeltrinn.ToList();
             List<Trinn> TrinnList = _context.Trinn.ToList();
             foreach (var t in trinnListCsv) { 
                 //find trinn by navn
@@ -782,11 +823,11 @@ namespace NiN.Infrastructure.Services
                 if (variabelnavn != null)
                 {
                     // execute this code block if variabelnavn is not null
-                    var variabelnavn_trinn = new VariabelnavnMaaleskalaTrinn()
+                    var variabelnavn_trinn = new VariabelnavnMaaleskala()
                     {
                         Trinn = trinn,
                         Variabelnavn = variabelnavn,
-                        Maaleskala = maaleskala
+                        Variabeltrinn = maaleskala
                     };
                     //add to db
                     _context.Add(variabelnavn_trinn);
@@ -796,7 +837,7 @@ namespace NiN.Infrastructure.Services
                 }                                                
             }
             _context.SaveChanges();
-        }
+        }*/
 
         public void LoadAlleKortkoder() {
             // load kortkoder from type
@@ -943,6 +984,17 @@ namespace NiN.Infrastructure.Services
                 Beskrivelse = beskrivelse,
                 Versjon = versjon
             };
+        }
+
+        public void CreateMaaleskalaView() {//TODO: funker ikke ...feil med query
+            var sql = @"Create view MaaleskalaView
+                        AS
+                        select Maaleskala.Id as MaaleskalaId, op1.Ordinal, op1.Verdi as Maaleskalaverdi, op1.Beskrivelse as Maaleskalabeskrivelse, 
+                               op2.Verdi as Enhetverdi, op2.Beskrivelse as Enhetbeskrivelse 
+                        from Maaleskala, Enumoppslag as op1, Enumoppslag as op2 
+                        where op1.Ordinal = Maaleskala.MaaleskalatypeEnum and op1.Enumtype = 'MaaleskalatypeEnum' and 
+                              op2.Ordinal =Maaleskala.EnhetEnum and op2.Enumtype = 'EnhetEnum';";
+            _context.Database.ExecuteSqlRaw(sql);
         }
     }
 }

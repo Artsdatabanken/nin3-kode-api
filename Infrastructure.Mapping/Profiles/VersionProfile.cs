@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿/*
+using AutoMapper;
 using NiN3.Core.Models.DTOs.type;
 using NiN3.Core.Models.DTOs.variabel;
 using NiN3.Core.Models.DTOs;
@@ -67,7 +68,7 @@ namespace NiN3.Infrastructure.Mapping.Profiles
                 .ForMember(dest => dest.Hovedtypegrupper, opt => opt.MapFrom(src => src.Hovedtypegrupper))
                 ;
             ;
-            CreateMap<Maaleskala, MaaleskalaDto>(MemberList.Destination)
+            CreateMap<Variabeltrinn, MaaleskalaDto>(MemberList.Destination)
                 .ForMember(dest => dest.MaaleskalatypeEnum, opt => opt.MapFrom(src => src.MaaleskalatypeEnum))
                 .ForMember(dest => dest.MaaleskalatypeNavn, opt => opt.MapFrom(src => EnumUtil.ToDescription(src.MaaleskalatypeEnum)))
                 .ForMember(dest => dest.EnhetEnum, opt => opt.MapFrom(src => src.EnhetEnum))
@@ -76,8 +77,8 @@ namespace NiN3.Infrastructure.Mapping.Profiles
             CreateMap<Trinn, TrinnDto>(MemberList.Destination)
                 .ForMember(dest => dest.Verdi, opt => opt.MapFrom(src => src.Verdi))
                 .ForMember(dest => dest.Navn, opt => opt.MapFrom(src => src.Navn));
-            CreateMap<VariabelnavnMaaleskalaTrinn, MaaleskalaTrinnDto>(MemberList.Destination)
-                .ForMember(dest => dest.MaaleskalaDto, opt => opt.MapFrom(src => src.Maaleskala))
+            CreateMap<VariabelnavnMaaleskala, MaaleskalaTrinnDto>(MemberList.Destination)
+                .ForMember(dest => dest.MaaleskalaDto, opt => opt.MapFrom(src => src.Variabeltrinn))
                 .ForMember(dest => dest.TrinnDto, opt => opt.MapFrom(src => src.Trinn)); ;
 
             CreateMap<Variabelnavn, VariabelnavnDto>(MemberList.Destination)
@@ -89,7 +90,7 @@ namespace NiN3.Infrastructure.Mapping.Profiles
                 .ForMember(dest => dest.VariabeltypeNavn, opt => opt.MapFrom(src => EnumUtil.ToDescription(src.Variabeltype)))
                 .ForMember(dest => dest.VariabelgruppeEnum, opt => opt.MapFrom(src => src.Variabelgruppe))
                 .ForMember(dest => dest.VariabelgruppeNavn, opt => opt.MapFrom(src => EnumUtil.ToDescriptionBlankIfNull(src.Variabelgruppe)))
-                .ForMember(dest => dest.MaaleskalaTrinn, opt => opt.MapFrom(src => src.VariabelnavnMaaleTrinn))
+                .ForMember(dest => dest.MaaleskalaTrinn, opt => opt.MapFrom(src => src.VariabelnavnMaaleskala))
 
                 ;
             CreateMap<Variabel, VariabelDto>(MemberList.Destination)
@@ -107,3 +108,4 @@ namespace NiN3.Infrastructure.Mapping.Profiles
         }
     }
 }
+*/

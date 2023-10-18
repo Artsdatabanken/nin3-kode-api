@@ -60,7 +60,7 @@ namespace NiN3.Infrastructure.DbContexts
         public DbSet<Variabelnavn> Variabelnavn { get; set; }
         public DbSet<Hovedtypegruppe_Hovedoekosystem> Hovedtypegruppe_Hovedoekosystem { get; set; }
 
-        public DbSet<VariabelnavnMaaleskalaTrinn> VariabelnavnMaaleskalaTrinn { get; set; }
+        public DbSet<VariabelnavnMaaleskala> VariabelnavnMaaleskala { get; set; }
 
         public DbSet<Maaleskala> Maaleskala { get; set; }
         public DbSet<Trinn> Trinn { get; set; }

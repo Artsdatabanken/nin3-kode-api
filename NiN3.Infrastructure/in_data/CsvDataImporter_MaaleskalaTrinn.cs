@@ -10,8 +10,9 @@ namespace NiN3.Infrastructure.in_data
     public class CsvDataImporter_MaaleskalaTrinn
     {
 
-        public string VNKortkode { get; set; }
-    public MaaleskalatypeEnum MaaleskalatypeEnum { get; set; }
+        //public string VNKortkode { get; set; }
+        //public MaaleskalatypeEnum MaaleskalatypeEnum { get; set; }
+        public string Maaleskalanavn { get; set; }
         public string Trinnverdi { get; set; }
         public string Trinn { get; set; }
         internal static CsvDataImporter_MaaleskalaTrinn ParseRow(string row)
@@ -19,10 +20,11 @@ namespace NiN3.Infrastructure.in_data
             var columns = row.Split(';');
             return new CsvDataImporter_MaaleskalaTrinn()
             {
-                VNKortkode = columns[0],
-                MaaleskalatypeEnum = EnumUtil.ParseEnum<MaaleskalatypeEnum>(columns[1]),
-                Trinnverdi = columns[2],
-                Trinn = columns[3]
+                //VNKortkode = columns[0],
+                //MaaleskalatypeEnum = EnumUtil.ParseEnum<MaaleskalatypeEnum>(columns[1]),
+                Maaleskalanavn = columns[2],
+                Trinnverdi = columns[1],
+                Trinn = columns[0]
             };
         }
 

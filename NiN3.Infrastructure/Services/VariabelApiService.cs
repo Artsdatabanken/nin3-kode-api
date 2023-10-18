@@ -42,12 +42,13 @@ namespace NiN3.Infrastructure.Services
                 .ThenInclude(variabel => variabel.Variabelnavn)
                 .Include(v => v.Variabler.OrderBy(v => v.Langkode))
                 .ThenInclude(variabel => variabel.Variabelnavn)
-                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
+                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
                 .ThenInclude(maaletrinn => maaletrinn.Maaleskala)
                 .Include(v => v.Variabler.OrderBy(v => v.Langkode))
                 .ThenInclude(variabel => variabel.Variabelnavn)
-                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
-                .ThenInclude(maaletrinn => maaletrinn.Trinn)
+                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
+                .ThenInclude(variabelnavnMaaleskala =>variabelnavnMaaleskala.Maaleskala)
+                .ThenInclude(maaleskala => maaleskala.Trinn)
                 .Select(v => new Versjon { Id = v.Id, Navn = v.Navn, Variabler = v.Variabler })
                 .AsNoTracking()
                 .FirstOrDefault();
@@ -64,11 +65,9 @@ namespace NiN3.Infrastructure.Services
             //TODO: Implement
             Variabel variabel = _context.Variabel.Where(v => v.Kode == kode && v.Versjon.Navn == versjon)
                 .Include(variabel => variabel.Variabelnavn)
-                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
-                .ThenInclude(maaletrinn => maaletrinn.Maaleskala)
-                .Include(variabel => variabel.Variabelnavn)
-                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
-                .ThenInclude(maaletrinn => maaletrinn.Trinn)
+                .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
+                .ThenInclude(vn_maaleskala => vn_maaleskala.Maaleskala)
+                .ThenInclude(maaleskala => maaleskala.Trinn)
                 .AsNoTracking()
                 .FirstOrDefault();
             //return new VariabelnavnDto();
@@ -78,10 +77,12 @@ namespace NiN3.Infrastructure.Services
         public VariabelnavnDto GetVariabelnavnByKortkode(string kode, string versjon)
         {
             Variabelnavn variabelnavn = _context.Variabelnavn.Where(v => v.Kode == kode && v.Versjon.Navn == versjon)
-                .Include(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
+                .Include(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
                 .ThenInclude(maaletrinn => maaletrinn.Maaleskala)
-                .Include(variabelnavn => variabelnavn.VariabelnavnMaaleTrinn)
-                .ThenInclude(maaletrinn => maaletrinn.Trinn)
+                .Include(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
+                .ThenInclude(vn_maaleskala => vn_maaleskala.Maaleskala)
+                .ThenInclude(maaleskala => maaleskala.Trinn)
+                //.ThenInclude(maaletrinn => maaletrinn.Trinn)
                 .AsNoTracking()
                 .FirstOrDefault();
             //return new VariabelnavnDto();

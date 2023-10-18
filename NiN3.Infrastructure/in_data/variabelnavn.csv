@@ -1,14 +1,4 @@
-Langkode;Kortkode;3 ABC;4 NM;Variabelkategori2;Variabeltype;Variabelgruppe;Variabelnavn_kode;Variabelnavn_navn;Variabel_kode
-NiN-3.0-V-A-N-LM-GK-W-KA-W;LM-KA;A;N;LM;GK;W;KA;kalkinnhold;A-N
-NiN-3.0-V-A-N-LM-GE-EE-EH-W;LM-EH;A;N;LM;GE;EE;EH;elveløpshelning;A-N
-NiN-3.0-V-A-M-LM-FK-W-HR-W;LM-HR;A;M;LM;FK;W;HR;hevdregime;A-M
-NiN-3.0-V-A-M-KM-FE-SB-HS-W;KM-HS;A;M;KM;FE;SB;HS;lukket selektiv hogst;A-M
-NiN-3.0-V-A-N-NO-GE-DL-L3-W;NO-L3;A;N;NO;GE;DL;L3;alle lite nedbrutte lauvtrelæger med middels dimensjon;A-N
-NiN-3.0-V-B-N-RA-GE-W-MB-W;RA-MB-JUNIcomm-P6c;B;N;RA;GE;W;MB;mark- og bunnlevende art;B-N
-NiN-3.0-V-B-N-RA-GE-W-MB-W;RA-MB-JUNIcomm-B;B;N;RA;GE;W;MB;mark- og bunnlevende art;B-N
-NiN-3.0-V-B-N-SA-GE-AG-TT-W;SA-TT;B;N;SA;GE;AG;TT;total tresjiktsdekning;B-N
-NiN-3.0-V-B-N-SA-GE-AR-AB-W;SA-AB;B;N;SA;GE;AR;AB;bartreandel;B-N
-NiN-3.0-V-B-N-SA-FE-AR-AD-W;SA-AD;B;N;SA;FE;AR;AD;dominansutforming av tresjiktet;B-N
+Langkode;Kortkode;3 ABC;4 NM;5 kat;6 FG/EK;7 Varkode1;8 VarKode2;VarNavn;Variabel_kode
 NiN-3.0-V-A-N-LO-GE-BO-BH-W;LO-BH;A;N;LO;GE;BO;BH;slukhull på bre;A-N
 NiN-3.0-V-A-N-LO-GE-BO-BS-W;LO-BS;A;N;LO;GE;BO;BS;bresprekk;A-N
 NiN-3.0-V-A-N-LO-GE-EB-AI-W;LO-AI;A;N;LO;GE;EB;AI;isolert innersvingbanke;A-N
@@ -61,6 +51,7 @@ NiN-3.0-V-A-N-RM-GK-W-KY-W;RM-KY;A;N;RM;GK;W;KY;avstand til kysten;A-N
 NiN-3.0-V-A-N-RM-GK-W-MS-W;RM-MS;A;N;RM;GK;W;MS;marine bioklimatiske soner;A-N
 NiN-3.0-V-A-N-RM-GK-W-SE-W;RM-SE;A;N;RM;GK;W;SE;bioklimatiske seksjoner;A-N
 NiN-3.0-V-A-N-RM-GK-W-SO-W;RM-SO;A;N;RM;GK;W;SO;bioklimatiske soner;A-N
+NiN-3.0-V-A-N-RM-GK-W-VE-W;RM-VE;A;N;RM;GK;W;VE;vegetasjonsdekke;A-N
 NiN-3.0-V-A-N-RM-GK-W-VP-W;RM-VP;A;N;RM;GK;W;VP;våtmarkspreg;A-N
 NiN-3.0-V-A-N-RM-GK-W-YK-W;RM-YK;A;N;RM;GK;W;YK;indre-ytre kyst;A-N
 NiN-3.0-V-A-N-LM-FK-W-BK-W;LM-BK;A;N;LM;FK;W;BK;berggrunn med avvikende kjemisk sammensetnig;A-N
@@ -101,6 +92,7 @@ NiN-3.0-V-A-N-LM-GK-W-IB-W;LM-IB;A;N;LM;GK;W;IB;isbevegelse;A-N
 NiN-3.0-V-A-N-LM-GK-W-IF-W;LM-IF;A;N;LM;GK;W;IF;isbetinget forstyrrelsesintensitet;A-N
 NiN-3.0-V-A-N-LM-GK-W-JF-W;LM-JF;A;N;LM;GK;W;JF;jordflyt;A-N
 NiN-3.0-V-A-N-LM-GK-W-JV-W;LM-JV;A;N;LM;GK;W;JV;jordvarmeinnflytelse;A-N
+NiN-3.0-V-A-N-LM-GK-W-KA-W;LM-KA;A;N;LM;GK;W;KA;kalkinnhold;A-N
 NiN-3.0-V-A-N-LM-GK-W-KI-W;LM-KI;A;N;LM;GK;W;KI;kildevannspåvirkning;A-N
 NiN-3.0-V-A-N-LM-GK-W-MF-W;LM-MF;A;N;LM;GK;W;MF;myrflatepreg;A-N
 NiN-3.0-V-A-N-LM-GK-W-NB-W;LM-NB;A;N;LM;GK;W;NB;naturlig beiting (ville dyr);A-N
@@ -110,7 +102,7 @@ NiN-3.0-V-A-N-LM-GK-W-NT-W;LM-NT;A;N;LM;GK;W;NT;næringstilførselstillegg;A-N
 NiN-3.0-V-A-N-LM-GK-W-OF-W;LM-OF;A;N;LM;GK;W;OF;oppfrysing;A-N
 NiN-3.0-V-A-N-LM-GK-W-OM-W;LM-OM;A;N;LM;GK;W;OM;oksygenmangel;A-N
 NiN-3.0-V-A-N-LM-GK-W-OR-W;LM-OR;A;N;LM;GK;W;OR;overrisling;A-N
-NiN-3.0-V-A-N-LM-GK-W-RU-W;LM-RU;A;N;LM;GK;W;RU;rasmark;A-N
+NiN-3.0-V-A-N-LM-GK-W-RU-W;LM-RU;A;N;LM;GK;W;RU;rasutsatthet;A-N
 NiN-3.0-V-A-N-LM-GK-W-SA-W;LM-SA;A;N;LM;GK;W;SA;marin salinitet;A-N
 NiN-3.0-V-A-N-LM-GK-W-SE-W;LM-SE;A;N;LM;GK;W;SE;sedimentbasert forstyrrelse;A-N
 NiN-3.0-V-A-N-LM-GK-W-SF-W;LM-SF;A;N;LM;GK;W;SF;saltanriking av mark i fjærebeltet;A-N
@@ -144,7 +136,7 @@ NiN-3.0-V-A-N-KM-FE-SE-BA-W;KM-BA;A;N;KM;FE;SE;BA;naturgitt bestandsavgang på t
 NiN-3.0-V-A-N-TF-FE-GT-TP-W;TF-TP;A;N;TF;FE;GT;TP;terrengposisjonsklasser;A-N
 NiN-3.0-V-A-N-TF-GK-W-RA-W;TF-RA;A;N;TF;GK;W;RA;relieff i innlandsås- og fjellandskap;A-N
 NiN-3.0-V-A-N-TF-GK-W-RD-W;TF-RD;A;N;TF;GK;W;RD;relieff i innlandsdal- og fjordlandskap;A-N
-NiN-3.0-V-A-N-TF-GK-W-RK-W;TF-RK;A;N;TF;GK;W;RK;relieff i kystslettelandskap;A-N
+NiN-3.0-V-A-N-TF-GK-W-RK-W;TF-RK;A;N;TF;GK;W;RK;relieff i innlandsås- og fjellandskap;A-N
 NiN-3.0-V-A-N-TF-GE-GT-EK-W;TF-EK;A;N;TF;GE;GT;EK;eksponeringsretning;A-N
 NiN-3.0-V-A-N-TF-GE-GT-RR-W;TF-RR;A;N;TF;GE;GT;RR;relativt relieff;A-N
 NiN-3.0-V-A-N-TF-GE-GT-TH-W;TF-TH;A;N;TF;GE;GT;TH;terrenghelning;A-N
@@ -238,6 +230,7 @@ NiN-3.0-V-A-M-KM-FE-JB-AJ-W;KM-AJ;A;M;KM;FE;JB;AJ;nåtidig jordbruksaktivitet;A-
 NiN-3.0-V-A-M-KM-FE-SB-AS-W;KM-AS;A;M;KM;FE;SB;AS;nåtidig skogbruksaktivitet;A-M
 NiN-3.0-V-A-M-KM-FE-SB-HG-W;KM-HG;A;M;KM;FE;SB;HG;lukket gradvis foryngelseshogst;A-M
 NiN-3.0-V-A-M-KM-FE-SB-HI-W;KM-HI;A;M;KM;FE;SB;HI;intermediær hogst;A-M
+NiN-3.0-V-A-M-KM-FE-SB-HS-W;KM-HS;A;M;KM;FE;SB;HS;lukket selektiv hogst;A-M
 NiN-3.0-V-A-M-KM-FE-SB-HY-W;KM-HY;A;M;KM;FE;SB;HY;åpen foryngelseshogst;A-M
 NiN-3.0-V-A-M-KM-FE-SB-SF-W;KM-SF;A;M;KM;FE;SB;SF;skogforyngelsestiltak;A-M
 NiN-3.0-V-A-M-KM-FE-SB-UM-W;KM-UM;A;M;KM;FE;SB;UM;metode for uttak av trevirke;A-M
@@ -255,7 +248,7 @@ NiN-3.0-V-A-M-KM-GE-SB-HA-W;KM-HA;A;M;KM;GE;SB;HA;hogststubbeandel;A-M
 NiN-3.0-V-A-M-KM-GE-SE-DA-W;KM-DA;A;M;KM;GE;SE;DA;dødvedandel;A-M
 NiN-3.0-V-A-M-KM-GE-SE-DV-W;KM-DV;A;M;KM;GE;SE;DV;dødvedvariasjon;A-M
 NiN-3.0-V-B-N-SA-FK-W-FS-W;SA-FS;B;N;SA;FK;W;FS;fiskesamfunnskompleksitet;B-N
-NiN-3.0-V-B-N-SA-GK-W-VE-W;SA-VE;B;N;SA;GK;W;VE;vegetasjonsdekke;B-N
+NiN-3.0-V-B-N-SA-FE-AR-AD-W;SA-AD;B;N;SA;FE;AR;AD;dominansutforming av tresjiktet;B-N
 NiN-3.0-V-B-N-SA-GE-AG-AG-W;SA-AG;B;N;SA;GE;AG;AG;dekning av gjenveksttrær;B-N
 NiN-3.0-V-B-N-SA-GE-AG-AO-W;SA-AO;B;N;SA;GE;AG;AO;dekning av overstandere;B-N
 NiN-3.0-V-B-N-SA-GE-AG-AT-W;SA-AT;B;N;SA;GE;AG;AT;tresjiktsdekning;B-N
@@ -267,6 +260,7 @@ NiN-3.0-V-B-N-SA-GE-AG-ET-W;SA-ET;B;N;SA;GE;AG;ET;toppsjiktsdekning i vannvegeta
 NiN-3.0-V-B-N-SA-GE-AG-FT-W;SA-FT;B;N;SA;GE;AG;FT;mellomsjiktsdekning i vannvegetasjon;B-N
 NiN-3.0-V-B-N-SA-GE-AG-GT-W;SA-GT;B;N;SA;GE;AG;GT;bunnsjiktsdekning i vannvegetasjon;B-N
 NiN-3.0-V-B-N-SA-GE-AG-HT-W;SA-HT;B;N;SA;GE;AG;HT;dekning av stasjonær megafauna;B-N
+NiN-3.0-V-B-N-SA-GE-AR-AB-W;SA-AB;B;N;SA;GE;AR;AB;bartreandel;B-N
 NiN-3.0-V-B-N-SA-GE-AR-AE-W;SA-AE;B;N;SA;GE;AR;AE;edellauvtreandel;B-N
 NiN-3.0-V-B-N-SA-GE-AR-AL-W;SA-AL;B;N;SA;GE;AR;AL;boreal lauvtreandel;B-N
 NiN-3.0-V-B-N-SA-GE-AR-AP-W;SA-AP;B;N;SA;GE;AR;AP;pil- og vierandel;B-N
@@ -351,10 +345,10 @@ NiN-3.0-V-B-N-RA-GE-AM-MO-W;RA-MO-S;B;N;RA;GE;AM;MO;mobil art;B-N
 NiN-3.0-V-B-N-RA-GE-AM-NB-W;RA-NB-S;B;N;RA;GE;AM;NB;naturlig beitedyr;B-N
 NiN-3.0-V-B-N-RA-GE-AR-AE-W;RA-AE-S;B;N;RA;GE;AR;AE;relativ andel av enkelttreslag;B-N
 NiN-3.0-V-B-N-RA-GE-AR-BE-W;RA-BE-S;B;N;RA;GE;AR;BE;relativ andel av enkelttreslag i busksjiktet;B-N
-NiN-3.0-V-B-N-AD-FK-W-UT-W;AD-UT;B;N;AD;FK;W;UT;balanseforhold mellom trofiske nivåer;B-N
-NiN-3.0-V-B-N-AD-FK-W-VD-W;AD-VD;B;N;AD;FK;W;VD;vegetasjonsdifferensiering på ferskvannssedimentbunn;B-N
+NiN-3.0-V-B-N-AD-FK-W-TP-W;AD-TP;B;N;AD;FK;W;TP;torvproduserende evne;B-N
+NiN-3.0-V-B-N-ASD-FK-W-UT-W;AD-UT;B;N;AD;FK;W;UT;balanseforhold mellom trofiske nivåer;B-N
+NiN-3.0-V-B-N-ASD-FK-W-UT-W;AD-VD;B;N;AD;FK;W;VD;vegetasjonsdifferensiering på ferskvannssedimentbunn;B-N
 NiN-3.0-V-B-N-AD-FK-W-ØD-W;AD-ØD;B;N;AD;FK;W;ØD;økologisk differensiering;B-N
-NiN-3.0-V-B-N-AD-GK-W-TP-W;AD-TP;B;N;AD;GK;W;TP;torvproduserende evne;B-N
 NiN-3.0-V-B-M-MO-GE-TE-AL-W;MO-AL;B;M;MO;GE;TE;AL;trelinje;B-M
 NiN-3.0-V-B-M-MO-GE-TE-HE-W;MO-HE;B;M;MO;GE;TE;HE;busklinje;B-M
 NiN-3.0-V-B-M-MO-GE-TE-SL-W;MO-SL;B;M;MO;GE;TE;SL;stubbelauvet tre eller busk;B-M

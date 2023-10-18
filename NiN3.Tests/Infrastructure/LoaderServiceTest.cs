@@ -207,7 +207,7 @@ namespace NiN3.Tests.Infrastructure
 
 
         /// <summary>
-        /// Test method for loading of the Maaleskala.
+        /// Test method for loading of the Variabeltrinn.
         /// </summary>
         [Fact]
         public void TestLoadMaaleskala()
@@ -215,7 +215,7 @@ namespace NiN3.Tests.Infrastructure
             // prepare test
             var inmemorydb = GetInMemoryDb();
             var numOfMS = inmemorydb.Maaleskala.Count();
-            Assert.Equal(18, numOfMS);
+            Assert.Equal(156, numOfMS);
             var maaleskalaSO = inmemorydb.Maaleskala.FirstOrDefault(m => m.MaaleskalatypeEnum == MaaleskalatypeEnum.SO);
             var maaleskalaSI = inmemorydb.Maaleskala.FirstOrDefault(m => m.MaaleskalatypeEnum == MaaleskalatypeEnum.SI);
             Assert.NotNull(maaleskalaSO);
@@ -229,9 +229,10 @@ namespace NiN3.Tests.Infrastructure
             // prepare test
             var inmemorydb = GetInMemoryDb();
             var numOfTrinn = inmemorydb.Trinn.Count();
-            Assert.Equal(856, numOfTrinn);
-            var trinnNhB = inmemorydb.Trinn.Where(trinn => trinn.Navn == "NH-B").FirstOrDefault();
-            Assert.NotNull(trinnNhB);
+            Assert.Equal(1016, numOfTrinn);
+            var trinnNhB = inmemorydb.Trinn.Where(trinn => trinn.Navn == "NH_B").FirstOrDefault();
+            var bMaaleskala = inmemorydb.Maaleskala.Where(m=> m.MaaleskalaNavn == "B").FirstOrDefault();
+            Assert.Equal(2, bMaaleskala.Trinn.Count);//Checking that Binær-måleskala is loaded and has its trinn
             Assert.Equal("Barentshavet og Polhavet", trinnNhB.Verdi);
             Assert.Equal(MaaleskalatypeEnum.SI, trinnNhB.Maaleskala.MaaleskalatypeEnum);
             var uniqueCount = inmemorydb.Trinn.Select(x => x.Navn).Distinct().Count();
@@ -240,19 +241,39 @@ namespace NiN3.Tests.Infrastructure
         }
 
         [Fact]
+        public void TestMakeMaalestokkMappingForVariabelnavn() {
+            var inmemorydb = GetInMemoryDb();
+
+            var vn_LO_KA = inmemorydb.Variabelnavn.Where(x => x.Kode == "LO-KA").FirstOrDefault();
+            Assert.NotNull(vn_LO_KA);
+            Assert.Equal("LO-KA", vn_LO_KA.Kode);
+            Assert.Equal(2, vn_LO_KA.VariabelnavnMaaleskala.Count);
+            var maaleskalasInVn = vn_LO_KA.VariabelnavnMaaleskala.Select(x => x.Maaleskala).OrderBy(x => x.MaaleskalaNavn).ToList();
+            Assert.Equal(2, maaleskalasInVn.Count);
+            Assert.Equal("D0", maaleskalasInVn[0].MaaleskalaNavn);
+            Assert.Equal(11, maaleskalasInVn[0].Trinn.Count);
+            Assert.Equal("T0", maaleskalasInVn[1].MaaleskalaNavn);
+            Assert.Equal(16, maaleskalasInVn[1].Trinn.Count);
+
+            var vn_SA_AD_BE = inmemorydb.Variabelnavn.Where(x => x.Kode == "SA-AD-BE").FirstOrDefault();
+            Assert.NotNull(vn_SA_AD_BE);
+        }
+        /*
+        [Fact]
         public void TestMakeTrinnMappingForVariabelnavn() {
             // prepare test
             var inmemorydb = GetInMemoryDb();
-            var numOfTrinnMapping = inmemorydb.VariabelnavnMaaleskalaTrinn.Count();
+            var numOfTrinnMapping = inmemorydb.VariabelnavnMaaleskala.Count();
             Assert.Equal(883, numOfTrinnMapping);
-            var trinnMapping = inmemorydb.VariabelnavnMaaleskalaTrinn.Where(x => x.Variabelnavn.Kode == "RM-MS").OrderBy(x => x.Trinn.Navn).FirstOrDefault();
+            var trinnMapping = inmemorydb.VariabelnavnMaaleskala.Where(x => x.Variabelnavn.Kode == "RM-MS").OrderBy(x => x.Trinn.Navn).FirstOrDefault();
             Assert.NotNull(trinnMapping);
             Assert.Equal("RM-MS", trinnMapping.Variabelnavn.Kode);
             Assert.Equal("Marine bioklimatiske soner", trinnMapping.Variabelnavn.Navn);
             Assert.Equal("MS-a", trinnMapping.Trinn.Navn);
             Assert.Equal("Nordsjøen og Skagerrak", trinnMapping.Trinn.Verdi);
-            Assert.Equal(MaaleskalatypeEnum.SO, trinnMapping.Maaleskala.MaaleskalatypeEnum);
+            Assert.Equal(MaaleskalatypeEnum.SO, trinnMapping.Variabeltrinn.MaaleskalatypeEnum);
         }
+        */
 
         [Fact]
         public void TestFetchTrinnFromVariabelnavn()
@@ -263,14 +284,14 @@ namespace NiN3.Tests.Infrastructure
             var variabelnavn = inmemorydb.Variabelnavn.Where(x => x.Kode == "RM-MS").FirstOrDefault();
             //var variabelnavnRMMS = inmemorydb.Variabelnavn
             //                     .Where(v => v.Kode == "RM-MS")
-            //                     .Include(v => v.VariabelnavnMaaleTrinn).FirstOrDefault();
+            //                     .Include(v => v.VariabelnavnMaaleskala).FirstOrDefault();
            
             
-            Assert.Equal(5, variabelnavn.VariabelnavnMaaleTrinn.Count);
+            Assert.Equal(5, variabelnavn.VariabelnavnMaaleskala.Count);
             /*Assert.Equal("marine bioklimatiske soner", trinnMapping.Variabelnavn.Navn);
             Assert.Equal("MS-a", trinnMapping.Trinn.Navn);
             Assert.Equal("Nordsjøen og Skagerrak", trinnMapping.Trinn.Verdi);
-            Assert.Equal(MaaleskalatypeEnum.SO, trinnMapping.Maaleskala.MaaleskalatypeEnum);*/
+            Assert.Equal(MaaleskalatypeEnum.SO, trinnMapping.Variabeltrinn.MaaleskalatypeEnum);*/
         }
 
         [Fact]

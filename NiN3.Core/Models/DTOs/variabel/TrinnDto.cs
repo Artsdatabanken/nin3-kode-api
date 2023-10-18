@@ -8,7 +8,7 @@ namespace NiN3.Core.Models.DTOs.variabel
 {
     public class TrinnDto
     {
-        public string Verdi { get; set; }
         public string Navn { get; set; }
+        public string Verdi { get; set; }
     }
 }

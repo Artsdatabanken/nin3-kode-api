@@ -313,31 +313,24 @@ namespace NiN3.Infrastructure.Mapping
                 VariabelgruppeEnum = variabelnavn.Variabelgruppe,
                 VariabelgruppeNavn = EnumUtil.ToDescription(variabelnavn.Variabelgruppe)
             };
-            var maaleskalatrinnBag = new ConcurrentBag<MaaleskalaTrinnDto>();
-            Parallel.ForEach(variabelnavn.VariabelnavnMaaleTrinn.ToList(), g => maaleskalatrinnBag.Add(Map(g)));
-            variabelnavnDto.MaaleskalaTrinn = maaleskalatrinnBag.ToList();
+            var maaleskalaBag = new ConcurrentBag<MaaleskalaDto>();
+            Parallel.ForEach(variabelnavn.VariabelnavnMaaleskala.ToList(), g => maaleskalaBag.Add(Map(g.Maaleskala)));
+            variabelnavnDto.Variabeltrinn = maaleskalaBag.ToList();
             return variabelnavnDto;
-        }
-
-        public MaaleskalaTrinnDto Map(VariabelnavnMaaleskalaTrinn variabelnavnMaaleskalaTrinn)
-        {
-            var MaaleskalaTrinnDto = new MaaleskalaTrinnDto()
-            {
-                MaaleskalaDto = Map(variabelnavnMaaleskalaTrinn.Maaleskala),
-                TrinnDto = Map(variabelnavnMaaleskalaTrinn.Trinn)
-            };
-            return MaaleskalaTrinnDto;
         }
 
         public MaaleskalaDto Map(Maaleskala maaleskala) {
             var MaaleskalaDto = new MaaleskalaDto()
             {
+                MaaleskalaNavn = maaleskala.MaaleskalaNavn,
                 MaaleskalatypeEnum = maaleskala.MaaleskalatypeEnum,
                 MaaleskalatypeNavn = EnumUtil.ToDescription(maaleskala.MaaleskalatypeEnum),
                 EnhetEnum = maaleskala.EnhetEnum,
                 EnhetNavn = EnumUtil.ToDescription(maaleskala.EnhetEnum)
-
             };
+            var trinnBag = new ConcurrentBag<TrinnDto>();
+            Parallel.ForEach(maaleskala.Trinn.ToList(), g => trinnBag.Add(Map(g)));
+            MaaleskalaDto.Trinn = trinnBag.ToList();
             return MaaleskalaDto;
         }
 

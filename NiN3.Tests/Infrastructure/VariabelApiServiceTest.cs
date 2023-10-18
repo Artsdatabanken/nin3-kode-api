@@ -91,7 +91,9 @@ namespace NiN3.Tests.Infrastructure
             var result = service.AllCodes(versjon);
             var vn_RM_MS = result.Variabler.SelectMany(x => x.Variabelnavn).Where(x => x.Kode.Id == "RM-MS").FirstOrDefault();
             Assert.NotNull(vn_RM_MS);
-            Assert.Equal(5, vn_RM_MS.MaaleskalaTrinn.Count);
+            Assert.Equal(1, vn_RM_MS.Variabeltrinn.Count);
+            var maaleskala = vn_RM_MS.Variabeltrinn.FirstOrDefault();
+            Assert.Equal(5, maaleskala.Trinn.Count);
         }
 
 

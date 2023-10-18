@@ -29,6 +29,6 @@ namespace NiN3.Core.Models
         [ForeignKey("VariabelId")]
         public Variabel Variabel { get; set; }
 
-        public ICollection<VariabelnavnMaaleskalaTrinn> VariabelnavnMaaleTrinn { get; set; } = new List<VariabelnavnMaaleskalaTrinn>();
+        public ICollection<VariabelnavnMaaleskala> VariabelnavnMaaleskala { get; set; } = new List<VariabelnavnMaaleskala>();
     }
 }
