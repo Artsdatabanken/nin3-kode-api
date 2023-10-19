@@ -373,9 +373,11 @@ namespace NiN3.Infrastructure.Mapping
         /// <param name="langkode"></param>
         /// <returns></returns>
         public string GetEndpointnameByLangkode(string langkode) {
-                var endpointname = "unknown";
-                ArrayList langkodeList = new ArrayList(langkode.Split('-'));
-                var trinncount = langkodeList.Count;
+            var endpointname = "unknown";
+            ArrayList langkodeList = new ArrayList(langkode.Split('-'));
+            var trinncount = langkodeList.Count;
+            if (langkodeList[2] == "T")// langkode is from Type tree 
+            {
                 if (trinncount == 6) { endpointname = "kodeforType"; }
                 else if (trinncount == 8) { endpointname = "kodeforHovedtypegruppe"; }
                 else if (trinncount == 11) { endpointname = "kodeforGrunntype"; }
@@ -385,7 +387,14 @@ namespace NiN3.Infrastructure.Mapping
                 else if (trinncount == 10 && (langkodeList[6].ToString() == "MB" || langkodeList[6].ToString() == "VM")) { endpointname = "kodeforHovedtype"; }
                 else if (trinncount == 10 && (langkodeList[4].ToString() == "LV" || langkodeList[4].ToString() == "PE")) { endpointname = "kodeforGrunntype"; }
                 else if (trinncount == 10 && (langkodeList[4].ToString() != "LV" || langkodeList[4].ToString() != "PE")) { endpointname = "kodeforHovedtype"; }
-                return endpointname;
+            }
+            else {// langkode is from Variabel tree 
+                endpointname = "kodeForVariabelnavn";
+                 if (trinncount == 5) { 
+                    endpointname = "kodeforVariabel"; 
+                }
+            }
+            return endpointname;
         }
     }
 }

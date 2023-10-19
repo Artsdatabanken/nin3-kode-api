@@ -16,12 +16,14 @@ namespace NiN3.Tests.Infrastructure
         private IMapper _mapper;
         private ILogger<VariabelApiService> _logger;
         private NiN3DbContext inmemorydb;
+        private IConfiguration _configuration;
 
 
         //Tests that alter data must call InMemoryDbContextFactory.Dispose() after test is done
         public VariabelApiServiceTest()
         {
             _logger = new Mock<ILogger<VariabelApiService>>().Object;
+            //_configuration = configuration;
         }
 
 
@@ -54,13 +56,14 @@ namespace NiN3.Tests.Infrastructure
 
         public IConfiguration CreateConfiguration()
         {
-            var configuration = new ConfigurationBuilder()
+            _configuration = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string> {
-                    { "root_url", "http://localhost:5001/v3.0" }
+                    //{ "root_url", "http://localhost:5001/v3.0" }
+                    { "root_url", "http://localhost:5001" }
                 })
                 .Build();
 
-            return configuration;
+            return _configuration;
         }
 
 
@@ -92,6 +95,20 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(1, vn_RM_MS.Variabeltrinn.Count);
             var maaleskala = vn_RM_MS.Variabeltrinn.FirstOrDefault();
             Assert.Equal(5, maaleskala.Trinn.Count);
+        }
+
+        [Fact]
+        public void TestDefinisjonUrlForVariabel() {
+            var service = GetPrepearedVariabelApiService();
+            var versjon = "3.0";
+            var result = service.AllCodes(versjon);
+            var variabler = result.Variabler;
+            var variabel_B_N = variabler.Where(x => x.Kode.Id== "B-N").First();
+
+            var rootUrl = _configuration.GetValue<string>("root_url");
+            var definisjon = variabel_B_N.Kode.Definisjon.Replace(rootUrl, "");
+            //evaluate rest of url without rootUrl-part of it
+            Assert.Equal("/v3.0/variabler/kodeforVariabel/B-N", definisjon);
         }
 
 
