@@ -376,7 +376,8 @@ namespace NiN3.Infrastructure.Mapping
             var endpointname = "unknown";
             ArrayList langkodeList = new ArrayList(langkode.Split('-'));
             var trinncount = langkodeList.Count;
-            if (langkodeList[2] == "T")// langkode is from Type tree 
+            var langkodeType = langkodeList[2];
+            if (langkodeList[2].ToString() == "T")// langkode is from Type tree 
             {
                 if (trinncount == 6) { endpointname = "kodeforType"; }
                 else if (trinncount == 8) { endpointname = "kodeforHovedtypegruppe"; }
