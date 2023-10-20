@@ -42,6 +42,9 @@
 	  <None Update="in_data\grunntyper.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="in_data\grunntype_variabeltrinn_mapping.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="in_data\hovedtype.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

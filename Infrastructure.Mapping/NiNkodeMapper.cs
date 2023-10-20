@@ -337,8 +337,8 @@ namespace NiN3.Infrastructure.Mapping
         public TrinnDto Map(Trinn trinn) { 
             var TrinnDto = new TrinnDto()
             {
-                Verdi = trinn.Verdi,
-                Navn = trinn.Navn
+                Beskrivelse = trinn.Beskrivelse,
+                Verdi = trinn.Verdi
             };
             return TrinnDto;
         }

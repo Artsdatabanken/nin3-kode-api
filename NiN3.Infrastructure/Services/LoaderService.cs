@@ -758,8 +758,8 @@ namespace NiN.Infrastructure.Services
 
                     var trinn = new Trinn()
                     {
-                        Navn = t.Trinn,
-                        Verdi = t.Trinnverdi,
+                        Verdi = t.Trinn,
+                        Beskrivelse = t.Trinnverdi,
                         Maaleskala = maaleskala
                         //Versjon = _versjon
                     };
