@@ -85,5 +85,19 @@ namespace NiN3.WebApi.Controllers
 
             return NotFound("Ugyldig kortkode");
         }
+
+
+        [HttpGet]
+        [Route("maaleskala/{maaleskalaNavn}")]
+        [ProducesResponseType(typeof(IEnumerable<MaaleskalaDto>), StatusCodes.Status200OK)]
+        public IActionResult HentMaaleskala([Required] string maaleskalaNavn = "BK-SI")
+        {
+            var maaleskalaDto = _variabelApiService.GetMaaleskalaByMaaleskalanavn(maaleskalaNavn);
+            if (maaleskalaDto != null)
+            {
+                return Ok(maaleskalaDto);
+            }
+            return NotFound("Ugyldig navn");
+        }
     }
 }

@@ -17,5 +17,6 @@ namespace NiN3.Infrastructure.Services
         public VariabelDto GetVariabelByKortkode(string kode, string versjon);
 
         public VariabelnavnDto GetVariabelnavnByKortkode(string kode, string versjon);
+        public MaaleskalaDto GetMaaleskalaByMaaleskalanavn(string maaleskalanavn);
     }
 }

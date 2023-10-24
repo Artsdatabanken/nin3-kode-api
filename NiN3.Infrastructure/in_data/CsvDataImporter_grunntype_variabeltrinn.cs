@@ -13,6 +13,7 @@ namespace NiN3.Infrastructure.in_data
         public string grunntype_kode { get; set; }
         public string varkode2 { get; set; }
         public string trinn { get; set; }
+        public string? variabelnavnKode { get; set; }
 
         internal static CsvDataImporter_grunntype_variabeltrinn ParseRow(string row)
         {
@@ -21,7 +22,8 @@ namespace NiN3.Infrastructure.in_data
             {
                 grunntype_kode = columns[0],
                 varkode2 = columns[1],
-                trinn = columns[2]
+                trinn = columns[2],
+                variabelnavnKode = columns[4] != "" ? columns[4] : null
 
             };
         }
@@ -30,7 +32,11 @@ namespace NiN3.Infrastructure.in_data
             return System.IO.File.ReadAllLines(path)
                 .Skip(1)
                 .Where(row => row.Length > 0)
-                .Select(CsvDataImporter_grunntype_variabeltrinn.ParseRow).ToList();
+                .Select(CsvDataImporter_grunntype_variabeltrinn.ParseRow)
+                .OrderBy(x => x.trinn)
+                .ThenBy(x => x.varkode2)
+                .ThenBy(x => x.grunntype_kode)
+                .ToList();
         }
     }
 }

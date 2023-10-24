@@ -33,6 +33,5 @@ namespace NiN3.Infrastructure.in_data
                 .Where(row => row.Length > 0)
                 .Select(CsvDataImporter_typeklasser_langkode.ParseRow).ToList();
         }
-
     }
 }

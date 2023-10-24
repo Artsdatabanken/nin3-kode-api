@@ -126,6 +126,7 @@ namespace NiN.Infrastructure.Services
             LoadMaaleskala();
             LoadTrinn();
             MakeMaalestokkMappingForVariabelnavn();
+            LoadGrunndataVariabeltrinnMapping();
             //MakeTrinnMappingForVariabelnavn();
             LoadAlleKortkoder();
             LoadEnumoppslag();            
@@ -802,7 +803,43 @@ namespace NiN.Infrastructure.Services
             //savechanges
         
         }
-        
+
+        public void LoadGrunndataVariabeltrinnMapping()
+        {
+            var grunntypeVariabeltrinnList = CsvDataImporter_grunntype_variabeltrinn.ProcessCSV("in_data/grunntype_variabeltrinn_mapping.csv");
+            foreach (var grunntypeVariabeltrinn in grunntypeVariabeltrinnList)
+            {
+                //find grunntype
+                var grunntype = _context.Grunntype.FirstOrDefault(gt => gt.Kode == grunntypeVariabeltrinn.grunntype_kode);
+                var maaleskala = _context.Maaleskala.FirstOrDefault(m =>
+                    m.MaaleskalaNavn == $"{grunntypeVariabeltrinn.varkode2}-SO" ||
+                    m.MaaleskalaNavn == $"{grunntypeVariabeltrinn.varkode2}-SI");
+                var trinn = _context.Trinn.FirstOrDefault(t => t.Verdi == grunntypeVariabeltrinn.trinn && t.Maaleskala == maaleskala);
+                var variabelnavn = grunntypeVariabeltrinn.variabelnavnKode!=null?_context.Variabelnavn.FirstOrDefault(vn => vn.Kode == grunntypeVariabeltrinn.variabelnavnKode):null;
+                if (grunntype != null && maaleskala != null && trinn != null)
+                {
+                    var grunndataVariabeltrinnMapping = new GrunntypeVariabeltrinn()
+                    {
+                        Variabelnavn = variabelnavn,
+                        Grunntype = grunntype,
+                        Maaleskala = maaleskala,
+                        Trinn = trinn
+                    };
+                    _context.Add(grunndataVariabeltrinnMapping);
+                }
+                else { 
+                    var msg = $@"""
+                    Could not find one of the following:
+                    grunntype: {grunntypeVariabeltrinn.grunntype_kode}  
+                    maaleskala: {grunntypeVariabeltrinn.varkode2}-SO or {grunntypeVariabeltrinn.varkode2}-SI
+                    trinn: {grunntypeVariabeltrinn.trinn}   
+                               """;
+                    Console.WriteLine(msg);
+                }
+            }
+            _context.SaveChanges();
+        }
+
         /* //Trinnmapping shall only happen between typeclasses and trinn not variabelnavn and trinn
         public void MakeTrinnMappingForVariabelnavn()
         {
@@ -838,6 +875,9 @@ namespace NiN.Infrastructure.Services
             }
             _context.SaveChanges();
         }*/
+
+
+        /********* Loadings for RapportService *********/
 
         public void LoadAlleKortkoder() {
             // load kortkoder from type
@@ -908,12 +948,13 @@ namespace NiN.Infrastructure.Services
             }
 
             _context.SaveChanges();
-            // load kortkoder from hovedtypegruppe
-            // load kartkoder from hovedtype
-            // load kortkoder from grunntype
-            // load kortkoder from kartleggingsenhet
-        
         }
+
+
+
+
+        /********* Convenience tables/views *********/
+
         public void LoadEnumoppslag() {
             var versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             foreach (EcosystnivaaEnum value in Enum.GetValues(typeof(EcosystnivaaEnum)))
@@ -994,6 +1035,21 @@ namespace NiN.Infrastructure.Services
                         from Maaleskala, Enumoppslag as op1, Enumoppslag as op2 
                         where op1.Ordinal = Maaleskala.MaaleskalatypeEnum and op1.Enumtype = 'MaaleskalatypeEnum' and 
                               op2.Ordinal =Maaleskala.EnhetEnum and op2.Enumtype = 'EnhetEnum';";
+            _context.Database.ExecuteSqlRaw(sql);
+        }
+
+        public void CreateGrunntypeVariabeltrinnView() {
+            var sql = @"Create view GrunntypeVariabeltrinnView
+                        AS
+                        select gt.kode as GTkode, vn.Kode as VNkode, ms.MaaleskalaNavn,t.Verdi from GrunntypeVariabeltrinn gtvt, 
+                            Variabelnavn vn,
+                            Grunntype gt,
+                            Maaleskala ms,
+                            Trinn t
+                        where gtvt.VariabelnavnId = vn.Id 
+                              and gtvt.GrunntypeId = gt.Id
+                              and gtvt.MaaleskalaId = ms.Id
+                              and gtvt.TrinnId = t.Id";
             _context.Database.ExecuteSqlRaw(sql);
         }
     }

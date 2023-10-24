@@ -21,5 +21,7 @@ namespace NiN3.Core.Models
         public ProsedyrekategoriEnum Prosedyrekategori { get; set; }
         [ForeignKey("HovedtypeId")]
         public Hovedtype Hovedtype { get; set; }
+
+        public ICollection<GrunntypeVariabeltrinn> GrunntypeVariabeltrinn { get; set; } = new List<GrunntypeVariabeltrinn>();
     }
 }

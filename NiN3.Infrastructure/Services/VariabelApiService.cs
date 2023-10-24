@@ -56,13 +56,14 @@ namespace NiN3.Infrastructure.Services
             //return _mapper.Map<VersjonDto>(_versjon);
         }
 
+
+
         public KlasseDto GetVariabelKlasse(string kortkode, string versjon) {
             var alleKortkoder = _context.AlleKortkoder.Where(a => a.Kortkode == kortkode && a.Versjon.Navn == versjon).FirstOrDefault();
             return alleKortkoder != null ? NiNkodeMapper.Instance.Map(alleKortkoder) : null;
         }
 
         public VariabelDto GetVariabelByKortkode(string kode, string versjon) {
-            //TODO: Implement
             Variabel variabel = _context.Variabel.Where(v => v.Kode == kode && v.Versjon.Navn == versjon)
                 .Include(variabel => variabel.Variabelnavn)
                 .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
@@ -70,7 +71,6 @@ namespace NiN3.Infrastructure.Services
                 .ThenInclude(maaleskala => maaleskala.Trinn)
                 .AsNoTracking()
                 .FirstOrDefault();
-            //return new VariabelnavnDto();
             return variabel != null ? NiNkodeMapper.Instance.Map(variabel) : null;
         }
 
@@ -82,11 +82,16 @@ namespace NiN3.Infrastructure.Services
                 .Include(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
                 .ThenInclude(vn_maaleskala => vn_maaleskala.Maaleskala)
                 .ThenInclude(maaleskala => maaleskala.Trinn)
-                //.ThenInclude(maaletrinn => maaletrinn.Trinn)
                 .AsNoTracking()
                 .FirstOrDefault();
-            //return new VariabelnavnDto();
             return variabelnavn != null ? NiNkodeMapper.Instance.Map(variabelnavn) : null;
+        }
+
+        public MaaleskalaDto GetMaaleskalaByMaaleskalanavn(string maaleskalanavn) {
+            var maaleskala = _context.Maaleskala.Where(m => m.MaaleskalaNavn == maaleskalanavn)
+                .Include(maaleskala => maaleskala.Trinn)
+                .FirstOrDefault();
+            return maaleskala != null? NiNkodeMapper.Instance.Map(maaleskala):null;
         }
     }
 }

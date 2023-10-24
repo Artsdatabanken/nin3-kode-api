@@ -130,13 +130,23 @@ namespace NiN3.Infrastructure.Services
 
         public GrunntypeDto GetGrunntypeByKortkode(string kode, string versjon)
         {
+            GrunntypeDto gtd = null;
             //var mapper = NiNkodeMapper.Instance;
             var grunntype = _context.Grunntype.Where(gt => gt.Kode == kode && gt.Versjon.Navn == versjon)
                 .Include(gt => gt.Versjon)
+                .Include(gt => gt.GrunntypeVariabeltrinn)
+                    .ThenInclude(gvt => gvt.Maaleskala)
+                .Include(gt => gt.GrunntypeVariabeltrinn)
+                    .ThenInclude(gvt => gvt.Trinn)
+                .Include(gt => gt.GrunntypeVariabeltrinn)
+                    .ThenInclude(gvt => gvt.Variabelnavn)
                 .AsNoTracking()
                 .FirstOrDefault();
-            return grunntype != null ? NiNkodeMapper.Instance.Map(grunntype) : null;
-            //return grunntype != null ? _mapper.Map<GrunntypeDto>(grunntype) : null;
+            if (grunntype != null) { 
+                gtd = NiNkodeMapper.Instance.Map(grunntype);
+                gtd.Variabeltrinn.Select(m => m.Maaleskala.Trinn.OrderBy(t => t.Verdi));
+            }
+            return gtd;
         }
 
 
@@ -148,18 +158,6 @@ namespace NiN3.Infrastructure.Services
                 .AsNoTracking()
                 .FirstOrDefault();
             return kartleggingsenhet != null ? NiNkodeMapper.Instance.Map(kartleggingsenhet) : null;
-            //return kartleggingsenhet != null ? _mapper.Map<KartleggingsenhetDto>(kartleggingsenhet) : null;
         }
-        /*
- public VersjonDto AllCodesDummy() {
-     //return empty ICollection<VersjonDto>
-     var kode1 = new KodeDto { Id = "NA-C-B" };
-     var kode2 = new KodeDto { Id = "NA-A-C" };
-     var typedto1 = new TypeDto { Navn = "Isbretyper", Kode = kode1 };
-     var typedto2 = new TypeDto { Navn = "Stentyper", Kode = kode2 };
-     VersjonDto versjon = new VersjonDto { Navn = "3.0", Typer = new List<TypeDto> { typedto1, typedto2 } };
-     return versjon;
- }
-*/
     }
 }

@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using NiN3.Core.Models.DTOs.rapport;
 using System.Collections;
 using System.Text.RegularExpressions;
+using NiN3.Core;
 
 namespace NiN3.Infrastructure.Mapping
 {
@@ -49,6 +50,7 @@ namespace NiN3.Infrastructure.Mapping
             _configuration = configuration;
             _root_url = _configuration?["root_url"];
         }
+
 
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace NiN3.Infrastructure.Mapping
             //Return the VersjonDto object
             return versjonDto;
         }
+
 
 
 
@@ -206,6 +209,59 @@ namespace NiN3.Infrastructure.Mapping
             return hovedtypedto;
         }
 
+
+        /// <returns>A GrunntypeDto object with the mapped values.</returns>
+        public GrunntypeDto Map(Grunntype grunntype)
+        {
+            var grunntypedto = new GrunntypeDto()
+            {
+                Navn = grunntype.Navn,
+                Kategori = "Grunntype",
+                Kode = MapKode(grunntype.Kode, grunntype.Langkode)
+            };
+            //for each maaleskala make a list of maaleskalaDto
+            if (grunntype.GrunntypeVariabeltrinn.Any())
+            {
+                var variabeltrinnList = new List<Variabeltrinn>();
+                var variabeltrinnBag = new ConcurrentBag<VariabeltrinnDto>();
+                var distinctMaaleskalas = grunntype.GrunntypeVariabeltrinn
+                    .Select(g => g.Maaleskala)
+                    .GroupBy(m => m.Id)
+                    .Select(g => g.First())
+                    .ToList();
+                var variabelnavn = grunntype.GrunntypeVariabeltrinn.Select(vt => vt.Variabelnavn).ToList();
+                //ensure that each maaleskala has a empty list of trinn
+                foreach (var maaleskala in distinctMaaleskalas)
+                {
+                    maaleskala.Trinn = new List<Trinn>();
+                }
+                foreach (var gtvt in grunntype.GrunntypeVariabeltrinn) {
+                    var m = distinctMaaleskalas.FirstOrDefault(m => m.Id == gtvt.Maaleskala.Id);
+                    m.Trinn.Add(gtvt.Trinn);
+                }
+                //put together new list of variabeltrinn
+                foreach (var m in distinctMaaleskalas) { 
+                  var variabeltrinn = grunntype.GrunntypeVariabeltrinn.FirstOrDefault(vt => vt.Maaleskala.Id == m.Id);
+                  variabeltrinnList.Add(new Variabeltrinn() { Maaleskala = m, Variabelnavn = variabeltrinn.Variabelnavn });
+                }
+                Parallel.ForEach(variabeltrinnList, vt => variabeltrinnBag.Add(Map(vt)));
+                grunntypedto.Variabeltrinn = variabeltrinnBag.ToList();
+            }
+            //for each trinn find maaleskala for trinn and add (map)trinndto
+            return grunntypedto;
+        }
+
+        public VariabeltrinnDto Map(Variabeltrinn variabeltrinn)
+        {
+            var variabeltrinnDto = new VariabeltrinnDto()
+            {
+                Maaleskala = Map(variabeltrinn.Maaleskala)
+            };
+            variabeltrinnDto.Variabelnavn = variabeltrinn.Variabelnavn!=null?Map(variabeltrinn.Variabelnavn):null;
+            return variabeltrinnDto;
+        }
+
+        /*
         /// <summary>
         /// Maps a Grunntype object to a GrunntypeDto object.
         /// </summary>
@@ -219,8 +275,19 @@ namespace NiN3.Infrastructure.Mapping
                 Kategori = "Grunntype",
                 Kode = MapKode(grunntype.Kode, grunntype.Langkode)
             };
+            //for each maaleskala make a list of maaleskalaDto
+            if (grunntype.GrunntypeVariabeltrinn.Any())
+            {
+                
+                var maaleskalas = grunntype.GrunntypeVariabeltrinn.Select(g => g.Maaleskala).Distinct().ToList();
+
+            }
+
+            
+
+            //for each trinn find maaleskala for trinn and add (map)trinndto
             return grunntypedto;
-        }
+        }*/
 
         /// <summary>
         /// Maps a Kartleggingsenhet object to a KartleggingsenhetDto object.

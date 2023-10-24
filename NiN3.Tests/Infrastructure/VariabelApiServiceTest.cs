@@ -118,5 +118,15 @@ namespace NiN3.Tests.Infrastructure
             var versjon = "3.0";
             var result = service.GetVariabelKlasse("RM-MS", versjon);
         }
+
+        [Fact]
+        public void GetMaaleskalaByMaaleskalanavn() { 
+            var service = GetPrepearedVariabelApiService();
+            var versjon = "3.0";
+            var result = service.GetMaaleskalaByMaaleskalanavn("BK-SI");
+            Assert.NotNull(result);
+            Assert.Equal("BK-SI", result.MaaleskalaNavn);
+            Assert.True(result.Trinn.Count==5);
+        }
     }
 }

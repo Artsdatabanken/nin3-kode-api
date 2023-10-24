@@ -212,6 +212,20 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("Kartleggingsenhet", kl_IA01_M020_02.Kategori);
             Assert.Equal("Kartleggingsenhet tilpasset 1:20 000", kl_IA01_M020_02.MaalestokkNavn);
         }
+
+        [Fact]
+        public void TestGetGrunntypeByKodeAndVariabeltrinn() { 
+            TypeApiService service = GetPrepearedTypeApiService();
+            var grunntype = service.GetGrunntypeByKortkode("T-E-05-01", "3.0");
+            Assert.NotNull(grunntype);
+            var variabeltrinn = grunntype.Variabeltrinn;
+            Assert.Equal(3, variabeltrinn.Count());
+            var single_variabeltrinn = variabeltrinn.First();
+            Assert.Equal(2, single_variabeltrinn.Maaleskala.Trinn.Count());
+            Assert.Equal(null, single_variabeltrinn.Variabelnavn);
+            //var trinnkoder = 
+
+        }
     }
 }
 
