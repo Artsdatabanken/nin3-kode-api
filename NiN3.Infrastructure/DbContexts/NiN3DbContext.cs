@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NiN3.Core;
 using NiN3.Core.Models;
 using System.Reflection.Metadata;
 
@@ -68,6 +69,8 @@ namespace NiN3.Infrastructure.DbContexts
 
         //Type classes and Variabeltrinn
         public DbSet<GrunntypeVariabeltrinn> GrunntypeVariabeltrinn { get; set; }
+
+        public DbSet<HovedtypeVariabeltrinn> HovedtypeVariabeltrinn { get; set; }
 
         /* For rapportservice and convenience */
         public DbSet<AlleKortkoder> AlleKortkoder { get; set; }

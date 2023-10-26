@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using NiN3.Core.Models.DTOs.rapport;
 using System.Collections;
 using System.Text.RegularExpressions;
-using NiN3.Core;
+using System.Threading.Tasks;
 
 namespace NiN3.Infrastructure.Mapping
 {
@@ -222,44 +222,69 @@ namespace NiN3.Infrastructure.Mapping
             //for each maaleskala make a list of maaleskalaDto
             if (grunntype.GrunntypeVariabeltrinn.Any())
             {
-                var variabeltrinnList = new List<Variabeltrinn>();
                 var variabeltrinnBag = new ConcurrentBag<VariabeltrinnDto>();
-                var distinctMaaleskalas = grunntype.GrunntypeVariabeltrinn
-                    .Select(g => g.Maaleskala)
-                    .GroupBy(m => m.Id)
-                    .Select(g => g.First())
-                    .ToList();
+                var trinnIds = grunntype.GrunntypeVariabeltrinn.Select(gtvt => gtvt.Trinn.Id).ToList();
                 var variabelnavn = grunntype.GrunntypeVariabeltrinn.Select(vt => vt.Variabelnavn).ToList();
-                //ensure that each maaleskala has a empty list of trinn
-                foreach (var maaleskala in distinctMaaleskalas)
-                {
-                    maaleskala.Trinn = new List<Trinn>();
-                }
-                foreach (var gtvt in grunntype.GrunntypeVariabeltrinn) {
-                    var m = distinctMaaleskalas.FirstOrDefault(m => m.Id == gtvt.Maaleskala.Id);
-                    m.Trinn.Add(gtvt.Trinn);
-                }
-                //put together new list of variabeltrinn
-                foreach (var m in distinctMaaleskalas) { 
-                  var variabeltrinn = grunntype.GrunntypeVariabeltrinn.FirstOrDefault(vt => vt.Maaleskala.Id == m.Id);
-                  variabeltrinnList.Add(new Variabeltrinn() { Maaleskala = m, Variabelnavn = variabeltrinn.Variabelnavn });
-                }
-                Parallel.ForEach(variabeltrinnList, vt => variabeltrinnBag.Add(Map(vt)));
+                Parallel.ForEach(grunntype.GrunntypeVariabeltrinn.ToList(), vt => variabeltrinnBag.Add(Map(vt, trinnIds)));
                 grunntypedto.Variabeltrinn = variabeltrinnBag.ToList();
+                
             }
-            //for each trinn find maaleskala for trinn and add (map)trinndto
             return grunntypedto;
         }
 
-        public VariabeltrinnDto Map(Variabeltrinn variabeltrinn)
+        /*
+        //put together new list of variabeltrinn
+        foreach (var m in distinctMaaleskalas) { 
+          var variabeltrinn = grunntype.GrunntypeVariabeltrinn.FirstOrDefault(vt => vt.Maaleskala.Id == m.Id);
+          variabeltrinnList.Add(new Variabeltrinn() { Maaleskala = m, Variabelnavn = variabeltrinn.Variabelnavn });
+        }*/
+
+
+        //for each trinn find maaleskala for trinn and add (map)trinndto
+
+        public VariabeltrinnDto Map(GrunntypeVariabeltrinn gtVariabeltrinn, List<int> registertTrinnIds = null)
+        { 
+            Variabeltrinn variabeltrinn = new Variabeltrinn() { 
+                Maaleskala = gtVariabeltrinn.Maaleskala,
+                Variabelnavn = gtVariabeltrinn.Variabelnavn
+            };
+            return Map(variabeltrinn, registertTrinnIds);
+        }
+
+        public VariabeltrinnDto Map(Variabeltrinn variabeltrinn, List<int>registertTrinnIds=null)
         {
             var variabeltrinnDto = new VariabeltrinnDto()
             {
-                Maaleskala = Map(variabeltrinn.Maaleskala)
+                Maaleskala = Map(variabeltrinn.Maaleskala, registertTrinnIds)
             };
             variabeltrinnDto.Variabelnavn = variabeltrinn.Variabelnavn!=null?Map(variabeltrinn.Variabelnavn):null;
             return variabeltrinnDto;
         }
+
+        
+        /*
+        public TrinnForType MapForType(Trinn trinn) { 
+            var trinnForType = new TrinnForType()
+            {
+                Id = trinn.Id,
+                Verdi = trinn.Verdi,
+                Beskrivelse = trinn.Beskrivelse,
+                //Registrert = trinn.Registrert,
+            };
+            return trinnForType;
+        }*/
+
+        /*
+        public TrinnForTypeDto Map(TrinnForType trinnForType)
+        { 
+            var trinnForTypeDto = new TrinnForTypeDto()
+            {
+                Verdi = trinnForType.Verdi,
+                Beskrivelse = trinnForType.Beskrivelse,
+                Registrert = trinnForType.Registrert,
+            };
+            return trinnForTypeDto;
+        }*/
 
         /*
         /// <summary>
@@ -386,7 +411,7 @@ namespace NiN3.Infrastructure.Mapping
             return variabelnavnDto;
         }
 
-        public MaaleskalaDto Map(Maaleskala maaleskala) {
+        public MaaleskalaDto Map(Maaleskala maaleskala, List<int> registertTrinnIds=null) {
             var MaaleskalaDto = new MaaleskalaDto()
             {
                 MaaleskalaNavn = maaleskala.MaaleskalaNavn,
@@ -396,16 +421,22 @@ namespace NiN3.Infrastructure.Mapping
                 EnhetNavn = EnumUtil.ToDescription(maaleskala.EnhetEnum)
             };
             var trinnBag = new ConcurrentBag<TrinnDto>();
-            Parallel.ForEach(maaleskala.Trinn.ToList(), g => trinnBag.Add(Map(g)));
+            if (registertTrinnIds == null) { registertTrinnIds = new List<int>(); }
+            Parallel.ForEach(maaleskala.Trinn.ToList(), g => trinnBag.Add(Map(g, registertTrinnIds.Contains(g.Id))));
             MaaleskalaDto.Trinn = trinnBag.ToList();
             return MaaleskalaDto;
         }
 
-        public TrinnDto Map(Trinn trinn) { 
+        public TrinnDto Map(Trinn trinn, bool registert=false) {
+            //var verdi = null;
+            var verdi = trinn.Verdi.Contains("_") ? trinn.Verdi.Split("_")[1]:trinn.Verdi;
+            var kode = trinn.Verdi;
             var TrinnDto = new TrinnDto()
             {
                 Beskrivelse = trinn.Beskrivelse,
-                Verdi = trinn.Verdi
+                Verdi = verdi,
+                Kode  = kode,
+                Registert = registert
             };
             return TrinnDto;
         }

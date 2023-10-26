@@ -1,4 +1,5 @@
-﻿using NiN3.Core.Models.Enums;
+﻿using NiN3.Core.Models.DTOs.type;
+using NiN3.Core.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,6 @@ namespace NiN3.Core.Models.DTOs.variabel
         public EnhetEnum EnhetEnum { get; set; }
         public string EnhetNavn { get; set; }
 
-        public ICollection<TrinnDto> Trinn { get; set; } = new List<TrinnDto>();
+        public IList<TrinnDto> Trinn { get; set; } = new List<TrinnDto>();
     }
 }

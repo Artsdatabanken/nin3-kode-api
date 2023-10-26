@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NiN3.Core
+namespace NiN3.Core.Models
 {
     /* Transient class to hold variabelnavn and måleskala for type -classes on mapping to DTOs */
     public class Variabeltrinn
     {
-        public Models.Variabelnavn? Variabelnavn { get; set; }
-        public Models.Maaleskala Maaleskala { get; set; }
+        public Variabelnavn? Variabelnavn { get; set; }
+        public Maaleskala Maaleskala { get; set; }
     }
 }

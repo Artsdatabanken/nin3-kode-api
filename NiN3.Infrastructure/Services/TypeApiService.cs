@@ -136,15 +136,21 @@ namespace NiN3.Infrastructure.Services
                 .Include(gt => gt.Versjon)
                 .Include(gt => gt.GrunntypeVariabeltrinn)
                     .ThenInclude(gvt => gvt.Maaleskala)
+                    .ThenInclude(m => m.Trinn) // Sort the Trinn by Verdi
                 .Include(gt => gt.GrunntypeVariabeltrinn)
                     .ThenInclude(gvt => gvt.Trinn)
                 .Include(gt => gt.GrunntypeVariabeltrinn)
                     .ThenInclude(gvt => gvt.Variabelnavn)
                 .AsNoTracking()
                 .FirstOrDefault();
-            if (grunntype != null) { 
+            if (grunntype != null)
+            {
                 gtd = NiNkodeMapper.Instance.Map(grunntype);
-                gtd.Variabeltrinn.Select(m => m.Maaleskala.Trinn.OrderBy(t => t.Verdi));
+                // Sort Trinn by Verdi here
+                foreach (var variabeltrinn in gtd.Variabeltrinn)
+                {
+                    variabeltrinn.Maaleskala.Trinn = variabeltrinn.Maaleskala.Trinn.OrderBy(t => t.Verdi).ToList();
+                }
             }
             return gtd;
         }

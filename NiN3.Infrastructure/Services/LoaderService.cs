@@ -17,6 +17,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
+using NiN3.Core;
 
 namespace NiN.Infrastructure.Services
 {
@@ -126,7 +127,9 @@ namespace NiN.Infrastructure.Services
             LoadMaaleskala();
             LoadTrinn();
             MakeMaalestokkMappingForVariabelnavn();
+
             LoadGrunndataVariabeltrinnMapping();
+            LoadHovedtypeVariabeltrinnMapping();
             //MakeTrinnMappingForVariabelnavn();
             LoadAlleKortkoder();
             LoadEnumoppslag();            
@@ -840,6 +843,40 @@ namespace NiN.Infrastructure.Services
             _context.SaveChanges();
         }
 
+        public void LoadHovedtypeVariabeltrinnMapping() { 
+            var hovedtypeVariabeltrinnList = CsvdataImporter_Hovedtype_variabeltrinn.ProcessCSV("in_data/hovedtype_variabeltrinn_mapping.csv");
+            foreach (var hovedtypeVariabeltrinn in hovedtypeVariabeltrinnList)
+            { 
+                var hovedtype = _context.Hovedtype.FirstOrDefault(ht => ht.Kode == hovedtypeVariabeltrinn.hovedtype_kode);
+                var maaleskala = _context.Maaleskala.FirstOrDefault(m =>
+                        m.MaaleskalaNavn == $"{hovedtypeVariabeltrinn.varkode2}-SO" ||
+                        m.MaaleskalaNavn == $"{hovedtypeVariabeltrinn.varkode2}-SI");
+                var trinn = _context.Trinn.FirstOrDefault(t => t.Verdi == hovedtypeVariabeltrinn.trinn && t.Maaleskala == maaleskala);
+                var variabelnavn = hovedtypeVariabeltrinn.variabelnavnKode != null ? _context.Variabelnavn.FirstOrDefault(vn => vn.Kode == hovedtypeVariabeltrinn.variabelnavnKode) : null;
+                if (hovedtype != null && maaleskala != null)
+                {
+                    var hovedtypeVariabeltrinnMapping = new HovedtypeVariabeltrinn()
+                    {
+                        Variabelnavn = variabelnavn,
+                        Hovedtype = hovedtype,
+                        Maaleskala = maaleskala,
+                        Trinn = trinn
+                    };
+                    _context.Add(hovedtypeVariabeltrinnMapping);
+                }
+                else
+                {
+                    var msg = $@"""
+                    Could not find one of the following:
+                    grunntype: {hovedtypeVariabeltrinn.hovedtype_kode}  
+                    maaleskala: {hovedtypeVariabeltrinn.varkode2}-SO or {hovedtypeVariabeltrinn.varkode2}-SI
+                    trinn: {hovedtypeVariabeltrinn.trinn}   
+                               """;
+                    Console.WriteLine(msg);
+                }
+            }
+        }
+
         /* //Trinnmapping shall only happen between typeclasses and trinn not variabelnavn and trinn
         public void MakeTrinnMappingForVariabelnavn()
         {
@@ -1041,7 +1078,9 @@ namespace NiN.Infrastructure.Services
         public void CreateGrunntypeVariabeltrinnView() {
             var sql = @"Create view GrunntypeVariabeltrinnView
                         AS
-                        select gt.kode as GTkode, vn.Kode as VNkode, ms.MaaleskalaNavn,t.Verdi from GrunntypeVariabeltrinn gtvt, 
+                        select gt.kode as GTkode, vn.Kode as VNkode, ms.MaaleskalaNavn,t.Verdi 
+                        from 
+                            GrunntypeVariabeltrinn gtvt, 
                             Variabelnavn vn,
                             Grunntype gt,
                             Maaleskala ms,

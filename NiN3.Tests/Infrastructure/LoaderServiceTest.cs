@@ -288,6 +288,16 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(7, grunntype_TE05_01.GrunntypeVariabeltrinn.Count());
         }
 
+        [Fact]
+        public void TestLoadHovedtypeVariabelTrinnMapping() {
+            var inmemorydb = GetInMemoryDb();
+            var htvt = inmemorydb.HovedtypeVariabeltrinn.Count();
+            Assert.True(100 < htvt);
+            var ht_L_M_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "L-M-01").FirstOrDefault();
+            Assert.NotNull(ht_L_M_01);
+            Assert.Equal(3, ht_L_M_01.HovedtypeVariabeltrinn.Count());
+        }
+
 
         [Fact]
         public void TestLoadAlleKortkoderForType() {

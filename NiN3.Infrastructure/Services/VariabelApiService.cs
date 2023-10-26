@@ -91,7 +91,9 @@ namespace NiN3.Infrastructure.Services
             var maaleskala = _context.Maaleskala.Where(m => m.MaaleskalaNavn == maaleskalanavn)
                 .Include(maaleskala => maaleskala.Trinn)
                 .FirstOrDefault();
-            return maaleskala != null? NiNkodeMapper.Instance.Map(maaleskala):null;
+            var maaleskalaDto = maaleskala != null ? NiNkodeMapper.Instance.Map(maaleskala) : null;
+            maaleskalaDto.Trinn = maaleskalaDto.Trinn.OrderBy(t => t.Verdi).ToList();
+            return maaleskalaDto;            
         }
     }
 }
