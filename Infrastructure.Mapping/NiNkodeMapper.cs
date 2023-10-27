@@ -205,7 +205,24 @@ namespace NiN3.Infrastructure.Mapping
                     Console.WriteLine($"Kartleggingsenhet is null for hovedtype {hovedtype.Navn} (, ht_kl-object: {g.Id})");
                 }
             });
+            if (hovedtype.HovedtypeVariabeltrinn.Any())
+            {
+                var variabeltrinnBag = new ConcurrentBag<VariabeltrinnDto>();
+                var trinnIds = new List<int>();
+                foreach (var htvt in hovedtype.HovedtypeVariabeltrinn) {
+                    if (htvt.Trinn != null) {
+                        trinnIds.Add(htvt.Trinn.Id);
+                    }
+                }
+                var variabelnavn = hovedtype.HovedtypeVariabeltrinn.Select(vt => vt.Variabelnavn).ToList();
+                Parallel.ForEach(hovedtype.HovedtypeVariabeltrinn.ToList(), vt => variabeltrinnBag.Add(Map(vt, trinnIds)));
+                hovedtypedto.Variabeltrinn = variabeltrinnBag.Distinct().ToList();
+            }
             hovedtypedto.Kartleggingsenheter = kartleggingsenheterBag.ToList();
+            hovedtypedto.Variabeltrinn = hovedtypedto.Variabeltrinn
+                .GroupBy(vt => vt.Maaleskala.MaaleskalaNavn)//TODO: Lazy solution to duplicate MaaleskalaDto objects inside VariabeltrinnCollection, please improve
+                .Select(group => group.First())
+                .ToList();
             return hovedtypedto;
         }
 
@@ -227,7 +244,10 @@ namespace NiN3.Infrastructure.Mapping
                 var variabelnavn = grunntype.GrunntypeVariabeltrinn.Select(vt => vt.Variabelnavn).ToList();
                 Parallel.ForEach(grunntype.GrunntypeVariabeltrinn.ToList(), vt => variabeltrinnBag.Add(Map(vt, trinnIds)));
                 grunntypedto.Variabeltrinn = variabeltrinnBag.ToList();
-                
+                grunntypedto.Variabeltrinn = grunntypedto.Variabeltrinn//TODO: Lazy solution to duplicate MaaleskalaDto objects inside VariabeltrinnCollection, please improve
+                    .GroupBy(vt => vt.Maaleskala.MaaleskalaNavn)
+                    .Select(group => group.First())
+                    .ToList();
             }
             return grunntypedto;
         }
@@ -250,6 +270,17 @@ namespace NiN3.Infrastructure.Mapping
             };
             return Map(variabeltrinn, registertTrinnIds);
         }
+
+        public VariabeltrinnDto Map(HovedtypeVariabeltrinn htVariabeltrinn, List<int> registertTrinnIds = null)
+        {
+            Variabeltrinn variabeltrinn = new Variabeltrinn()
+            {
+                Maaleskala = htVariabeltrinn.Maaleskala,
+                Variabelnavn = htVariabeltrinn.Variabelnavn
+            };
+            return Map(variabeltrinn, registertTrinnIds);
+        }
+
 
         public VariabeltrinnDto Map(Variabeltrinn variabeltrinn, List<int>registertTrinnIds=null)
         {

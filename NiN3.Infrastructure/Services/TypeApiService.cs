@@ -116,16 +116,31 @@ namespace NiN3.Infrastructure.Services
 
         public HovedtypeDto GetHovedtypeByKortkode(string kode, string versjon)
         {
+            HovedtypeDto hovedtypeDto= null;
             var hovedtype = _context.Hovedtype.Where(ht => ht.Kode == kode && ht.Versjon.Navn == versjon)
                 .Include(ht => ht.Grunntyper.OrderBy(t => t.Langkode))
                 .Include(ht => ht.Hovedtype_Kartleggingsenheter)
                     .ThenInclude(hke => hke.Kartleggingsenhet)
                         .ThenInclude(ke => ke.Grunntyper.OrderBy(t => t.Langkode))
+                .Include(ht => ht.HovedtypeVariabeltrinn)
+                    .ThenInclude(hvt => hvt.Maaleskala)
+                    .ThenInclude(m => m.Trinn)
+                .Include(gt => gt.HovedtypeVariabeltrinn)
+                    .ThenInclude(hvt => hvt.Trinn)
+                .Include(gt => gt.HovedtypeVariabeltrinn)
+                    .ThenInclude(gvt => gvt.Variabelnavn)
                 .Include(ht => ht.Versjon)
                 .AsNoTracking()
                 .FirstOrDefault();
-            return hovedtype != null ? NiNkodeMapper.Instance.Map(hovedtype) : null;
-            //return hovedtype != null ? _mapper.Map<HovedtypeDto>(hovedtype) : null;
+            if (hovedtype != null) 
+            {
+                hovedtypeDto = NiNkodeMapper.Instance.Map(hovedtype);              
+                foreach (var variabeltrinn in hovedtypeDto.Variabeltrinn)
+                {
+                    variabeltrinn.Maaleskala.Trinn = variabeltrinn.Maaleskala.Trinn.OrderBy(t => t.Verdi).ToList();
+                }
+            }
+            return hovedtypeDto;
         }
 
         public GrunntypeDto GetGrunntypeByKortkode(string kode, string versjon)

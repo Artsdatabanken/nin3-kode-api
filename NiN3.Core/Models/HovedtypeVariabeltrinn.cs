@@ -1,5 +1,4 @@
-﻿using NiN3.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NiN3.Core
+namespace NiN3.Core.Models
 {
     public class HovedtypeVariabeltrinn
     {
@@ -17,6 +16,6 @@ namespace NiN3.Core
         public Variabelnavn? Variabelnavn { get; set; }
         public Hovedtype Hovedtype { get; set; }
         public Maaleskala Maaleskala { get; set; }
-        public Trinn? Trinn { get; set; }
+        public Trinn? Trinn { get; set; } 
     }
 }

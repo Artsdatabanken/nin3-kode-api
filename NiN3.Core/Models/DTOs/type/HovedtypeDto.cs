@@ -16,8 +16,9 @@ namespace NiN3.Core.Models.DTOs.type
         //public string Prosedyrekategori { get; set; }
         public ProsedyrekategoriEnum ProsedyrekategoriEnum { get; set; }
         public string ProsedyrekategoriNavn { get; set; }
-        // add icollection of grunntypeDtos
+        public ICollection<VariabeltrinnDto> Variabeltrinn { get; set; } = new List<VariabeltrinnDto>();
         public ICollection<GrunntypeDto> Grunntyper { get; set; } = new List<GrunntypeDto>();
         public ICollection<KartleggingsenhetDto> Kartleggingsenheter { get; set; } = new List<KartleggingsenhetDto>();
+        
     }
 }

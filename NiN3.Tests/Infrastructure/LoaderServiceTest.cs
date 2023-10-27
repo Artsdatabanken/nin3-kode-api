@@ -293,9 +293,9 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             var htvt = inmemorydb.HovedtypeVariabeltrinn.Count();
             Assert.True(100 < htvt);
-            var ht_L_M_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "L-M-01").FirstOrDefault();
-            Assert.NotNull(ht_L_M_01);
-            Assert.Equal(3, ht_L_M_01.HovedtypeVariabeltrinn.Count());
+            var ht_S_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "S-C-01").FirstOrDefault();
+            Assert.NotNull(ht_S_C_01);
+            Assert.Equal(5, ht_S_C_01.HovedtypeVariabeltrinn.Count());
         }
 
 

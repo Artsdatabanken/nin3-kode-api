@@ -84,7 +84,13 @@ namespace NiN3.Infrastructure.Services
                 .ThenInclude(maaleskala => maaleskala.Trinn)
                 .AsNoTracking()
                 .FirstOrDefault();
-            return variabelnavn != null ? NiNkodeMapper.Instance.Map(variabelnavn) : null;
+            VariabelnavnDto variabelnavnDto = variabelnavn != null ? NiNkodeMapper.Instance.Map(variabelnavn) : null;
+            // Sort Trinn by Verdi here
+            foreach (var variabeltrinn in variabelnavnDto.Variabeltrinn)
+            {
+                variabeltrinn.Trinn = variabeltrinn.Trinn.OrderBy(t => t.Verdi).ToList();
+            }
+            return variabelnavnDto;
         }
 
         public MaaleskalaDto GetMaaleskalaByMaaleskalanavn(string maaleskalanavn) {

@@ -23,6 +23,6 @@ namespace NiN3.Core.Models
         public Hovedtypegruppe Hovedtypegruppe { get; set; }
         public ICollection<Grunntype> Grunntyper { get; set; }
         public ICollection<Hovedtype_Kartleggingsenhet> Hovedtype_Kartleggingsenheter { get; set; } 
-        public ICollection<HovedtypeVariabeltrinn> HovedtypeVariabeltrinn { get; set; }
+        public ICollection<HovedtypeVariabeltrinn> HovedtypeVariabeltrinn { get; set; } = new List<HovedtypeVariabeltrinn>();
     }
 }

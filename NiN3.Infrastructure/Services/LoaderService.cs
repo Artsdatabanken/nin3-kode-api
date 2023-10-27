@@ -135,6 +135,7 @@ namespace NiN.Infrastructure.Services
             LoadEnumoppslag();            
             _context.SaveChanges();
             CreateMaaleskalaView();
+            CreateHovedtypeVariabeltrinnView();
         }
 
         public void LoadLookupData()
@@ -1078,7 +1079,7 @@ namespace NiN.Infrastructure.Services
         public void CreateGrunntypeVariabeltrinnView() {
             var sql = @"Create view GrunntypeVariabeltrinnView
                         AS
-                        select gt.kode as GTkode, vn.Kode as VNkode, ms.MaaleskalaNavn,t.Verdi 
+                        select gt.kode as GTkode, vn.Kode as VNkode, ms.MaaleskalaNavn,t.Verdi as Trinnkode 
                         from 
                             GrunntypeVariabeltrinn gtvt, 
                             Variabelnavn vn,
@@ -1089,6 +1090,19 @@ namespace NiN.Infrastructure.Services
                               and gtvt.GrunntypeId = gt.Id
                               and gtvt.MaaleskalaId = ms.Id
                               and gtvt.TrinnId = t.Id";
+            _context.Database.ExecuteSqlRaw(sql);
+        }
+
+        public void CreateHovedtypeVariabeltrinnView()
+        {
+            var sql = @"Create view HovedtypeVariabeltrinnView
+                        AS
+                       SELECT ht.kode AS HTkode, vn.Kode AS VNkode, ms.MaaleskalaNavn, t.Verdi AS Trinnkode 
+                        FROM HovedtypeVariabeltrinn htvt
+                        LEFT JOIN Variabelnavn vn ON htvt.VariabelnavnId = vn.Id
+                        LEFT JOIN Hovedtype ht ON htvt.HovedtypeId = ht.Id
+                        LEFT JOIN Maaleskala ms ON htvt.MaaleskalaId = ms.Id
+                        LEFT JOIN Trinn t ON htvt.TrinnId = t.Id";
             _context.Database.ExecuteSqlRaw(sql);
         }
     }

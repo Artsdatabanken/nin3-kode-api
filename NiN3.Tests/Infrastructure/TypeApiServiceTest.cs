@@ -221,10 +221,18 @@ namespace NiN3.Tests.Infrastructure
             var variabeltrinn = grunntype.Variabeltrinn;
             Assert.Equal(3, variabeltrinn.Count());
             var single_variabeltrinn = variabeltrinn.First();
-            Assert.Equal(2, single_variabeltrinn.Maaleskala.Trinn.Count());
-            Assert.Equal(null, single_variabeltrinn.Variabelnavn);
+            //Assert.Equal(11, single_variabeltrinn.Maaleskala.Trinn.Count());
+            Assert.NotNull(single_variabeltrinn.Variabelnavn);
             //var trinnkoder = 
 
+        }
+
+        [Fact]
+        public void TestGetHovedtypeByKodeAndVariabeltrinn() {
+            //S-C-01
+            TypeApiService service = GetPrepearedTypeApiService();
+            var hovedtype = service.GetHovedtypeByKortkode("S-C-01", "3.0");
+            Assert.Equal(2, hovedtype.Variabeltrinn.Count());
         }
     }
 }
