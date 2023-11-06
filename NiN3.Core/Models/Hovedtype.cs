@@ -24,5 +24,6 @@ namespace NiN3.Core.Models
         public ICollection<Grunntype> Grunntyper { get; set; }
         public ICollection<Hovedtype_Kartleggingsenhet> Hovedtype_Kartleggingsenheter { get; set; } 
         public ICollection<HovedtypeVariabeltrinn> HovedtypeVariabeltrinn { get; set; } = new List<HovedtypeVariabeltrinn>();
+        public ICollection<Konvertering> Konverteringer { get; set; } = new List<Konvertering>();
     }
 }

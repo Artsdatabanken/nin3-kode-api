@@ -19,6 +19,7 @@ namespace NiN3.Core.Models.DTOs.type
         public ICollection<VariabeltrinnDto> Variabeltrinn { get; set; } = new List<VariabeltrinnDto>();
         public ICollection<GrunntypeDto> Grunntyper { get; set; } = new List<GrunntypeDto>();
         public ICollection<KartleggingsenhetDto> Kartleggingsenheter { get; set; } = new List<KartleggingsenhetDto>();
+        public ICollection<KonverteringDto> Konverteringer { get; set; } = new List<KonverteringDto>();
         
     }
 }

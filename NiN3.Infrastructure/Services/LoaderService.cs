@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
 using NiN3.Core;
+using Newtonsoft.Json.Bson;
 
 namespace NiN.Infrastructure.Services
 {
@@ -130,11 +131,16 @@ namespace NiN.Infrastructure.Services
 
             LoadGrunndataVariabeltrinnMapping();
             LoadHovedtypeVariabeltrinnMapping();
-            //MakeTrinnMappingForVariabelnavn();
-            LoadAlleKortkoder();
+            LoadKonverteringHovedtypegruppe();
+            LoadKonverteringHovedtype();
+            // ** Reports ** //
+            LoadAlleKortkoder();           
             LoadEnumoppslag();            
             _context.SaveChanges();
+
+            // ** Views, for overview/insight ** //
             CreateMaaleskalaView();
+            CreateGrunntypeVariabeltrinnView();
             CreateHovedtypeVariabeltrinnView();
         }
 
@@ -173,8 +179,9 @@ namespace NiN.Infrastructure.Services
         /// </summary>
         public void SeedLookupData()
         {
-            List<Versjon> domenes = new List<Versjon>();
-            domenes.Add(new Versjon() { Navn = "3.0" });
+            //List<Versjon> domenes = new List<Versjon>(); //TODO: delete if all tests ok
+            _context.Add(new Versjon() { Navn = "3.0"}); // current version
+            _context.Add(new Versjon() { Navn = "2.3"});  // for 'konvertering' purposeshttps://open.spotify.com/playlist/46twe0c8AJIV3SKxBxqwxd
             _context.SaveChanges();
         }
 
@@ -424,7 +431,7 @@ namespace NiN.Infrastructure.Services
                 {'T', "L"},
                 {'V', "L"},
                 {'I', "HL"},
-                {'S', "F"},
+                {'S', "H"},
                 {'F', "F"},
             };
 
@@ -576,7 +583,7 @@ namespace NiN.Infrastructure.Services
                     kodeArrayForGT.Add(typeForObject.Ecosystnivaa.ToString());
                     kodeArrayForGT.Add(typeForObject.Typekategori.ToString());
                     kodeArrayForGT.Add(typekategori2ForGrunntype.ToString());
-                    //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
+                    //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2 = NA
                     if (typekategori2ForGrunntype.Equals(Typekategori2Enum.NA))
                     {
                         if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
@@ -805,7 +812,6 @@ namespace NiN.Infrastructure.Services
                 _context.SaveChanges();            
             }
             //savechanges
-        
         }
 
         public void LoadGrunndataVariabeltrinnMapping()
@@ -876,6 +882,52 @@ namespace NiN.Infrastructure.Services
                     Console.WriteLine(msg);
                 }
             }
+        }
+
+        public void LoadKonverteringHovedtypegruppe() {
+            var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
+            var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
+            var htgKonvList = CsvDataImporter_konvertering_hovedtypegruppe.ProcessCSV("in_data/konvertering_htg_v30.csv");
+            foreach (var htgk in htgKonvList) {
+                //var htg = _context.Hovedtypegruppe.FirstOrDefault(h => h.Kode == htk.Kode);
+                var konvert = new Konvertering()
+                {
+                    Klasse = KlasseEnum.HTG,
+                    Kode = htgk.Kode,
+                    ForrigeKode = htgk.ForrigeKode,
+                    ForrigeVersjon = forrigeVersjon,
+                    Versjon = versjon,
+                    Url = htgk.Url,
+                    FoelsomhetsPresisjon = htgk.FoelsomhetsPresisjon,
+                    Spesifiseringsevne = htgk.Spesifiseringsevne
+                };
+                _context.Add(konvert);
+            }
+            _context.SaveChanges();
+        }
+
+
+        public void LoadKonverteringHovedtype() {
+            var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
+            var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
+            var htKonvList = CsvDataImporter_konvertering_hovedtype.ProcessCSV("in_data/konvertering_ht_v30.csv");
+            foreach (var htk in htKonvList)
+            {
+                //var htg = _context.Hovedtypegruppe.FirstOrDefault(h => h.Kode == htk.Kode);
+                var konvert = new Konvertering()
+                {
+                    Klasse = KlasseEnum.HT,
+                    Kode = htk.Kode,
+                    ForrigeKode = htk.ForrigeKode,
+                    ForrigeVersjon = forrigeVersjon,
+                    Versjon = versjon,
+                    Url = htk.Url,
+                    FoelsomhetsPresisjon = htk.FoelsomhetsPresisjon,
+                    Spesifiseringsevne = htk.Spesifiseringsevne
+                };
+                _context.Add(konvert);
+            }
+            _context.SaveChanges();
         }
 
         /* //Trinnmapping shall only happen between typeclasses and trinn not variabelnavn and trinn
@@ -984,7 +1036,6 @@ namespace NiN.Infrastructure.Services
                 };
                 _context.Add(kortkode);
             }
-
             _context.SaveChanges();
         }
 

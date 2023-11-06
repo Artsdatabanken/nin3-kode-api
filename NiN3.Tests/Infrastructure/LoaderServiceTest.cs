@@ -21,13 +21,13 @@ namespace NiN3.Tests.Infrastructure
         {
             _logger = new Mock<ILogger<LoaderService>>().Object;
         }
-        private static NiN3DbContext GetInMemoryDb()//out SqliteConnection connection, out DbContextOptions<NiN3DbContext> options)
+        private static NiN3DbContext GetInMemoryDb(bool loadAll=true)//out SqliteConnection connection, out DbContextOptions<NiN3DbContext> options)
         {
             var inmemorydb = InMemoryDbContextFactory.GetInMemoryDb();
             if (inmemorydb.Type.Count() == 0)
             {//if data is not allready loaded 
                 var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
-                loader.load_all_data();
+                if (loadAll) { loader.load_all_data(); }  
             }
             return inmemorydb;
         }
@@ -367,6 +367,32 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(2, EnumoppslagVariabelkategoriEnum.Count);
             var EnumoppslagVariabelkategori2Enum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "Variabelkategori2Enum").ToList();
             Assert.Equal(14, EnumoppslagVariabelkategori2Enum.Count);
+        }
+
+        [Fact]
+        public void TestLoadKonvertering_hovedtypegruppe() { 
+            var db = GetInMemoryDb(false);
+            var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
+            loader.SeedLookupData();
+            loader.LoadKonverteringHovedtypegruppe();
+            var versjon = db.Versjon.Where(v => v.Navn == "3.0").FirstOrDefault();
+            var konvertering = db.Konvertering.Where(k => k.Klasse == KlasseEnum.HTG && k.Versjon ==versjon)
+                .ToList();
+            Assert.Equal(4, konvertering.Count);
+        }
+
+        [Fact]
+        public void TestLoadKonvertering_hovedtype() {
+            var db = GetInMemoryDb(false);
+            var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
+            loader.SeedLookupData();
+            loader.LoadKonverteringHovedtype();
+            var versjon = db.Versjon.Where(v => v.Navn == "3.0").FirstOrDefault();
+            var konvertering = db.Konvertering.Where(k => k.Klasse == KlasseEnum.HT && k.Versjon == versjon)
+                .ToList();
+            Assert.Equal(60, konvertering.Count);
+            var konv4_T_M_01 = db.Konvertering.Where(k => k.Kode == "T-M-01" && k.Versjon == versjon).ToList();
+            Assert.Equal(6, konv4_T_M_01.Count);
         }
     }
 }

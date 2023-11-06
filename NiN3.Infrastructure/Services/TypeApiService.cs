@@ -106,12 +106,17 @@ namespace NiN3.Infrastructure.Services
                     .ThenInclude(ht => ht.Hovedtype_Kartleggingsenheter)
                         .ThenInclude(hke => hke.Kartleggingsenhet)
                             .ThenInclude(ke => ke.Grunntyper)
-                .Include(htg => htg.Hovedoekosystemer)
+                .Include(htg => htg.Hovedoekosystemer)               
                 .Include(htg => htg.Versjon)
                 .AsNoTracking()
                 .FirstOrDefault();
+            var konverteringer = _context.Konvertering.Where(Konvertering => 
+                                                             Konvertering.Kode == hovedtypegruppe.Kode && 
+                                                             Konvertering.Versjon.Id == hovedtypegruppe.Versjon.Id).Include(k=>k.Versjon).Include(k => k.ForrigeVersjon)
+                .AsNoTracking()
+                .ToList();
+            hovedtypegruppe.Konverteringer = konverteringer;
             return hovedtypegruppe != null ? NiNkodeMapper.Instance.Map(hovedtypegruppe) : null;
-            //return hovedtypegruppe != null ? _mapper.Map<HovedtypegruppeDto>(hovedtypegruppe) : null;
         }
 
         public HovedtypeDto GetHovedtypeByKortkode(string kode, string versjon)
@@ -134,6 +139,12 @@ namespace NiN3.Infrastructure.Services
                 .FirstOrDefault();
             if (hovedtype != null) 
             {
+                hovedtype.Konverteringer = _context.Konvertering.Where(Konvertering =>
+                                                             Konvertering.Kode == hovedtype.Kode &&
+                                                             Konvertering.Versjon.Id == hovedtype.Versjon.Id)
+                .Include(k => k.Versjon).Include(k => k.ForrigeVersjon)
+                .AsNoTracking()
+                .ToList();
                 hovedtypeDto = NiNkodeMapper.Instance.Map(hovedtype);              
                 foreach (var variabeltrinn in hovedtypeDto.Variabeltrinn)
                 {

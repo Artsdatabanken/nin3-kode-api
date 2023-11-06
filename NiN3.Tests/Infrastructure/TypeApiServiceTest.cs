@@ -234,6 +234,24 @@ namespace NiN3.Tests.Infrastructure
             var hovedtype = service.GetHovedtypeByKortkode("S-C-01", "3.0");
             Assert.Equal(2, hovedtype.Variabeltrinn.Count());
         }
+
+        [Fact]
+        public void TestGetHovedtypegruppeByKode_w_konvertering()
+        {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var htg_BM_A = service.GetHovedtypegruppeByKortkode("BM-A", "3.0");
+            Assert.NotNull(htg_BM_A);
+            Assert.Equal(1, htg_BM_A.konverteringer.Count());
+        }
+
+        [Fact]
+        public void TestGetHovedtypeByKode_w_konvertering()
+        {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var htg_T_M_01 = service.GetHovedtypeByKortkode("T-M-01", "3.0");
+            Assert.NotNull(htg_T_M_01);
+            Assert.Equal(6, htg_T_M_01.Konverteringer.Count());
+        }
     }
 }
 

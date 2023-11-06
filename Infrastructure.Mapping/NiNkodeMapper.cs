@@ -158,6 +158,9 @@ namespace NiN3.Infrastructure.Mapping
             {
                 hovedtypegruppedto.Hovedoekosystemer.Add(Map(hovedoekosystem));
             }
+            foreach (var konvertering in hovedtypegruppe.Konverteringer) {
+                hovedtypegruppedto.konverteringer.Add(Map(konvertering));
+            }
             return hovedtypegruppedto;
         }
 
@@ -171,6 +174,21 @@ namespace NiN3.Infrastructure.Mapping
 
             };
             return hovedoekosystemdto;
+        }
+
+        public KonverteringDto Map(Konvertering konvertering) {
+            var konverteringDto = new KonverteringDto()
+            {
+                Kode = konvertering.Kode,
+                ForrigeKode = konvertering.ForrigeKode,
+                Klasse = konvertering.Klasse,
+                KlasseNavn = EnumUtil.ToDescription(konvertering.Klasse),
+                ForrigeVersjon = konvertering.ForrigeVersjon.Navn,
+                FoelsomhetsPresisjon = konvertering.FoelsomhetsPresisjon,
+                Spesifiseringsevne = konvertering.Spesifiseringsevne,
+                Url = konvertering.Url
+            };
+            return konverteringDto;
         }
 
         /// <summary>
@@ -223,6 +241,10 @@ namespace NiN3.Infrastructure.Mapping
                 .GroupBy(vt => vt.Maaleskala.MaaleskalaNavn)//TODO: Lazy solution to duplicate MaaleskalaDto objects inside VariabeltrinnCollection, please improve
                 .Select(group => group.First())
                 .ToList();
+            foreach (var konv in hovedtype.Konverteringer)
+            {
+                hovedtypedto.Konverteringer.Add(Map(konv));
+            }
             return hovedtypedto;
         }
 

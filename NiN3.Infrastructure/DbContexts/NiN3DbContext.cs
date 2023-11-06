@@ -65,6 +65,7 @@ namespace NiN3.Infrastructure.DbContexts
         public DbSet<Maaleskala> Maaleskala { get; set; }
         public DbSet<Trinn> Trinn { get; set; }
 
+        public DbSet<Konvertering> Konvertering { get; set; }
 
         //Type classes and Variabeltrinn
         public DbSet<GrunntypeVariabeltrinn> GrunntypeVariabeltrinn { get; set; }

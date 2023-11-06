@@ -16,7 +16,6 @@ namespace NiN3.Core.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
         public int Id { get; set; }
-        //public Guid Id { get; set; }
         public string Kode { get; set; }
         public string? Langkode { get; set; }
         public EcosystnivaaEnum Ecosystnivaa { get; set; }

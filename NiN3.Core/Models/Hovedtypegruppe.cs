@@ -25,6 +25,7 @@ namespace NiN3.Core.Models
         [ForeignKey("TypeId")]
         public Type Type { get; set; }
         public ICollection<Hovedtype> Hovedtyper { get; set; }
-        public ICollection<Hovedtypegruppe_Hovedoekosystem> Hovedoekosystemer { get; set; }
+        public ICollection<Hovedtypegruppe_Hovedoekosystem> Hovedoekosystemer { get; set; } = new List<Hovedtypegruppe_Hovedoekosystem>();
+        public ICollection<Konvertering> Konverteringer { get; set; } = new List<Konvertering>();
     }   
 }

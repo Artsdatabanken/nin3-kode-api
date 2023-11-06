@@ -18,6 +18,8 @@ namespace NiN3.Infrastructure.Services
 
         void load_all_data();
 
+        public void LoadKonverteringHovedtypegruppe();
+
         //void Startup();
     }
 }
