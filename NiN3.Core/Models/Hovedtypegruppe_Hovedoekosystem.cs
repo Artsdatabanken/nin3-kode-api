@@ -13,6 +13,6 @@ namespace NiN3.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
         public int Id { get; set; }
         public Hovedtypegruppe Hovedtypegruppe { get; set; }
-        public HovedoekosystemEnum HovedoekosystemEnum { get; set; }
+        public HovedoekosystemEnum? HovedoekosystemEnum { get; set; }
     }
 }

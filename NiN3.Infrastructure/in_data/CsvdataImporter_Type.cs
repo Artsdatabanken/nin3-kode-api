@@ -5,9 +5,9 @@ namespace NiN3KodeAPI.in_data
 {
     public class CsvdataImporter_Type
     {
-        public EcosystnivaaEnum Ecosystnivaa { get; set; }
-        public TypekategoriEnum Typekategori { get; set; }
-        public Typekategori2Enum Typekategori2 { get; set; }
+        public EcosystnivaaEnum? Ecosystnivaa { get; set; }
+        public TypekategoriEnum? Typekategori { get; set; }
+        public Typekategori2Enum? Typekategori2 { get; set; }
         public string Kode { get; set; }
         public string Langkode { get; set; }
 

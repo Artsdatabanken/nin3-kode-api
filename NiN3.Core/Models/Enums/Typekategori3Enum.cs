@@ -14,6 +14,6 @@ namespace NiN3.Core.Models.Enums
         [Description("Vannmassesystemer")]
         VM,
         [Description("Mark- og bunnsystemer")]
-        MB
+        MB,
     }
 }

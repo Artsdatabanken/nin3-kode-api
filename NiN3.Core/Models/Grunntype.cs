@@ -10,7 +10,6 @@ namespace NiN3.Core.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
         public int Id { get; set; }
-        //public Guid Id { get; set; }
         [Required]
         public Versjon Versjon { get; set; }
         [StringLength(255)]
@@ -18,10 +17,12 @@ namespace NiN3.Core.Models
         public string Kode { get; set; }
         public string? Navn { get; set; }
         public string Delkode { get; set; }
-        public ProsedyrekategoriEnum Prosedyrekategori { get; set; }
+        public ProsedyrekategoriEnum? Prosedyrekategori { get; set; }
         [ForeignKey("HovedtypeId")]
         public Hovedtype Hovedtype { get; set; }
 
         public ICollection<GrunntypeVariabeltrinn> GrunntypeVariabeltrinn { get; set; } = new List<GrunntypeVariabeltrinn>();
+
+        public ICollection<Konvertering> Konverteringer { get; set; } = new List<Konvertering>();
     }
 }

@@ -17,7 +17,7 @@ namespace NiN3.Core.Models.Enums
         E,
         [Description("Spesiell variasjonsbredde. Variasjon i artssammensetning betinget av strukturerende artsgruppe. Lite endret system. Preget av aktiv regulerende forstyrrelse .")]
         F,
-        [Description("Spesiell variasjonsbredde. Ny mark eller bunn . Klart endret system. Preget av historisk forstyrrelse. . .")]
+        [Description("Spesiell variasjonsbredde. Ny mark eller bunn . Klart endret system. Preget av historisk forstyrrelse.")]
         G,
         [Description("Spesiell variasjonsbredde. Variasjon i artssammensetning betinget av bortfall av strukturerende artsgruppe. Klart endret system. Uten preg av hevd.")]
         H,

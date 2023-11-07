@@ -171,6 +171,13 @@ namespace NiN3.Infrastructure.Services
                 .FirstOrDefault();
             if (grunntype != null)
             {
+                //Get konverteringer
+                grunntype.Konverteringer = _context.Konvertering.Where(Konvertering =>
+                                             Konvertering.Kode == grunntype.Kode &&
+                                             Konvertering.Versjon.Id == grunntype.Versjon.Id)
+                .Include(k => k.Versjon).Include(k => k.ForrigeVersjon)
+                .AsNoTracking()
+                .ToList();
                 gtd = NiNkodeMapper.Instance.Map(grunntype);
                 // Sort Trinn by Verdi here
                 foreach (var variabeltrinn in gtd.Variabeltrinn)

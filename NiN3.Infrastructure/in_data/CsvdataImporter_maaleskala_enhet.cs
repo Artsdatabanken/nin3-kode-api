@@ -9,8 +9,8 @@ namespace NiN3.Infrastructure.in_data
 {
     public class CsvdataImporter_maaleskala_enhet
     {
-        public MaaleskalatypeEnum MaaleskalatypeEnum { get; set; }
-        public EnhetEnum EnhetEnum { get; set; }    
+        public MaaleskalatypeEnum? MaaleskalatypeEnum { get; set; }
+        public EnhetEnum? EnhetEnum { get; set; }    
         public string Maaleskalanavn { get; set; }
 
         public static CsvdataImporter_maaleskala_enhet ParseRow(string row)

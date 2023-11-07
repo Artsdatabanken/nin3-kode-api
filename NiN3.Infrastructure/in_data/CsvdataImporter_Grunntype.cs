@@ -5,7 +5,7 @@ namespace NiN3.Infrastructure.in_data
     public class CsvdataImporter_Grunntype
     {
        //public string Hovedtypegruppe { get; set; }
-        public ProsedyrekategoriEnum Prosedyrekategori { get; set; }
+        public ProsedyrekategoriEnum? Prosedyrekategori { get; set; }
 
         public string Hovedtype { get; set; }
         public string Grunntype { get; set; }

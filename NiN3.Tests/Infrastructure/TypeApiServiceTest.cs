@@ -252,6 +252,15 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(htg_T_M_01);
             Assert.Equal(6, htg_T_M_01.Konverteringer.Count());
         }
+
+        [Fact]
+        public void TestGetGrunntypeByKode_w_konvertering() {
+            //M-A-06-19  6 stk
+            TypeApiService service = GetPrepearedTypeApiService();
+            var gt_M_A_06_19 = service.GetGrunntypeByKortkode("M-A-06-19", "3.0");
+            Assert.NotNull(gt_M_A_06_19);
+            Assert.Equal(6, gt_M_A_06_19.Konverteringer.Count());
+        }
     }
 }
 

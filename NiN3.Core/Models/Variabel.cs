@@ -18,8 +18,8 @@ namespace NiN3.Core.Models
         public int Id { get; set; }
         public string Kode { get; set; }
         public string? Langkode { get; set; }
-        public EcosystnivaaEnum Ecosystnivaa { get; set; }
-        public VariabelkategoriEnum Variabelkategori { get; set; }
+        public EcosystnivaaEnum? Ecosystnivaa { get; set; }
+        public VariabelkategoriEnum? Variabelkategori { get; set; }
         public String Navn { get; set; }
         public Versjon Versjon { get; set; }
         public ICollection<Variabelnavn> Variabelnavn { get; set; } = new List<Variabelnavn>();

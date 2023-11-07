@@ -18,12 +18,12 @@ namespace NiN3.Core.Models.DTOs.type
 
         //public string Ecosystnivaa { get; set; }
 
-        public EcosystnivaaEnum EcosystnivaaEnum { get; set; }
+        public EcosystnivaaEnum? EcosystnivaaEnum { get; set; }
 
         public string EcosystnivaaNavn { get; set; }
 
         //public string Typekategori { get; set; }
-        public TypekategoriEnum TypekategoriEnum { get; set; }
+        public TypekategoriEnum? TypekategoriEnum { get; set; }
         public string TypekategoriNavn { get; set; }
         public Typekategori2Enum? Typekategori2Enum { get; set; }
         public string? Typekategori2Navn { get; set; }

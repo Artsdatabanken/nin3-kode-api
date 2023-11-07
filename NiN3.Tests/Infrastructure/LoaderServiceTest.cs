@@ -32,6 +32,31 @@ namespace NiN3.Tests.Infrastructure
             return inmemorydb;
         }
 
+        [Fact]
+        public void TestLoadUntilType()
+        {
+            var inmemorydb = InMemoryDbContextFactory.GetInMemoryDb();
+            var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+            loader.SeedLookupData();
+            loader.LoadLookupData();
+            loader.LoadTypeData();
+            var typer = inmemorydb.Type.ToList();
+            Assert.Equal(10, typer.Count);
+        }
+
+        [Fact]
+        public void TestLoadUntilHTG() { 
+                        var inmemorydb = InMemoryDbContextFactory.GetInMemoryDb();
+            var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
+            loader.SeedLookupData();
+            loader.LoadLookupData();
+            loader.LoadTypeData();
+            loader.LoadType_HTG_Mappings();
+            loader.LoadHovedtypeGruppeData();
+            var numHTG = inmemorydb.Hovedtypegruppe.Count();
+            Assert.Equal(72, numHTG);
+        }
+
 
         [Fact]
         public void TestLoadType()
@@ -393,6 +418,18 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(60, konvertering.Count);
             var konv4_T_M_01 = db.Konvertering.Where(k => k.Kode == "T-M-01" && k.Versjon == versjon).ToList();
             Assert.Equal(6, konv4_T_M_01.Count);
+        }
+
+        [Fact]
+        public void TestLoadKonvertering_grunntype() {
+            var db = GetInMemoryDb(false);
+            var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
+            loader.SeedLookupData();
+            loader.LoadKonverteringGrunntype();
+            var versjon = db.Versjon.Where(v => v.Navn == "3.0").FirstOrDefault();
+            var konvertering = db.Konvertering.Where(k => k.Klasse == KlasseEnum.GT && k.Versjon == versjon)
+                .ToList();
+            Assert.Equal(425, konvertering.Count);
         }
     }
 }

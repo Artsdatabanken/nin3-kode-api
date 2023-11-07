@@ -270,6 +270,10 @@ namespace NiN3.Infrastructure.Mapping
                     .GroupBy(vt => vt.Maaleskala.MaaleskalaNavn)
                     .Select(group => group.First())
                     .ToList();
+                foreach(var konv in grunntype.Konverteringer)
+                {
+                    grunntypedto.Konverteringer.Add(Map(konv));
+                }
             }
             return grunntypedto;
         }

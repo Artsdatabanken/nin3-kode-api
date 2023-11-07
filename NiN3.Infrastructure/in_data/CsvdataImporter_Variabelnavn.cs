@@ -12,9 +12,9 @@ namespace NiN3.Infrastructure.in_data
         public String Kode { get; set; }
 
         public String Langkode { get; set; }
-        public Variabelkategori2Enum Variabelkategori2 { get; set; }
-        public VariabeltypeEnum Variabeltype { get; set; }
-        public VariabelgruppeEnum Variabelgruppe { get; set; }
+        public Variabelkategori2Enum? Variabelkategori2 { get; set; }
+        public VariabeltypeEnum? Variabeltype { get; set; }
+        public VariabelgruppeEnum? Variabelgruppe { get; set; }
         public string Delkode { get; set; }
         public string VariabelKode { get; set; }
         public String Navn { get; set; }

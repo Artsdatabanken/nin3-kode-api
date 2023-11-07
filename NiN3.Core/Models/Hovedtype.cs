@@ -18,7 +18,7 @@ namespace NiN3.Core.Models
         public string Kode { get; set; }
         public string Langkode { get; set; }
         public string? Navn { get; set; }
-        public ProsedyrekategoriEnum Prosedyrekategori { get; set; }
+        public ProsedyrekategoriEnum? Prosedyrekategori { get; set; }
         [ForeignKey("HovedtypegruppeId")]
         public Hovedtypegruppe Hovedtypegruppe { get; set; }
         public ICollection<Grunntype> Grunntyper { get; set; }

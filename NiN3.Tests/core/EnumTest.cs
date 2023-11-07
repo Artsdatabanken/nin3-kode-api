@@ -16,7 +16,7 @@ namespace NiN3.Tests.Test.core
         public void TestingEcosystnivaaEnum()
         {
             var stringToParse = "B";
-            EcosystnivaaEnum e = EnumUtil.ParseEnum<EcosystnivaaEnum>(stringToParse);
+            EcosystnivaaEnum? e = EnumUtil.ParseEnum<EcosystnivaaEnum>(stringToParse);
             Assert.Equal(stringToParse, e.ToString());
             Assert.Equal("Biotisk", EnumUtil.ToDescription(e));
         }
@@ -25,7 +25,7 @@ namespace NiN3.Tests.Test.core
         public void TestingTypeKategoriEnum()
         {
             var stringToParse = "PE";
-            TypekategoriEnum e = EnumUtil.ParseEnum<TypekategoriEnum>(stringToParse);
+            TypekategoriEnum? e = EnumUtil.ParseEnum<TypekategoriEnum>(stringToParse);
             Assert.Equal(stringToParse, e.ToString());
             Assert.Equal("Primært økodiversitetsnivå", EnumUtil.ToDescription(e));
         }
@@ -34,7 +34,7 @@ namespace NiN3.Tests.Test.core
         public void TestingTypeKategori2Enum()
         {
             var stringToParse = "NK";
-            Typekategori2Enum e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse);
+            Typekategori2Enum? e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse);
             Assert.Equal(stringToParse, e.ToString());
             Assert.Equal("Naturkompleks", EnumUtil.ToDescription(e));
         }
@@ -43,7 +43,7 @@ namespace NiN3.Tests.Test.core
         public void TestingProsedyrekategoriEnum()
         {
             var stringToParse = "O";
-            ProsedyrekategoriEnum e = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(stringToParse);
+            ProsedyrekategoriEnum? e = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(stringToParse);
             Assert.Equal(stringToParse, e.ToString());
             Assert.Equal("Spesiell variasjonsbredde. Sterkt endret system. Hevdpreget. Jordbruksmark.", EnumUtil.ToDescription(e));
         }
@@ -52,14 +52,14 @@ namespace NiN3.Tests.Test.core
         [Fact]
         public void TestFetchEnumDescription()
         {
-            Typekategori3Enum result = EnumUtil.ParseEnum<Typekategori3Enum>("NK");
+            Typekategori3Enum? result = EnumUtil.ParseEnum<Typekategori3Enum>("VM");
             Assert.Equal("Vannmassesystemer", EnumUtil.ToDescription(result));
         }
 
         [Fact]
         public void TestMaalestokkEnumDescription()
         {
-            MaalestokkEnum result = EnumUtil.ParseEnum<MaalestokkEnum>("M005");
+            MaalestokkEnum? result = EnumUtil.ParseEnum<MaalestokkEnum>("M005");
             Assert.Equal("Kartleggingsenhet tilpasset 1:5000", EnumUtil.ToDescription(result));
         }
 
@@ -80,6 +80,22 @@ namespace NiN3.Tests.Test.core
             Assert.Equal("Strukturerende og funksjonelle artsgrupper", GetEnumDescription(Variabelkategori2Enum.SA));
             Assert.Equal("Terrengformvariasjon", GetEnumDescription(Variabelkategori2Enum.TF));
             Assert.Equal("Vertikal struktur", GetEnumDescription(Variabelkategori2Enum.VS));
+        }
+
+        [Fact]
+        public void TestParseEnumTypekategori2_WhenValueIs0()
+        {
+            var stringToParse = "0";
+            Typekategori2Enum? e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse);
+            Assert.Equal(null, e);
+        }
+
+        [Fact]
+        public void TestParseEnumTypekategori2_WhenValueIsValid()
+        {
+            var stringToParse = "LA";
+            Typekategori2Enum? e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse);
+            Assert.Equal("LA", e.ToString());
         }
 
         private static string GetEnumDescription(Enum enumerationValue)

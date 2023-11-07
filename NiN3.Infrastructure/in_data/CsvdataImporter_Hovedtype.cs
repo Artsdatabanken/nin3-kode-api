@@ -6,7 +6,7 @@ namespace NiN3KodeAPI.in_data
     public class CsvdataImporter_Hovedtype
     {
         public string Hovedtype { get; set; }
-        public ProsedyrekategoriEnum Prosedyrekategori { get; set; }
+        public ProsedyrekategoriEnum? Prosedyrekategori { get; set; }
         public string Hovedtypegruppe { get; set; }
         public string Hovedtypenavn { get; set; }
         public string Kode { get; set; }

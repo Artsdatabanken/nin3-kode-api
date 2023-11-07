@@ -10,16 +10,15 @@ namespace NiN3.Infrastructure.in_data
     {
         public string Type_kode { get; set; }
         public string Hovedtypegruppe_kode { get; set; }
-        public string Typekategori2 { get; set; }
+        //public string Typekategori2 { get; set; }
 
         internal static CsvdataImporter_Type_Htg_mapping ParseRow(string row)
         {
             var columns = row.Split(';');
             return new CsvdataImporter_Type_Htg_mapping()
             {
-                Hovedtypegruppe_kode = columns[3],
-                Typekategori2 = columns[2],
-                Type_kode = columns[4]
+                Type_kode = columns[0],
+                Hovedtypegruppe_kode = columns[1]
             };
         }
 
