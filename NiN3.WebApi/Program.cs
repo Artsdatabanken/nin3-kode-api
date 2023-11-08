@@ -104,9 +104,9 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
     {
         ["activated"] = false
     });
-    var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetService<NiN3DbContext>();
-    db.Database.EnsureCreated();
+    //var scope = app.Services.CreateScope();
+    //var db = scope.ServiceProvider.GetService<NiN3DbContext>();
+    //db.Database.EnsureCreated();
     //if (db != null) { db.Database.Migrate(); };
 }
 
