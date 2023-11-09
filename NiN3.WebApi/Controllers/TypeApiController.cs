@@ -74,7 +74,7 @@ namespace NiN3.WebApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<KlasseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult HentKlasse([Required] string kortkode = "D-0-0")
+        public ActionResult HentKlasse([Required] string kortkode = "C-PE-NA")
         {
             var typeklasseDto = _typeApiService.GetTypeklasse(kortkode, _versjon);
             if (typeklasseDto != null)

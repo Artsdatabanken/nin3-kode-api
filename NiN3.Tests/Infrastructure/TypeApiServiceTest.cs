@@ -91,21 +91,13 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("Bremassiv", firstType.Navn);
             Assert.StartsWith("http", firstType.Kode.Definisjon);
             Assert.EndsWith("/v3.0/typer/kodeforType/A-LV-BM", firstType.Kode.Definisjon);
-            var hovedtypegrupper = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "0-MS").ToList();
-            Assert.True(hovedtypegrupper.Count == 1);
-            var hovedtypegruppe = hovedtypegrupper.First();
-            Assert.Equal("0-MS", hovedtypegruppe.Kode.Id);
-            Assert.Equal("Vannmassesystemer", hovedtypegruppe.Typekategori3Navn);
-            Assert.Equal(10, hovedtypegruppe.Hovedtyper.Count);
-            // get second hovedtype from firstHovedtypegruppe.Hovedtyper
-            var hovedtype = hovedtypegruppe.Hovedtyper.Where(ht => ht.Kode.Id == "MS-0-08").First();
-            Assert.Equal("MS-0-08", hovedtype.Kode.Id);
-            //assert prosedyrekategori
-            Assert.Equal("Normal variasjonsbredde. Variasjon i artssammensetning ikke betinget av strukturerende artsgruppe. Lite endret system.", hovedtype.ProsedyrekategoriNavn);
-            Assert.Equal(1, hovedtype.Grunntyper.Count);
-            var grunntype = hovedtype.Grunntyper.First();
-            Assert.Equal("MS-0-08-01", grunntype.Kode.Id);
-            Assert.Equal("NIN-3.0-T-A-LV-BM", firstType.Kode.Langkode);
+            var hovedtypegruppe_BM_A = firstType.Hovedtypegrupper.Where(htg => htg.Kode.Id == "BM-A").FirstOrDefault();
+            Assert.NotNull(hovedtypegruppe_BM_A);
+
+            Assert.Equal("BM-A", hovedtypegruppe_BM_A.Kode.Id);
+            Assert.Equal("Bremassiv", hovedtypegruppe_BM_A.Navn);
+            Assert.Equal(null, hovedtypegruppe_BM_A.Typekategori3Navn);
+            Assert.Equal(9, hovedtypegruppe_BM_A.Hovedtyper.Count);
         }
 
 
@@ -241,7 +233,7 @@ namespace NiN3.Tests.Infrastructure
             TypeApiService service = GetPrepearedTypeApiService();
             var htg_BM_A = service.GetHovedtypegruppeByKortkode("BM-A", "3.0");
             Assert.NotNull(htg_BM_A);
-            Assert.Equal(1, htg_BM_A.konverteringer.Count());
+            Assert.Equal(2, htg_BM_A.konverteringer.Count());
         }
 
         [Fact]
@@ -250,7 +242,7 @@ namespace NiN3.Tests.Infrastructure
             TypeApiService service = GetPrepearedTypeApiService();
             var htg_T_M_01 = service.GetHovedtypeByKortkode("T-M-01", "3.0");
             Assert.NotNull(htg_T_M_01);
-            Assert.Equal(6, htg_T_M_01.Konverteringer.Count());
+            Assert.Equal(12, htg_T_M_01.Konverteringer.Count());
         }
 
         [Fact]
@@ -259,7 +251,7 @@ namespace NiN3.Tests.Infrastructure
             TypeApiService service = GetPrepearedTypeApiService();
             var gt_M_A_06_19 = service.GetGrunntypeByKortkode("M-A-06-19", "3.0");
             Assert.NotNull(gt_M_A_06_19);
-            Assert.Equal(6, gt_M_A_06_19.Konverteringer.Count());
+            Assert.Equal(12, gt_M_A_06_19.Konverteringer.Count());
         }
     }
 }

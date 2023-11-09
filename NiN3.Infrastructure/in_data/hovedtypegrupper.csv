@@ -1,13 +1,13 @@
 Typekategori2;Hovedtypegruppe;Hovedtypegruppenavn;Typekategori3;Kode
 0;A;hav-vannmasser;0;0-A
 0;B;fjordvannmasser;0;0-B
+NA;F;limniske vannmassesystemer;VM;NA-F
 0;FS;substrat i ferskvann;0;0-FS
 0;FU;substratfrie livsmedier i ferskvann;0;0-FU
 0;MS;substrat i marine systemer;0;0-MS
 0;MU;substratfrie livsmedier i marine systemer;0;0-MU
 0;TS;substrat på land;0;0-TS
 0;TU;substratfrie livsmedier på land;0;0-TU
-0;U;substratfrie livsmedier i ferskvann;0;0-U
 BM;A;bremassiv;0;BM-A
 EL;A;elveløp i fast fjell;0;EL-A
 EL;B;elveløp preget av fluviale prosesser;0;EL-B
@@ -18,7 +18,6 @@ EL;E;kompleks elvemunning;0;EL-E
 EL;F;elveløp med klart endret hydromorfologi;0;EL-F
 EL;G;kunstige elveløp og elveløp med sterkt endret hydromorfologi;0;EL-G
 FL;A;breelvlandformer;0;FL-A
-FL;A;breelvlandformer;;FL-A
 FL;B;biogene landformer;0;FL-B
 FL;C;bresjølandformer;0;FL-C
 FL;D;elvelandformer;0;FL-D
@@ -28,7 +27,7 @@ FL;G;forvitringslandformer;0;FL-G
 FL;H;glasiale landformer;0;FL-H
 FL;I;kystlandformer;0;FL-I
 FL;J;lagdelingsformer i berggrunn;0;FL-J
-FL;K;skyve-foldebeltelandformer ;0;FL-K
+FL;K;skyve-foldebeltelandformer;0;FL-K
 FL;L;skredlandformer;0;FL-L
 FL;M;havstrømlandformer;0;FL-M
 FL;N;utstrømningslandformer;0;FL-N
@@ -49,15 +48,15 @@ IB;L;basseng i torv;0;IB-L
 IB;M;basseng formet av dyrs aktiviteter;0;IB-M
 IB;N;basseng formet av mennesker;0;IB-N
 LA;I;innlandslandskap;0;LA-I
+NA;I;snø- og issystemer;MB;NA-I
 LA;K;kystlandskap;0;LA-K
 LA;M;marine landskap;0;LA-M
-NA;F;limniske vannmassesystemer;VM;NA-F
-NA;I;snø- og issystemer;MB;NA-I
 NA;L;innsjøbunnsystemer;MB;NA-L
 NA;M;marine bunnsystemer;MB;NA-M
 NA;O;elvebunnsystemer;MB;NA-O
 NA;S;marine vannmassesystemer;VM;NA-S
 NA;T;fastmarkssystemer;MB;NA-T
+0;U;substratfrie livsmedier i ferskvann;0;0-U
 NA;V;våtmarkssystemer;MB;NA-V
 NK;0;0;0;NK-0
 NK;C;naturkompleks betinget av miljøstress;0;NK-C
@@ -67,7 +66,7 @@ TM;A;topogene torvmassiv;0;TM-A
 TM;B;soligene torvmassiv;0;TM-B
 TM;C;kildetorvmassiv;0;TM-C
 TM;D;flommyrtorvmassiv;0;TM-D
-TM;E;blandingsmyrtorvmassiv ;0;TM-E
+TM;E;blandingsmyrtorvmassiv;0;TM-E
 TM;F;mellomstillingsmassiv;0;TM-F
 TM;G;ombrogent ikke-hvelvet torvmassiv;0;TM-G
 TM;H;høgmyrmassiv;0;TM-H

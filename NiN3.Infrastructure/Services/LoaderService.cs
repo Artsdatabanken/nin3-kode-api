@@ -135,14 +135,15 @@ namespace NiN.Infrastructure.Services
             LoadKonverteringHovedtype();
             LoadKonverteringGrunntype();
             // ** Reports ** //
-            LoadAlleKortkoder();           
-            LoadEnumoppslag();            
+            LoadAlleKortkoder();
+            LoadEnumoppslag();
             _context.SaveChanges();
 
             // ** Views, for overview/insight ** //
             CreateMaaleskalaView();
             CreateGrunntypeVariabeltrinnView();
             CreateHovedtypeVariabeltrinnView();
+            CreateSjekkUnikeHovedklasserView();
         }
 
         public void LoadLookupData()
@@ -181,8 +182,8 @@ namespace NiN.Infrastructure.Services
         public void SeedLookupData()
         {
             //List<Versjon> domenes = new List<Versjon>(); //TODO: delete if all tests ok
-            _context.Add(new Versjon() { Navn = "3.0"}); // current version
-            _context.Add(new Versjon() { Navn = "2.3"});  // for 'konvertering' purposeshttps://open.spotify.com/playlist/46twe0c8AJIV3SKxBxqwxd
+            _context.Add(new Versjon() { Navn = "3.0" }); // current version
+            _context.Add(new Versjon() { Navn = "2.3" });  // for 'konvertering' purposeshttps://open.spotify.com/playlist/46twe0c8AJIV3SKxBxqwxd
             _context.SaveChanges();
         }
 
@@ -383,6 +384,7 @@ namespace NiN.Infrastructure.Services
                         else
                         {
                             //logg the m005 kode that has no grunntype mapping  
+                            Console.Write("m005 kode: " + m005.Kode + " has no grunntype mapping");
                             _logger.Equals("m005 kode: " + m005.Kode + " has no grunntype mapping");
                         }
                     });
@@ -526,7 +528,7 @@ namespace NiN.Infrastructure.Services
         {
             // switch case to check type of parent and return corresponding langkode
             var initKodeArray = new List<string> { "NIN", "3.0", "T" }; //kodeledd 1, 2, 3
-            return string.Join("-", initKodeArray);//TODO: remove after debugging!
+            //return string.Join("-", initKodeArray);//TODO: remove after debugging!
             /*
             if (typeForObject.Typekategori.ToString() == "LI") { 
                 Console.WriteLine("LI");
@@ -548,8 +550,9 @@ namespace NiN.Infrastructure.Services
                     var kodeArray = new List<string> { };
                     kodeArray.Add(typeForObject.Ecosystnivaa.ToString());//kodeledd 4
                     kodeArray.Add(typeForObject.Typekategori.ToString());//kodeledd 5
-                    kodeArray.Add(htg.Typekategori2.ToString());//kodeledd 6
-                                                                //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
+                    kodeArray.Add(htg.Typekategori2 != null ? htg.Typekategori2.ToString() : "0");//kodeledd 6 , sett ledd 6 ="0" hvis typekategori2 er null
+                    kodeArray.Add(htg.Typekategori3 != null ? htg.Typekategori3.ToString() : "0"); //kodeledd 7, sett ledd 7 = "0" hvis typekategori3 er null
+                    /*                                            //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
                     if (htg.Typekategori2.Equals(Typekategori2Enum.NA))
                     {
                         if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
@@ -557,19 +560,21 @@ namespace NiN.Infrastructure.Services
                         {
                             kodeArray.Add(htg.Typekategori3.ToString()); //kodeledd 7
                         }
-                    }
-                    kodeArray.Add(htg.Kode);//kodeledd 7 || 8
+                    }*/
+                    kodeArray.Add(htg.Kode);//kodeledd 8
                     var mergedKodeArrayHTG = initKodeArray.Concat(kodeArray).ToList();
                     return string.Join("-", mergedKodeArrayHTG);
                 case TypeklasseTypeEnum.HT:
                     //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
                     var ht = typeobject as Hovedtype;
                     var typekategori2ForHovedtype = ht.Hovedtypegruppe.Typekategori2;
+                    var typekategori3ForHovedtype = ht.Hovedtypegruppe.Typekategori3;
                     var kodeArrayForHT = new List<string> { "NIN", "3.0", "T" };
                     kodeArrayForHT.Add(typeForObject.Ecosystnivaa.ToString()); //kodeledd 4
                     kodeArrayForHT.Add(typeForObject.Typekategori.ToString()); //kodeledd 5
-                    kodeArrayForHT.Add(typekategori2ForHovedtype.ToString());  //kodeledd 6
-                                                                             //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
+                    kodeArrayForHT.Add(typekategori2ForHovedtype != null ? typekategori2ForHovedtype.ToString() : "0");  //kodeledd 6
+                    kodeArrayForHT.Add(typekategori3ForHovedtype != null ? typekategori3ForHovedtype.ToString() : "0");
+                    /*                                                         //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2= NA
                     if (typekategori2ForHovedtype.Equals(Typekategori2Enum.NA))
                     {
                         if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
@@ -577,19 +582,22 @@ namespace NiN.Infrastructure.Services
                         {
                             kodeArrayForHT.Add(ht.Hovedtypegruppe.Typekategori3.ToString()); //kodeledd 7
                         }
-                    }
-                    kodeArrayForHT.Add(ht.Kode);//kodeledd 7 || 8
+                    }*/
+                    kodeArrayForHT.Add(ht.Kode);//kodeledd 8(++)
                     return string.Join("-", kodeArrayForHT);
                 // add additional cases for other types
                 case TypeklasseTypeEnum.GT:
                     //if (kodeledd_list.Length == 1)//join correct kodeledd from kodeledd_list and return
                     var gt = typeobject as Grunntype;
                     var typekategori2ForGrunntype = gt.Hovedtype.Hovedtypegruppe.Typekategori2;
+                    var typekategori3ForGrunntype = gt.Hovedtype.Hovedtypegruppe.Typekategori3;
                     var kodeArrayForGT = new List<string> { "NIN", "3.0", "T" };
                     kodeArrayForGT.Add(typeForObject.Ecosystnivaa.ToString()); //kodeledd 4
                     kodeArrayForGT.Add(typeForObject.Typekategori.ToString()); //kodeledd 5
-                    kodeArrayForGT.Add(typekategori2ForGrunntype.ToString());  //kodeledd 6
+                    kodeArrayForGT.Add(typekategori2ForGrunntype != null ? typekategori2ForGrunntype.ToString() : "0");  //kodeledd 6
+                    kodeArrayForGT.Add(typekategori3ForGrunntype != null ? typekategori3ForGrunntype.ToString() : "0"); //kodeledd 7
                     //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2 = NA
+                    /*
                     if (typekategori2ForGrunntype.Equals(Typekategori2Enum.NA))
                     {
                         if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
@@ -597,8 +605,8 @@ namespace NiN.Infrastructure.Services
                         {
                             kodeArrayForGT.Add(gt.Hovedtype.Hovedtypegruppe.Typekategori3.ToString()); //kodeledd 7
                         }
-                    }
-                    kodeArrayForGT.Add(gt.Kode);//kodeledd 7 || 8
+                    }*/
+                    kodeArrayForGT.Add(gt.Kode);//kodeledd 8(++)
                     return string.Join("-", kodeArrayForGT);
                 default:
                     throw new ArgumentException("Invalid parent type!");
@@ -747,55 +755,62 @@ namespace NiN.Infrastructure.Services
         {
             var MaaleskalaList = CsvdataImporter_maaleskala_enhet.ProcessCSV("in_data/maaleskala_enhet.csv");
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-            foreach(var m in MaaleskalaList)
+            foreach (var m in MaaleskalaList)
             {
                 var maaleskala = new Maaleskala()
                 {
-                  EnhetEnum = m.EnhetEnum,
-                  MaaleskalatypeEnum = m.MaaleskalatypeEnum,
-                  MaaleskalaNavn = m.Maaleskalanavn
+                    EnhetEnum = m.EnhetEnum,
+                    MaaleskalatypeEnum = m.MaaleskalatypeEnum,
+                    MaaleskalaNavn = m.Maaleskalanavn
                 };
                 _context.Add(maaleskala);
             }
             _context.SaveChanges();
         }
 
-        public void LoadTrinn() {
+        public void LoadTrinn()
+        {
             //TODO: change lookup on maaleskala with maaleskalanavn instead of enum
             //Loop csvdata and add trinn to trinn-class/db
             var trinnList = CsvDataImporter_MaaleskalaTrinn.ProcessCSV("in_data/maaleskala_trinn.csv");
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             List<Maaleskala> MaaleskalaList = _context.Maaleskala.ToList();
             List<string> TrinnsAdded = new List<string>();
-            foreach (var t in trinnList) { 
+            foreach (var t in trinnList)
+            {
                 var maaleskala = MaaleskalaList.Where(m => m.MaaleskalaNavn == t.Maaleskalanavn).FirstOrDefault();
-                if (t.Maaleskalanavn == "B") {
+                if (t.Maaleskalanavn == "B")
+                {
                     Console.WriteLine($"{t.Trinn}:{t.Trinnverdi}");
                 }
                 //if (!TrinnsAdded.Contains(t.Trinn)) {
 
-                    var trinn = new Trinn()
-                    {
-                        Verdi = t.Trinn,
-                        Beskrivelse = t.Trinnverdi,
-                        Maaleskala = maaleskala
-                        //Versjon = _versjon
-                    };
-                    //TrinnsAdded.Add(t.Trinn);
-                    if (trinn.Maaleskala != null) { 
-                        _context.Add(trinn);
-                    }
-                    else {
-                        Console.WriteLine(t.Maaleskalanavn + " not found" + $"trinn was {t.Trinn}: {t.Trinnverdi}");
-                    }                
+                var trinn = new Trinn()
+                {
+                    Verdi = t.Trinn,
+                    Beskrivelse = t.Trinnverdi,
+                    Maaleskala = maaleskala
+                    //Versjon = _versjon
+                };
+                //TrinnsAdded.Add(t.Trinn);
+                if (trinn.Maaleskala != null)
+                {
+                    _context.Add(trinn);
+                }
+                else
+                {
+                    Console.WriteLine(t.Maaleskalanavn + " not found" + $"trinn was {t.Trinn}: {t.Trinnverdi}");
+                }
                 //}
                 _context.SaveChanges();
             }
         }
 
-        public void MakeMaalestokkMappingForVariabelnavn() { 
+        public void MakeMaalestokkMappingForVariabelnavn()
+        {
             var variabelnavn_maaleskalaList = CsvdataImporter_Variabelnavn_maaleskala.ProcessCSV("in_data/variabelnavn_maaleskala_mapping.csv");
-            foreach (var vm in variabelnavn_maaleskalaList) { 
+            foreach (var vm in variabelnavn_maaleskalaList)
+            {
                 // find variabelnavn by kode
                 var variabelnavn = _context.Variabelnavn.FirstOrDefault(vn => vn.Kode == vm.VaribelnavnKode);
                 // find maaleskala by navn
@@ -810,12 +825,13 @@ namespace NiN.Infrastructure.Services
                     };
                     _context.Add(vn_ms);
                 }
-                else {
+                else
+                {
                     Console.WriteLine($"Maaleskala or Variabelnavn not found for vn: {vm.VaribelnavnKode}, ms: {vm.Maaleskalanavn}");
                 }
                 // create VariabelnavnMaaleskala object
                 // add to db
-                _context.SaveChanges();            
+                _context.SaveChanges();
             }
             //savechanges
         }
@@ -831,7 +847,7 @@ namespace NiN.Infrastructure.Services
                     m.MaaleskalaNavn == $"{grunntypeVariabeltrinn.varkode2}-SO" ||
                     m.MaaleskalaNavn == $"{grunntypeVariabeltrinn.varkode2}-SI");
                 var trinn = _context.Trinn.FirstOrDefault(t => t.Verdi == grunntypeVariabeltrinn.trinn && t.Maaleskala == maaleskala);
-                var variabelnavn = grunntypeVariabeltrinn.variabelnavnKode!=null?_context.Variabelnavn.FirstOrDefault(vn => vn.Kode == grunntypeVariabeltrinn.variabelnavnKode):null;
+                var variabelnavn = grunntypeVariabeltrinn.variabelnavnKode != null ? _context.Variabelnavn.FirstOrDefault(vn => vn.Kode == grunntypeVariabeltrinn.variabelnavnKode) : null;
                 if (grunntype != null && maaleskala != null && trinn != null)
                 {
                     var grunndataVariabeltrinnMapping = new GrunntypeVariabeltrinn()
@@ -843,7 +859,8 @@ namespace NiN.Infrastructure.Services
                     };
                     _context.Add(grunndataVariabeltrinnMapping);
                 }
-                else { 
+                else
+                {
                     var msg = $@"""
                     Could not find one of the following:
                     grunntype: {grunntypeVariabeltrinn.grunntype_kode}  
@@ -856,10 +873,11 @@ namespace NiN.Infrastructure.Services
             _context.SaveChanges();
         }
 
-        public void LoadHovedtypeVariabeltrinnMapping() { 
+        public void LoadHovedtypeVariabeltrinnMapping()
+        {
             var hovedtypeVariabeltrinnList = CsvdataImporter_Hovedtype_variabeltrinn.ProcessCSV("in_data/hovedtype_variabeltrinn_mapping.csv");
             foreach (var hovedtypeVariabeltrinn in hovedtypeVariabeltrinnList)
-            { 
+            {
                 var hovedtype = _context.Hovedtype.FirstOrDefault(ht => ht.Kode == hovedtypeVariabeltrinn.hovedtype_kode);
                 var maaleskala = _context.Maaleskala.FirstOrDefault(m =>
                         m.MaaleskalaNavn == $"{hovedtypeVariabeltrinn.varkode2}-SO" ||
@@ -890,11 +908,13 @@ namespace NiN.Infrastructure.Services
             }
         }
 
-        public void LoadKonverteringHovedtypegruppe() {
+        public void LoadKonverteringHovedtypegruppe()
+        {
             var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
             var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
             var htgKonvList = CsvDataImporter_konvertering_hovedtypegruppe.ProcessCSV("in_data/konvertering_htg_v30.csv");
-            foreach (var htgk in htgKonvList) {
+            foreach (var htgk in htgKonvList)
+            {
                 //var htg = _context.Hovedtypegruppe.FirstOrDefault(h => h.Kode == htk.Kode);
                 var konvert = new Konvertering()
                 {
@@ -913,7 +933,8 @@ namespace NiN.Infrastructure.Services
         }
 
 
-        public void LoadKonverteringHovedtype() {
+        public void LoadKonverteringHovedtype()
+        {
             var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
             var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
             var htKonvList = CsvDataImporter_konvertering_hovedtype.ProcessCSV("in_data/konvertering_ht_v30.csv");
@@ -937,7 +958,8 @@ namespace NiN.Infrastructure.Services
         }
 
 
-        public void LoadKonverteringGrunntype() {
+        public void LoadKonverteringGrunntype()
+        {
             var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
             var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
             var gtKonvList = CsvDataImporter_konvertering_hovedtype.ProcessCSV("in_data/konvertering_gt_v30.csv");
@@ -998,19 +1020,22 @@ namespace NiN.Infrastructure.Services
 
         /********* Loadings for RapportService *********/
 
-        public void LoadAlleKortkoder() {
+        public void LoadAlleKortkoder()
+        {
             // load kortkoder from type
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-            foreach (var t in _context.Type.ToList()) {
+            foreach (var t in _context.Type.ToList())
+            {
                 var kortkode = new AlleKortkoder()
                 {
                     Kortkode = t.Kode,
                     TypeKlasseEnum = KlasseEnum.T,
                     Versjon = _versjon
                 };
-                _context.Add(kortkode);                
+                _context.Add(kortkode);
             }
-            foreach (var htg in _context.Hovedtypegruppe.ToList()) {
+            foreach (var htg in _context.Hovedtypegruppe.ToList())
+            {
                 var kortkode = new AlleKortkoder()
                 {
                     Kortkode = htg.Kode,
@@ -1019,7 +1044,8 @@ namespace NiN.Infrastructure.Services
                 };
                 _context.Add(kortkode);
             }
-            foreach (var ht in _context.Hovedtype.ToList()) { 
+            foreach (var ht in _context.Hovedtype.ToList())
+            {
                 var kortkode = new AlleKortkoder()
                 {
                     Kortkode = ht.Kode,
@@ -1028,7 +1054,8 @@ namespace NiN.Infrastructure.Services
                 };
                 _context.Add(kortkode);
             }
-            foreach (var gt in _context.Grunntype.ToList()) {
+            foreach (var gt in _context.Grunntype.ToList())
+            {
                 var kortkode = new AlleKortkoder()
                 {
                     Kortkode = gt.Kode,
@@ -1037,8 +1064,10 @@ namespace NiN.Infrastructure.Services
                 };
                 _context.Add(kortkode);
             }
-            foreach (var ke in _context.Kartleggingsenhet.ToList()) {
-                var kortkode = new AlleKortkoder() { 
+            foreach (var ke in _context.Kartleggingsenhet.ToList())
+            {
+                var kortkode = new AlleKortkoder()
+                {
                     Kortkode = ke.Kode,
                     TypeKlasseEnum = KlasseEnum.KE,
                     Versjon = _versjon
@@ -1073,7 +1102,8 @@ namespace NiN.Infrastructure.Services
 
         /********* Convenience tables/views *********/
 
-        public void LoadEnumoppslag() {
+        public void LoadEnumoppslag()
+        {
             var versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             foreach (EcosystnivaaEnum value in Enum.GetValues(typeof(EcosystnivaaEnum)))
             {
@@ -1145,7 +1175,8 @@ namespace NiN.Infrastructure.Services
             };
         }
 
-        public void CreateMaaleskalaView() {//TODO: funker ikke ...feil med query
+        public void CreateMaaleskalaView()
+        {//TODO: funker ikke ...feil med query
             var sql = @"Create view MaaleskalaView
                         AS
                         select Maaleskala.Id as MaaleskalaId, op1.Ordinal, op1.Verdi as Maaleskalaverdi, op1.Beskrivelse as Maaleskalabeskrivelse, 
@@ -1156,7 +1187,8 @@ namespace NiN.Infrastructure.Services
             _context.Database.ExecuteSqlRaw(sql);
         }
 
-        public void CreateGrunntypeVariabeltrinnView() {
+        public void CreateGrunntypeVariabeltrinnView()
+        {
             var sql = @"Create view GrunntypeVariabeltrinnView
                         AS
                         select gt.kode as GTkode, vn.Kode as VNkode, ms.MaaleskalaNavn,t.Verdi as Trinnkode 
@@ -1183,6 +1215,24 @@ namespace NiN.Infrastructure.Services
                         LEFT JOIN Hovedtype ht ON htvt.HovedtypeId = ht.Id
                         LEFT JOIN Maaleskala ms ON htvt.MaaleskalaId = ms.Id
                         LEFT JOIN Trinn t ON htvt.TrinnId = t.Id";
+            _context.Database.ExecuteSqlRaw(sql);
+        }
+
+        public void CreateSjekkUnikeHovedklasserView()
+        {
+            var sql = @"Create view SjekkUnikeHovedklasserView
+                        AS
+                        Select 'Type' as klasse , count(distinct(kode)) as unique_count, count(*) as count  from Type
+                        UNION
+                        Select 'Hovedtypegruppe' as klasse , count(distinct(kode)) as unique_count, count(*) as count  from Hovedtypegruppe
+                        UNION
+                        Select 'Hovedtype' as klasse , count(distinct(kode)) as unique_count, count(*) as count  from Hovedtype
+                        UNION
+                        Select 'Grunntype' as klasse , count(distinct(kode)) as unique_count, count(*) as count  from Grunntype
+                        UNION
+                        Select 'Variabel' as klasse , count(distinct(kode)) as unique_count, count(*) as count  from Variabel
+                        UNION
+                        Select 'Variabelnavn' as klasse , count(distinct(kode)) as unique_count, count(*) as count  from Variabelnavn";
             _context.Database.ExecuteSqlRaw(sql);
         }
     }

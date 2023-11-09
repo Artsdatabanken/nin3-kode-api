@@ -112,7 +112,7 @@ namespace NiN3.Infrastructure.Mapping
             var typedto = new TypeDto
             {
                 //Navn = $"{EnumUtil.ToDescription(type.Ecosystnivaa)} {EnumUtil.ToDescription(type.Typekategori)} {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
-                Navn = $"{EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
+                Navn = type.Typekategori2 != null ? EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2) : "",
                 Kategori = "Type",
                 //Ecosystnivaa = $"{type.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(type.Ecosystnivaa)}",
                 EcosystnivaaEnum = type.Ecosystnivaa,
@@ -122,7 +122,6 @@ namespace NiN3.Infrastructure.Mapping
                 Typekategori2Enum = type.Typekategori2,
                 Typekategori2Navn = EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2),
                 Kode = MapKode(type.Kode, type.Langkode)
-                //Langkode = type.Langkode
             };
             //type.Hovedtypegrupper.ToList().ForEach(h => typedto.Hovedtypegrupper.Add(Map(h)));
             var hovedtypegrupperBag = new ConcurrentBag<HovedtypegruppeDto>();
@@ -144,9 +143,8 @@ namespace NiN3.Infrastructure.Mapping
             {
                 Navn = hovedtypegruppe.Navn,
                 Kategori = "Hovedtypegruppe",
-                //Typekategori3 = hovedtypegruppe.Typekategori3 != null ? $"{hovedtypegruppe.Typekategori3.ToString()}: {EnumUtil.ToDescription(hovedtypegruppe.Typekategori3)}" : "",
-                Typekategori3Enum = (Typekategori3Enum)hovedtypegruppe.Typekategori3,
-                Typekategori3Navn = EnumUtil.ToDescription(hovedtypegruppe.Typekategori3),
+                Typekategori3Enum = hovedtypegruppe.Typekategori3,
+                Typekategori3Navn = hovedtypegruppe.Typekategori3 != null ? EnumUtil.ToDescription(hovedtypegruppe.Typekategori3) : null,
                 Kode = MapKode(hovedtypegruppe.Kode, hovedtypegruppe.Langkode)
             };
             // This code uses the Parallel.ForEach method to loop through a list of Hovedtyper and add them to a Hovedtypegruppedto. The Map method is used to map the Hovedtyper to the Hovedtypegruppedto.
@@ -158,7 +156,8 @@ namespace NiN3.Infrastructure.Mapping
             {
                 hovedtypegruppedto.Hovedoekosystemer.Add(Map(hovedoekosystem));
             }
-            foreach (var konvertering in hovedtypegruppe.Konverteringer) {
+            foreach (var konvertering in hovedtypegruppe.Konverteringer)
+            {
                 hovedtypegruppedto.konverteringer.Add(Map(konvertering));
             }
             return hovedtypegruppedto;
@@ -176,7 +175,8 @@ namespace NiN3.Infrastructure.Mapping
             return hovedoekosystemdto;
         }
 
-        public KonverteringDto Map(Konvertering konvertering) {
+        public KonverteringDto Map(Konvertering konvertering)
+        {
             var konverteringDto = new KonverteringDto()
             {
                 Kode = konvertering.Kode,
@@ -206,7 +206,7 @@ namespace NiN3.Infrastructure.Mapping
                 Kode = MapKode(hovedtype.Kode, hovedtype.Langkode),
                 //Prosedyrekategori = $"{hovedtype.Prosedyrekategori.ToString()}: {EnumUtil.ToDescription(hovedtype.Prosedyrekategori)}",
                 ProsedyrekategoriEnum = hovedtype.Prosedyrekategori,
-                ProsedyrekategoriNavn = EnumUtil.ToDescription(hovedtype.Prosedyrekategori),
+                ProsedyrekategoriNavn = hovedtype.Prosedyrekategori != null ? EnumUtil.ToDescription(hovedtype.Prosedyrekategori) : null,
             };
             var grunntyperBag = new ConcurrentBag<GrunntypeDto>();
             Parallel.ForEach(hovedtype.Grunntyper.ToList(), g => grunntyperBag.Add(Map(g)));
@@ -227,8 +227,10 @@ namespace NiN3.Infrastructure.Mapping
             {
                 var variabeltrinnBag = new ConcurrentBag<VariabeltrinnDto>();
                 var trinnIds = new List<int>();
-                foreach (var htvt in hovedtype.HovedtypeVariabeltrinn) {
-                    if (htvt.Trinn != null) {
+                foreach (var htvt in hovedtype.HovedtypeVariabeltrinn)
+                {
+                    if (htvt.Trinn != null)
+                    {
                         trinnIds.Add(htvt.Trinn.Id);
                     }
                 }
@@ -270,7 +272,7 @@ namespace NiN3.Infrastructure.Mapping
                     .GroupBy(vt => vt.Maaleskala.MaaleskalaNavn)
                     .Select(group => group.First())
                     .ToList();
-                foreach(var konv in grunntype.Konverteringer)
+                foreach (var konv in grunntype.Konverteringer)
                 {
                     grunntypedto.Konverteringer.Add(Map(konv));
                 }
@@ -289,8 +291,9 @@ namespace NiN3.Infrastructure.Mapping
         //for each trinn find maaleskala for trinn and add (map)trinndto
 
         public VariabeltrinnDto Map(GrunntypeVariabeltrinn gtVariabeltrinn, List<int> registertTrinnIds = null)
-        { 
-            Variabeltrinn variabeltrinn = new Variabeltrinn() { 
+        {
+            Variabeltrinn variabeltrinn = new Variabeltrinn()
+            {
                 Maaleskala = gtVariabeltrinn.Maaleskala,
                 Variabelnavn = gtVariabeltrinn.Variabelnavn
             };
@@ -308,17 +311,17 @@ namespace NiN3.Infrastructure.Mapping
         }
 
 
-        public VariabeltrinnDto Map(Variabeltrinn variabeltrinn, List<int>registertTrinnIds=null)
+        public VariabeltrinnDto Map(Variabeltrinn variabeltrinn, List<int> registertTrinnIds = null)
         {
             var variabeltrinnDto = new VariabeltrinnDto()
             {
                 Maaleskala = Map(variabeltrinn.Maaleskala, registertTrinnIds)
             };
-            variabeltrinnDto.Variabelnavn = variabeltrinn.Variabelnavn!=null?Map(variabeltrinn.Variabelnavn):null;
+            variabeltrinnDto.Variabelnavn = variabeltrinn.Variabelnavn != null ? Map(variabeltrinn.Variabelnavn) : null;
             return variabeltrinnDto;
         }
 
-        
+
         /*
         public TrinnForType MapForType(Trinn trinn) { 
             var trinnForType = new TrinnForType()
@@ -468,7 +471,8 @@ namespace NiN3.Infrastructure.Mapping
             return variabelnavnDto;
         }
 
-        public MaaleskalaDto Map(Maaleskala maaleskala, List<int> registertTrinnIds=null) {
+        public MaaleskalaDto Map(Maaleskala maaleskala, List<int> registertTrinnIds = null)
+        {
             var MaaleskalaDto = new MaaleskalaDto()
             {
                 MaaleskalaNavn = maaleskala.MaaleskalaNavn,
@@ -484,15 +488,16 @@ namespace NiN3.Infrastructure.Mapping
             return MaaleskalaDto;
         }
 
-        public TrinnDto Map(Trinn trinn, bool registert=false) {
+        public TrinnDto Map(Trinn trinn, bool registert = false)
+        {
             //var verdi = null;
-            var verdi = trinn.Verdi.Contains("_") ? trinn.Verdi.Split("_")[1]:trinn.Verdi;
+            var verdi = trinn.Verdi.Contains("_") ? trinn.Verdi.Split("_")[1] : trinn.Verdi;
             var kode = trinn.Verdi;
             var TrinnDto = new TrinnDto()
             {
                 Beskrivelse = trinn.Beskrivelse,
                 Verdi = verdi,
-                Kode  = kode,
+                Kode = kode,
                 Registert = registert
             };
             return TrinnDto;
@@ -527,7 +532,8 @@ namespace NiN3.Infrastructure.Mapping
         /// </summary>
         /// <param name="langkode"></param>
         /// <returns></returns>
-        public string GetEndpointnameByLangkode(string langkode) {
+        public string GetEndpointnameByLangkode(string langkode)
+        {
             var endpointname = "unknown";
             ArrayList langkodeList = new ArrayList(langkode.Split('-'));
             var trinncount = langkodeList.Count;
@@ -544,10 +550,12 @@ namespace NiN3.Infrastructure.Mapping
                 else if (trinncount == 10 && (langkodeList[4].ToString() == "LV" || langkodeList[4].ToString() == "PE")) { endpointname = "kodeforGrunntype"; }
                 else if (trinncount == 10 && (langkodeList[4].ToString() != "LV" || langkodeList[4].ToString() != "PE")) { endpointname = "kodeforHovedtype"; }
             }
-            else {// langkode is from Variabel tree 
+            else
+            {// langkode is from Variabel tree 
                 endpointname = "kodeForVariabelnavn";
-                 if (trinncount == 5) { 
-                    endpointname = "kodeforVariabel"; 
+                if (trinncount == 5)
+                {
+                    endpointname = "kodeforVariabel";
                 }
             }
             return endpointname;
