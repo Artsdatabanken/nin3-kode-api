@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- test
+- master
 
 pool:
   vmImage: windows-latest
@@ -32,8 +32,8 @@ steps:
   displayName: 'Publish and zip'
   inputs:
     command: publish
-    publishWebProjects: False
-    projects: $(solution)
+    publishWebProjects: true
+    projects: $(solution)\NiN3.WebApi\NiN3.WebApi.csproj
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) --no-restore'
     zipAfterPublish: True
 
