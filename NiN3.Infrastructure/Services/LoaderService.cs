@@ -121,8 +121,13 @@ namespace NiN.Infrastructure.Services
             LoadHovedtypeData();
             LoadGrunntypedata();
             LoadKartleggingsenhet_m005();
+            LoadKartleggingsenhet_M005_Grunntype();
+            LoadKartleggingsenhet_M005_hovedtype();
             LoadKartleggingsenhet_m020();
-            LoadKartleggingsenhet_m050();
+            LoadKartleggingsenhet_M020_Grunntype();
+            LoadKartleggingsenhet_M020_hovedtype();
+            //LoadKartleggingsenhet_m020();
+            //LoadKartleggingsenhet_m050();
             LoadVariabel();
             LoadVariabelnavn();
             LoadMaaleskala();
@@ -358,24 +363,24 @@ namespace NiN.Infrastructure.Services
         /*
         public void LoadKartleggingsenhet_m005()
         {
-            var m005list = CsvdataImporter_m005.ProcessCSV("in_data/m005.csv");
+            var m020list = CsvdataImporter_m005.ProcessCSV("in_data/m020.csv");
             var m005_gtlist = CsvdataImporter_m005_grunntype_mapping.ProcessCSV("in_data/m005_grunntype_mapping.csv");
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
 
             if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).Count() == 0)
             {
-                foreach (var m005 in m005list)
+                foreach (var m020 in m020list)
                 {
                     var hovedtypeList = new List<Hovedtype>();
                     var k = new NiN3.Core.Models.Kartleggingsenhet()
                     {
-                        Langkode = m005.Kode,
-                        Navn = m005.Navn,
-                        Kode = m005.Kortkode,
+                        Langkode = m020.Kode,
+                        Navn = m020.Navn,
+                        Kode = m020.Kortkode,
                         Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M005,
                         Versjon = _versjon
                     };
-                    m005_gtlist.Where(s => s.m005kode == m005.Kode).ToList().ForEach(s =>
+                    m005_gtlist.Where(s => s.m005kode == m020.Kode).ToList().ForEach(s =>
                     {
                         var gt = _context.Grunntype.FirstOrDefault(g => g.Kode == s.Grunntype_kode);
                         if (gt != null)
@@ -389,9 +394,9 @@ namespace NiN.Infrastructure.Services
                         }
                         else
                         {
-                            //logg the m005 kode that has no grunntype mapping  
-                            Console.Write("m005 kode: " + m005.Kode + " has no grunntype mapping");
-                            _logger.Equals("m005 kode: " + m005.Kode + " has no grunntype mapping");
+                            //logg the m020 kode that has no grunntype mapping  
+                            Console.Write("m020 kode: " + m020.Kode + " has no grunntype mapping");
+                            _logger.Equals("m020 kode: " + m020.Kode + " has no grunntype mapping");
                         }
                     });
                     _context.Add(k);
@@ -468,14 +473,125 @@ namespace NiN.Infrastructure.Services
             _context.SaveChanges();
         }
 
-        public void LoadKartleggingsenhet_M005_hovedtype() {
+        public void LoadKartleggingsenhet_M005_hovedtype()
+        {
             var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-            var m005_gtList = CsvdataImporter_m005_grunntype_mapping.ProcessCSV("in_data/m005_grunntype_mapping.csv");
+            //Getting csv with unique combinations of Hovedtype.kortkode and m020.Langkode
+            var m005_gtList = CsvdataImporter_m005_hovedtype_mapping.ProcessCSV("in_data/m005_hovedtype_mapping.csv");
+            var hovedtypeList = _context.Hovedtype.ToList();
+            var m005List = _context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).ToList();
+            //Get a unique list of Hovedtype ids based on 
+            foreach (var kl_ht in m005_gtList)
+            {
+                //get m020
+                var m005 = m005List.FirstOrDefault(m005 => m005.Langkode == kl_ht.m005kode);
+                //get gt.hovedtype
+                var ht = hovedtypeList.FirstOrDefault(ht => ht.Kode == kl_ht.Hovedtype_kode);
+                if (ht != null && m005 != null)
+                {
+                    var kl_ht_obj = new Hovedtype_Kartleggingsenhet()
+                    {
+                        Kartleggingsenhet = m005,
+                        Hovedtype = ht,
+                        Versjon = _versjon
+                    };
+                    _context.Add(kl_ht_obj);
+                }
+                else
+                {
+                    Console.WriteLine($"Cant find both GT:'{kl_ht.Hovedtype_kode}' and KLE: {kl_ht.m005kode}");
+                }
+            }
+            _context.SaveChanges();
+        }
 
+        public void LoadKartleggingsenhet_m020()
+        {
+            Console.Write("Loading M020 kartleggingsenhet");
+            var m020list = CsvdataImporter_m020.ProcessCSV("in_data/m020.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            // If M005 table is empty
+            if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M020).Count() == 0)
+            {
+                foreach (var m020 in m020list)
+                {
+                    var k = new NiN3.Core.Models.Kartleggingsenhet()
+                    {
+                        Langkode = m020.Kode,
+                        Navn = m020.Navn,
+                        Kode = m020.Kortkode,
+                        Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M020,
+                        Versjon = _versjon
+                    };
+                    _context.Add(k);
+                }
+                _context.SaveChanges();
+            }
         }
 
 
-        
+        public void LoadKartleggingsenhet_M020_Grunntype()
+        {
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            var m020list = _context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M020).ToList();
+            var gtList = _context.Grunntype.ToList();
+            var m020_gtList = CsvdataImporter_m020_grunntype_mapping.ProcessCSV("in_data/m020_grunntype_mapping.csv");
+            foreach (var kl_gt in m020_gtList)
+            {
+                var gt = gtList.FirstOrDefault(g => g.Kode == kl_gt.Grunntype_kode);
+                var KLE_m020 = m020list.FirstOrDefault(m020 => m020.Langkode == kl_gt.m020kode);
+                if (gt != null && KLE_m020 != null)
+                {
+                    var kl_gt_obj = new Kartleggingsenhet_Grunntype()
+                    {
+                        Kartleggingsenhet = KLE_m020,
+                        Grunntype = gt,
+                        Versjon = _versjon
+                    };
+                    _context.Add(kl_gt_obj);
+                }
+                else
+                {
+                    Console.WriteLine($"Cant find both GT:'{kl_gt.Grunntype_kode}' and KLE: {kl_gt.m020kode}");
+                }
+            }
+            _context.SaveChanges();
+        }
+
+        public void LoadKartleggingsenhet_M020_hovedtype()
+        {
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            //Getting csv with unique combinations of Hovedtype.kortkode and m020.Langkode
+            var m020_gtList = CsvDataImporter_m020_hovedtype_mapping.ProcessCSV("in_data/m020_hovedtype_mapping.csv");
+            var hovedtypeList = _context.Hovedtype.ToList();
+            var m020List = _context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).ToList();
+            //Get a unique list of Hovedtype ids based on 
+            foreach (var kl_ht in m020_gtList)
+            {
+                //get m020
+                var m005 = m020List.FirstOrDefault(m020 => m020.Langkode == kl_ht.m020kode);
+                //get gt.hovedtype
+                var ht = hovedtypeList.FirstOrDefault(ht => ht.Kode == kl_ht.Hovedtype_kode);
+                if (ht != null && m005 != null)
+                {
+                    var kl_ht_obj = new Hovedtype_Kartleggingsenhet()
+                    {
+                        Kartleggingsenhet = m005,
+                        Hovedtype = ht,
+                        Versjon = _versjon
+                    };
+                    _context.Add(kl_ht_obj);
+                }
+                else
+                {
+                    Console.WriteLine($"Cant find both GT:'{kl_ht.Hovedtype_kode}' and KLE: {kl_ht.m020kode}");
+                }
+            }
+            _context.SaveChanges();
+        }
+
+
+
 
         /// <summary>
         /// Loads hovedtypegruppe-hovedoekosystem data into the database.
@@ -526,6 +642,7 @@ namespace NiN.Infrastructure.Services
             _context.SaveChanges();
         }
 
+        /*
         public void LoadKartleggingsenhet_m020()
         {
             var m020list = CsvdataImporter_m020.ProcessCSV("in_data/m020.csv");
@@ -580,7 +697,63 @@ namespace NiN.Infrastructure.Services
             {
                 _logger.LogInformation("Objecttype <<Type>> already has data!");
             }
-        }
+        }*/
+        /*
+        public void LoadKartleggingsenhet_m050()
+        {
+            var m050list = CsvdataImporter_m050.ProcessCSV("in_data/m050.csv");
+            var m050_gtlist = CsvdataImporter_m050_grunntype_mapping.ProcessCSV("in_data/m050_grunntype_mapping.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+
+            if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M050).Count() == 0)
+            {
+                foreach (var m050 in m050list)
+                {
+                    var hovedtypeList = new List<Hovedtype>();
+                    var k = new NiN3.Core.Models.Kartleggingsenhet()
+                    {
+                        Langkode = m050.Kode,
+                        Navn = m050.Navn,
+                        Kode = m050.Kortkode,
+                        Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M050,
+                        Versjon = _versjon
+                    };
+                    m050_gtlist.Where(s => s.m050kode == m050.Kode).ToList().ForEach(s =>
+                    {
+                        var gt = _context.Grunntype.FirstOrDefault(g => g.Kode == s.Grunntype_kode);
+                        if (gt != null)
+                        {
+                            k.Grunntyper.Add(gt);
+                            hovedtypeList.Add(gt.Hovedtype);
+                        }
+                        else
+                        {
+                            //logg the m050 kode that has no grunntype mapping  
+                            _logger.Equals("m050 kode: " + m050.Kode + " has no grunntype mapping");
+                        }
+                    });
+                    _context.Add(k);
+                    //adding the kartleggingsenhet to the hovedtype
+                    var hovedtypelist_unique = hovedtypeList.Distinct();
+                    foreach (var ht in hovedtypelist_unique)
+                    {
+                        var hovetype_kartleggingsenhet = new Hovedtype_Kartleggingsenhet()
+                        {
+                            Versjon = _versjon,
+                            Hovedtype = ht,
+                            Kartleggingsenhet = k
+
+                        };
+                        _context.Add(hovetype_kartleggingsenhet);
+                    }
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                _logger.LogInformation("Objecttype <<Type>> already has data!");
+            }
+        }*/
 
         //<summary>
         //1.TypeklasseTypeEnum typeklasseType - this is an enumeration value that determines the type of parent. It can be one of the three possible values: T, HTG, or HT.
@@ -693,61 +866,7 @@ namespace NiN.Infrastructure.Services
             }
         }
 
-        public void LoadKartleggingsenhet_m050()
-        {
-            var m050list = CsvdataImporter_m050.ProcessCSV("in_data/m050.csv");
-            var m050_gtlist = CsvdataImporter_m050_grunntype_mapping.ProcessCSV("in_data/m050_grunntype_mapping.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-
-            if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M050).Count() == 0)
-            {
-                foreach (var m050 in m050list)
-                {
-                    var hovedtypeList = new List<Hovedtype>();
-                    var k = new NiN3.Core.Models.Kartleggingsenhet()
-                    {
-                        Langkode = m050.Kode,
-                        Navn = m050.Navn,
-                        Kode = m050.Kortkode,
-                        Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M050,
-                        Versjon = _versjon
-                    };
-                    m050_gtlist.Where(s => s.m050kode == m050.Kode).ToList().ForEach(s =>
-                    {
-                        var gt = _context.Grunntype.FirstOrDefault(g => g.Kode == s.Grunntype_kode);
-                        if (gt != null)
-                        {
-                            k.Grunntyper.Add(gt);
-                            hovedtypeList.Add(gt.Hovedtype);
-                        }
-                        else
-                        {
-                            //logg the m050 kode that has no grunntype mapping  
-                            _logger.Equals("m050 kode: " + m050.Kode + " has no grunntype mapping");
-                        }
-                    });
-                    _context.Add(k);
-                    //adding the kartleggingsenhet to the hovedtype
-                    var hovedtypelist_unique = hovedtypeList.Distinct();
-                    foreach (var ht in hovedtypelist_unique)
-                    {
-                        var hovetype_kartleggingsenhet = new Hovedtype_Kartleggingsenhet()
-                        {
-                            Versjon = _versjon,
-                            Hovedtype = ht,
-                            Kartleggingsenhet = k
-
-                        };
-                        _context.Add(hovetype_kartleggingsenhet);
-                    }
-                }
-                _context.SaveChanges();
-            }
-            else
-            {
-                _logger.LogInformation("Objecttype <<Type>> already has data!");
-            }
-        }
+       
         public List<object> Tabelldata(string tablename)
         {
             throw new NotImplementedException();

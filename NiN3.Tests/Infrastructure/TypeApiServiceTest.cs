@@ -20,7 +20,7 @@ namespace NiN3.Tests.Infrastructure
         private ILogger<TypeApiService> _logger;
         private NiN3DbContext inmemorydb;
 
-        
+
         public TypeApiServiceTest()
         {
             _logger = new Mock<ILogger<TypeApiService>>().Object;
@@ -36,7 +36,8 @@ namespace NiN3.Tests.Infrastructure
             inmemorydb = InMemoryDbContextFactory.GetInMemoryDb(reloadDB);
             var mapper = NiNkodeMapper.Instance;
             mapper.SetConfiguration(CreateConfiguration());
-            if (inmemorydb.Type.Count() == 0) {//if data is not allready loaded 
+            if (inmemorydb.Type.Count() == 0)
+            {//if data is not allready loaded 
                 var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
                 loader.load_all_data();
             }
@@ -58,7 +59,7 @@ namespace NiN3.Tests.Infrastructure
             return context;
         }*/
 
-        
+
         public IConfiguration CreateConfiguration()
         {
             var configuration = new ConfigurationBuilder()
@@ -102,16 +103,18 @@ namespace NiN3.Tests.Infrastructure
 
 
         [Fact]
-        public void TestGetTypeKlasse() {
+        public void TestGetTypeKlasse()
+        {
             TypeApiService service = GetPrepearedTypeApiService();
             var typeklasse = service.GetTypeklasse("A-LV-BM", "3.0");
             Assert.NotNull(typeklasse);
             Assert.Equal("Type", typeklasse.KlasseNavn);
             Assert.Equal(KlasseEnum.T, typeklasse.KlasseEnum);
         }
-        
+
         [Fact]
-        public void TestGetTypeByKortkode() {
+        public void TestGetTypeByKortkode()
+        {
             TypeApiService service = GetPrepearedTypeApiService();
             var type = service.GetTypeByKortkode("A-LV-BM", "3.0");
             Assert.NotNull(type);
@@ -206,7 +209,8 @@ namespace NiN3.Tests.Infrastructure
         }
 
         [Fact]
-        public void TestGetGrunntypeByKodeAndVariabeltrinn() { 
+        public void TestGetGrunntypeByKodeAndVariabeltrinn()
+        {
             TypeApiService service = GetPrepearedTypeApiService();
             var grunntype = service.GetGrunntypeByKortkode("T-E-05-01", "3.0");
             Assert.NotNull(grunntype);
@@ -220,7 +224,8 @@ namespace NiN3.Tests.Infrastructure
         }
 
         [Fact]
-        public void TestGetHovedtypeByKodeAndVariabeltrinn() {
+        public void TestGetHovedtypeByKodeAndVariabeltrinn()
+        {
             //S-C-01
             TypeApiService service = GetPrepearedTypeApiService();
             var hovedtype = service.GetHovedtypeByKortkode("S-C-01", "3.0");
@@ -245,8 +250,19 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(12, htg_T_M_01.Konverteringer.Count());
         }
 
+
         [Fact]
-        public void TestGetGrunntypeByKode_w_konvertering() {
+        public void TestGetHovedtype_CheckKartleggingsenheterFor_O_C_01()
+        {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var htg_0_C_01 = service.GetHovedtypeByKortkode("O-C-01", "3.0");
+            Assert.NotNull(htg_0_C_01);
+            Assert.Equal(4, htg_0_C_01.Kartleggingsenheter.Count());
+        }
+
+        [Fact]
+        public void TestGetGrunntypeByKode_w_konvertering()
+        {
             //M-A-06-19  6 stk
             TypeApiService service = GetPrepearedTypeApiService();
             var gt_M_A_06_19 = service.GetGrunntypeByKortkode("M-A-06-19", "3.0");

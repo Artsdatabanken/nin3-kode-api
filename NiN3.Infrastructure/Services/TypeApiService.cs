@@ -124,7 +124,7 @@ namespace NiN3.Infrastructure.Services
             HovedtypeDto hovedtypeDto= null;
             var hovedtype = _context.Hovedtype.Where(ht => ht.Kode == kode && ht.Versjon.Navn == versjon)
                 .Include(ht => ht.Grunntyper.OrderBy(t => t.Langkode))
-                .Include(ht => ht.Hovedtype_Kartleggingsenheter)
+                .Include(ht => ht.Hovedtype_Kartleggingsenheter)  //NOT WORKING?
                     .ThenInclude(hke => hke.Kartleggingsenhet)
                         .ThenInclude(ke => ke.Grunntyper.OrderBy(t => t.Langkode))
                 .Include(ht => ht.HovedtypeVariabeltrinn)
@@ -137,8 +137,19 @@ namespace NiN3.Infrastructure.Services
                 .Include(ht => ht.Versjon)
                 .AsNoTracking()
                 .FirstOrDefault();
+            //var hovedtype_kartleggingsenheter = _context.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == hovedtype).Distinct().ToList();
+            //hovedtype.Hovedtype_Kartleggingsenheter = hovedtype_kartleggingsenheter;
             if (hovedtype != null) 
             {
+                //get grunntyper for KLE
+                //for each kartleggingsenhet in hovedtype.Hovedtype_Kartleggingsenheter fetch grunntyper from kartleggingsenhet_grunntyper
+                foreach (var hovedtype_kartleggingsenhet in hovedtype.Hovedtype_Kartleggingsenheter)
+                {
+                    hovedtype_kartleggingsenhet.Kartleggingsenhet.Grunntyper = _context.Kartleggingsenhet_Grunntype.Where(kg => kg.Kartleggingsenhet == hovedtype_kartleggingsenhet.Kartleggingsenhet)
+                        .Select(kg => kg.Grunntype).OrderBy(t => t.Langkode)
+                        .AsNoTracking()
+                        .ToList();
+                }
                 hovedtype.Konverteringer = _context.Konvertering.Where(Konvertering =>
                                                              Konvertering.Kode == hovedtype.Kode &&
                                                              Konvertering.Versjon.Id == hovedtype.Versjon.Id)
@@ -193,9 +204,13 @@ namespace NiN3.Infrastructure.Services
         {
             var kartleggingsenhet = _context.Kartleggingsenhet.Where(k => k.Kode == kode && k.Versjon.Navn == versjon)
                 .Include(k => k.Versjon)
-                .Include(kartleggingsenhet => kartleggingsenhet.Grunntyper)
+                //.Include(kartleggingsenhet => kartleggingsenhet.Grunntyper)
                 .AsNoTracking()
                 .FirstOrDefault();
+            kartleggingsenhet.Grunntyper = _context.Kartleggingsenhet_Grunntype.Where(kg=> kg.Kartleggingsenhet == kartleggingsenhet)
+                .Select(kg=> kg.Grunntype)
+                .AsNoTracking()
+                .ToList();
             return kartleggingsenhet != null ? NiNkodeMapper.Instance.Map(kartleggingsenhet) : null;
         }
     }

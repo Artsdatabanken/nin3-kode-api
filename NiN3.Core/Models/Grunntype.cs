@@ -21,7 +21,7 @@ namespace NiN3.Core.Models
         [ForeignKey("HovedtypeId")]
         public Hovedtype Hovedtype { get; set; }
 
-        public Kartleggingsenhet? kartleggingsenhet { get; set; }
+        //public Kartleggingsenhet? kartleggingsenhet { get; set; }
 
         public ICollection<GrunntypeVariabeltrinn> GrunntypeVariabeltrinn { get; set; } = new List<GrunntypeVariabeltrinn>();
 
