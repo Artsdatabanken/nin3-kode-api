@@ -5,6 +5,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum ProsedyrekategoriEnum
     {
+        [Description("")]
+        Default,
         [Description("Normal variasjonsbredde. Variasjon i artssammensetning ikke betinget av strukturerende artsgruppe. Lite endret system.")]
         A,
         [Description("Normal variasjonsbredde. Variasjon i artssammensetning betinget av strukturerende artsgruppe. Lite endret system.")]

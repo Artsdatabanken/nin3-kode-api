@@ -9,6 +9,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum KlasseEnum
     {
+        [Description("")]
+        Default,
         [Description("Type")]
         T,
         [Description("Hovedtypegruppe")]

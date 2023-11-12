@@ -16,16 +16,6 @@ namespace NiN3.Infrastructure.DbContexts
             modelBuilder.Entity<Versjon>()
             .Property(v => v.Id)
             .HasDefaultValueSql("newid()");
-            //modelBuilder.Entity<Versjon>()
-            //    .HasMany(v => v.Typer);
-
-            //modelBuilder.Entity<NiN3.Core.Models.Type>()
-            //    .HasOne(t => t.Versjon);
-            // tell modelbuilder that version has many v.Typer
-
-            //modelBuilder.Entity<Oppslagstype>()
-            //.Property(b => b.Id)
-            //.HasDefaultValueSql("NEWID()");
 
             /********* SEEDING ***********/
 
@@ -37,11 +27,6 @@ namespace NiN3.Infrastructure.DbContexts
         }
 
         // TYPER
-        //  public DbSet<Ecosystnivaa> Ecosystnivaa { get; set; }
-        //public DbSet<Maalestokk> Maalestokk { get; set; }
-        //public DbSet<Typekategori> Typekategori { get; set; }
-        //public DbSet<Typekategori2> Typekategori2 { get; set; }
-        //public DbSet<Prosedyrekategori> Prosedyrekategori { get; set; }
         public DbSet<Versjon> Versjon { get; set; }
         public DbSet<NiN3.Core.Models.Type> Type { get; set; }
         public DbSet<Hovedtypegruppe> Hovedtypegruppe { get; set; }
@@ -49,12 +34,8 @@ namespace NiN3.Infrastructure.DbContexts
         public DbSet<Grunntype> Grunntype { get; set; }
         public DbSet<Kartleggingsenhet> Kartleggingsenhet { get; set; }
         public DbSet<Hovedtype_Kartleggingsenhet> Hovedtype_Kartleggingsenhet { get; set; }
-        //public DbSet<Undertype> Undertype { get; set; }
-
-        //public DbSet<Variabeltype> Variabeltype { get; set;}
-        //public DbSet<Variabelkategori2> Variabelkategori2 { get;set; }
-        //public DbSet<Variabelgruppe> Variabelgruppe { get; set; }   
-
+        public DbSet<Kartleggingsenhet_Grunntype> Kartleggingsenhet_Grunntype { get; set; }
+     
         //VARIABLER
         public DbSet<Variabel> Variabel { get; set; }
         public DbSet<Variabelnavn> Variabelnavn { get; set; }
@@ -74,8 +55,7 @@ namespace NiN3.Infrastructure.DbContexts
 
         /* For rapportservice and convenience */
         public DbSet<AlleKortkoder> AlleKortkoder { get; set; }
-        public DbSet<Enumoppslag> Enumoppslag { get; set;}
-
+        public DbSet<Enumoppslag> Enumoppslag { get; set; }
         //ANDRE
         // ...
 

@@ -4,6 +4,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum EnhetEnum
     {
+        [Description("")]
+        Default,
         [Description("Binær")]
         B,
         [Description("Grader")]

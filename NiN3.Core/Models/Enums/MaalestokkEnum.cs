@@ -5,6 +5,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum MaalestokkEnum
     {
+        [Description("")]
+        Default,
         [Description("Kartleggingsenhet tilpasset 1:5000")]
         M005,
         [Description("Kartleggingsenhet tilpasset 1:10 000")]

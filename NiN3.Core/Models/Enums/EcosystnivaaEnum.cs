@@ -10,6 +10,8 @@ namespace NiN3.Core.Models.Enums
     /// </summary>
     public enum EcosystnivaaEnum
     {
+        [Description("")]
+        Default,
         [EnumMember(Value = "A")]
         [Description("Abiotisk")]
         A,

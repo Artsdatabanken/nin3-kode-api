@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
@@ -32,23 +33,53 @@ namespace NiN3.Core.Models.Enums
                 return default(T);
             }
         }*/
-        
         public static T? ParseEnum<T>(string value) where T : struct
         {
-            //todo-sat: Add logger to this class and logg the error-event to logfile.
             if (TryParseEnum<T>(value, out T result))
             {
-                // The value is valid and the result variable contains the corresponding enumeration value.
-                //return result;
                 return (T)Enum.Parse(typeof(T), value, true);
             }
-            else
-            {
-                // The value is not valid.
-                return null;
+            else {
+                return default(T);
             }
         }
-        public static bool TryParseEnum<T>(string value, out T result) where T : struct
+
+            /*
+            public static T? ParseEnum<T>(string value) where T : struct
+            {
+                //todo-sat: Add logger to this class and logg the error-event to logfile.
+                if (TryParseEnum<T>(value, out T result))
+                {
+                    // The value is valid and the result variable contains the corresponding enumeration value.
+                    //return result;
+                    return (T)Enum.Parse(typeof(T), value, true);
+                }
+                else
+                {
+                    // The value is not valid.
+                    return null;
+                }
+            }*/
+
+
+            /*
+            public static T? ParseEnum<T>(string value) where T : struct
+            {
+                //todo-sat: Add logger to this class and logg the error-event to logfile.
+                if (TryParseEnum<T>(value, out T result))
+                {
+                    // The value is valid and the result variable contains the corresponding enumeration value.
+                    //return result;
+                    return (T)Enum.Parse(typeof(T), value, true);
+                }
+                else
+                {
+                    // The value is not valid.
+                    return null;
+                }
+            }*/
+
+            public static bool TryParseEnum<T>(string value, out T result) where T : struct
         {
             // Get all names of the enum
             var enumNames = Enum.GetNames(typeof(T));

@@ -227,9 +227,11 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("Varig snø", firstKE.Navn);
             Assert.Equal(1278, numOfKE);
             Assert.Equal("NiN-3.0-T-C-PE-NA-MB-IA01-M005-01", firstKE.Langkode);
+            var kl_IA01_M005_01 = inmemorydb.Kartleggingsenhet.Where(x => x.Kode == "IA01-M005-01").FirstOrDefault();
+            var gts_for_IA01_M005_01 = inmemorydb.Grunntype.Where(x => x.kartleggingsenhet == kl_IA01_M005_01).ToList();
+            Assert.NotNull(kl_IA01_M005_01);
         }
-
-        //create test for loadvariabel
+         //create test for loadvariabel
         [Fact]
         public void TestLoadVariabel()
         {

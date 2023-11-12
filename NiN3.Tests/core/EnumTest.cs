@@ -85,9 +85,21 @@ namespace NiN3.Tests.Test.core
         [Fact]
         public void TestParseEnumTypekategori2_WhenValueIs0()
         {
-            var stringToParse = "0";
-            Typekategori2Enum? e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse);
-            Assert.Equal(null, e);
+            var stringToParse_0 = "0";
+            Typekategori2Enum? e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse_0);
+            Assert.Equal(Typekategori2Enum.Default, e);
+            Assert.Equal(EnumUtil.ToDescription(e), "");
+            var stringToParse_dash = "-";
+            Typekategori2Enum? e_dash = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse_0);
+            Assert.Equal(Typekategori2Enum.Default, e_dash);
+            Assert.Equal(EnumUtil.ToDescription(e_dash), "");
+            var stringToParse_blank = "";
+            Typekategori2Enum? e_blank = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse_0);
+            Assert.Equal(Typekategori2Enum.Default, e_blank);
+            Assert.Equal(EnumUtil.ToDescription(e_blank), "");
+            Typekategori2Enum? eNull = EnumUtil.ParseEnum<Typekategori2Enum>(null);
+            Assert.Equal(Typekategori2Enum.Default, eNull);
+            Assert.Equal(EnumUtil.ToDescription(eNull), "");
         }
 
         [Fact]

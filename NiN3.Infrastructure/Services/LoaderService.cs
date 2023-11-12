@@ -134,6 +134,7 @@ namespace NiN.Infrastructure.Services
             LoadKonverteringHovedtypegruppe();
             LoadKonverteringHovedtype();
             LoadKonverteringGrunntype();
+
             // ** Reports ** //
             LoadAlleKortkoder();
             LoadEnumoppslag();
@@ -354,6 +355,7 @@ namespace NiN.Infrastructure.Services
         /// <summary>
         /// Loads data into database for kartleggingsenhet with maalestokk M005
         /// </summary>
+        /*
         public void LoadKartleggingsenhet_m005()
         {
             var m005list = CsvdataImporter_m005.ProcessCSV("in_data/m005.csv");
@@ -378,8 +380,12 @@ namespace NiN.Infrastructure.Services
                         var gt = _context.Grunntype.FirstOrDefault(g => g.Kode == s.Grunntype_kode);
                         if (gt != null)
                         {
+                            gt.kartleggingsenhet = k;
                             k.Grunntyper.Add(gt);
-                            hovedtypeList.Add(gt.Hovedtype);
+                            if (gt.Hovedtype != null) { 
+                                hovedtypeList.Add(gt.Hovedtype);
+                            }
+                            _context.Add(gt);
                         }
                         else
                         {
@@ -409,9 +415,67 @@ namespace NiN.Infrastructure.Services
             {
                 _logger.LogInformation("Objecttype <<Type>> allready has data!");
             }
+        }*/
+
+
+        public void LoadKartleggingsenhet_m005()
+        {
+            Console.Write("Loading M005 kartleggingsenhet");
+            var m005list = CsvdataImporter_m005.ProcessCSV("in_data/m005.csv");
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            // If M005 table is empty
+            if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).Count() == 0)
+            {
+                foreach(var m005 in m005list){
+                    var k = new NiN3.Core.Models.Kartleggingsenhet()
+                    {
+                        Langkode = m005.Kode,
+                        Navn = m005.Navn,
+                        Kode = m005.Kortkode,
+                        Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M005,
+                        Versjon = _versjon
+                    };
+                    _context.Add(k);
+                }
+                _context.SaveChanges();  
+            }
+        }
+
+        public void LoadKartleggingsenhet_M005_Grunntype()
+        {
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            var m005list = _context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).ToList();
+            var gtList = _context.Grunntype.ToList();
+            var m005_gtList = CsvdataImporter_m005_grunntype_mapping.ProcessCSV("in_data/m005_grunntype_mapping.csv");
+            foreach (var kl_gt in m005_gtList) {
+                var gt = gtList.FirstOrDefault(g => g.Kode == kl_gt.Grunntype_kode);
+                var KLE_m005 = m005list.FirstOrDefault(m005 => m005.Langkode == kl_gt.m005kode);
+                if (gt != null && KLE_m005 != null)
+                {
+                    var kl_gt_obj = new Kartleggingsenhet_Grunntype()
+                    {
+                        Kartleggingsenhet = KLE_m005,
+                        Grunntype = gt,
+                        Versjon = _versjon
+                    };
+                    _context.Add(kl_gt_obj);
+                }
+                else {
+                    Console.WriteLine($"Cant find both GT:'{kl_gt.Grunntype_kode}' and KLE: {kl_gt.m005kode}");
+                }
+                //Find M005
+            }
+            _context.SaveChanges();
+        }
+
+        public void LoadKartleggingsenhet_M005_hovedtype() {
+            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
+            var m005_gtList = CsvdataImporter_m005_grunntype_mapping.ProcessCSV("in_data/m005_grunntype_mapping.csv");
+
         }
 
 
+        
 
         /// <summary>
         /// Loads hovedtypegruppe-hovedoekosystem data into the database.
