@@ -265,8 +265,6 @@ namespace NiN3.Tests.Infrastructure
             //Assert count of M005 kartleggingsenheter for hovedtype O-C-01
             var m005_on_htg = htg_0_C_01.Kartleggingsenheter.Where(ke => ke.MaalestokkEnum == MaalestokkEnum.M005).ToList();
             Assert.Equal(4,m005_on_htg.Count());
-
-
         }
 
 
