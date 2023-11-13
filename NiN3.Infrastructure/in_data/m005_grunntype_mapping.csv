@@ -259,9 +259,7 @@ NiN-3.0-T-C-PE-NA-MB-LM03-M005-01;L-M-03-02;;kalkfattig ny fast innsjøbunn med 
 NiN-3.0-T-C-PE-NA-MB-LM03-M005-02;L-M-03-03;kalkrik ny innsjøbunn fra våtmarkssystemer;kalkrik ny innsjø-sedimentbunn med opphav i våtmarkssystemer
 NiN-3.0-T-C-PE-NA-MB-LM03-M005-02;L-M-03-04;;kalkrik ny fast innsjøbunn med opphav i våtmarkssystemer
 NiN-3.0-T-C-PE-NA-MB-LM04-M005-01;L-M-04-01;kalkfattig kronisk fysisk forstyrret innsjøbunn;kalkfattig kronisk fysisk forstyrret innsjø-sedimentbunn
-NiN-3.0-T-C-PE-NA-MB-LM04-M005-01;L-M-04-02;;kalkfattig kronisk fysisk forstyrret fast innsjøbunn
 NiN-3.0-T-C-PE-NA-MB-LM04-M005-02;L-M-04-03;kalkrik kronisk fysisk forstyrret innsjøbunn;kalkrik kronisk fysisk forstyrret innsjø-sedimentbunn
-NiN-3.0-T-C-PE-NA-MB-LM04-M005-02;L-M-04-04;;kalkrik kronisk fysisk forstyrret fast innsjøbunn
 NiN-3.0-T-C-PE-NA-MB-LM04-M005-03;L-M-04-05;reguleringssone i innsjø;reguleringssone i innsjø
 NiN-3.0-T-C-PE-NA-MB-LM05-M005-01;L-M-05-01;kronisk kjemisk påvirket innsjøbunn ;kronisk kjemisk påvirket innsjø-sedimentbunn 
 NiN-3.0-T-C-PE-NA-MB-LM05-M005-01;L-M-05-02;;kronisk kjemisk påvirket fast innsjøbunn 
@@ -461,12 +459,12 @@ NiN-3.0-T-C-PE-NA-MB-TB01-M005-03;T-B-01-03;frisk kalkskog;frisk kalkskog
 NiN-3.0-T-C-PE-NA-MB-TB01-M005-04;T-B-01-04;bærlyngskog;bærlyngskog
 NiN-3.0-T-C-PE-NA-MB-TB01-M005-05;T-B-01-05;bærlyng-lågurtskog;bærlyng-lågurtskog
 NiN-3.0-T-C-PE-NA-MB-TB01-M005-06;T-B-01-06;kalk-bærlyngskog;kalk-bærlyngskog
-NiN-3.0-T-C-PE-NA-MB-TB01-M005-04;T-B-01-07;lyngskog;lyngskog
-NiN-3.0-T-C-PE-NA-MB-TB01-M005-05;T-B-01-08;lyng-lågurtskog;lyng-lågurtskog
-NiN-3.0-T-C-PE-NA-MB-TB01-M005-06;T-B-01-09;kalk-lyngskog;kalk-lyngskog
-NiN-3.0-T-C-PE-NA-MB-TB01-M005-04;T-B-01-10;lavskog;lavskog
-NiN-3.0-T-C-PE-NA-MB-TB01-M005-05;T-B-01-11;lav-lågurtskog;lav-lågurtskog
-NiN-3.0-T-C-PE-NA-MB-TB01-M005-06;T-B-01-12;kalk-lavskog;kalk-lavskog
+NiN-3.0-T-C-PE-NA-MB-TB01-M005-07;T-B-01-07;lyngskog;lyngskog
+NiN-3.0-T-C-PE-NA-MB-TB01-M005-08;T-B-01-08;lyng-lågurtskog;lyng-lågurtskog
+NiN-3.0-T-C-PE-NA-MB-TB01-M005-09;T-B-01-09;kalk-lyngskog;kalk-lyngskog
+NiN-3.0-T-C-PE-NA-MB-TB01-M005-10;T-B-01-10;lavskog;lavskog
+NiN-3.0-T-C-PE-NA-MB-TB01-M005-11;T-B-01-11;lav-lågurtskog;lav-lågurtskog
+NiN-3.0-T-C-PE-NA-MB-TB01-M005-12;T-B-01-12;kalk-lavskog;kalk-lavskog
 NiN-3.0-T-C-PE-NA-MB-TB01-M005-13;T-B-01-13;blåbærfuktskog;blåbærfuktskog
 NiN-3.0-T-C-PE-NA-MB-TB01-M005-14;T-B-01-14;storbregneskog;storbregneskog
 NiN-3.0-T-C-PE-NA-MB-TB01-M005-15;T-B-01-15;høgstaudeskog;høgstaudeskog

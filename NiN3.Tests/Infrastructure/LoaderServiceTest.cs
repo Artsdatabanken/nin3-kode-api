@@ -240,8 +240,15 @@ namespace NiN3.Tests.Infrastructure
             //Fetch number of KLE_M005
             var num005M = inmemorydb.Kartleggingsenhet.Where(x => x.Maalestokk == MaalestokkEnum.M005).Count();
             //Fetch number of KLE_M005 that has GT
-            var num005MGT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x=>x.Kartleggingsenhet).Distinct().Count();
+            var num005MGT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x=>x.Kartleggingsenhet).Distinct().Count();            
+            Assert.Equal(653, num005M);
             Assert.Equal(num005M, num005MGT);
+            var M005_TB01_M005_09 = inmemorydb.Kartleggingsenhet.Where(x => x.Kode == "TB01-M005-09").FirstOrDefault();
+            Assert.NotNull(M005_TB01_M005_09);//Test for #175
+            Assert.Equal(MaalestokkEnum.M005, M005_TB01_M005_09.Maalestokk);
+            var KLE_GT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet == M005_TB01_M005_09).ToList();
+            Assert.Equal(1, KLE_GT.Count());
+
         }
 
         [Fact]
@@ -255,8 +262,8 @@ namespace NiN3.Tests.Infrastructure
             var numHTM005 = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Hovedtype).Distinct().Count();
             //Number of unique Hovedtype
             var numHT = inmemorydb.Hovedtype.Count();
-            Assert.Equal(647, num005M);
-            Assert.Equal(num005M, num005MHT);
+            Assert.Equal(653, num005M);//647 before #175
+            Assert.Equal(647, num005MHT);
             Assert.Equal(123, numHTM005);
             Assert.Equal(421, numHT);
         }
@@ -425,7 +432,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3557, numOfKortkoder);
+            Assert.Equal(3563, numOfKortkoder);//3557 before #175
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);
