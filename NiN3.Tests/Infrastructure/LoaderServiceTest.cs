@@ -264,8 +264,8 @@ namespace NiN3.Tests.Infrastructure
         [Fact]
         public void TestKartleggingsenhet_Hovedtype_O_C_01() {
             var inmemorydb = GetInMemoryDb();
-            var HT_O_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "0-C-01").FirstOrDefault();
-            var HT_O_C_01_Kartleggingsenheter = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == HT_O_C_01).Select(x => x.Kartleggingsenhet).Distinct().ToList();
+            var HT_O_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "O-C-01").FirstOrDefault();
+            var HT_O_C_01_Kartleggingsenheter = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == HT_O_C_01 && x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Kartleggingsenhet).Distinct().ToList();
             Assert.Equal(4, HT_O_C_01_Kartleggingsenheter.Count);
         }
 
@@ -280,6 +280,18 @@ namespace NiN3.Tests.Infrastructure
             var num020MGT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M020).Select(x => x.Kartleggingsenhet).Distinct().Count();
             Assert.Equal(393, num020M);
             Assert.Equal(num020M, num020MGT);
+        }
+
+        [Fact]
+        public void TestKartleggingsenhet_ALL_m050_has_GT()
+        {
+            var inmemorydb = GetInMemoryDb();
+            //Fetch number of KLE_M005
+            var num050M = inmemorydb.Kartleggingsenhet.Where(x => x.Maalestokk == MaalestokkEnum.M050).Count();
+            //Fetch number of KLE_M005 that has GT
+            var num050MGT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M050).Select(x => x.Kartleggingsenhet).Distinct().Count();
+            Assert.Equal(238, num050M);
+            Assert.Equal(num050M, num050MGT);
         }
 
 

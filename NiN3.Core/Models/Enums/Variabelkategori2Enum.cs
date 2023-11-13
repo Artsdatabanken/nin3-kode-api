@@ -4,8 +4,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum Variabelkategori2Enum
     {
-        [Description("")]
-        Default,
+        //[Description("")]
+        //Default,
         [Description("Artssammensetningsdynamikk")]
         AD,
 

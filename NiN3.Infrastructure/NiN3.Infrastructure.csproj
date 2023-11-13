@@ -90,6 +90,9 @@
 	  <None Update="in_data\m050_grunntype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="in_data\m050_hovedtype_mapping.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="in_data\maaleskala_enhet.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

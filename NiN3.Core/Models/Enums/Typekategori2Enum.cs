@@ -5,8 +5,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum Typekategori2Enum
     {
-        [Description("")]
-        Default,
+        //[Description("")]
+        //Default,
         [Description("Bremassiv")]
         BM,
         [Description("Elveløp")]

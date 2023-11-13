@@ -9,8 +9,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum MaaleskalatypeEnum
     {
-        [Description("")]
-        Default,
+        //[Description("")]
+        //Default,
         [Description("Binær")]
         B,
         [Description("Telleskala, observert antall")]

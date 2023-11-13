@@ -33,6 +33,7 @@ namespace NiN3.Core.Models.Enums
                 return default(T);
             }
         }*/
+        /*
         public static T? ParseEnum<T>(string value) where T : struct
         {
             if (TryParseEnum<T>(value, out T result))
@@ -42,9 +43,9 @@ namespace NiN3.Core.Models.Enums
             else {
                 return default(T);
             }
-        }
+        }*/
 
-            /*
+            
             public static T? ParseEnum<T>(string value) where T : struct
             {
                 //todo-sat: Add logger to this class and logg the error-event to logfile.
@@ -59,8 +60,7 @@ namespace NiN3.Core.Models.Enums
                     // The value is not valid.
                     return null;
                 }
-            }*/
-
+            }
 
             /*
             public static T? ParseEnum<T>(string value) where T : struct

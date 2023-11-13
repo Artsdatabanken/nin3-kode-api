@@ -87,19 +87,19 @@ namespace NiN3.Tests.Test.core
         {
             var stringToParse_0 = "0";
             Typekategori2Enum? e = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse_0);
-            Assert.Equal(Typekategori2Enum.Default, e);
-            Assert.Equal(EnumUtil.ToDescription(e), "");
+            Assert.Equal(null, e);
+            Assert.Equal(null, EnumUtil.ToDescription(e));
             var stringToParse_dash = "-";
             Typekategori2Enum? e_dash = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse_0);
-            Assert.Equal(Typekategori2Enum.Default, e_dash);
-            Assert.Equal(EnumUtil.ToDescription(e_dash), "");
+            Assert.Equal(null, e_dash);
+            Assert.Equal(null, EnumUtil.ToDescription(e_dash));
             var stringToParse_blank = "";
             Typekategori2Enum? e_blank = EnumUtil.ParseEnum<Typekategori2Enum>(stringToParse_0);
-            Assert.Equal(Typekategori2Enum.Default, e_blank);
-            Assert.Equal(EnumUtil.ToDescription(e_blank), "");
+            Assert.Equal(null, e_blank);
+            Assert.Equal(null, EnumUtil.ToDescription(e_blank));
             Typekategori2Enum? eNull = EnumUtil.ParseEnum<Typekategori2Enum>(null);
-            Assert.Equal(Typekategori2Enum.Default, eNull);
-            Assert.Equal(EnumUtil.ToDescription(eNull), "");
+            Assert.Equal(null, eNull);
+            Assert.Equal(null, EnumUtil.ToDescription(eNull));
         }
 
         [Fact]

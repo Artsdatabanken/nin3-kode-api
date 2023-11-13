@@ -5,8 +5,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum TypekategoriEnum
     {
-        [Description("")]
-        Default,
+        //[Description("")]
+        //Default,
         [Description("Livsmedium")]
         LI,
         [Description("Landformvariasjon")]

@@ -9,8 +9,8 @@ namespace NiN3.Core.Models.Enums
 {
     public enum VariabelgruppeEnum
     {
-        [Description("")]
-        Default,
+        //[Description("")]
+        //Default,
         [Description("Elveløpsegenskaper")]
         EE,
         [Description("Skogbruksrelaterte egenskaper")]
