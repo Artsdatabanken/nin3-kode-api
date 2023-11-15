@@ -1116,7 +1116,8 @@ namespace NiN.Infrastructure.Services
                     m.MaaleskalaNavn == $"{grunntypeVariabeltrinn.varkode2}-SI");
                 var trinn = _context.Trinn.FirstOrDefault(t => t.Verdi == grunntypeVariabeltrinn.trinn && t.Maaleskala == maaleskala);
                 var variabelnavn = grunntypeVariabeltrinn.variabelnavnKode != null ? _context.Variabelnavn.FirstOrDefault(vn => vn.Kode == grunntypeVariabeltrinn.variabelnavnKode) : null;
-                if (grunntype != null && maaleskala != null && trinn != null)
+                //if (grunntype != null && maaleskala != null && trinn != null)
+                if (grunntype != null && maaleskala != null)
                 {
                     var grunndataVariabeltrinnMapping = new GrunntypeVariabeltrinn()
                     {

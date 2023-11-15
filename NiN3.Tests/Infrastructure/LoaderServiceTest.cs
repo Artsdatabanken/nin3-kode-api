@@ -122,7 +122,7 @@ namespace NiN3.Tests.Infrastructure
             //Get the number of Hovedtypegruppe objects in the InMemoryDb object
             var numOfHGD = inmemorydb.Hovedtypegruppe.Count();
             //Assert that the number of Hovedtypegruppe objects is equal to 71
-            Assert.Equal(71, numOfHGD); 
+            Assert.Equal(70, numOfHGD); // 70 after #174
 
 
             //Testing langkode for Hovedtypegruppe that should have typekategori3 embedded in langkode
