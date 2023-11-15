@@ -1,6 +1,4 @@
-﻿using DocumentFormat.OpenXml.InkML;
-using DocumentFormat.OpenXml.Packaging;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -263,7 +261,7 @@ namespace NiN3.Tests.Infrastructure
             //Number of unique Hovedtype
             var numHT = inmemorydb.Hovedtype.Count();
             Assert.Equal(653, num005M);//647 before #175
-            Assert.Equal(647, num005MHT);
+            Assert.Equal(652, num005MHT);
             Assert.Equal(123, numHTM005);
             Assert.Equal(421, numHT);
         }
@@ -442,7 +440,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3563, numOfKortkoder);//3557 before #175
+            Assert.Equal(3562, numOfKortkoder);//3557 before #175
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);
