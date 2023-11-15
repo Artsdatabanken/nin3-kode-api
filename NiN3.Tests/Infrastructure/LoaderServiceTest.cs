@@ -277,6 +277,16 @@ namespace NiN3.Tests.Infrastructure
         }
 
 
+        //Test HT T-B-01 skal ha 15 KLE_M005
+        [Fact]
+        public void TestKartleggingsenhet_Hovedtype_T_B_01()
+        {
+            var inmemorydb = GetInMemoryDb();
+            var HT_T_B_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "T-B-01").FirstOrDefault();
+            var HT_T_B_01_Kartleggingsenheter = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == HT_T_B_01 && x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Kartleggingsenhet).Distinct().ToList();
+            Assert.Equal(15, HT_T_B_01_Kartleggingsenheter.Count);
+        }
+
         [Fact]
         public void TestKartleggingsenhet_ALL_m020_has_GT()
         {
