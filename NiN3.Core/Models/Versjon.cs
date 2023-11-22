@@ -7,7 +7,7 @@ namespace NiN3.Core.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // added attribute to auto-generate Id
-        public int? Id { get; set; }
+        public int Id { get; set; }
         //public Guid Id { get; set; }
 
         [StringLength(255)]
