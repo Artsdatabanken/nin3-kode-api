@@ -97,7 +97,7 @@ namespace NiN3.Tests.Infrastructure
 
             Assert.Equal("BM-A", hovedtypegruppe_BM_A.Kode.Id);
             Assert.Equal("Bremassiv", hovedtypegruppe_BM_A.Navn);
-            Assert.Equal(null, hovedtypegruppe_BM_A.Typekategori3Navn);
+            Assert.Null(hovedtypegruppe_BM_A.Typekategori3Navn);
             Assert.Equal(9, hovedtypegruppe_BM_A.Hovedtyper.Count);
         }
 

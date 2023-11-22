@@ -94,7 +94,7 @@ namespace NiN3.Core.Models.Enums
             else
             {
                 // The value is not valid.
-                Console.WriteLine($"Warning : Value '{value}' not found, returning null");
+                //Console.WriteLine($"Warning : Value '{value}' not found, returning null");
                 result = default;
                 return false;
             }

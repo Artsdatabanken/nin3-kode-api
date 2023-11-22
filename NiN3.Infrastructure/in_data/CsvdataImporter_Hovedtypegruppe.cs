@@ -12,9 +12,6 @@ namespace NiN3KodeAPI.in_data
         internal static CsvdataImporter_Hovedtypegruppe ParseRow(string row)
         {
             var columns = row.Split(';');
-            if (columns[0] == "0") { 
-                Console.WriteLine("Typekategori2Enum er 0");
-            }
             var csv_htg= new CsvdataImporter_Hovedtypegruppe()
             {
                 Typekategori2 = EnumUtil.ParseEnum<Typekategori2Enum>(columns[0]),

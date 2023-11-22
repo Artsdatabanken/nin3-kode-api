@@ -81,7 +81,8 @@ namespace NiN3.Tests.Infrastructure
             loader.SeedLookupData();
             loader.LoadLookupData();
             loader.LoadHtg_Ht_Gt_Mappings();
-            loader.csvdataImporter_Htg_Ht_Gt_Mappings.Count.Should().Be(1903);
+            loader.csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.Count.Should().Be(431);
+            loader.csvdataImporter_Hovedtype_Grunntype_Mappings.Count.Should().Be(1895);
 
         }
 
@@ -203,7 +204,7 @@ namespace NiN3.Tests.Infrastructure
             // Get the number of Grunntype records
             var numOfGD = inmemorydb.Grunntype.Count();
             // Assert that the number of records is 166
-            Assert.Equal(1403, numOfGD);
+            Assert.Equal(1394, numOfGD);//1394 for now, before exploring uniqueness of GT, was 1403 before #185
             // Get the Grunntype record with the code "M-A-01-05"
             var grunntype = inmemorydb.Grunntype.Where(gt => gt.Kode == "M-A-01-05").FirstOrDefault();
             // Assert that the name of the record is "sukkertareskog"
@@ -269,7 +270,7 @@ namespace NiN3.Tests.Infrastructure
         [Fact]
         public void TestKartleggingsenhet_Hovedtype_O_C_01() {
             var inmemorydb = GetInMemoryDb();
-            var HT_O_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "O-C-01").FirstOrDefault();
+            var HT_O_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NO-C-01").FirstOrDefault();
             var HT_O_C_01_Kartleggingsenheter = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == HT_O_C_01 && x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Kartleggingsenhet).Distinct().ToList();
             Assert.Equal(4, HT_O_C_01_Kartleggingsenheter.Count);
         }

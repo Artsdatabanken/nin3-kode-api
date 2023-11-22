@@ -27,8 +27,11 @@ namespace NiN.Infrastructure.Services
         private readonly ILogger<LoaderService> _logger;
         private readonly NiN3DbContext _context;
         private IConfiguration _conf;
-        public List<CsvdataImporter_htg_ht_gt_mapping> csvdataImporter_Htg_Ht_Gt_Mappings { get; set; }
+        //public List<CsvdataImporter_htg_ht_gt_mapping> csvdataImporter_Htg_Ht_Gt_Mappings { get; set; }//TODO: remove this property after new mapper for HT<>GT
+        public List<CsvdataImporter_hovedtypegruppe_hovedtype_mapping> csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings { get; set; }
+        public List<CsvdataImporter_hovedtype_grunntype_mapping> csvdataImporter_Hovedtype_Grunntype_Mappings { get; set; }   
         public List<CsvdataImporter_Type_Htg_mapping> csvdataImporter_Type_Htg_Mappings { get; set; }
+        string datetime = DateTime.Now.ToString("yyyyMMddHHmmss");
         public List<NiN3.Core.Models.Type> _typer { get; set; }
         private List<Versjon> Domenes;
 
@@ -128,9 +131,7 @@ namespace NiN.Infrastructure.Services
             LoadKartleggingsenhet_M020_hovedtype();
             LoadKartleggingsenhet_M050();
             LoadKartleggingsenhet_M050_Grunntype();
-            LoadKartleggingsenhet_M050_Hovedtype();
-            //LoadKartleggingsenhet_m020();
-            //LoadKartleggingsenhet_M050();
+            //LoadKartleggingsenhet_M050_Hovedtype();//TODO: Skal få ny fil
             LoadVariabel();
             LoadVariabelnavn();
             LoadMaaleskala();
@@ -179,7 +180,9 @@ namespace NiN.Infrastructure.Services
         public void LoadHtg_Ht_Gt_Mappings()
         {
             // Create an instance of the CsvdataImporter_htg_ht_gt_mapping class
-            csvdataImporter_Htg_Ht_Gt_Mappings = CsvdataImporter_htg_ht_gt_mapping.ProcessCSV("in_data/htg_ht_gt_mapping.csv");
+            //csvdataImporter_Htg_Ht_Gt_Mappings = CsvdataImporter_htg_ht_gt_mapping.ProcessCSV("in_data/htg_ht_gt_mapping.csv");
+            csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings = CsvdataImporter_hovedtypegruppe_hovedtype_mapping.ProcessCSV("in_data/hovedtypegruppe_hovedtype_mapping.csv");
+            csvdataImporter_Hovedtype_Grunntype_Mappings = CsvdataImporter_hovedtype_grunntype_mapping.ProcessCSV("in_data/hovedtype_grunntype_mapping.csv");
             // Log a message to indicate that the Htg_Ht_Gt_Mapping has been loaded
             //_logger.LogInformation("Htg_Ht_Gt_Mapping lastet");
         }
@@ -280,8 +283,8 @@ namespace NiN.Infrastructure.Services
                 foreach (var ht in hovedtyper)
                 {
                     var psk = ht.Prosedyrekategori;
-                    var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Hovedtype_kode == ht.Kode); // finn hovedtypegruppe koden gitt hovedtypekode fra mapping/relasjonstabell.
-                    var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
+                    var htg_ht = csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.FirstOrDefault(s => s.Hovedtype_kode == ht.Kode); // finn hovedtypegruppe koden gitt hovedtypekode fra mapping HTG<>HT
+                    var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht.Hovedtypegruppe_kode);
                     //fetching type-parent for hovedtype via hovedtypegruppe
                     NiN3.Core.Models.Type? type = _context.Type.FirstOrDefault(s => s.Kode == hovedtypegruppe.Type.Kode);
                     //var langkode_grunntype = Langkoder_typeklasser.FirstOrDefault(s => s.kode_hovedtype == ht.Kode);
@@ -322,26 +325,34 @@ namespace NiN.Infrastructure.Services
                 foreach (var gt in grunntyper)
                 {
 
-                    var htg_ht_gt = csvdataImporter_Htg_Ht_Gt_Mappings.FirstOrDefault(s => s.Grunntype_kode == gt.Kode);
-                    var hovedtype = _context.Hovedtype.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtype_kode);
-                    var hovedtypegruppe = _context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);
-                    //var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht_gt.Hovedtypegruppe_kode);//htg_ht_gt.Hove
-                    var grunntype = new Grunntype()
+                    var ht_gt = csvdataImporter_Hovedtype_Grunntype_Mappings.FirstOrDefault(s => s.Grunntype_kode == gt.Kode); 
+                    var hovedtype = ht_gt!=null?_context.Hovedtype.FirstOrDefault(s => s.Kode == ht_gt.Hovedtype_kode):null;                    
+                    var hovedtypegruppe = hovedtype!=null?_context.Hovedtypegruppe.FirstOrDefault(s => s.Kode == hovedtype.Hovedtypegruppe.Kode):null;
+                    //var hovedtypegruppe = _context.hovedtypegruppe.FirstOrDefault(s => s.Kode == htg_ht.Hovedtypegruppe_kode);//htg_ht.Hove
+                    if (ht_gt != null && hovedtype != null && hovedtypegruppe != null)
                     {
-                        /* Id = Guid.NewGuid(), */
-                        Kode = gt.Kode,
-                        //Langkode = gt.Langkode,
-                        Navn = gt.Grunntypenavn,
-                        Versjon = domene,
-                        Delkode = gt.Grunntype,
-                        //Hovedtypegruppe = hovedtypegruppe,
-                        Hovedtype = hovedtype,
-                        Prosedyrekategori = gt.Prosedyrekategori
-                    };
-                    //bygger riktig langkode for grunntype
-                    NiN3.Core.Models.Type? type = _context.Type.FirstOrDefault(s => s.Kode == hovedtypegruppe.Type.Kode);
-                    grunntype.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.GT, grunntype.Kode, type, grunntype);
-                    _context.Add(grunntype);
+                        var grunntype = new Grunntype()
+                        {
+                            /* Id = Guid.NewGuid(), */
+                            Kode = gt.Kode,
+                            //Langkode = gt.Langkode,
+                            Navn = gt.Grunntypenavn,
+                            Versjon = domene,
+                            Delkode = gt.Grunntype,
+                            //Hovedtypegruppe = hovedtypegruppe,
+                            Hovedtype = hovedtype,
+                            Prosedyrekategori = gt.Prosedyrekategori
+                        };
+                        //bygger riktig langkode for grunntype
+                        NiN3.Core.Models.Type? type = _context.Type.FirstOrDefault(s => s.Kode == hovedtypegruppe.Type.Kode);
+                        grunntype.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.GT, grunntype.Kode, type, grunntype);
+                        _context.Add(grunntype);
+                    }
+                    else {
+                        var htkode = hovedtype != null ? hovedtype.Kode : "";
+                        var htgkode = hovedtypegruppe != null ? hovedtypegruppe.Kode : "";
+                        WriteToFile($"Grunntype: Relations missing; grunntype:{gt.Kode}, hovedtype:{htkode}, hovedtypegruppe: {htgkode}, grunntype not added!");
+                    }
                 }
                 _context.SaveChanges();
             }
@@ -469,7 +480,7 @@ namespace NiN.Infrastructure.Services
                     _context.Add(kl_gt_obj);
                 }
                 else {
-                    Console.WriteLine($"Cant find both GT:'{kl_gt.Grunntype_kode}' and KLE: {kl_gt.m005kode}");
+                    WriteToFile($"Cant find both GT:'{kl_gt.Grunntype_kode}' and KLE: {kl_gt.m005kode}");
                 }
                 //Find M005
             }
@@ -502,7 +513,7 @@ namespace NiN.Infrastructure.Services
                 }
                 else
                 {
-                    Console.WriteLine($"Cant find both GT:'{kl_ht.Hovedtype_kode}' and KLE: {kl_ht.m005kode}");
+                    WriteToFile($"Cant find both HT:'{kl_ht.Hovedtype_kode}' and KLE(M005): {kl_ht.m005kode}");
                 }
             }
             _context.SaveChanges();
@@ -555,7 +566,7 @@ namespace NiN.Infrastructure.Services
                 }
                 else
                 {
-                    Console.WriteLine($"Cant find both GT:'{kl_gt.Grunntype_kode}' and KLE: {kl_gt.m020kode}");
+                    WriteToFile($"Cant find both GT:'{kl_gt.Grunntype_kode}' and KLE(M020): {kl_gt.m020kode}");
                 }
             }
             _context.SaveChanges();
@@ -572,14 +583,14 @@ namespace NiN.Infrastructure.Services
             foreach (var kl_ht in m020_gtList)
             {
                 //get m050
-                var m005 = m020List.FirstOrDefault(m020 => m020.Langkode == kl_ht.m020kode);
+                var m020 = m020List.FirstOrDefault(m020 => m020.Langkode == kl_ht.m020kode);
                 //get gt.hovedtype
                 var ht = hovedtypeList.FirstOrDefault(ht => ht.Kode == kl_ht.Hovedtype_kode);
-                if (ht != null && m005 != null)
+                if (ht != null && m020 != null)
                 {
                     var kl_ht_obj = new Hovedtype_Kartleggingsenhet()
                     {
-                        Kartleggingsenhet = m005,
+                        Kartleggingsenhet = m020,
                         Hovedtype = ht,
                         Versjon = _versjon
                     };
@@ -587,7 +598,7 @@ namespace NiN.Infrastructure.Services
                 }
                 else
                 {
-                    Console.WriteLine($"Cant find both GT:'{kl_ht.Hovedtype_kode}' and KLE: {kl_ht.m020kode}");
+                    WriteToFile($"Cant find both HT:'{kl_ht.Hovedtype_kode}' and KLE (M020): {kl_ht.m020kode}");
                 }
             }
             _context.SaveChanges();
@@ -639,7 +650,7 @@ namespace NiN.Infrastructure.Services
                 }
                 else
                 {
-                    Console.WriteLine($"Cant find both GT:'{kl_gt.Grunntype_kode}' and KLE: {kl_gt.m050kode}");
+                    WriteToFile($"Cant find both GT:'{kl_gt.Grunntype_kode}' and KLE (M050): {kl_gt.m050kode}");
                 }
             }
             _context.SaveChanges();
@@ -671,7 +682,7 @@ namespace NiN.Infrastructure.Services
                 }
                 else
                 {
-                    Console.WriteLine($"Cant find both GT:'{kl_ht.Hovedtype_kode}' and KLE: {kl_ht.m050kode}");
+                    WriteToFile($"Cant find both HT:'{kl_ht.Hovedtype_kode}' and KLE (M050): {kl_ht.m050kode}");
                 }
             }
             _context.SaveChanges();
@@ -1047,10 +1058,10 @@ namespace NiN.Infrastructure.Services
             foreach (var t in trinnList)
             {
                 var maaleskala = MaaleskalaList.Where(m => m.MaaleskalaNavn == t.Maaleskalanavn).FirstOrDefault();
-                if (t.Maaleskalanavn == "B")
+/*                if (t.Maaleskalanavn == "B")
                 {
-                    Console.WriteLine($"{t.Trinn}:{t.Trinnverdi}");
-                }
+                    WriteToFile($"{t.Trinn}:{t.Trinnverdi}");
+                }*/
                 //if (!TrinnsAdded.Contains(t.Trinn)) {
 
                 var trinn = new Trinn()
@@ -1067,7 +1078,7 @@ namespace NiN.Infrastructure.Services
                 }
                 else
                 {
-                    Console.WriteLine(t.Maaleskalanavn + " not found" + $"trinn was {t.Trinn}: {t.Trinnverdi}");
+                    Console.WriteLine(t.Maaleskalanavn + " not found " + $"trinn was {t.Trinn}: {t.Trinnverdi}");
                 }
                 //}
                 _context.SaveChanges();
@@ -1503,6 +1514,46 @@ namespace NiN.Infrastructure.Services
                         UNION
                         Select 'Variabelnavn' as klasse , count(distinct(kode)) as unique_count, count(*) as count  from Variabelnavn";
             _context.Database.ExecuteSqlRaw(sql);
+        }
+
+        public void CreateHovedtypeKleView() {
+            var sql = @"Create view HovedtypeKleView
+                        select H.Kode as HTKode, K.Kode as KLKode, E.Verdi as Maalestokk
+                        from Hovedtype_Kartleggingsenhet hk,
+                             Hovedtype H,
+                             Kartleggingsenhet K,
+                             Enumoppslag E
+                        Where KartleggingsenhetId = K.Id AND HovedtypeId = H.Id
+                             and E.Ordinal = K.Maalestokk and E.Enumtype = 'MaalestokkEnum'
+                             Order by HTKode, K.Maalestokk";
+            _context.Database.ExecuteSqlRaw(sql);
+        }
+
+        //function that receives string and writes to file on C:\temp
+        public void WriteToFile(string text)
+        {
+            Console.WriteLine(text);
+            //getstring from current datetime in format yyyyMMddHHmmss
+            //string datetime = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string path = @"C:\temp\nin3LoaderLogg_"+datetime+".log";
+            // This text is added only once to the file.
+            if (!File.Exists(path))
+            {
+                // Create a file to write to.
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.WriteLine(text);
+                }
+            }
+            else
+            {
+                // This text is always added, making the file longer over time
+                // if it is not deleted.
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine(text);
+                }
+            }   
         }
     }
 }
