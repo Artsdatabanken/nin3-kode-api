@@ -5,20 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using NiN3KodeAPI.in_data;
-using Newtonsoft.Json;
 using NiN3.Infrastructure.Services;
 using NiN3.Infrastructure.DbContexts;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Xml;
-using System;
 using NiN3.Core.Models.Enums;
-using System.Reflection.Metadata;
 using System.Text;
-using System.ComponentModel;
-using System.Reflection;
-using Newtonsoft.Json.Linq;
-using NiN3.Core;
-using Newtonsoft.Json.Bson;
 
 namespace NiN.Infrastructure.Services
 {
@@ -33,7 +23,18 @@ namespace NiN.Infrastructure.Services
         public List<CsvdataImporter_Type_Htg_mapping> csvdataImporter_Type_Htg_Mappings { get; set; }
         string datetime = DateTime.Now.ToString("yyyyMMddHHmmss");
         public List<NiN3.Core.Models.Type> _typer { get; set; }
-        private List<Versjon> Domenes;
+
+        private Versjon? _versjon;
+
+        private Versjon Versjon
+        {
+            get
+            {
+                if (_versjon != null) return _versjon;
+                _versjon = _context.Versjon.Single(s => s.Navn == "3.0"); // denne kan og gjøres konfigurerbar - var en kommentar om det lengre nede
+                return _versjon;
+            }
+        }
 
         private List<CsvDataImporter_typeklasser_langkode> Langkoder_typeklasser;
         //private string AdminToken;
@@ -89,7 +90,6 @@ namespace NiN.Infrastructure.Services
         //public bool OpprettInitDbAsync()
         public bool OpprettInitDb()
         {
-            LoadLookupData();
             LoadType_HTG_Mappings();
             LoadHtg_Ht_Gt_Mappings();
             try
@@ -115,7 +115,6 @@ namespace NiN.Infrastructure.Services
         public void load_all_data()
         {
             SeedLookupData();
-            LoadLookupData();
             LoadTypeData();
             LoadType_HTG_Mappings();
             LoadHovedtypeGruppeData();
@@ -154,11 +153,6 @@ namespace NiN.Infrastructure.Services
             CreateGrunntypeVariabeltrinnView();
             CreateHovedtypeVariabeltrinnView();
             CreateSjekkUnikeHovedklasserView();
-        }
-
-        public void LoadLookupData()
-        {
-            Domenes = _context.Versjon.ToList();
         }
 
         // Rewritten code with comments
@@ -206,7 +200,6 @@ namespace NiN.Infrastructure.Services
             if (_context.Type.Count() == 0)
             {
                 var typer = CsvdataImporter_Type.ProcessCSV("in_data/type.csv");
-                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
                 foreach (var type in typer)
                 {
                     //var langkodeForType 
@@ -218,7 +211,7 @@ namespace NiN.Infrastructure.Services
                         Ecosystnivaa = type.Ecosystnivaa,
                         Typekategori = type.Typekategori,
                         Typekategori2 = type.Typekategori2,
-                        Versjon = domene
+                        Versjon = Versjon
                     };
                     t.Langkode = LangkodeForTypeObject(TypeklasseTypeEnum.T, type.Kode, t);
                     _context.Add(t);
@@ -243,7 +236,7 @@ namespace NiN.Infrastructure.Services
             if (_context.Hovedtypegruppe.Count() == 0)
             {
                 var hovedtypegrupper = CsvdataImporter_Hovedtypegruppe.ProcessCSV("in_data/hovedtypegrupper.csv");
-                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                var domene = Versjon;// todo-sat: get this from config or even better, get from request parameter -value.
                 foreach (var htg in hovedtypegrupper)
                 {
                     var typeKode = csvdataImporter_Type_Htg_Mappings.Where(x => x.Hovedtypegruppe_kode == htg.Kode).Select(x => x.Type_kode).FirstOrDefault();
@@ -279,7 +272,7 @@ namespace NiN.Infrastructure.Services
             if (_context.Hovedtype.Count() == 0)
             {
                 var hovedtyper = CsvdataImporter_Hovedtype.ProcessCSV("in_data/hovedtype.csv");
-                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                var domene = Versjon;// todo-sat: get this from config or even better, get from request parameter -value.
                 foreach (var ht in hovedtyper)
                 {
                     var psk = ht.Prosedyrekategori;
@@ -321,7 +314,7 @@ namespace NiN.Infrastructure.Services
             {
                 //todo-sat: do impl. 
                 var grunntyper = CsvdataImporter_Grunntype.ProcessCSV("in_data/grunntyper.csv");
-                var domene = Domenes.FirstOrDefault(s => s.Navn == "3.0");// todo-sat: get this from config or even better, get from request parameter -value.
+                var domene = Versjon;// todo-sat: get this from config or even better, get from request parameter -value.
                 foreach (var gt in grunntyper)
                 {
 
@@ -441,7 +434,6 @@ namespace NiN.Infrastructure.Services
         {
             Console.Write("Loading M005 kartleggingsenhet");
             var m005list = CsvdataImporter_m005.ProcessCSV("in_data/m005.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             // If M005 table is empty
             if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).Count() == 0)
             {
@@ -452,7 +444,7 @@ namespace NiN.Infrastructure.Services
                         Navn = m005.Navn,
                         Kode = m005.Kortkode,
                         Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M005,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(k);
                 }
@@ -462,7 +454,6 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKartleggingsenhet_M005_Grunntype()
         {
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             var m005list = _context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).ToList();
             var gtList = _context.Grunntype.ToList();
             var m005_gtList = CsvdataImporter_m005_grunntype_mapping.ProcessCSV("in_data/m005_grunntype_mapping.csv");
@@ -475,7 +466,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kartleggingsenhet = KLE_m005,
                         Grunntype = gt,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(kl_gt_obj);
                 }
@@ -489,7 +480,6 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKartleggingsenhet_M005_hovedtype()
         {
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             //Getting csv with unique combinations of Hovedtype.kortkode and m050.Langkode
             var m005_gtList = CsvdataImporter_m005_hovedtype_mapping.ProcessCSV("in_data/m005_hovedtype_mapping.csv");
             var hovedtypeList = _context.Hovedtype.ToList();
@@ -507,7 +497,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kartleggingsenhet = m005,
                         Hovedtype = ht,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(kl_ht_obj);
                 }
@@ -523,7 +513,6 @@ namespace NiN.Infrastructure.Services
         {
             Console.Write("Loading M020 kartleggingsenhet");
             var m020list = CsvdataImporter_m020.ProcessCSV("in_data/m020.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             // If M005 table is empty
             if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M020).Count() == 0)
             {
@@ -535,7 +524,7 @@ namespace NiN.Infrastructure.Services
                         Navn = m020.Navn,
                         Kode = m020.Kortkode,
                         Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M020,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(k);
                 }
@@ -546,7 +535,6 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKartleggingsenhet_M020_Grunntype()
         {
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             var m020list = _context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M020).ToList();
             var gtList = _context.Grunntype.ToList();
             var m020_gtList = CsvdataImporter_m020_grunntype_mapping.ProcessCSV("in_data/m020_grunntype_mapping.csv");
@@ -560,7 +548,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kartleggingsenhet = KLE_m020,
                         Grunntype = gt,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(kl_gt_obj);
                 }
@@ -574,7 +562,6 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKartleggingsenhet_M020_hovedtype()
         {
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             //Getting csv with unique combinations of Hovedtype.kortkode and m050.Langkode
             var m020_gtList = CsvDataImporter_m020_hovedtype_mapping.ProcessCSV("in_data/m020_hovedtype_mapping.csv");
             var hovedtypeList = _context.Hovedtype.ToList();
@@ -592,7 +579,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kartleggingsenhet = m020,
                         Hovedtype = ht,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(kl_ht_obj);
                 }
@@ -608,7 +595,6 @@ namespace NiN.Infrastructure.Services
         {
             Console.Write("Loading M050 kartleggingsenhet");
             var m050list = CsvdataImporter_m050.ProcessCSV("in_data/m050.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M050).Count() == 0)
             {
                 foreach (var m050 in m050list)
@@ -619,7 +605,7 @@ namespace NiN.Infrastructure.Services
                         Navn = m050.Navn,
                         Kode = m050.Kortkode,
                         Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M050,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(k);
                 }
@@ -630,7 +616,6 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKartleggingsenhet_M050_Grunntype()
         {
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             var m050list = _context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M050).ToList();
             var gtList = _context.Grunntype.ToList();
             var m050_gtList = CsvdataImporter_m050_grunntype_mapping.ProcessCSV("in_data/m050_grunntype_mapping.csv");
@@ -644,7 +629,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kartleggingsenhet = KLE_m050,
                         Grunntype = gt,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(kl_gt_obj);
                 }
@@ -658,7 +643,6 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKartleggingsenhet_M050_Hovedtype()
         {
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             //Getting csv with unique combinations of Hovedtype.kortkode and m050.Langkode
             var m050_gtList = CsvdataImporter_m050_hovedtype_mapping.ProcessCSV("in_data/m050_hovedtype_mapping.csv");
             var hovedtypeList = _context.Hovedtype.ToList();
@@ -676,7 +660,7 @@ namespace NiN.Infrastructure.Services
                     {
                         Kartleggingsenhet = m050,
                         Hovedtype = ht,
-                        Versjon = _versjon
+                        Versjon = this.Versjon
                     };
                     _context.Add(kl_ht_obj);
                 }
@@ -974,7 +958,6 @@ namespace NiN.Infrastructure.Services
         {
             //parse csv file
             var variabelList = CsvDataImporter_Variabel.ProcessCSV("in_data/variabel.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             var loadedVariabels = new List<Variabel>();
 
             //load variabel data to model class
@@ -989,7 +972,7 @@ namespace NiN.Infrastructure.Services
                     Variabelkategori = v.Variabelkategori, // No semicolon here
                     //Langkode = LangkodeForTypeObject(VariabelklasseTypeEnum.V, v.Kode),
                     Navn = _navn,
-                    Versjon = _versjon
+                    Versjon = this.Versjon
                 };
                 variabel.Langkode = LangkodeForVariabelType(VariabelklasseTypeEnum.V, variabel);
                 _context.Add(variabel);
@@ -1004,7 +987,6 @@ namespace NiN.Infrastructure.Services
         {
             //parse csv file
             var variabelList = CsvdataImporter_Variabelnavn.ProcessCSV("in_data/variabelnavn_variabel_mapping.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             var loadedVariabelnavn = new List<Variabelnavn>();
             var parents = _context.Variabel.ToList();
             //load variabel data to model class
@@ -1015,7 +997,7 @@ namespace NiN.Infrastructure.Services
                 {
                     Kode = v.Kode,
                     Navn = v.Navn,
-                    Versjon = _versjon,
+                    Versjon = this.Versjon,
                     Variabelkategori2 = v.Variabelkategori2, // No semicolon here
                     Variabeltype = v.Variabeltype,
                     Variabelgruppe = v.Variabelgruppe,
@@ -1033,7 +1015,6 @@ namespace NiN.Infrastructure.Services
         public void LoadMaaleskala()
         {
             var MaaleskalaList = CsvdataImporter_maaleskala_enhet.ProcessCSV("in_data/maaleskala_enhet.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             foreach (var m in MaaleskalaList)
             {
                 var maaleskala = new Maaleskala()
@@ -1052,7 +1033,6 @@ namespace NiN.Infrastructure.Services
             //TODO: change lookup on maaleskala with maaleskalanavn instead of enum
             //Loop csvdata and add trinn to trinn-class/db
             var trinnList = CsvDataImporter_MaaleskalaTrinn.ProcessCSV("in_data/maaleskala_trinn.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             List<Maaleskala> MaaleskalaList = _context.Maaleskala.ToList();
             List<string> TrinnsAdded = new List<string>();
             foreach (var t in trinnList)
@@ -1303,14 +1283,13 @@ namespace NiN.Infrastructure.Services
         public void LoadAlleKortkoder()
         {
             // load kortkoder from type
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             foreach (var t in _context.Type.ToList())
             {
                 var kortkode = new AlleKortkoder()
                 {
                     Kortkode = t.Kode,
                     TypeKlasseEnum = KlasseEnum.T,
-                    Versjon = _versjon
+                    Versjon = this.Versjon
                 };
                 _context.Add(kortkode);
             }
@@ -1320,7 +1299,7 @@ namespace NiN.Infrastructure.Services
                 {
                     Kortkode = htg.Kode,
                     TypeKlasseEnum = KlasseEnum.HTG,
-                    Versjon = _versjon
+                    Versjon = this.Versjon
                 };
                 _context.Add(kortkode);
             }
@@ -1330,7 +1309,7 @@ namespace NiN.Infrastructure.Services
                 {
                     Kortkode = ht.Kode,
                     TypeKlasseEnum = KlasseEnum.HT,
-                    Versjon = _versjon
+                    Versjon = this.Versjon
                 };
                 _context.Add(kortkode);
             }
@@ -1340,7 +1319,7 @@ namespace NiN.Infrastructure.Services
                 {
                     Kortkode = gt.Kode,
                     TypeKlasseEnum = KlasseEnum.GT,
-                    Versjon = _versjon
+                    Versjon = this.Versjon
                 };
                 _context.Add(kortkode);
             }
@@ -1350,7 +1329,7 @@ namespace NiN.Infrastructure.Services
                 {
                     Kortkode = ke.Kode,
                     TypeKlasseEnum = KlasseEnum.KE,
-                    Versjon = _versjon
+                    Versjon = this.Versjon
                 };
                 _context.Add(kortkode);
             }
@@ -1360,7 +1339,7 @@ namespace NiN.Infrastructure.Services
                 {
                     Kortkode = v.Kode,
                     TypeKlasseEnum = KlasseEnum.V,
-                    Versjon = _versjon
+                    Versjon = this.Versjon
                 };
                 _context.Add(kortkode);
             }
@@ -1370,7 +1349,7 @@ namespace NiN.Infrastructure.Services
                 {
                     Kortkode = vn.Kode,
                     TypeKlasseEnum = KlasseEnum.VN,
-                    Versjon = _versjon
+                    Versjon = this.Versjon
                 };
                 _context.Add(kortkode);
             }
@@ -1384,62 +1363,61 @@ namespace NiN.Infrastructure.Services
 
         public void LoadEnumoppslag()
         {
-            var versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
             foreach (EcosystnivaaEnum value in Enum.GetValues(typeof(EcosystnivaaEnum)))
             {
-                _context.Add(MakeEnumoppslag("EcosysnivaaEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("EcosysnivaaEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (EnhetEnum value in Enum.GetValues(typeof(EnhetEnum)))
             {
-                _context.Add(MakeEnumoppslag("EnhetEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("EnhetEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (HovedoekosystemEnum value in Enum.GetValues(typeof(HovedoekosystemEnum)))
             {
-                _context.Add(MakeEnumoppslag("HovedoekosystemEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("HovedoekosystemEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (KlasseEnum value in Enum.GetValues(typeof(KlasseEnum)))
             {
-                _context.Add(MakeEnumoppslag("KlasseEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("KlasseEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (MaaleskalatypeEnum value in Enum.GetValues(typeof(MaaleskalatypeEnum)))
             {
-                _context.Add(MakeEnumoppslag("MaaleskalatypeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("MaaleskalatypeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (MaalestokkEnum value in Enum.GetValues(typeof(MaalestokkEnum)))
             {
-                _context.Add(MakeEnumoppslag("MaalestokkEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("MaalestokkEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (ProsedyrekategoriEnum value in Enum.GetValues(typeof(ProsedyrekategoriEnum)))
             {
-                _context.Add(MakeEnumoppslag("ProsedyrekategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("ProsedyrekategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (TypekategoriEnum value in Enum.GetValues(typeof(TypekategoriEnum)))
             {
-                _context.Add(MakeEnumoppslag("TypekategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("TypekategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (Typekategori2Enum value in Enum.GetValues(typeof(Typekategori2Enum)))
             {
-                _context.Add(MakeEnumoppslag("Typekategori2Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("Typekategori2Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (Typekategori3Enum value in Enum.GetValues(typeof(Typekategori3Enum)))
             {
-                _context.Add(MakeEnumoppslag("Typekategori3Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("Typekategori3Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (VariabelgruppeEnum value in Enum.GetValues(typeof(VariabelgruppeEnum)))
             {
-                _context.Add(MakeEnumoppslag("VariabelgruppeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("VariabelgruppeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (VariabelkategoriEnum value in Enum.GetValues(typeof(VariabelkategoriEnum)))
             {
-                _context.Add(MakeEnumoppslag("VariabelkategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("VariabelkategoriEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (Variabelkategori2Enum value in Enum.GetValues(typeof(Variabelkategori2Enum)))
             {
-                _context.Add(MakeEnumoppslag("Variabelkategori2Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("Variabelkategori2Enum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             foreach (VariabeltypeEnum value in Enum.GetValues(typeof(VariabeltypeEnum)))
             {
-                _context.Add(MakeEnumoppslag("VariabeltypeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), versjon));
+                _context.Add(MakeEnumoppslag("VariabeltypeEnum", (int)value, value.ToString(), EnumUtil.ToDescription(value), Versjon));
             }
             _context.SaveChanges();
         }
