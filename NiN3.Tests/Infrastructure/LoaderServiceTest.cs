@@ -79,7 +79,6 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = InMemoryDbContextFactory.GetInMemoryDb();
             var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
             loader.SeedLookupData();
-            loader.LoadLookupData();
             loader.LoadHtg_Ht_Gt_Mappings();
             loader.csvdataImporter_Htg_Ht_Gt_Mappings.Count.Should().Be(1903);
 
