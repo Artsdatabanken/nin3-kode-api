@@ -71,7 +71,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(result);
             var kartleggingsenheter = result.Where(result => result.Klasse == "Kartleggingsenhet").ToList();
             Assert.Equal(1284, kartleggingsenheter.Count);//test for #133
-            Assert.Equal(3563, result.Count);
+            Assert.Equal(3562, result.Count);
         }
     }
 }

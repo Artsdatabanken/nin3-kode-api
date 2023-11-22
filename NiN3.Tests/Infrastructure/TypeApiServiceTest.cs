@@ -219,11 +219,9 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(grunntype);
             var variabeltrinn = grunntype.Variabeltrinn;
             Assert.Equal(3, variabeltrinn.Count());
-            var single_variabeltrinn = variabeltrinn.First();
-            //Assert.Equal(11, single_variabeltrinn.Maaleskala.Trinn.Count());
+            var single_variabeltrinn = variabeltrinn.Where(vn=>vn.Maaleskala.MaaleskalaNavn=="KA-SO").First();
+            Assert.Equal(11, single_variabeltrinn.Maaleskala.Trinn.Count());
             Assert.NotNull(single_variabeltrinn.Variabelnavn);
-            //var trinnkoder = 
-
         }
 
         [Fact]

@@ -13,16 +13,8 @@ namespace NiN3.Infrastructure.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Versjon>()
-            .Property(v => v.Id)
-            .HasDefaultValueSql("newid()");
+            /********* SEEDING moved to loader service***********/
 
-            /********* SEEDING ***********/
-
-            // Versjon
-            modelBuilder.Entity<Versjon>().HasData(
-                new Versjon() { Id = 1, Navn = "3.0" }
-            );
             base.OnModelCreating(modelBuilder);
         }
 
