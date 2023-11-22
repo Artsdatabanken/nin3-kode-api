@@ -283,7 +283,6 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(15, HT_T_B_01_Kartleggingsenheter.Count);
         }
 
-
         [Fact]
         public void TestKartleggingsenhet_ALL_m020_has_GT()
         {

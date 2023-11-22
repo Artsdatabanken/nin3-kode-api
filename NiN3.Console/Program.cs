@@ -64,9 +64,14 @@ while (run)
             // run loader
             var loader = new LoaderService(config, db, _logger);
             loader.load_all_data();
-            //..and flush pool to disk
+            //..optimize file/indexes and flush pool to disk
             using (Microsoft.Data.Sqlite.SqliteConnection connection = (Microsoft.Data.Sqlite.SqliteConnection)db.Database.GetDbConnection())
             {
+                connection.Open();
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = "VACUUM";
+                cmd.ExecuteNonQuery();
+                connection.Close();
                 Microsoft.Data.Sqlite.SqliteConnection.ClearPool(connection);
             }
             Console.WriteLine($"Created new db file (temporary database based on current model and csv-files)");
