@@ -1,8 +1,7 @@
 {
   "profiles": {
     "NiN3.Console": {
-      "commandName": "Project",
-      "commandLineArgs": "info"
+      "commandName": "Project"
     },
     "WSL": {
       "commandName": "WSL2",
