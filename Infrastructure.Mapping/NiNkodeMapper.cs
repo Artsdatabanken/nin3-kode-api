@@ -112,7 +112,7 @@ namespace NiN3.Infrastructure.Mapping
             var typedto = new TypeDto
             {
                 //Navn = $"{EnumUtil.ToDescription(type.Ecosystnivaa)} {EnumUtil.ToDescription(type.Typekategori)} {EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2)}",
-                Navn = type.Typekategori2 != null ? EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2) : "",
+                Navn = type.Navn,
                 Kategori = "Type",
                 //Ecosystnivaa = $"{type.Ecosystnivaa.ToString()}: {EnumUtil.ToDescription(type.Ecosystnivaa)}",
                 EcosystnivaaEnum = type.Ecosystnivaa,

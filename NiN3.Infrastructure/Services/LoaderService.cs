@@ -31,7 +31,7 @@ namespace NiN.Infrastructure.Services
             get
             {
                 if (_versjon != null) return _versjon;
-                _versjon = _context.Versjon.Single(s => s.Navn == "3.0"); // denne kan og gjøres konfigurerbar - var en kommentar om det lengre nede
+                _versjon = _context.Versjon.FirstOrDefault(s => s.Navn == "3.0"); // denne kan og gjøres konfigurerbar - var en kommentar om det lengre nede
                 return _versjon;
             }
         }
@@ -1142,12 +1142,8 @@ namespace NiN.Infrastructure.Services
                 }
                 else
                 {
-                    var msg = $@"""
-                    Could not find one of the following:
-                    grunntype: {grunntypeVariabeltrinn.grunntype_kode}  
-                    maaleskala: {grunntypeVariabeltrinn.varkode2}-SO or {grunntypeVariabeltrinn.varkode2}-SI
-                    trinn: {grunntypeVariabeltrinn.trinn}   
-                               """;
+                    var msg = $@"Could not find one of the following:
+                    grunntype: {grunntypeVariabeltrinn.grunntype_kode}, maaleskala: {grunntypeVariabeltrinn.varkode2}-SO or {grunntypeVariabeltrinn.varkode2}-SI, trinn: {grunntypeVariabeltrinn.trinn}";
                     WriteToFile(msg);
                 }
             }
@@ -1179,12 +1175,8 @@ namespace NiN.Infrastructure.Services
                 }
                 else
                 {
-                    var msg = $@"""
-                    Could not find one of the following:
-                    hovedtype: {hovedtypeVariabeltrinn.hovedtype_kode}  
-                    maaleskala: {hovedtypeVariabeltrinn.varkode2}-SO or {hovedtypeVariabeltrinn.varkode2}-SI
-                    trinn: {hovedtypeVariabeltrinn.trinn}  
-                               """;
+                    var msg = $@"Could not find one of the following:
+                    hovedtype: {hovedtypeVariabeltrinn.hovedtype_kode},maaleskala: {hovedtypeVariabeltrinn.varkode2}-SO or {hovedtypeVariabeltrinn.varkode2}-SI,trinn: {hovedtypeVariabeltrinn.trinn}";
                     WriteToFile(msg);
                 }
             }

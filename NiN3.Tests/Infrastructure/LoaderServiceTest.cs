@@ -80,8 +80,8 @@ namespace NiN3.Tests.Infrastructure
             var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
             loader.SeedLookupData();
             loader.LoadHtg_Ht_Gt_Mappings();
-            loader.csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.Count.Should().Be(431);
-            loader.csvdataImporter_Hovedtype_Grunntype_Mappings.Count.Should().Be(1895);
+            loader.csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.Count.Should().Be(433);
+            loader.csvdataImporter_Hovedtype_Grunntype_Mappings.Count.Should().Be(1901);
 
         }
 
@@ -105,7 +105,7 @@ namespace NiN3.Tests.Infrastructure
             //Test a type langkode within ecosystnivaa = A 
             var type_eco_A = inmemorydb.Type.Where(t => t.Kode == "A-MV-0").FirstOrDefault(); //Get Type with Kode = "CA-MV-0"
             Assert.Equal("NIN-3.0-T-A-MV-0", type_eco_A.Langkode);
-            Assert.Equal("", type_eco_A.Navn); //Har ikke typekategori2 dermed blankt navn
+            Assert.Equal("Marine vannmasser", type_eco_A.Navn); //Har ikke typekategori2 dermed blankt navn
         }
 
         //This code tests the LoadHovedtypeGruppeData() method of the LoaderService class. 
@@ -166,17 +166,34 @@ namespace NiN3.Tests.Infrastructure
             var numOfHD = inmemorydb.Hovedtype.Count();
             var hovedtyper = inmemorydb.Hovedtype.ToList();
             Assert.True(numOfHD>400); //flux between 412 and 421
-            var HT_0_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "0-C-01").FirstOrDefault();
-            Assert.NotNull(HT_0_C_01);
-            Assert.Equal("Varmkildekompleks", HT_0_C_01.Navn);
-            Assert.NotNull(HT_0_C_01.Hovedtypegruppe);
-            //Assert.Equal("NIN-3.0-T-C-SE-NK-0-C-01", HT_0_C_01.Langkode);
-            Assert.Equal("NIN-3.0-T-C-SE-NK-0-0-C-01", HT_0_C_01.Langkode);
+            var HT_N0_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "N0-C-01").FirstOrDefault();
+            Assert.NotNull(HT_N0_C_01);
+            Assert.Equal("Varmkildekompleks", HT_N0_C_01.Navn);
+            Assert.NotNull(HT_N0_C_01.Hovedtypegruppe);
+            //Assert.Equal("NIN-3.0-T-C-SE-NK-0-C-01", HT_N0_C_01.Langkode);
+            Assert.Equal("NIN-3.0-T-C-SE-NK-0-N0-C-01", HT_N0_C_01.Langkode);
 
             //testing that hovedtype 'T-M-01' has typekategori3 embedded in langkode, (child of HTG "NA-T")
-            var HT_T_M_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "T-M-01").FirstOrDefault();
-            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-T-M-01", HT_T_M_01.Langkode);
-            Assert.Equal("Hard sterkt endret fastmark", HT_T_M_01.Navn);
+            var HT_NT_M_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NT-M-01").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NT-M-01", HT_NT_M_01.Langkode);
+            Assert.Equal("Hard sterkt endret fastmark", HT_NT_M_01.Navn);
+        }
+
+        [Fact]
+        public void TestHovedtype_langkoder() // For #185
+        {
+            var inmemorydb = GetInMemoryDb();
+            var ht_LK_0_02 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-02").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-LK-0-02", ht_LK_0_02.Langkode);//NIN-3.0-T-C-PE-FL-0-LK-0-02?
+            Assert.Equal("Fjordlandskap", ht_LK_0_02.Navn);
+
+            var ht_LK_0_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-01").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-LK-0-01", ht_LK_0_01.Langkode);
+            Assert.Equal("Kystås- og kystfjellandskap", ht_LK_0_01.Navn);
+
+            var ht_LK_0_03 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-03").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-LK-0-03", ht_LK_0_03.Langkode);
+            Assert.Equal("Kystslettelandskap", ht_LK_0_03.Navn);
         }
 
         [Fact]
@@ -203,7 +220,7 @@ namespace NiN3.Tests.Infrastructure
             // Get the number of Grunntype records
             var numOfGD = inmemorydb.Grunntype.Count();
             // Assert that the number of records is 166
-            Assert.Equal(1394, numOfGD);//1394 for now, before exploring uniqueness of GT, was 1403 before #185
+            Assert.Equal(1401, numOfGD);
             // Get the Grunntype record with the code "M-A-01-05"
             var grunntype = inmemorydb.Grunntype.Where(gt => gt.Kode == "M-A-01-05").FirstOrDefault();
             // Assert that the name of the record is "sukkertareskog"
@@ -261,9 +278,9 @@ namespace NiN3.Tests.Infrastructure
             //Number of unique Hovedtype
             var numHT = inmemorydb.Hovedtype.Count();
             Assert.Equal(653, num005M);//647 before #175
-            Assert.Equal(652, num005MHT);
+            Assert.Equal(653, num005MHT);
             Assert.Equal(123, numHTM005);
-            Assert.Equal(421, numHT);
+            Assert.Equal(433, numHT);
         }
 
         [Fact]
@@ -320,7 +337,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(firstV);
             Assert.Equal("A-M", firstV.Kode);
             Assert.Equal("Abiotisk menneskebetinget", firstV.Navn);
-            Assert.Equal(4, numOfV);
+            Assert.Equal(5, numOfV);
             Assert.Equal("NIN-3.0-V-A-M", firstV.Langkode);
         }
 
@@ -351,7 +368,7 @@ namespace NiN3.Tests.Infrastructure
             // prepare test
             var inmemorydb = GetInMemoryDb();
             var numOfMS = inmemorydb.Maaleskala.Count();
-            Assert.Equal(157, numOfMS);
+            Assert.Equal(158, numOfMS);
             var maaleskalaSO = inmemorydb.Maaleskala.FirstOrDefault(m => m.MaaleskalatypeEnum == MaaleskalatypeEnum.SO);
             var maaleskalaSI = inmemorydb.Maaleskala.FirstOrDefault(m => m.MaaleskalatypeEnum == MaaleskalatypeEnum.SI);
             Assert.NotNull(maaleskalaSO);
@@ -428,9 +445,9 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             var htvt = inmemorydb.HovedtypeVariabeltrinn.Count();
             Assert.True(100 < htvt);
-            var ht_S_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "S-C-01").FirstOrDefault();
-            Assert.NotNull(ht_S_C_01);
-            Assert.Equal(5, ht_S_C_01.HovedtypeVariabeltrinn.Count());
+            var ht_NS_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NS-C-01").FirstOrDefault();
+            Assert.NotNull(ht_NS_C_01);
+            Assert.Equal(5, ht_NS_C_01.HovedtypeVariabeltrinn.Count());
         }
 
 
@@ -439,7 +456,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3562, numOfKortkoder);//3557 before #175
+            Assert.Equal(3573, numOfKortkoder);//3557 before #175
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);
@@ -467,7 +484,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             var numOfVariabelAllekortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.V);
             var numOfVariabelnavnAllekortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.VN);
-            Assert.Equal(4, numOfVariabelAllekortkoder);
+            Assert.Equal(5, numOfVariabelAllekortkoder);
             Assert.Equal(370,numOfVariabelnavnAllekortkoder);
         }
 
@@ -526,8 +543,8 @@ namespace NiN3.Tests.Infrastructure
             var konvertering = db.Konvertering.Where(k => k.Klasse == KlasseEnum.HT && k.Versjon == versjon)
                 .ToList();
             Assert.Equal(120, konvertering.Count);
-            var konv4_T_M_01 = db.Konvertering.Where(k => k.Kode == "T-M-01" && k.Versjon == versjon).ToList();
-            Assert.Equal(12, konv4_T_M_01.Count);
+            var konv4_NT_M_01 = db.Konvertering.Where(k => k.Kode == "NT-M-01" && k.Versjon == versjon).ToList();
+            Assert.Equal(12, konv4_NT_M_01.Count);
         }
 
         [Fact]

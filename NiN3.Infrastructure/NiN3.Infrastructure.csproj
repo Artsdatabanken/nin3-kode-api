@@ -69,9 +69,6 @@
 	  <None Update="in_data\hovedtype_variabeltrinn_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\htg_ht_gt_mapping.csv">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	  <None Update="in_data\konvertering_gt_v30.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

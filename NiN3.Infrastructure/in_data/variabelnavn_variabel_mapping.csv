@@ -12,7 +12,7 @@ NiN-3.0-V-B-N-SA-FE-AR-AD-W;SA-AD;B;N;SA;FE;AR;AD;dominansutforming av tresjikte
 NiN-3.0-V-A-N-LO-GE-BO-BH-W;LO-BH;A;N;LO;GE;BO;BH;slukhull på bre;A-N
 NiN-3.0-V-A-N-LO-GE-BO-BS-W;LO-BS;A;N;LO;GE;BO;BS;bresprekk;A-N
 NiN-3.0-V-A-N-LO-GE-EB-AI-W;LO-AI;A;N;LO;GE;EB;AI;isolert innersvingbanke;A-N
-NiN-3.0-V-A-N-LO-GE-EB-AS-W;LO-AS;A;N;LO;GE;EB;AS;alternerende sidebanke ;A-N
+NiN-3.0-V-A-N-LO-GE-EB-AS-W;LO-AS;A;N;LO;GE;EB;AS;alternerende sidebanke;A-N
 NiN-3.0-V-A-N-LO-GE-EB-DB-W;LO-DB;A;N;LO;GE;EB;DB;diagonalbanke;A-N
 NiN-3.0-V-A-N-LO-GE-EB-IS-W;LO-IS;A;N;LO;GE;EB;IS;innersvingbanke;A-N
 NiN-3.0-V-A-N-LO-GE-EB-MI-W;LO-MI;A;N;LO;GE;EB;MI;midtbanke;A-N
@@ -78,7 +78,7 @@ NiN-3.0-V-A-N-LM-FK-W-SN-W;LM-SN;A;N;LM;FK;W;SN;snø- og istype;A-N
 NiN-3.0-V-A-N-LM-FK-W-SO-W;LM-SO;A;N;LM;FK;W;SO;sedimentopphav for suspendert materiale;A-N
 NiN-3.0-V-A-N-LM-FK-W-ST-W;LM-ST;A;N;LM;FK;W;ST;substrattype;A-N
 NiN-3.0-V-A-N-LM-FK-W-VT-W;LM-VT;A;N;LM;FK;W;VT;vanntilførsel;A-N
-NiN-3.0-V-A-N-LM-FE-EE-ED-W;LM-ED;A;N;LM;FE;EE;ED;tørrlegging av elv ;A-N
+NiN-3.0-V-A-N-LM-FE-EE-ED-W;LM-ED;A;N;LM;FE;EE;ED;tørrlegging av elv;A-N
 NiN-3.0-V-A-N-LM-FE-EE-EF-W;LM-EF;A;N;LM;FE;EE;EF;lengdeprofil i elveløp over fast fjell;A-N
 NiN-3.0-V-A-N-LM-FE-EE-EL-W;LM-EL;A;N;LM;FE;EE;EL;lengdeprofil i elveløp med sedimentbunn;A-N
 NiN-3.0-V-A-N-LM-FE-EE-EP-W;LM-EP;A;N;LM;FE;EE;EP;elveløpsplanform;A-N
@@ -89,7 +89,7 @@ NiN-3.0-V-A-N-LM-FE-IE-II-W;LM-II;A;N;LM;FE;IE;II;innløpsbekker/elver i innsjø
 NiN-3.0-V-A-N-LM-FE-IE-IU-W;LM-IU;A;N;LM;FE;IE;IU;utløpsbekk/elv fra innsjø;A-N
 NiN-3.0-V-A-N-LM-GK-W-AN-W;LM-AN;A;N;LM;GK;W;AN;abyssal næringstilførselsreduksjon;A-N
 NiN-3.0-V-A-N-LM-GK-W-BU-W;LM-BU;A;N;LM;GK;W;BU;bunnujevnhet;A-N
-NiN-3.0-V-A-N-LM-GK-W-DA-W;LM-DA;A;N;LM;GK;W;DA;dybderelatert variasjon i det afotiske beltet ;A-N
+NiN-3.0-V-A-N-LM-GK-W-DA-W;LM-DA;A;N;LM;GK;W;DA;dybderelatert variasjon i det afotiske beltet;A-N
 NiN-3.0-V-A-N-LM-GK-W-DL-W;LM-DL;A;N;LM;GK;W;DL;dybderelatert lyssvekking;A-N
 NiN-3.0-V-A-N-LM-GK-W-FI-W;LM-FI;A;N;LM;GK;W;FI;finmaterialinnhold;A-N
 NiN-3.0-V-A-N-LM-GK-W-FT-W;LM-FT;A;N;LM;GK;W;FT;fastmarkstorvdannelse;A-N
@@ -129,9 +129,9 @@ NiN-3.0-V-A-N-LM-GK-W-VF-W;LM-VF;A;N;LM;GK;W;VF;vannforstyrrelsesintensitet;A-N
 NiN-3.0-V-A-N-LM-GK-W-VI-W;LM-VI;A;N;LM;GK;W;VI;vindutsatthet;A-N
 NiN-3.0-V-A-N-LM-GE-GE-DW-01;LM-VM;A;N;LM;GK;W;VM;vannmetning;A-N
 NiN-3.0-V-A-N-LM-GK-W-VS-W;LM-VS;A;N;LM;GK;W;VS;vannsprutintensitet;A-N
-NiN-3.0-V-A-N-LM-GE-EE-EB-W;LM-EB;A;N;LM;GE;EE;EB;elveløpsbanke-kompleksitet ;A-N
+NiN-3.0-V-A-N-LM-GE-EE-EB-W;LM-EB;A;N;LM;GE;EE;EB;elveløpsbanke-kompleksitet;A-N
 NiN-3.0-V-A-N-LM-GE-EE-EC-W;LM-EC;A;N;LM;GE;EE;EC;sidevegs begrensning av elveløp;A-N
-NiN-3.0-V-A-N-LM-GE-EE-EI-W;LM-EI;A;N;LM;GE;EE;EI;elveløpsøy-kompleksitet ;A-N
+NiN-3.0-V-A-N-LM-GE-EE-EI-W;LM-EI;A;N;LM;GE;EE;EI;elveløpsøy-kompleksitet;A-N
 NiN-3.0-V-A-N-LM-GE-EE-EU-W;LM-EU;A;N;LM;GE;EE;EU;underjordisk elveløp;A-N
 NiN-3.0-V-A-N-LM-GE-EE-FV-W;LM-FV;A;N;LM;GE;EE;FV;flomvannføring;A-N
 NiN-3.0-V-A-N-LM-GE-EE-HE-W;LM-HE;A;N;LM;GE;EE;HE;elveløpshelning;A-N
@@ -169,7 +169,7 @@ NiN-3.0-V-A-N-MD-FE-EE-FR-W;MD-FR;A;N;MD;FE;EE;FR;flomregime;A-N
 NiN-3.0-V-A-N-MD-GE-EE-MB-W;MD-MB;A;N;MD;GE;EE;MB;massebalanse i elv;A-N
 NiN-3.0-V-A-N-MD-GE-EE-SR-W;MD-SR;A;N;MD;GE;EE;SR;strømningsmønster i elv;A-N
 NiN-3.0-V-A-N-MD-GE-GE-AK-W;MD-AK;A;N;MD;GE;GE;AK;prosessaktivitet;A-N
-NiN-3.0-V-A-N-MD-GE-BE-LH-W;MD-LH;A;N;MD;GE;BE;LH;plassering i forhold til landheving;A-N
+NiN-3.0-V-A-N-MD-GE-BE-LH -W;MD-LH;A;N;MD;GE;BE;LH;plassering i forhold til landheving;A-N
 NiN-3.0-V-A-M-MO-GE-OE-DE-W;MO-DE;A;M;MO;GE;OE;DE;elvemagasin;A-M
 NiN-3.0-V-A-M-MO-GE-OE-ED-W;MO-ED;A;M;MO;GE;OE;ED;massedeponi i elv;A-M
 NiN-3.0-V-A-M-MO-GE-OE-EI-W;MO-EI;A;M;MO;GE;OE;EI;frittstående fast installasjon i elv;A-M
@@ -180,7 +180,7 @@ NiN-3.0-V-A-M-MO-GE-OE-FB-W;MO-FB;A;M;MO;GE;OE;FB;elveforbygning;A-M
 NiN-3.0-V-A-M-MO-GE-OE-KK-W;MO-KK;A;M;MO;GE;OE;KK;kunstig kulp i elv;A-M
 NiN-3.0-V-A-M-MO-GE-OE-KU-W;MO-KU;A;M;MO;GE;OE;KU;kulvert;A-M
 NiN-3.0-V-A-M-MO-GE-OE-TE-W;MO-TE;A;M;MO;GE;OE;TE;kunstig terskel eller annet kunstig bunnsubstrat i elv;A-M
-NiN-3.0-V-A-M-MO-GE-OE-UB-W;MO-UB;A;M;MO;GE;OE;UB;utplassert blokk i elv ;A-M
+NiN-3.0-V-A-M-MO-GE-OE-UB-W;MO-UB;A;M;MO;GE;OE;UB;utplassert blokk i elv;A-M
 NiN-3.0-V-A-M-MO-GE-OE-UE-W;MO-UE;A;M;MO;GE;OE;UE;utrettet elvestrekning;A-M
 NiN-3.0-V-A-M-MO-GE-OE-VD-W;MO-VD;A;M;MO;GE;OE;VD;deponert dødvedobjekt i elv;A-M
 NiN-3.0-V-A-M-MO-GE-OE-VI-W;MO-VI;A;M;MO;GE;OE;VI;kunstig vanninnløp;A-M
@@ -274,7 +274,7 @@ NiN-3.0-V-B-N-SA-GE-AR-BB-W;SA-BB;B;N;SA;GE;AR;BB;bartreandel i busksjiktet;B-N
 NiN-3.0-V-B-N-SA-GE-AR-BE-W;SA-BE;B;N;SA;GE;AR;BE;edellauvtreandel i busksjiktet;B-N
 NiN-3.0-V-B-N-SA-GE-AR-BL-W;SA-BL;B;N;SA;GE;AR;BL;boreal lauvtreandel i busksjiktet;B-N
 NiN-3.0-V-B-N-SA-GE-AR-BP-W;SA-BP;B;N;SA;GE;AR;BP;pil- og vierandel i busksjiktet;B-N
-NiN-3.0-V-B-N-SA-GE-AR-CG-W;SA-CG;B;N;SA;GE;AR;CG;grasvekstandel i feltsjiktet ;B-N
+NiN-3.0-V-B-N-SA-GE-AR-CG-W;SA-CG;B;N;SA;GE;AR;CG;grasvekstandel i feltsjiktet;B-N
 NiN-3.0-V-B-N-SA-GE-AR-CH-W;SA-CH;B;N;SA;GE;AR;CH;urtevekstandel i feltsjiktet;B-N
 NiN-3.0-V-B-N-SA-GE-AR-CK-W;SA-CK;B;N;SA;GE;AR;CK;karkryptogamandel i feltsjiktet;B-N
 NiN-3.0-V-B-N-SA-GE-AR-CL-W;SA-CL;B;N;SA;GE;AR;CL;vedvekstandel i feltsjiktet;B-N
@@ -290,7 +290,7 @@ NiN-3.0-V-B-N-NO-GE-DG-G4-W;NO-G4;B;N;NO;GE;DG;G4;all stående dødved av boreal
 NiN-3.0-V-B-N-NO-GE-DG-G5-W;NO-G5;B;N;NO;GE;DG;G5;all stående dødved av edellauvtrær med middels dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DG-G6-W;NO-G6;B;N;NO;GE;DG;G6;all stående dødved av bartrær med stor dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DG-G7-W;NO-G7;B;N;NO;GE;DG;G7;all stående dødved av boreale lauvtrær med stor dimensjon;B-N
-NiN-3.0-V-B-N-NO-GE-DG-G8-W;NO-G8;B;N;NO;GE;DG;G8;all stående dødved av edellauvtrær med stor dimensjon ;B-N
+NiN-3.0-V-B-N-NO-GE-DG-G8-W;NO-G8;B;N;NO;GE;DG;G8;all stående dødved av edellauvtrær med stor dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DG-GT-W;NO-GT;B;N;NO;GE;DG;GT;all stående dødved;B-N
 NiN-3.0-V-B-N-NO-GE-DL-L0-W;NO-L0;B;N;NO;GE;DL;L0;alle læger med middels dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DL-L01-W;NO-L01;B;N;NO;GE;DL;L01;alle lite nedbrutte læger av bartrær med middels dimensjon;B-N
@@ -299,7 +299,7 @@ NiN-3.0-V-B-N-NO-GE-DL-L03-W;NO-L03;B;N;NO;GE;DL;L03;alle lite nedbrutte læger 
 NiN-3.0-V-B-N-NO-GE-DL-L04-W;NO-L04;B;N;NO;GE;DL;L04;alle lite nedbrutte læger av boreale lauvtrær med stor dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DL-L05-W;NO-L05;B;N;NO;GE;DL;L05;alle lite nedbrutte læger av edellauvtrær med middels dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DL-L06-W;NO-L06;B;N;NO;GE;DL;L06;alle lite nedbrutte læger av edellauvtrær med stor dimensjon;B-N
-NiN-3.0-V-B-N-NO-GE-DL-L07-W;NO-L07;B;N;NO;GE;DL;L07;alle læger med stor dimensjon ;B-N
+NiN-3.0-V-B-N-NO-GE-DL-L07-W;NO-L07;B;N;NO;GE;DL;L07;alle læger med stor dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DL-L08-W;NO-L08;B;N;NO;GE;DL;L08;alle sterkt nedbrutte læger av bartrær med middels dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DL-L09-W;NO-L09;B;N;NO;GE;DL;L09;alle sterkt nedbrutte læger av bartrær med stor dimensjon;B-N
 NiN-3.0-V-B-N-NO-GE-DL-L10-W;NO-L10;B;N;NO;GE;DL;L10;alle sterkt nedbrutte læger av boreale lauvtrær med middels dimensjon;B-N
@@ -328,7 +328,7 @@ NiN-3.0-V-B-N-NO-GE-TL-XO-W;NO-XO;B;N;NO;GE;TL;XO;skjermet dødvedobjekt;B-N
 NiN-3.0-V-B-N-NO-GE-TL-XP-W;NO-XP;B;N;NO;GE;TL;XP;avbarket vedobjekt i rennende vann;B-N
 NiN-3.0-V-B-N-NO-GE-TL-XR-W;NO-XR;B;N;NO;GE;TL;XR;rikbarkstre;B-N
 NiN-3.0-V-B-N-NO-GE-TL-XS-W;NO-XS;B;N;NO;GE;TL;XS;sprekkebarkstre;B-N
-NiN-3.0-V-B-N-NO-GE-TL-XT-W;NO-XT;B;N;NO;GE;TL;XT;dødvedobjekt ;B-N
+NiN-3.0-V-B-N-NO-GE-TL-XT-W;NO-XT;B;N;NO;GE;TL;XT;dødvedobjekt;B-N
 NiN-3.0-V-B-N-NO-GE-TM-M1-W;NO-M1;B;N;NO;GE;TM;M1;trær med svært liten minstestørrelse;B-N
 NiN-3.0-V-B-N-NO-GE-TM-M2-W;NO-M2;B;N;NO;GE;TM;M2;trær med temmelig liten minstestørrelse;B-N
 NiN-3.0-V-B-N-NO-GE-TM-M3-W;NO-M3;B;N;NO;GE;TM;M3;trær med temmelig stor minstestørrelse;B-N

@@ -1,6 +1,4 @@
 HTkode;forrigekode;FP;SP;Klasse;url
-NI-A-01;NA I1;4;4;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20I1
-NI-A-01;I2;4;4;HT;
 NM-M-01;NA M14;4;4;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20M14
 NM-M-01;NA M15;4;4;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20M15
 NT-A-04;NA T22;4;3;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20T22
@@ -45,6 +43,8 @@ NV-M-04;NA V12;1;4;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode
 NV-M-06;NA V13-1;4;4;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20V13-1
 NV-M-06;NA V13-3;4;4;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20V13-3
 NV-M-06;NA V13-5;4;4;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20V13-5
+NI-A-01;NA I1;4;4;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20I1
+NI-A-01;I2;4;4;HT;
 NS-A-01;NA H1-1;2;2;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20H1-1
 NS-A-01;NA H1-5;2;2;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20H1-5
 NS-C-01;NA H1-2;3;3;HT;https://nin-kode-api.artsdatabanken.no/v2.3/koder/hentkode/NA%20H1-2

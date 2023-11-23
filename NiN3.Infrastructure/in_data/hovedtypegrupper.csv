@@ -50,12 +50,12 @@ BM;A;bremassiv;0;BM-A
 LA;I;innlandslandskap;0;LA-I
 LA;K;kystlandskap;0;LA-K
 LA;M;marine landskap;0;LA-M
-NA;I;snø- og issystemer;MB;NA-I
-NA;L;innsjøbunnsystemer;MB;NA-L
 NA;M;marine bunnsystemer;MB;NA-M
+NA;L;innsjøbunnsystemer;MB;NA-L
 NA;O;elvebunnsystemer;MB;NA-O
 NA;T;fastmarkssystemer;MB;NA-T
 NA;V;våtmarkssystemer;MB;NA-V
+NA;I;snø- og issystemer;MB;NA-I
 NA;S;marine vannmassesystemer;VM;NA-S
 NA;F;limniske vannmassesystemer;VM;NA-F
 NK;C;naturkompleks betinget av miljøstress;0;NK-C
