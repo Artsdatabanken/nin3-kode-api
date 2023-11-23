@@ -209,7 +209,7 @@ namespace NiN.Infrastructure.Services
                     //var langkodeForType 
                     var t = new NiN3.Core.Models.Type()
                     {
-                        Navn = EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2),
+                        Navn = type.Typekategori2!=null?EnumUtil.ToDescriptionBlankIfNull(type.Typekategori2): EnumUtil.ToDescriptionBlankIfNull(type.Typekategori),
                         Kode = type.Kode,
                         //Langkode = langkodeForType,
                         Ecosystnivaa = type.Ecosystnivaa,
