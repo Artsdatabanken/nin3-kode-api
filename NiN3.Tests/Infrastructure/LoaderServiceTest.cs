@@ -80,7 +80,7 @@ namespace NiN3.Tests.Infrastructure
             var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
             loader.SeedLookupData();
             loader.LoadHtg_Ht_Gt_Mappings();
-            loader.csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.Count.Should().Be(433);
+            loader.csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.Count.Should().Be(431);
             loader.csvdataImporter_Hovedtype_Grunntype_Mappings.Count.Should().Be(1901);
 
         }
@@ -171,11 +171,11 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("Varmkildekompleks", HT_N0_C_01.Navn);
             Assert.NotNull(HT_N0_C_01.Hovedtypegruppe);
             //Assert.Equal("NIN-3.0-T-C-SE-NK-0-C-01", HT_N0_C_01.Langkode);
-            Assert.Equal("NIN-3.0-T-C-SE-NK-0-N0-C-01", HT_N0_C_01.Langkode);
+            Assert.Equal("NIN-3.0-T-C-SE-NK-0-0-C-01", HT_N0_C_01.Langkode);
 
             //testing that hovedtype 'T-M-01' has typekategori3 embedded in langkode, (child of HTG "NA-T")
             var HT_NT_M_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NT-M-01").FirstOrDefault();
-            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NT-M-01", HT_NT_M_01.Langkode);
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-T-M-01", HT_NT_M_01.Langkode);
             Assert.Equal("Hard sterkt endret fastmark", HT_NT_M_01.Navn);
         }
 
@@ -280,7 +280,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(653, num005M);//647 before #175
             Assert.Equal(653, num005MHT);
             Assert.Equal(123, numHTM005);
-            Assert.Equal(433, numHT);
+            Assert.Equal(431, numHT);
         }
 
         [Fact]
@@ -456,7 +456,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3573, numOfKortkoder);//3557 before #175
+            Assert.Equal(3571, numOfKortkoder);//3557 before #175
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);

@@ -155,6 +155,8 @@ namespace NiN.Infrastructure.Services
             CreateHovedtypeVariabeltrinnView();
             CreateSjekkUnikeHovedklasserView();
             CreateHovedtypeKleView();
+            CreateAlleLangkoderView();
+            CreateDuplikateLangkoderView();
             WriteToFile($"END: loading is FINISHED :) (Log is written to {logpath})");
         }
 
@@ -1521,6 +1523,33 @@ namespace NiN.Infrastructure.Services
                         Where KartleggingsenhetId = K.Id AND HovedtypeId = H.Id
                              and E.Ordinal = K.Maalestokk and E.Enumtype = 'MaalestokkEnum'
                              Order by HTKode, K.Maalestokk";
+            _context.Database.ExecuteSqlRaw(sql);
+        }
+
+        public void CreateAlleLangkoderView() {
+            var sql = @"Create view AlleLangkoderView AS
+                        select 'Type' as Klasse, Kode, Langkode from Type
+                        UNION ALL
+                        select 'Hovedtypegruppe' as Klasse, Kode, Langkode from Hovedtypegruppe
+                        UNION ALL
+                        select 'Hovedtype' as Klasse, Kode, Langkode from Hovedtype
+                        UNION ALL
+                        select 'Grunntype' as Klasse, Kode, Langkode from Grunntype
+                        UNION ALL
+                        select 'Kartleggingsenhet' as Klasse, Kode, Langkode from Kartleggingsenhet
+                        UNION ALL
+                        select 'Variabel' as Klasse, Kode, Langkode from Variabel
+                        UNION ALL
+                        select 'Variabelnavn' as Klasse, Kode, Langkode from Variabelnavn";
+            _context.Database.ExecuteSqlRaw(sql);
+        }
+
+        public void CreateDuplikateLangkoderView() {
+            var sql = @"create view DuplikateLangkoderView AS
+                        SELECT Langkode, Klasse, COUNT(*) AS DuplicateCount
+                        FROM AlleLangkoderView
+                        GROUP BY Langkode, Klasse
+                        HAVING COUNT(*) > 1";
             _context.Database.ExecuteSqlRaw(sql);
         }
 

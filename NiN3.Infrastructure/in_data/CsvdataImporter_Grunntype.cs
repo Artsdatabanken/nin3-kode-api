@@ -17,6 +17,7 @@ namespace NiN3.Infrastructure.in_data
         internal static CsvdataImporter_Grunntype ParseRow(string row)
         {
             var columns = row.Split(';');
+            try {  
             return new CsvdataImporter_Grunntype()
             {
                 Langkode = columns[0],
@@ -26,6 +27,19 @@ namespace NiN3.Infrastructure.in_data
                 Grunntype = columns[4],
                 Grunntypenavn = char.ToUpper(columns[5][0]) + columns[5].Substring(1),
                 Kode = columns[6]
+            };
+            } catch {
+                Console.WriteLine("Error parsing row: " + row);
+                return new CsvdataImporter_Grunntype()
+                {
+                    Langkode = null,
+                    Hovedtype = null,
+                    Prosedyrekategori = null,
+                    //Hovedtypegruppe = columns[0],
+                    Grunntype = null,
+                    Grunntypenavn = null,
+                    Kode = null
+                };
             };
         }
 
