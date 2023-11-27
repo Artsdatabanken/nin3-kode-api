@@ -180,19 +180,19 @@ namespace NiN3.Tests.Infrastructure
         }
 
         [Fact]
-        public void TestHovedtype_langkoder() // For #185
+        public void TestHovedtype_langkoder() // For #185 & #201
         {
             var inmemorydb = GetInMemoryDb();
             var ht_LK_0_02 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-02").FirstOrDefault();
-            Assert.Equal("NIN-3.0-T-C-PE-LA-0-LK-0-02", ht_LK_0_02.Langkode);//NIN-3.0-T-C-PE-FL-0-LK-0-02?
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-K-0-02", ht_LK_0_02.Langkode);//NIN-3.0-T-C-PE-FL-0-LK-0-02?
             Assert.Equal("Fjordlandskap", ht_LK_0_02.Navn);
 
             var ht_LK_0_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-01").FirstOrDefault();
-            Assert.Equal("NIN-3.0-T-C-PE-LA-0-LK-0-01", ht_LK_0_01.Langkode);
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-K-0-01", ht_LK_0_01.Langkode);
             Assert.Equal("Kystås- og kystfjellandskap", ht_LK_0_01.Navn);
 
             var ht_LK_0_03 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-03").FirstOrDefault();
-            Assert.Equal("NIN-3.0-T-C-PE-LA-0-LK-0-03", ht_LK_0_03.Langkode);
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-K-0-03", ht_LK_0_03.Langkode);
             Assert.Equal("Kystslettelandskap", ht_LK_0_03.Navn);
         }
 

@@ -915,7 +915,9 @@ namespace NiN.Infrastructure.Services
                             kodeArrayForHT.Add(ht.Hovedtypegruppe.Typekategori3.ToString()); //kodeledd 7
                         }
                     }*/
-                    kodeArrayForHT.Add(ht.Kode);//kodeledd 8(++)
+                    //get ht.Kode but remove first character
+                    var htKodeForLangkode = ht.Kode.Substring(1);
+                    kodeArrayForHT.Add(htKodeForLangkode);//kodeledd 8(++)
                     return string.Join("-", kodeArrayForHT);
                 // add additional cases for other types
                 case TypeklasseTypeEnum.GT:
