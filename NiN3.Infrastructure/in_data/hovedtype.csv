@@ -19,7 +19,6 @@ Kode;Hovedtypenavn;Hovedtypegruppe;Prosedyrekategori;Hovedtype;HTGKode
 0FS-0-06;syntetiske livsmedier i ferskvann;FS;0;06;0-FS
 0FU-0-01;substratfrie livsmedier i ferskvann;FU;0;01;0-FU
 0MS-0-01;hardbunn i marine systemer;MS;0;01;0-MS
-0MS-0-02;bløtbunni marine systemer;MS;0;02;0-MS
 0MS-0-02;bløtbunn i marine systemer;MS;0;02;0-MS
 0MS-0-03;biogene karbonatsubstrater fra døde organismer i marine systemer;MS;0;03;0-MS
 0MS-0-04;levende organismer med karbonatsubstrater i marine systemer;MS;0;04;0-MS
@@ -383,7 +382,6 @@ NT-M-06;sterkt endret skogsmark;T;M;06;NA-T
 NT-N-01;blomsterbed og annen hyppig bearbeidet mark;T;N;01;NA-T
 NT-N-02;blomsterenger, usprøytete vegkanter og liknende med semi-naturlig hevdpreg;T;N;02;NA-T
 NT-N-03;Vegkanter, plener, parker og liknende uten semi-naturlig hevdpreg;T;N;03;NA-T
-NT-N-03;vegkanter, plener, parker og liknende uten semi-naturlig hevdpreg;T;N;03;NA-T
 NT-O-01;åker;T;O;01;NA-T
 NT-O-02;oppdyrket mark med semi-naturlig engpreg;T;O;02;NA-T
 NT-O-03;oppdyrket varig eng;T;O;03;NA-T

@@ -1197,7 +1197,7 @@ NiN-3.0-T-C-PE-NA-VM-SC03-01;S;C;03;01;afotiske sirkulerende fjordvannmassesyste
 NiN-3.0-T-C-PE-NA-VM-SC04-01;S;C;04;01;periodisk oksygenfrie marine vannmassesystemer;S-C-04-01
 NiN-3.0-T-C-PE-NA-VM-SC04-02;S;C;04;02;oksygenfrie marine vannmassesystemer;S-C-04-02
 NiN-3.0-T-C-PE-NA-VM-SC05-01;S;C;05;01;poll;S-C-05-01
-NiN-3.0-T-C-PE-NA-VM-SC05-01;S;C;05;01;littoralbasseng;S-C-05-01
+NiN-3.0-T-C-PE-NA-VM-SC05-02;S;C;05;02;littoralbasseng;S-C-05-02
 NiN-3.0-T-C-PE-NA-VM-SC06-01;S;C;06;01;vannmassesystemer i kontaktsonen ved polar havis;S-C-06-01
 NiN-3.0-T-C-PE-NA-VM-SC06-02;S;C;06;02;vannmassesystemer under polar havis;S-C-06-02
 NiN-3.0-T-C-PE-NA-VM-SC07-01;S;C;07;01;ultrabrakke til klart brakke vannmassesystemer på polar havis-overflate;S-C-07-01
@@ -1265,7 +1265,7 @@ NiN-3.0-T-C-PE-NA-VM-FB02-16;F;B;02;16;noe kalkfattige og humøse grunne innsjø
 NiN-3.0-T-C-PE-NA-VM-FB02-17;F;B;02;17;moderat kalkrike grunne innsjø-vannmassesystemer med komplekst fiskesamfunn;F-B-02-17
 NiN-3.0-T-C-PE-NA-VM-FB02-18;F;B;02;18;svært kalkrike grunne innsjø-vannmassesystemer med komplekst fiskesamfunn;F-B-02-18
 NiN-3.0-T-C-PE-NA-VM-FB03-01;F;B;03;01;elvevannmassesystemer uten fisk;F-B-03-01
-NiN-3.0-T-C-PE-NA-VM-FB03-01;F;B;03;01;elvevannmassesystemer med fisk;F-B-03-01
+NiN-3.0-T-C-PE-NA-VM-FB03-02;F;B;03;02;elvevannmassesystemer med fisk;F-B-03-02
 NiN-3.0-T-C-PE-NA-VM-FC01-01;F;C;01;01;kalkfattige litt turbide bresjø-vannmassesystemer;F-C-01-01
 NiN-3.0-T-C-PE-NA-VM-FC01-02;F;C;01;02;kalkrike litt turbide bresjø-vannmassesystemer;F-C-01-02
 NiN-3.0-T-C-PE-NA-VM-FC01-03;F;C;01;03;svært turbide bresjø-vannmassesystemer;F-C-01-03
