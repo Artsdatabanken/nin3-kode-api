@@ -19,7 +19,6 @@ Kode;Hovedtypenavn;Hovedtypegruppe;Prosedyrekategori;Hovedtype;HTGKode
 0FS-0-06;syntetiske livsmedier i ferskvann;FS;0;06;0-FS
 0FU-0-01;substratfrie livsmedier i ferskvann;FU;0;01;0-FU
 0MS-0-01;hardbunn i marine systemer;MS;0;01;0-MS
-0MS-0-02;bløtbunni marine systemer;MS;0;02;0-MS
 0MS-0-02;bløtbunn i marine systemer;MS;0;02;0-MS
 0MS-0-03;biogene karbonatsubstrater fra døde organismer i marine systemer;MS;0;03;0-MS
 0MS-0-04;levende organismer med karbonatsubstrater i marine systemer;MS;0;04;0-MS
@@ -246,20 +245,20 @@ LK-0-03;kystslettelandskap;K;0;03;LA-K
 LM-0-01;marine ås- og fjellandskap;M;0;01;LA-M
 LM-0-02;marine dallandskap;M;0;02;LA-M
 LM-0-03;marine sletter;M;0;03;LA-M
-N0-C-01;varmkildekompleks;0;C;01;NK-0
-N0-C-02;ferskvannskildekompleks;0;C;02;NK-0
-N0-C-03;ferskvanns- og våtmarkskildekompleks;0;C;03;NK-0
-N0-C-04;torvkildekompleks;0;C;04;NK-0
-N0-C-05;grunnkildekompleks;0;C;05;NK-0
-N0-C-06;fuglefjellkompleks;0;C;06;NK-0
-N0-C-07;saltpannekompleks;0;C;07;NK-0
-N0-C-08;snøleiekompleks;0;C;08;NK-0
-N0-D-01;flomskredkompleks;0;D;01;NK-0
-N0-D-02;rasmarkskompleks;0;D;02;NK-0
-N0-D-03;fossesprutkompleks;0;D;03;NK-0
-N0-E-01;sanddynekompleks;0;E;01;NK-0
-N0-E-02;skredmarkskompleks;0;E;02;NK-0
-N0-E-03;flommarkskompleks;0;E;03;NK-0
+NC-C-01;varmkildekompleks;C;C;01;NK-C
+NC-C-02;ferskvannskildekompleks;C;C;02;NK-C
+NC-C-03;ferskvanns- og våtmarkskildekompleks;C;C;03;NK-C
+NC-C-04;torvkildekompleks;C;C;04;NK-C
+NC-C-05;grunnkildekompleks;C;C;05;NK-C
+NC-C-06;fuglefjellkompleks;C;C;06;NK-C
+NC-C-07;saltpannekompleks;C;C;07;NK-C
+NC-C-08;snøleiekompleks;C;C;08;NK-C
+ND-D-01;flomskredkompleks;D;D;01;NK-D
+ND-D-02;rasmarkskompleks;D;D;02;NK-D
+ND-D-03;fossesprutkompleks;D;D;03;NK-D
+NE-E-01;sanddynekompleks;E;E;01;NK-E
+NE-E-02;skredmarkskompleks;E;E;02;NK-E
+NE-E-03;flommarkskompleks;E;E;03;NK-E
 NF-A-01;lagdelte, fullsirkulerende, naturlig fisketomme innsjø-vannmassesystemer;F;A;01;NA-F
 NF-A-02;ikke lagdelte, fullsirkulerende, naturlig fisketomme innsjø-vannmassesystemer;F;A;02;NA-F
 NF-B-01;lagdelte, fullsirkulerende innsjø-vannmassesystemer;F;B;01;NA-F
@@ -383,7 +382,6 @@ NT-M-06;sterkt endret skogsmark;T;M;06;NA-T
 NT-N-01;blomsterbed og annen hyppig bearbeidet mark;T;N;01;NA-T
 NT-N-02;blomsterenger, usprøytete vegkanter og liknende med semi-naturlig hevdpreg;T;N;02;NA-T
 NT-N-03;Vegkanter, plener, parker og liknende uten semi-naturlig hevdpreg;T;N;03;NA-T
-NT-N-03;vegkanter, plener, parker og liknende uten semi-naturlig hevdpreg;T;N;03;NA-T
 NT-O-01;åker;T;O;01;NA-T
 NT-O-02;oppdyrket mark med semi-naturlig engpreg;T;O;02;NA-T
 NT-O-03;oppdyrket varig eng;T;O;03;NA-T

@@ -41,7 +41,7 @@ namespace NiN3.Infrastructure.Services
             {
                 Kortkode = t.Kode,
                 Langkode = t.Langkode,
-                Navn = $"{EnumUtil.ToDescriptionBlankIfNull(t.Typekategori2)}",
+                Navn = t.Navn,
                 Klasse = "Type"
             }).ToList(); //todo: where versjon 3.0
             kodeoversiktList.AddRange(typer);
@@ -58,7 +58,7 @@ namespace NiN3.Infrastructure.Services
                 Kortkode = htg.Kode,
                 Langkode = htg.Langkode,
                 Navn = htg.Navn,
-                Klasse = "Hovedtypegruppe"
+                Klasse = "Hovedtype"
             }).ToList();
             kodeoversiktList.AddRange(hovedtyper);
             var grunntyper = _context.Grunntype.Select(htg => new Kodeoversikt()
