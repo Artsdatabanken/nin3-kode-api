@@ -108,6 +108,7 @@ NiN-3.0-T-C-LI-0-0-FS005-03;FS;0;05;03;vedrester;FS-0-05-03
 NiN-3.0-T-C-LI-0-0-FS005-04;FS;0;05;04;døde planter;FS-0-05-04
 NiN-3.0-T-C-LI-0-0-FS005-05;FS;0;05;05;døde dyr;FS-0-05-05
 NiN-3.0-T-C-LI-0-0-FS006-01;FS;0;06;01;syntetiske livsmedier i ferskvann;FS-0-06-01
+NiN-3.0-T-C-LI-0-0-FU001-01;FU;0;01;01;substratfrie livsmedier i ferskvann;FU-0-01-01
 NiN-3.0-T-C-PE-LA-0-I001-001;I;0;01;001;dalformet lavlands-åslandskap;I-0-01-001
 NiN-3.0-T-C-PE-LA-0-I001-002;I;0;01;002;dalformet lavlands-åslandskap med jordbruk;I-0-01-002
 NiN-3.0-T-C-PE-LA-0-I001-003;I;0;01;003;dalformet lavlands-åslandskap med bygd/bebyggelse;I-0-01-003
@@ -1284,7 +1285,6 @@ NiN-3.0-T-C-LI-0-0-TS011-02;TS;0;11;02;fuglegjødsel;TS-0-11-02
 NiN-3.0-T-C-LI-0-0-TS012-01;TS;0;12;01;syntetiske livsmedier på land;TS-0-12-01
 NiN-3.0-T-C-LI-0-0-TU001-01;TU;0;01;01;snø;TU-0-01-01
 NiN-3.0-T-C-LI-0-0-TU001-02;TU;0;01;02;is;TU-0-01-02
-NiN-3.0-T-C-LI-0-0-U001-01;U;0;01;01;substratfrie livsmedier i ferskvann;U-0-01-01
 NiN-3.0-T-C-PE-NA-MB-VA01-01;V;A;01;01;temmelig til svært kalkfattig mykmatte;V-A-01-01
 NiN-3.0-T-C-PE-NA-MB-VA01-02;V;A;01;02;temmelig til svært kalkfattig nedre fastmatte;V-A-01-02
 NiN-3.0-T-C-PE-NA-MB-VA01-03;V;A;01;03;temmelig til svært kalkfattig øvre fastmatte;V-A-01-03

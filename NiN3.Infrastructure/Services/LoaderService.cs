@@ -703,25 +703,33 @@ namespace NiN.Infrastructure.Services
         public void LoadHovedtypegruppeHovedoekosystemer()
         {
             WriteToFile("\n\n********  LoadHovedtypegruppeHovedoekosystemer");
-            //fetch a list of all hovedtypegrupper
-            var hovedtypegrupper = _context.Hovedtypegruppe.ToList();
-
+            //Setting Hovedoekosystem for hovedtypegrupper that is part of the Natursystem and Livsmedium type (skip other hovedtypegrupper)
+            var hovedtypegrupper = _context.Hovedtypegruppe
+                .Where(h => h.Type.Navn.Contains("Natursystem") || h.Type.Navn.Contains("Livsmedium"))
+                .ToList();
             //loop list and fetch oekosystekode
-            Dictionary<char, string> HTG_DelkodeOekosyskodeMap = new Dictionary<char, string>()
+            Dictionary<string, string> HTG_DelkodeOekosyskodeMap = new Dictionary<string, string>()
             {
-                {'M', "H"},
-                {'L', "F"},
-                {'O', "F"},
-                {'T', "L"},
-                {'V', "L"},
-                {'I', "HL"},
-                {'S', "H"},
-                {'F', "F"},
+                {"M", "H"},
+                {"L", "F"},
+                {"O", "F"},
+                {"T", "L"},
+                {"V", "L"},
+                {"I", "HL"},
+                {"S", "H"},
+                {"F", "F"},
+                {"U", "F"},
+                {"MS", "H"},
+                {"MU", "H"},
+                {"FS", "F"},
+                {"FU", "F"},
+                {"TS", "L"},
+                {"TU", "L"},
             };
 
             foreach (var hovedtypegruppe in hovedtypegrupper)
             {
-                var hovedtypegruppeDelimiter = hovedtypegruppe?.Delkode?[0] ?? default(char);
+                var hovedtypegruppeDelimiter = hovedtypegruppe?.Delkode;
                 if (HTG_DelkodeOekosyskodeMap.TryGetValue(hovedtypegruppeDelimiter, out var oekosystemKode))
                 {
                     /*if (hovedtypegruppeDelimiter == 'I')

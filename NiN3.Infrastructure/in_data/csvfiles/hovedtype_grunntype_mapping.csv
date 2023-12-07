@@ -39,6 +39,7 @@ hovedtype_kode;grunntype_kode
 0FS-0-06;FS-0-06-01
 0FU-0-0;FU-0-0-0
 0FU-0-01;FU-0-01-0
+0FU-0-01;FU-0-01-01
 0MS-0-0;MS-0-0-0
 0MS-0-01;MS-0-01-0
 0MS-0-01;MS-0-01-01
@@ -153,7 +154,6 @@ hovedtype_kode;grunntype_kode
 0TU-0-01;TU-0-01-02
 0TU-0-02;TU-0-02-0
 0TU-0-02;TU-0-02-01
-0U-0-01;U-0-01-01
 BA-0-0;A-0-0-0
 BA-0-01;A-0-01-0
 BA-0-02;A-0-02-0

@@ -80,7 +80,7 @@ namespace NiN3.Tests.Infrastructure
             var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
             loader.SeedLookupData();
             loader.LoadHtg_Ht_Gt_Mappings();
-            loader.csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.Count.Should().Be(431);
+            loader.csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.Count.Should().Be(430);
             loader.csvdataImporter_Hovedtype_Grunntype_Mappings.Count.Should().Be(1901);
 
         }
@@ -120,12 +120,12 @@ namespace NiN3.Tests.Infrastructure
             //Get the number of Hovedtypegruppe objects in the InMemoryDb object
             var numOfHGD = inmemorydb.Hovedtypegruppe.Count();
             //Assert that the number of Hovedtypegruppe objects is equal to 71
-            Assert.Equal(69, numOfHGD); // 70 after #174
+            Assert.Equal(68, numOfHGD); // 70 after #174
 
 
             //Testing langkode for Hovedtypegruppe that should have typekategori3 embedded in langkode
             var HTG_NA_T = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-T").FirstOrDefault();
-            //Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
+            //Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_I.Langkode);
             Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
 
         }
@@ -136,26 +136,26 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
 
             //Testing a Hovedtypegruppe with one Hovedoekosystem
-            var HTG_NA_T = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-T").FirstOrDefault();
-            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
-            Assert.Equal("Fastmarkssystemer", HTG_NA_T.Navn);
-            Assert.Equal(1, HTG_NA_T.Hovedoekosystemer.Count);
-            var Hovedtypgruppe_Hovedoekosystem = HTG_NA_T.Hovedoekosystemer.FirstOrDefault();
-            Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem.HovedoekosystemEnum);
+            var HTG_NA_I = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-I").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-I", HTG_NA_I.Langkode);
+            Assert.Equal("Snø- og issystemer", HTG_NA_I.Navn);
+            Assert.Equal(2, HTG_NA_I.Hovedoekosystemer.Count);
+            var Hovedtypgruppe_Hovedoekosystem_First = HTG_NA_I.Hovedoekosystemer.FirstOrDefault();
+            var Hovedtypgruppe_Hovedoekosystem_Second = HTG_NA_I.Hovedoekosystemer.LastOrDefault();
+            Assert.Equal(HovedoekosystemEnum.H, Hovedtypgruppe_Hovedoekosystem_First.HovedoekosystemEnum);//HAV and
+            Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem_Second.HovedoekosystemEnum);//LAND
 
             //Testing a Hovedtypegruppe with multiple Hovedoekosystemer
-            var HTG_FL_I = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "FL-I").FirstOrDefault();
-            Assert.Equal(2, HTG_FL_I.Hovedoekosystemer.Count);
-            var Hovedtypgruppe_Hovedoekosystem_First = HTG_FL_I.Hovedoekosystemer.FirstOrDefault();
-            var Hovedtypgruppe_Hovedoekosystem_Second = HTG_FL_I.Hovedoekosystemer.LastOrDefault();
-            Assert.Equal(HovedoekosystemEnum.H, Hovedtypgruppe_Hovedoekosystem_First.HovedoekosystemEnum);
-            Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem_Second.HovedoekosystemEnum);
+            var HTG_0_MU = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "0-MU").FirstOrDefault();
+            Assert.Equal(1, HTG_0_MU.Hovedoekosystemer.Count);
+            var Hovedtypgruppe_Hovedoekosystem = HTG_0_MU.Hovedoekosystemer.FirstOrDefault();
+            Assert.Equal(HovedoekosystemEnum.H, Hovedtypgruppe_Hovedoekosystem.HovedoekosystemEnum);//HAV
         }
 
         [Fact]
         //This code tests the LoadHovedtype method by creating an in-memory database,
         //instantiating a LoaderService object, and then calling the LoadHovedtypeGruppeData, LoadHtg_Ht_Gt_Mappings,
-        //and LoadHovedtypeData methods. Finally, it checks that the number of Hovedtype objects in the in-memory database is equal to 445. 
+        //and LoadHovedtypeData methods. 
 
         public void TestLoadHovedtype()
         {
@@ -280,7 +280,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal(653, num005M);//647 before #175
             Assert.Equal(653, num005MHT);
             Assert.Equal(123, numHTM005);
-            Assert.Equal(431, numHT);
+            Assert.Equal(430, numHT);
         }
 
         [Fact]
@@ -456,7 +456,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3570, numOfKortkoder);//3557 before #175
+            Assert.Equal(3568, numOfKortkoder);//3557 before #175
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);
