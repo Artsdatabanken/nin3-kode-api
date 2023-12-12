@@ -145,6 +145,14 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(grunntype);
         }
 
+        /*
+        [Fact]
+        public void TestGetGrunntypeByKortkode_V_M_06_01_has_HT() {
+            TypeApiService service = GetPrepearedTypeApiService();
+            var grunntype = service.GetGrunntypeByKortkode("V-M-06-01", "3.0");
+            Assert.NotNull(grunntype);
+        }*/
+
 
         [Fact]
         public void TestGetKartleggingsenhetByKortkode()

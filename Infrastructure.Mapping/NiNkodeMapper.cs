@@ -264,13 +264,16 @@ namespace NiN3.Infrastructure.Mapping
             if (grunntype.GrunntypeVariabeltrinn.Any())
             {
                 var variabeltrinnBag = new ConcurrentBag<VariabeltrinnDto>();
-                var trinnIds = grunntype.GrunntypeVariabeltrinn.Select(gtvt => gtvt.Trinn.Id).ToList();
-                var variabelnavn = grunntype.GrunntypeVariabeltrinn.Select(vt => vt.Variabelnavn).ToList();
+                var trinnIds = grunntype.GrunntypeVariabeltrinn != null && grunntype.GrunntypeVariabeltrinn.Any(gtvt => gtvt.Trinn != null)
+                ? grunntype.GrunntypeVariabeltrinn.Where(gtvt => gtvt.Trinn != null).Select(gtvt => gtvt.Trinn.Id).ToList()
+                : new List<int>();
+                var variabelnavn = grunntype.GrunntypeVariabeltrinn.Any() ? grunntype.GrunntypeVariabeltrinn.Select(vt => vt.Variabelnavn).ToList() : new List<Variabelnavn?>();
                 Parallel.ForEach(grunntype.GrunntypeVariabeltrinn.ToList(), vt => variabeltrinnBag.Add(Map(vt, trinnIds)));
                 grunntypedto.Variabeltrinn = variabeltrinnBag.ToList();
                 grunntypedto.Variabeltrinn = grunntypedto.Variabeltrinn//TODO: Lazy solution to duplicate MaaleskalaDto objects inside VariabeltrinnCollection, please improve
                     .GroupBy(vt => vt.Maaleskala.MaaleskalaNavn)
                     .Select(group => group.First())
+
                     .ToList();
                 foreach (var konv in grunntype.Konverteringer)
                 {
