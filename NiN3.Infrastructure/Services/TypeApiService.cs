@@ -1,20 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using NiN.Infrastructure.Services;
 using NiN3.Core.Models;
+using NiN3.Core.Models.DTOs;
+using NiN3.Core.Models.DTOs.type;
 using NiN3.Infrastructure.DbContexts;
 using NiN3.Infrastructure.in_data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NiN3.Core.Models.DTOs;
-using AutoMapper;
-using System.ComponentModel.Design;
 using NiN3.Infrastructure.Mapping;
-using NiN3.Core.Models.DTOs.type;
 
 
 namespace NiN3.Infrastructure.Services

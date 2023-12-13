@@ -46,19 +46,6 @@ namespace NiN3.Tests.Infrastructure
             return service;
         }
 
-        /*
-        private static NiN3DbContext GetInMemoryDb()//out SqliteConnection connection, out DbContextOptions<NiN3DbContext> options)
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-            var options = new DbContextOptionsBuilder<NiN3DbContext>()
-            .UseSqlite(connection)
-            .Options;
-            var context = new NiN3DbContext(options);
-            context.Database.EnsureCreated();
-            return context;
-        }*/
-
 
         public IConfiguration CreateConfiguration()
         {
@@ -71,8 +58,6 @@ namespace NiN3.Tests.Infrastructure
 
             return configuration;
         }
-
-
 
 
         ///<summary>
@@ -144,14 +129,6 @@ namespace NiN3.Tests.Infrastructure
             var grunntype = service.GetGrunntypeByKortkode("K-0-02-006", "3.0");
             Assert.NotNull(grunntype);
         }
-
-        /*
-        [Fact]
-        public void TestGetGrunntypeByKortkode_V_M_06_01_has_HT() {
-            TypeApiService service = GetPrepearedTypeApiService();
-            var grunntype = service.GetGrunntypeByKortkode("V-M-06-01", "3.0");
-            Assert.NotNull(grunntype);
-        }*/
 
 
         [Fact]

@@ -231,23 +231,6 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("NIN-3.0-T-C-PE-NA-MB-M-A-01-05", grunntype.Langkode);
         }                
 
-        /*
-        [Fact]
-        public void TestLoadKartleggingsenhet_m005()
-        {
-            var inmemorydb = GetInMemoryDb();
-            var numOfKE = inmemorydb.Kartleggingsenhet.Count();
-            var firstKE = inmemorydb.Kartleggingsenhet.OrderBy(x => x.Kode).First();
-            var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
-            Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
-            Assert.Equal("Varig snø", firstKE.Navn);
-            Assert.Equal(1278, numOfKE);
-            Assert.Equal("NiN-3.0-T-C-PE-NA-MB-IA01-M005-01", firstKE.Langkode);
-            var kl_IA01_M005_01 = inmemorydb.Kartleggingsenhet.Where(x => x.Kode == "IA01-M005-01").FirstOrDefault();
-            var gts_for_IA01_M005_01 = inmemorydb.Grunntype.Where(x => x.kartleggingsenhet == kl_IA01_M005_01).ToList();
-            Assert.NotNull(kl_IA01_M005_01);
-        }*/
-
 
         [Fact]
         public void TestKartleggingsenhet_ALL_m005_has_GT() {
@@ -387,11 +370,8 @@ namespace NiN3.Tests.Infrastructure
             var trinnNhB = inmemorydb.Trinn.Where(trinn => trinn.Verdi == "NH_B").FirstOrDefault();
             var bMaaleskala = inmemorydb.Maaleskala.Where(m=> m.MaaleskalaNavn == "B").FirstOrDefault();
             Assert.Equal(2, bMaaleskala.Trinn.Count);//Checking that Binær-måleskala is loaded and has its trinn
-            Assert.Equal("Barentshavet og Polhavet", trinnNhB.Beskrivelse);
+            Assert.Equal("Barentshavet og polhavet", trinnNhB.Beskrivelse);
             Assert.Equal(MaaleskalatypeEnum.SI, trinnNhB.Maaleskala.MaaleskalatypeEnum);
-            //var uniqueCount = inmemorydb.Trinn.Select(x => x.Verdi).Distinct().Count();
-            //assert that trinn-navn is unique
-            //Assert.Equal(numOfTrinn, uniqueCount);
         }
 
         [Fact]
