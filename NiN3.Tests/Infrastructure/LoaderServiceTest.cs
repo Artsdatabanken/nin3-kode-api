@@ -332,7 +332,7 @@ namespace NiN3.Tests.Infrastructure
             var numOfVN = VariabelnavnList.Count();
             var firstVN = VariabelnavnList.OrderBy(x => x.Kode).First();
             Assert.NotNull(firstVN);
-            Assert.Equal(370, numOfVN);
+            Assert.Equal(367, numOfVN);
             Assert.True(firstVN.Kode == "AD-FA");
             Assert.True(firstVN.Navn == "Fremmedartsantall");
             Assert.True(firstVN.Variabelkategori2.ToString() == "AD");
@@ -436,7 +436,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3568, numOfKortkoder);//3557 before #175
+            Assert.Equal(3565, numOfKortkoder);//3557 before #175
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);
@@ -465,7 +465,7 @@ namespace NiN3.Tests.Infrastructure
             var numOfVariabelAllekortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.V);
             var numOfVariabelnavnAllekortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.VN);
             Assert.Equal(5, numOfVariabelAllekortkoder);
-            Assert.Equal(370,numOfVariabelnavnAllekortkoder);
+            Assert.Equal(367,numOfVariabelnavnAllekortkoder);
         }
 
         [Fact]
