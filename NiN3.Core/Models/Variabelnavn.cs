@@ -30,5 +30,7 @@ namespace NiN3.Core.Models
         public Variabel Variabel { get; set; }
 
         public ICollection<VariabelnavnMaaleskala> VariabelnavnMaaleskala { get; set; } = new List<VariabelnavnMaaleskala>();
+
+        public ICollection<Konvertering> Konverteringer { get; set; } = new List<Konvertering>();
     }
 }

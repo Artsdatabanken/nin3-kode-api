@@ -78,6 +78,9 @@
 	  <None Update="in_data\csvfiles\konvertering_htg_v30.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="in_data\csvfiles\konvertering_vn_v30.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="in_data\csvfiles\M005.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

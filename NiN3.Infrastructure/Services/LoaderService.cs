@@ -144,6 +144,7 @@ namespace NiN.Infrastructure.Services
             LoadKonverteringHovedtypegruppe();
             LoadKonverteringHovedtype();
             LoadKonverteringGrunntype();
+            LoadKonverteringVariabelnavn();
 
             // ** Reports ** //
             LoadAlleKortkoder();
@@ -1306,6 +1307,29 @@ namespace NiN.Infrastructure.Services
             }
             _context.SaveChanges();
         }*/
+
+        public void LoadKonverteringVariabelnavn() {
+            var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
+            var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
+            var vnKonvList = CsvDataImporter_konvertering_hovedtype.ProcessCSV("in_data/csvfiles/konvertering_vn_v30.csv");
+            foreach (var vnk in vnKonvList)
+            {
+                //var htg = _context.Hovedtypegruppe.FirstOrDefault(h => h.Kode == htk.Kode);
+                var konvert = new Konvertering()
+                {
+                    Klasse = KlasseEnum.VN,
+                    Kode = vnk.Kode,
+                    ForrigeKode = vnk.ForrigeKode,
+                    ForrigeVersjon = forrigeVersjon,
+                    Versjon = versjon,
+                    Url = vnk.Url,
+                    FoelsomhetsPresisjon = vnk.FoelsomhetsPresisjon,
+                    Spesifiseringsevne = vnk.Spesifiseringsevne
+                };
+                _context.Add(konvert);
+            }
+            _context.SaveChanges();
+        }
 
 
         /********* Loadings for RapportService *********/

@@ -468,6 +468,11 @@ namespace NiN3.Infrastructure.Mapping
                 VariabelgruppeEnum = variabelnavn.Variabelgruppe,
                 VariabelgruppeNavn = EnumUtil.ToDescription(variabelnavn.Variabelgruppe)
             };
+            //mapping konvertering
+            foreach (var konv in variabelnavn.Konverteringer)
+            {
+                variabelnavnDto.Konverteringer.Add(Map(konv));
+            }
             var maaleskalaBag = new ConcurrentBag<MaaleskalaDto>();
             Parallel.ForEach(variabelnavn.VariabelnavnMaaleskala.ToList(), g => maaleskalaBag.Add(Map(g.Maaleskala)));
             variabelnavnDto.Variabeltrinn = maaleskalaBag.ToList();

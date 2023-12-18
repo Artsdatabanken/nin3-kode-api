@@ -30,6 +30,17 @@ namespace NiN3.WebApi.Controllers
             var result = bom.Concat(csvBytes).ToArray();
             return File(result, "text/csv; charset=utf-8", "kodeoversikt.csv");
         }
+
+        [HttpGet("exceldata")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetRapportData()
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "report_data", "nin3_0.xlsx");
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "nin3_0.xlsx");
+        }
+
+
         /*
         public enum ReportFormat
         {

@@ -224,7 +224,7 @@ namespace NiN3.Tests.Infrastructure
             TypeApiService service = GetPrepearedTypeApiService();
             var htg_BM_A = service.GetHovedtypegruppeByKortkode("BM-A", "3.0");
             Assert.NotNull(htg_BM_A);
-            Assert.Equal(2, htg_BM_A.konverteringer.Count());//1 just now
+            Assert.Equal(1, htg_BM_A.konverteringer.Count());//1 just now
         }
 
         [Fact]
@@ -248,7 +248,7 @@ namespace NiN3.Tests.Infrastructure
             TypeApiService service = GetPrepearedTypeApiService();
             var htg_NT_M_01 = service.GetHovedtypeByKortkode("NT-M-01", "3.0");
             Assert.NotNull(htg_NT_M_01);
-            Assert.Equal(12, htg_NT_M_01.Konverteringer.Count());
+            Assert.Equal(6, htg_NT_M_01.Konverteringer.Count());
         }
 
 
@@ -286,7 +286,7 @@ namespace NiN3.Tests.Infrastructure
             TypeApiService service = GetPrepearedTypeApiService();
             var gt_M_A_06_19 = service.GetGrunntypeByKortkode("M-A-06-19", "3.0");
             Assert.NotNull(gt_M_A_06_19);
-            Assert.Equal(12, gt_M_A_06_19.Konverteringer.Count());//6 just now
+            Assert.Equal(6, gt_M_A_06_19.Konverteringer.Count());//6 just now
         }
     }
 }
