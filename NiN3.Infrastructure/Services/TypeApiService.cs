@@ -200,10 +200,12 @@ namespace NiN3.Infrastructure.Services
                 //.Include(kartleggingsenhet => kartleggingsenhet.Grunntyper)
                 .AsNoTracking()
                 .FirstOrDefault();
+            if (kartleggingsenhet != null) { 
             kartleggingsenhet.Grunntyper = _context.Kartleggingsenhet_Grunntype.Where(kg=> kg.Kartleggingsenhet == kartleggingsenhet)
                 .Select(kg=> kg.Grunntype)
                 .AsNoTracking()
                 .ToList();
+            }
             return kartleggingsenhet != null ? NiNkodeMapper.Instance.Map(kartleggingsenhet) : null;
         }
     }
