@@ -1145,7 +1145,6 @@ namespace NiN.Infrastructure.Services
                     m.MaaleskalaNavn == $"{grunntypeVariabeltrinn.varkode2}-SI");
                 var trinn = _context.Trinn.FirstOrDefault(t => t.Verdi == grunntypeVariabeltrinn.trinn && t.Maaleskala == maaleskala);
                 var variabelnavn = grunntypeVariabeltrinn.variabelnavnKode != null ? _context.Variabelnavn.FirstOrDefault(vn => vn.Kode == grunntypeVariabeltrinn.variabelnavnKode) : null;
-                //if (grunntype != null && maaleskala != null && trinn != null)
                 if (grunntype != null && maaleskala != null)
                 {
                     var grunndataVariabeltrinnMapping = new GrunntypeVariabeltrinn()
@@ -1201,6 +1200,7 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKonverteringHovedtypegruppe()
         {
+            WriteToFile("\n\n********  LoadKonverteringHovedtypegruppe");
             var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
             var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
             var htgKonvList = CsvDataImporter_konvertering_hovedtypegruppe.ProcessCSV("in_data/csvfiles/konvertering_htg_v30.csv");
@@ -1226,6 +1226,7 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKonverteringHovedtype()
         {
+            WriteToFile("\n\n********  LoadKonverteringHovedtype");
             var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
             var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
             var htKonvList = CsvDataImporter_konvertering_hovedtype.ProcessCSV("in_data/csvfiles/konvertering_ht_v30.csv");
@@ -1251,6 +1252,7 @@ namespace NiN.Infrastructure.Services
 
         public void LoadKonverteringGrunntype()
         {
+            WriteToFile("\n\n********  LoadKonverteringGrunntype");
             var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
             var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
             var gtKonvList = CsvDataImporter_konvertering_hovedtype.ProcessCSV("in_data/csvfiles/konvertering_gt_v30.csv");
@@ -1309,6 +1311,7 @@ namespace NiN.Infrastructure.Services
         }*/
 
         public void LoadKonverteringVariabelnavn() {
+            WriteToFile("\n\n********  LoadKonverteringVariabelnavn");
             var forrigeVersjon = _context.Versjon.FirstOrDefault(v => v.Navn == "2.3");
             var versjon = _context.Versjon.FirstOrDefault(v => v.Navn == "3.0");
             var vnKonvList = CsvDataImporter_konvertering_hovedtype.ProcessCSV("in_data/csvfiles/konvertering_vn_v30.csv");

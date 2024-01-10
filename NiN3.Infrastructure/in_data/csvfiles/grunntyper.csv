@@ -122,7 +122,7 @@ NiN-3.0-T-C-PE-LA-0-I001-010;I;0;01;010;dalformet hei- og fjellskogs-landskap me
 NiN-3.0-T-C-PE-LA-0-I001-011;I;0;01;011;dalformet fjellheilandskap;I-0-01-011
 NiN-3.0-T-C-PE-LA-0-I001-012;I;0;01;012;dalformet snaufjellslandskap;I-0-01-012
 NiN-3.0-T-C-PE-LA-0-I001-013;I;0;01;013;dalformet snaufjellslandskap med isbre;I-0-01-013
-NiN-3.0-T-C-PE-LA-0-I001-014;I;0;01;014;slakt lavlands-åslandskap ;I-0-01-014
+NiN-3.0-T-C-PE-LA-0-I001-014;I;0;01;014;slakt lavlands-åslandskap;I-0-01-014
 NiN-3.0-T-C-PE-LA-0-I001-015;I;0;01;015;slakt lavlands-åslandskap med skog og jordbruk;I-0-01-015
 NiN-3.0-T-C-PE-LA-0-I001-016;I;0;01;016;slakt lavlands-åslandskap med bygd/bebyggelse;I-0-01-016
 NiN-3.0-T-C-PE-LA-0-I001-017;I;0;01;017;slakt lavlands-åslandskap med jordbruksbygd;I-0-01-017
@@ -154,7 +154,7 @@ NiN-3.0-T-C-PE-LA-0-I001-042;I;0;01;042;kupert lavlands-åslandskap med jordbruk
 NiN-3.0-T-C-PE-LA-0-I001-043;I;0;01;043;kupert lavlands-åslandskap med tettsted/småby;I-0-01-043
 NiN-3.0-T-C-PE-LA-0-I001-044;I;0;01;044;kupert hei- og fjellskogs-landskap;I-0-01-044
 NiN-3.0-T-C-PE-LA-0-I001-045;I;0;01;045;kupert fjellheilandskap;I-0-01-045
-NiN-3.0-T-C-PE-LA-0-I001-046;I;0;01;046;kupert snaufjellslandskap ;I-0-01-046
+NiN-3.0-T-C-PE-LA-0-I001-046;I;0;01;046;kupert snaufjellslandskap;I-0-01-046
 NiN-3.0-T-C-PE-LA-0-I001-047;I;0;01;047;kupert snaufjellslandskap med bre;I-0-01-047
 NiN-3.0-T-C-PE-LA-0-I001-048;I;0;01;048;bratt lavlands-åslandskap;I-0-01-048
 NiN-3.0-T-C-PE-LA-0-I001-049;I;0;01;049;bratt lavlands-åslandskap med bygd/bebyggelse;I-0-01-049
@@ -168,7 +168,7 @@ NiN-3.0-T-C-PE-LA-0-I002-002;I;0;02;002;åpent lavlands-dallandskap med jordbruk
 NiN-3.0-T-C-PE-LA-0-I002-003;I;0;02;003;åpent lavlands-dallandskap med bygd/bebyggelse;I-0-02-003
 NiN-3.0-T-C-PE-LA-0-I002-004;I;0;02;004;åpent lavlands-dallandskap med jordbruksbygd;I-0-02-004
 NiN-3.0-T-C-PE-LA-0-I002-005;I;0;02;005;åpent lavlands-dallandskap med tettsted/småby;I-0-02-005
-NiN-3.0-T-C-PE-LA-0-I002-006;I;0;02;006;åpent lavlands-dallandskap med jorbruk og småby ;I-0-02-006
+NiN-3.0-T-C-PE-LA-0-I002-006;I;0;02;006;åpent lavlands-dallandskap med jorbruk og småby;I-0-02-006
 NiN-3.0-T-C-PE-LA-0-I002-007;I;0;02;007;åpent hei- og fjellskogs-dallandskap;I-0-02-007
 NiN-3.0-T-C-PE-LA-0-I002-008;I;0;02;008;åpent hei- og fjellskogs-dallandskap med bygd/bebyggelse;I-0-02-008
 NiN-3.0-T-C-PE-LA-0-I002-009;I;0;02;009;åpent fjellhei-dallandskap;I-0-02-009
@@ -187,7 +187,7 @@ NiN-3.0-T-C-PE-LA-0-I002-021;I;0;02;021;åpent lavlands-dallandskap med stor inn
 NiN-3.0-T-C-PE-LA-0-I002-022;I;0;02;022;åpent lavlands-dallandskap med stor innsjø og jordbruk;I-0-02-022
 NiN-3.0-T-C-PE-LA-0-I002-023;I;0;02;023;åpent lavlands-dallandskap med stor innsjø og jordbruksbygd;I-0-02-023
 NiN-3.0-T-C-PE-LA-0-I002-024;I;0;02;024;åpent lavlands-dallandskap med stor innsjø og tettsted/småby;I-0-02-024
-NiN-3.0-T-C-PE-LA-0-I002-025;I;0;02;025;åpent lavlands-dallandskap med stor innsjø og jorbruk og småby ;I-0-02-025
+NiN-3.0-T-C-PE-LA-0-I002-025;I;0;02;025;åpent lavlands-dallandskap med stor innsjø og jorbruk og småby;I-0-02-025
 NiN-3.0-T-C-PE-LA-0-I002-026;I;0;02;026;åpent lavlands-dallandskap med stor innsjø og storby;I-0-02-026
 NiN-3.0-T-C-PE-LA-0-I002-027;I;0;02;027;åpent hei- og fjellskogs-dallandskap med stor innsjø;I-0-02-027
 NiN-3.0-T-C-PE-LA-0-I002-028;I;0;02;028;åpent hei- og fjellskogs-dallandskap med stor innsjø og bygd/bebyggelse;I-0-02-028
@@ -402,7 +402,7 @@ NiN-3.0-T-C-PE-NA-MB-LA01-03;L;A;01;03;svært kalkfattig beskyttet grunn fast in
 NiN-3.0-T-C-PE-NA-MB-LA01-04;L;A;01;04;noe kalkfattig og beskyttet fast strandkant-innsjøbunn;L-A-01-04
 NiN-3.0-T-C-PE-NA-MB-LA01-05;L;A;01;05;noe kalkfattig og eksponert fast strandkant-innsjøbunn;L-A-01-05
 NiN-3.0-T-C-PE-NA-MB-LA01-06;L;A;01;06;noe kalkfattig beskyttet grunn fast innsjøbunn;L-A-01-06
-NiN-3.0-T-C-PE-NA-MB-LA01-07;L;A;01;07;moderat kalkrik og beskyttet fast strandkant-innsjøbunn ;L-A-01-07
+NiN-3.0-T-C-PE-NA-MB-LA01-07;L;A;01;07;moderat kalkrik og beskyttet fast strandkant-innsjøbunn;L-A-01-07
 NiN-3.0-T-C-PE-NA-MB-LA01-08;L;A;01;08;moderat kalkrik og eksponert fast strandkant-innsjøbunn;L-A-01-08
 NiN-3.0-T-C-PE-NA-MB-LA01-09;L;A;01;09;moderat kalkrik beskyttet grunn fast innsjøbunn;L-A-01-09
 NiN-3.0-T-C-PE-NA-MB-LA01-10;L;A;01;10;svært kalkrik og beskyttet fast strandkant-innsjøbunn;L-A-01-10
@@ -444,18 +444,18 @@ NiN-3.0-T-C-PE-NA-MB-LA02-32;L;A;02;32;pusleplante-innsjøbunn;L-A-02-32
 NiN-3.0-T-C-PE-NA-MB-LA03-01;L;A;03;01;svært kalkfattig afotisk innsjøbunn;L-A-03-01
 NiN-3.0-T-C-PE-NA-MB-LA03-02;L;A;03;02;noe kalkfattig afotisk innsjøbunn;L-A-03-02
 NiN-3.0-T-C-PE-NA-MB-LA03-03;L;A;03;03;kalkrik afotisk innsjøbunn;L-A-03-03
-NiN-3.0-T-C-PE-NA-MB-LA03-04;L;A;03;04; innsjøbunn i grotte;L-A-03-04
+NiN-3.0-T-C-PE-NA-MB-LA03-04;L;A;03;04;innsjøbunn i grotte;L-A-03-04
 NiN-3.0-T-C-PE-NA-MB-LB01-01;L;B;01;01;kalkfattig helofytt-ferskvannssump;L-B-01-01
 NiN-3.0-T-C-PE-NA-MB-LB01-02;L;B;01;02;moderat kalkrik helofytt-ferskvannssump;L-B-01-02
 NiN-3.0-T-C-PE-NA-MB-LB01-03;L;B;01;03;svært kalkrik helofytt-ferskvannssump;L-B-01-03
 NiN-3.0-T-C-PE-NA-MB-LB02-01;L;B;02;01;kalkfattig undervannseng i innsjø;L-B-02-01
 NiN-3.0-T-C-PE-NA-MB-LB02-02;L;B;02;02;moderat kalkrik undervannseng i innsjø;L-B-02-02
 NiN-3.0-T-C-PE-NA-MB-LB02-03;L;B;02;03;svært kalkrik undervannseng i innsjø;L-B-02-03
-NiN-3.0-T-C-PE-NA-MB-LC01-01;L;C;01;01;svært kalkfattig flarkgjøl-bunn på fast torv ;L-C-01-01
-NiN-3.0-T-C-PE-NA-MB-LC01-02;L;C;01;02;noe kalkfattig flarkgjøl-bunn på fast torv ;L-C-01-02
-NiN-3.0-T-C-PE-NA-MB-LC01-03;L;C;01;03;moderat kalkrik flarkgjøl-bunn på fast torv ;L-C-01-03
-NiN-3.0-T-C-PE-NA-MB-LC01-04;L;C;01;04;svært kalkrik flarkgjøl-bunn på fast torv ;L-C-01-04
-NiN-3.0-T-C-PE-NA-MB-LC01-05;L;C;01;05;høljegjøl-bunn på fast torv ;L-C-01-05
+NiN-3.0-T-C-PE-NA-MB-LC01-01;L;C;01;01;svært kalkfattig flarkgjøl-bunn på fast torv;L-C-01-01
+NiN-3.0-T-C-PE-NA-MB-LC01-02;L;C;01;02;noe kalkfattig flarkgjøl-bunn på fast torv;L-C-01-02
+NiN-3.0-T-C-PE-NA-MB-LC01-03;L;C;01;03;moderat kalkrik flarkgjøl-bunn på fast torv;L-C-01-03
+NiN-3.0-T-C-PE-NA-MB-LC01-04;L;C;01;04;svært kalkrik flarkgjøl-bunn på fast torv;L-C-01-04
+NiN-3.0-T-C-PE-NA-MB-LC01-05;L;C;01;05;høljegjøl-bunn på fast torv;L-C-01-05
 NiN-3.0-T-C-PE-NA-MB-LC02-01;L;C;02;01;svært kalkfattig innsjøbunn av dy og gytje;L-C-02-01
 NiN-3.0-T-C-PE-NA-MB-LC02-02;L;C;02;02;noe kalkfattig innsjøbunn av dy og gytje;L-C-02-02
 NiN-3.0-T-C-PE-NA-MB-LC02-03;L;C;02;03;moderat kalkrik innsjøbunn av dy og gytje;L-C-02-03
@@ -480,7 +480,7 @@ NiN-3.0-T-C-PE-NA-MB-LM01-01;L;M;01;01;sterkt endret ny fast innsjøbunn;L-M-01-
 NiN-3.0-T-C-PE-NA-MB-LM01-02;L;M;01;02;kalkfattig syntetisk innsjøbunn;L-M-01-02
 NiN-3.0-T-C-PE-NA-MB-LM01-03;L;M;01;03;kalkrik syntetisk innsjøbunn;L-M-01-03
 NiN-3.0-T-C-PE-NA-MB-LM01-04;L;M;01;04;kalkfattig ny innsjø-sedimentbunn;L-M-01-04
-NiN-3.0-T-C-PE-NA-MB-LM01-05;L;M;01;05;kalkrik ny innsjø-sedimentbunn ;L-M-01-05
+NiN-3.0-T-C-PE-NA-MB-LM01-05;L;M;01;05;kalkrik ny innsjø-sedimentbunn;L-M-01-05
 NiN-3.0-T-C-PE-NA-MB-LM02-01;L;M;02;01;kalkfattig ny innsjø-sedimentbunn med opphav i elvebunn;L-M-02-01
 NiN-3.0-T-C-PE-NA-MB-LM02-02;L;M;02;02;kalkfattig ny fast innsjøbunn med opphav i elvebunn;L-M-02-02
 NiN-3.0-T-C-PE-NA-MB-LM02-03;L;M;02;03;kalkrik ny innsjø-sedimentbunn med opphav i elvebunn;L-M-02-03
@@ -492,13 +492,13 @@ NiN-3.0-T-C-PE-NA-MB-LM03-04;L;M;03;04;kalkrik ny fast innsjøbunn med opphav i 
 NiN-3.0-T-C-PE-NA-MB-LM04-01;L;M;04;01;kalkfattig kronisk fysisk forstyrret innsjø-sedimentbunn;L-M-04-01
 NiN-3.0-T-C-PE-NA-MB-LM04-03;L;M;04;03;kalkrik kronisk fysisk forstyrret innsjø-sedimentbunn;L-M-04-03
 NiN-3.0-T-C-PE-NA-MB-LM04-05;L;M;04;05;reguleringssone i innsjø;L-M-04-05
-NiN-3.0-T-C-PE-NA-MB-LM05-01;L;M;05;01;kronisk kjemisk påvirket innsjø-sedimentbunn ;L-M-05-01
-NiN-3.0-T-C-PE-NA-MB-LM05-02;L;M;05;02;kronisk kjemisk påvirket fast innsjøbunn ;L-M-05-02
-NiN-3.0-T-C-PE-NA-MB-LM05-03;L;M;05;03;kronisk saltpåvirket innsjø-sedimentbunn ;L-M-05-03
-NiN-3.0-T-C-PE-NA-MB-LM05-04;L;M;05;04;kronisk eutrofiert innsjø-sedimentbunn ;L-M-05-04
-NiN-3.0-T-C-PE-NA-MB-LM05-05;L;M;05;05;kronisk eutrofiert fast innsjøbunn ;L-M-05-05
-NiN-3.0-T-C-PE-NA-MB-LM05-06;L;M;05;06;kronisk forsuret innsjø-sedimentbunn ;L-M-05-06
-NiN-3.0-T-C-PE-NA-MB-LM05-07;L;M;05;07;kronisk forsuret fast innsjøbunn ;L-M-05-07
+NiN-3.0-T-C-PE-NA-MB-LM05-01;L;M;05;01;kronisk kjemisk påvirket innsjø-sedimentbunn;L-M-05-01
+NiN-3.0-T-C-PE-NA-MB-LM05-02;L;M;05;02;kronisk kjemisk påvirket fast innsjøbunn;L-M-05-02
+NiN-3.0-T-C-PE-NA-MB-LM05-03;L;M;05;03;kronisk saltpåvirket innsjø-sedimentbunn;L-M-05-03
+NiN-3.0-T-C-PE-NA-MB-LM05-04;L;M;05;04;kronisk eutrofiert innsjø-sedimentbunn;L-M-05-04
+NiN-3.0-T-C-PE-NA-MB-LM05-05;L;M;05;05;kronisk eutrofiert fast innsjøbunn;L-M-05-05
+NiN-3.0-T-C-PE-NA-MB-LM05-06;L;M;05;06;kronisk forsuret innsjø-sedimentbunn;L-M-05-06
+NiN-3.0-T-C-PE-NA-MB-LM05-07;L;M;05;07;kronisk forsuret fast innsjøbunn;L-M-05-07
 NiN-3.0-T-C-PE-NA-MB-MA01-01;M;A;01;01;grisetangbunn;M-A-01-01
 NiN-3.0-T-C-PE-NA-MB-MA01-02;M;A;01;02;grønnalge-spiraltangbunn;M-A-01-02
 NiN-3.0-T-C-PE-NA-MB-MA01-03;M;A;01;03;grønnalge-rurbunn;M-A-01-03
@@ -569,8 +569,8 @@ NiN-3.0-T-C-PE-NA-MB-MA05-09;M;A;05;09;noe finmaterialrik overveiende uorganisk 
 NiN-3.0-T-C-PE-NA-MB-MA05-10;M;A;05;10;noe finmaterialrik overveiende uorganisk saltvanns-grusbunn i rødalgebeltet;M-A-05-10
 NiN-3.0-T-C-PE-NA-MB-MA05-11;M;A;05;11;finmaterialrik til -dominert saltvanns-sedimentbunn av leire og silt i rødalgebeltet;M-A-05-11
 NiN-3.0-T-C-PE-NA-MB-MA05-12;M;A;05;12;eufotisk saltvanns-skjellsandbunn;M-A-05-12
-NiN-3.0-T-C-PE-NA-MB-MA05-13;M;A;05;13; ruglbunn;M-A-05-13
-NiN-3.0-T-C-PE-NA-MB-MA05-14;M;A;05;14; eufotisk saltvanns-sedimentbunn av myrtorv;M-A-05-14
+NiN-3.0-T-C-PE-NA-MB-MA05-13;M;A;05;13;ruglbunn;M-A-05-13
+NiN-3.0-T-C-PE-NA-MB-MA05-14;M;A;05;14;eufotisk saltvanns-sedimentbunn av myrtorv;M-A-05-14
 NiN-3.0-T-C-PE-NA-MB-MA05-15;M;A;05;15;eufotisk saltvanns-sedimentbunn av dy og gytje;M-A-05-15
 NiN-3.0-T-C-PE-NA-MB-MA05-16;M;A;05;16;eufotisk saltvanns-sedimentbunn av konsolidert leire;M-A-05-16
 NiN-3.0-T-C-PE-NA-MB-MA06-01;M;A;06;01;afotisk finmaterialfattig overveiende uorganisk sandbunn i kystvann;M-A-06-01
@@ -608,7 +608,7 @@ NiN-3.0-T-C-PE-NA-MB-MB01-01;M;B;01;01;salt helofyttsump;M-B-01-01
 NiN-3.0-T-C-PE-NA-MB-MB01-02;M;B;01;02;nokså brakk sublittoral helofyttsump;M-B-01-02
 NiN-3.0-T-C-PE-NA-MB-MB01-03;M;B;01;03;nokså brakk hydrolittoral helofyttsump;M-B-01-03
 NiN-3.0-T-C-PE-NA-MB-MB01-04;M;B;01;04;ekstrembrakk sublittoral helofyttsump;M-B-01-04
-NiN-3.0-T-C-PE-NA-MB-MB01-05;M;B;01;05; ekstrembrakk hydrolittoral helofyttsump;M-B-01-05
+NiN-3.0-T-C-PE-NA-MB-MB01-05;M;B;01;05;ekstrembrakk hydrolittoral helofyttsump;M-B-01-05
 NiN-3.0-T-C-PE-NA-MB-MB02-01;M;B;02;01;sublittoral saltvanns-undervannseng;M-B-02-01
 NiN-3.0-T-C-PE-NA-MB-MB02-02;M;B;02;02;hydrolittoral saltvanns-undervannseng;M-B-02-02
 NiN-3.0-T-C-PE-NA-MB-MB03-01;M;B;03;01;kysttilknyttet korallrev-bunn;M-B-03-01
@@ -633,8 +633,8 @@ NiN-3.0-T-C-PE-NA-MB-MC02-12;M;C;02;12;bergvegg i ekstrem-brakt vann ovenfor rø
 NiN-3.0-T-C-PE-NA-MB-MC02-13;M;C;02;13;fast brakkvannsbunn preget av disruptiv isforstyrrelse;M-C-02-13
 NiN-3.0-T-C-PE-NA-MB-MC03-01;M;C;03;01;finmaterialfattig permanent littoralbassengbunn i geolittoral;M-C-03-01
 NiN-3.0-T-C-PE-NA-MB-MC03-02;M;C;03;02;finmaterialrik permanent littoralbassengbunn i geolittoral;M-C-03-02
-NiN-3.0-T-C-PE-NA-MB-MC03-03;M;C;03;03;permanent litoralbassengbunn i supralittoral ;M-C-03-03
-NiN-3.0-T-C-PE-NA-MB-MC03-04;M;C;03;04;temporært litoralbassengbunn i supralittoral ;M-C-03-04
+NiN-3.0-T-C-PE-NA-MB-MC03-03;M;C;03;03;permanent litoralbassengbunn i supralittoral;M-C-03-03
+NiN-3.0-T-C-PE-NA-MB-MC03-04;M;C;03;04;temporært litoralbassengbunn i supralittoral;M-C-03-04
 NiN-3.0-T-C-PE-NA-MB-MC04-01;M;C;04;01;nokså brakk finmaterialfattig bunn av overveiende uorganisk substrat;M-C-04-01
 NiN-3.0-T-C-PE-NA-MB-MC04-02;M;C;04;02;nokså brakk noe finmaterialrik bunn av overveiende uorganisk substrat;M-C-04-02
 NiN-3.0-T-C-PE-NA-MB-MC04-03;M;C;04;03;nokså brakk finmaterialrik bunn av overveiende uorganisk substrat;M-C-04-03
@@ -700,7 +700,7 @@ NiN-3.0-T-C-LI-0-0-MS007-02;MS;0;07;02;dødt plantemateriale i marine systemer;M
 NiN-3.0-T-C-LI-0-0-MS008-01;MS;0;08;01;døde dyr i marine systemer;MS-0-08-01
 NiN-3.0-T-C-LI-0-0-MS009-01;MS;0;09;01;syntetiske livsmedier i marine systemer;MS-0-09-01
 NiN-3.0-T-C-LI-0-0-MU001-01;MU;0;01;01;substratfrie livsmedier i marine systemer;MU-0-01-01
-NiN-3.0-T-C-PE-NA-MB-OA01-01;O;A;01;01;ekstremt kalkfattig fastbunn i klar og stilleflytende elv ;O-A-01-01
+NiN-3.0-T-C-PE-NA-MB-OA01-01;O;A;01;01;ekstremt kalkfattig fastbunn i klar og stilleflytende elv;O-A-01-01
 NiN-3.0-T-C-PE-NA-MB-OA01-02;O;A;01;02;ekstremt kalkfattig fastbunn i klar elv med brutt overflate;O-A-01-02
 NiN-3.0-T-C-PE-NA-MB-OA01-03;O;A;01;03;ekstremt kalkfattig fastbunn i klar elv med moderat stryk;O-A-01-03
 NiN-3.0-T-C-PE-NA-MB-OA01-04;O;A;01;04;ekstremt kalkfattig fastbunn i klar elv med hvitstryk;O-A-01-04
@@ -785,7 +785,7 @@ NiN-3.0-T-C-PE-NA-MB-OM01-01;O;M;01;01;kalkfattig kronisk fysisk forstyrret sedi
 NiN-3.0-T-C-PE-NA-MB-OM01-02;O;M;01;02;kalkfattig kronisk fysisk forstyrret fastbunn i elv;O-M-01-02
 NiN-3.0-T-C-PE-NA-MB-OM01-03;O;M;01;03;kalkrik kronisk fysisk forstyrret sedimentbunn i elv;O-M-01-03
 NiN-3.0-T-C-PE-NA-MB-OM01-04;O;M;01;04;kalkrik kronisk fysisk forstyrret fastbunn i elv;O-M-01-04
-NiN-3.0-T-C-PE-NA-MB-OM01-05;O;M;01;05;turbid minstevannførings-strekning i elv ;O-M-01-05
+NiN-3.0-T-C-PE-NA-MB-OM01-05;O;M;01;05;turbid minstevannførings-strekning i elv;O-M-01-05
 NiN-3.0-T-C-PE-NA-MB-OM02-01;O;M;02;01;kronisk kjemisk påvirket sedimentbunn i elv;O-M-02-01
 NiN-3.0-T-C-PE-NA-MB-OM02-02;O;M;02;02;kronisk kjemisk påvirket fastbunn i elv;O-M-02-02
 NiN-3.0-T-C-PE-NA-MB-OM02-03;O;M;02;03;kronisk forsuret sedimentbunn i elv;O-M-02-03
@@ -807,7 +807,7 @@ NiN-3.0-T-C-PE-NA-VM-SC05-02;S;C;05;02;littoralbasseng;S-C-05-02
 NiN-3.0-T-C-PE-NA-VM-SC06-01;S;C;06;01;vannmassesystemer i kontaktsonen ved polar havis;S-C-06-01
 NiN-3.0-T-C-PE-NA-VM-SC06-02;S;C;06;02;vannmassesystemer under polar havis;S-C-06-02
 NiN-3.0-T-C-PE-NA-VM-SC07-01;S;C;07;01;ultrabrakke til klart brakke vannmassesystemer på polar havis-overflate;S-C-07-01
-NiN-3.0-T-C-PE-NA-VM-SC07-02;S;C;07;02; brakke til nesten normalsalte vannmassesystemer på polar havis-overflate;S-C-07-02
+NiN-3.0-T-C-PE-NA-VM-SC07-02;S;C;07;02;brakke til nesten normalsalte vannmassesystemer på polar havis-overflate;S-C-07-02
 NiN-3.0-T-C-PE-NA-VM-SM01-01;S;M;01;01;nye marine vannmassesystemer;S-M-01-01
 NiN-3.0-T-C-PE-NA-VM-SM02-01;S;M;02;01;marine vannmassesystemer preget av kronisk fysisk påvirkning;S-M-02-01
 NiN-3.0-T-C-PE-NA-VM-SM03-01;S;M;03;01;marine vannmassesystemer preget av kronisk fysikalsk-kjemisk påvirkning;S-M-03-01
@@ -1038,13 +1038,13 @@ NiN-3.0-T-C-PE-NA-MB-TE03-03;T;E;03;03;intermediær til sterkt kalkrik åpen san
 NiN-3.0-T-C-PE-NA-MB-TE03-04;T;E;03;04;intermediær til litt kalkrik åpen stein- og blokk-flomfastmark;T-E-03-04
 NiN-3.0-T-C-PE-NA-MB-TE03-05;T;E;03;05;sterkt kalkrik åpen stein- og blokk-flomfastmark;T-E-03-05
 NiN-3.0-T-C-PE-NA-MB-TE03-06;T;E;03;06;åpen storblokket flomfastmark;T-E-03-06
-NiN-3.0-T-C-PE-NA-MB-TE04-01;T;E;04;01;nedre langvarig oversvømte flommarksbelte ;T-E-04-01
-NiN-3.0-T-C-PE-NA-MB-TE04-02;T;E;04;02;øvre langvarig oversvømte flommarksbelte ;T-E-04-02
+NiN-3.0-T-C-PE-NA-MB-TE04-01;T;E;04;01;nedre langvarig oversvømte flommarksbelte;T-E-04-01
+NiN-3.0-T-C-PE-NA-MB-TE04-02;T;E;04;02;øvre langvarig oversvømte flommarksbelte;T-E-04-02
 NiN-3.0-T-C-PE-NA-MB-TE05-01;T;E;05;01;intermediær til litt kalkrik finjords-oppfrysingsmark;T-E-05-01
 NiN-3.0-T-C-PE-NA-MB-TE05-02;T;E;05;02;sterkt kalkrik finjords-oppfrysingsmark;T-E-05-02
-NiN-3.0-T-C-PE-NA-MB-TE05-03;T;E;05;03;kalkfattig grov oppfrysingsmark ;T-E-05-03
-NiN-3.0-T-C-PE-NA-MB-TE05-04;T;E;05;04;intermediær til litt kalkrik grov oppfrysingsmark ;T-E-05-04
-NiN-3.0-T-C-PE-NA-MB-TE05-05;T;E;05;05;sterkt kalkrik grov oppfrysingsmark ;T-E-05-05
+NiN-3.0-T-C-PE-NA-MB-TE05-03;T;E;05;03;kalkfattig grov oppfrysingsmark;T-E-05-03
+NiN-3.0-T-C-PE-NA-MB-TE05-04;T;E;05;04;intermediær til litt kalkrik grov oppfrysingsmark;T-E-05-04
+NiN-3.0-T-C-PE-NA-MB-TE05-05;T;E;05;05;sterkt kalkrik grov oppfrysingsmark;T-E-05-05
 NiN-3.0-T-C-PE-NA-MB-TE05-06;T;E;05;06;kalkfattig blokkdominert oppfrysingsmark;T-E-05-06
 NiN-3.0-T-C-PE-NA-MB-TE05-07;T;E;05;07;intermediær til litt kalkrik blokkdominert oppfrysingsmark;T-E-05-07
 NiN-3.0-T-C-PE-NA-MB-TE05-08;T;E;05;08;sterkt kalkrik blokkdominert oppfrysingsmark;T-E-05-08
@@ -1066,7 +1066,7 @@ NiN-3.0-T-C-PE-NA-MB-TE09-03;T;E;09;03;klart kalkrik isinnfrysingsmark;T-E-09-03
 NiN-3.0-T-C-PE-NA-MB-TF01-01;T;F;01;01;sandskogsmark;T-F-01-01
 NiN-3.0-T-C-PE-NA-MB-TF01-02;T;F;01;02;dyneskogsmark;T-F-01-02
 NiN-3.0-T-C-PE-NA-MB-TF02-01;T;F;02;01;beskyttet flomskogsmark på finmateriale;T-F-02-01
-NiN-3.0-T-C-PE-NA-MB-TF02-02;T;F;02;02;noe eksponert flomskogsmark på finmateriale ;T-F-02-02
+NiN-3.0-T-C-PE-NA-MB-TF02-02;T;F;02;02;noe eksponert flomskogsmark på finmateriale;T-F-02-02
 NiN-3.0-T-C-PE-NA-MB-TF02-03;T;F;02;03;kildevannspåvirket flomskogsmark på finmateriale;T-F-02-03
 NiN-3.0-T-C-PE-NA-MB-TF02-04;T;F;02;04;beskyttet flomskogsmark på grus og stein;T-F-02-04
 NiN-3.0-T-C-PE-NA-MB-TF02-05;T;F;02;05;eksponert flomskogsmark på grus og stein;T-F-02-05
@@ -1140,7 +1140,7 @@ NiN-3.0-T-C-PE-NA-MB-TI01-01;T;I;01;01;grøftet eller markforstyrret klart endre
 NiN-3.0-T-C-PE-NA-MB-TI01-02;T;I;01;02;grøftet eller markforstyrret klart endret friskere kalkskog;T-I-01-02
 NiN-3.0-T-C-PE-NA-MB-TI01-03;T;I;01;03;grøftet eller markforstyrret klart endret tørrere ikke-kalkrik skog;T-I-01-03
 NiN-3.0-T-C-PE-NA-MB-TI01-04;T;I;01;04;grøftet eller markforstyrret klart endret tørrere kalkskog;T-I-01-04
-NiN-3.0-T-C-PE-NA-MB-TI01-05;T;I;01;05;hugd eller treslagstypeskiftet klart endret friskere ikke-kalkrik skog ;T-I-01-05
+NiN-3.0-T-C-PE-NA-MB-TI01-05;T;I;01;05;hugd eller treslagstypeskiftet klart endret friskere ikke-kalkrik skog;T-I-01-05
 NiN-3.0-T-C-PE-NA-MB-TI01-06;T;I;01;06;hugd eller treslagstypeskiftet klart endret friskere kalkskog;T-I-01-06
 NiN-3.0-T-C-PE-NA-MB-TI01-07;T;I;01;07;hugd eller treslagstypeskiftet klart endret tørrere ikke-kalkrik skog;T-I-01-07
 NiN-3.0-T-C-PE-NA-MB-TI01-08;T;I;01;08;hugd eller treslagstypeskiftet klart endret tørrere kalkskog;T-I-01-08
@@ -1210,8 +1210,8 @@ NiN-3.0-T-C-PE-NA-MB-TM04-02;T;M;04;02;ny løs fastmark på tørrlagt elvebunn;T
 NiN-3.0-T-C-PE-NA-MB-TM05-01;T;M;05;01;ny løs fastmark på drenert jordvannsmyr;T-M-05-01
 NiN-3.0-T-C-PE-NA-MB-TM05-02;T;M;05;02;ny løs fastmark på drenert nedbørsmyr;T-M-05-02
 NiN-3.0-T-C-PE-NA-MB-TM06-01;T;M;06;01;sterkt endret skogsmark etter fysisk-kjemisk markinngrep;T-M-06-01
-NiN-3.0-T-C-PE-NA-MB-TM06-02;T;M;06;02;mellomsuksesjonsstadium som ikke har opphav i skogsmark ;T-M-06-02
-NiN-3.0-T-C-PE-NA-MB-TM06-03;T;M;06;03;mellomsuksesjonsstadium i skogsmark ;T-M-06-03
+NiN-3.0-T-C-PE-NA-MB-TM06-02;T;M;06;02;mellomsuksesjonsstadium som ikke har opphav i skogsmark;T-M-06-02
+NiN-3.0-T-C-PE-NA-MB-TM06-03;T;M;06;03;mellomsuksesjonsstadium i skogsmark;T-M-06-03
 NiN-3.0-T-C-PE-NA-MB-TN01-01;T;N;01;01;blomsterbed og annen hyppig bearbeidet mark;T-N-01-01
 NiN-3.0-T-C-PE-NA-MB-TN02-01;T;N;02;01;blomsterenger, usprøytete vegkanter og liknende med semi-naturlig hevdpreg;T-N-02-01
 NiN-3.0-T-C-PE-NA-MB-TN03-01;T;N;03;01;vegkanter, plener, parker og liknende uten semi-naturlig hevdpreg;T-N-03-01
@@ -1328,10 +1328,10 @@ NiN-3.0-T-C-PE-NA-MB-VB01-08;V;B;01;08;temmelig til ekstremt kalkrik myr- og sum
 NiN-3.0-T-C-PE-NA-MB-VB01-09;V;B;01;09;litt kalkfattig til svakt intermediær kildesumpskogsmark;V-B-01-09
 NiN-3.0-T-C-PE-NA-MB-VB01-10;V;B;01;10;sterkt intermediær til litt kalkrik kildesumpskogsmark;V-B-01-10
 NiN-3.0-T-C-PE-NA-MB-VC01-01;V;C;01;01;nedbørsmyr-mykmatte;V-C-01-01
-NiN-3.0-T-C-PE-NA-MB-VC01-02;V;C;01;02; nedre nedbørsmyr-fastmatte;V-C-01-02
-NiN-3.0-T-C-PE-NA-MB-VC01-03;V;C;01;03; øvre nedbørsmyr-fastmatte;V-C-01-03
+NiN-3.0-T-C-PE-NA-MB-VC01-02;V;C;01;02;nedre nedbørsmyr-fastmatte;V-C-01-02
+NiN-3.0-T-C-PE-NA-MB-VC01-03;V;C;01;03;øvre nedbørsmyr-fastmatte;V-C-01-03
 NiN-3.0-T-C-PE-NA-MB-VC01-04;V;C;01;04;nedre nedbørsmyr-tuenivå;V-C-01-04
-NiN-3.0-T-C-PE-NA-MB-VC01-05;V;C;01;05; øvre nedbørsmyr-tuenivå;V-C-01-05
+NiN-3.0-T-C-PE-NA-MB-VC01-05;V;C;01;05;øvre nedbørsmyr-tuenivå;V-C-01-05
 NiN-3.0-T-C-PE-NA-MB-VC01-07;V;C;01;07;rabbepreget nedbørsmyr-myrtue;V-C-01-07
 NiN-3.0-T-C-PE-NA-MB-VC01-08;V;C;01;08;rabbepreget nedbørsmyr-myrtue på permafrost;V-C-01-08
 NiN-3.0-T-C-PE-NA-MB-VC02-01;V;C;02;01;litt kalkfattig til svakt intermediær svak eller ustabil torvmarkskilde;V-C-02-01
@@ -1363,7 +1363,7 @@ NiN-3.0-T-C-PE-NA-MB-VC05-02;V;C;05;02;klart kildepåvirket permafrost-våtmark 
 NiN-3.0-T-C-PE-NA-MB-VC05-03;V;C;05;03;knapt kildepåvirket permafrost-våtmark på øvre mykmatte-nedre fastmattenivå;V-C-05-03
 NiN-3.0-T-C-PE-NA-MB-VC05-04;V;C;05;04;klart kildepåvirket permafrost-våtmark på øvre mykmatte-nedre fastmattenivå;V-C-05-04
 NiN-3.0-T-C-PE-NA-MB-VC05-05;V;C;05;05;fast og tuet, knapt kildepåvirket permafrost-våtmark;V-C-05-05
-NiN-3.0-T-C-PE-NA-MB-VE01-01;V;E;01;01; kalkfattig til litt kalkrik oppfrysingsvåtmark;V-E-01-01
+NiN-3.0-T-C-PE-NA-MB-VE01-01;V;E;01;01;kalkfattig til litt kalkrik oppfrysingsvåtmark;V-E-01-01
 NiN-3.0-T-C-PE-NA-MB-VE01-02;V;E;01;02;temmelig til ekstremt kalkrik oppfrysingsvåtmark;V-E-01-02
 NiN-3.0-T-C-PE-NA-MB-VF01-01;V;F;01;01;nedbørsmyr-skogsmark;V-F-01-01
 NiN-3.0-T-C-PE-NA-MB-VF02-01;V;F;02;01;intermediær til litt kalkrik innsjø-strandsumpskogsmark;V-F-02-01
