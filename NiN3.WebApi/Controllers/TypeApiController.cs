@@ -121,7 +121,7 @@ namespace NiN3.WebApi.Controllers
         [HttpGet]
         [Route("kodeForHovedtype/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<HovedtypeDto>), StatusCodes.Status200OK)]
-        public IActionResult HentKodeForHovedtype([Required] string kortkode = "S-C-01")
+        public IActionResult HentKodeForHovedtype([Required] string kortkode = "NS-C-01")
         { 
             var hovedtype = _typeApiService.GetHovedtypeByKortkode(kortkode, _versjon);
             if (hovedtype != null)

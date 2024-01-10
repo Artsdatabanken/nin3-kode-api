@@ -21,5 +21,7 @@ namespace NiN3.Core.Models.DTOs.variabel
         public string VariabelgruppeNavn { get; set; }
 
         public ICollection<MaaleskalaDto> Variabeltrinn { get; set; } = new List<MaaleskalaDto>();
+
+        public ICollection<KonverteringDto> Konverteringer { get; set; } = new List<KonverteringDto>();
     }
 }

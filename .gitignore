@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /NiN3.WebApi/nin3kodeapi.db-shm
 /NiN3.WebApi/nin3kodeapi.db-wal
+NiN3.WebApi/Properties/ServiceDependencies/NiN3WebApi20230627120155 - Web Deploy/profile.arm.json

@@ -1,6 +1,4 @@
-﻿using DocumentFormat.OpenXml.InkML;
-using DocumentFormat.OpenXml.Packaging;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -81,9 +79,9 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = InMemoryDbContextFactory.GetInMemoryDb();
             var loader = new LoaderService(null, inmemorydb, new Mock<ILogger<LoaderService>>().Object);
             loader.SeedLookupData();
-            loader.LoadLookupData();
             loader.LoadHtg_Ht_Gt_Mappings();
-            loader.csvdataImporter_Htg_Ht_Gt_Mappings.Count.Should().Be(1903);
+            loader.csvdataImporter_Hovedtypegruppe_Hovedtype_Mappings.Count.Should().Be(430);
+            loader.csvdataImporter_Hovedtype_Grunntype_Mappings.Count.Should().Be(1901);
 
         }
 
@@ -107,7 +105,7 @@ namespace NiN3.Tests.Infrastructure
             //Test a type langkode within ecosystnivaa = A 
             var type_eco_A = inmemorydb.Type.Where(t => t.Kode == "A-MV-0").FirstOrDefault(); //Get Type with Kode = "CA-MV-0"
             Assert.Equal("NIN-3.0-T-A-MV-0", type_eco_A.Langkode);
-            Assert.Equal("", type_eco_A.Navn); //Har ikke typekategori2 dermed blankt navn
+            Assert.Equal("Marine vannmasser", type_eco_A.Navn); //Har ikke typekategori2 dermed blankt navn
         }
 
         //This code tests the LoadHovedtypeGruppeData() method of the LoaderService class. 
@@ -122,12 +120,12 @@ namespace NiN3.Tests.Infrastructure
             //Get the number of Hovedtypegruppe objects in the InMemoryDb object
             var numOfHGD = inmemorydb.Hovedtypegruppe.Count();
             //Assert that the number of Hovedtypegruppe objects is equal to 71
-            Assert.Equal(71, numOfHGD); 
+            Assert.Equal(68, numOfHGD); // 70 after #174
 
 
             //Testing langkode for Hovedtypegruppe that should have typekategori3 embedded in langkode
             var HTG_NA_T = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-T").FirstOrDefault();
-            //Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
+            //Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_I.Langkode);
             Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
 
         }
@@ -138,26 +136,26 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
 
             //Testing a Hovedtypegruppe with one Hovedoekosystem
-            var HTG_NA_T = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-T").FirstOrDefault();
-            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-T", HTG_NA_T.Langkode);
-            Assert.Equal("Fastmarkssystemer", HTG_NA_T.Navn);
-            Assert.Equal(1, HTG_NA_T.Hovedoekosystemer.Count);
-            var Hovedtypgruppe_Hovedoekosystem = HTG_NA_T.Hovedoekosystemer.FirstOrDefault();
-            Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem.HovedoekosystemEnum);
+            var HTG_NA_I = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "NA-I").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-NA-I", HTG_NA_I.Langkode);
+            Assert.Equal("Snø- og issystemer", HTG_NA_I.Navn);
+            Assert.Equal(2, HTG_NA_I.Hovedoekosystemer.Count);
+            var Hovedtypgruppe_Hovedoekosystem_First = HTG_NA_I.Hovedoekosystemer.FirstOrDefault();
+            var Hovedtypgruppe_Hovedoekosystem_Second = HTG_NA_I.Hovedoekosystemer.LastOrDefault();
+            Assert.Equal(HovedoekosystemEnum.H, Hovedtypgruppe_Hovedoekosystem_First.HovedoekosystemEnum);//HAV and
+            Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem_Second.HovedoekosystemEnum);//LAND
 
             //Testing a Hovedtypegruppe with multiple Hovedoekosystemer
-            var HTG_FL_I = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "FL-I").FirstOrDefault();
-            Assert.Equal(2, HTG_FL_I.Hovedoekosystemer.Count);
-            var Hovedtypgruppe_Hovedoekosystem_First = HTG_FL_I.Hovedoekosystemer.FirstOrDefault();
-            var Hovedtypgruppe_Hovedoekosystem_Second = HTG_FL_I.Hovedoekosystemer.LastOrDefault();
-            Assert.Equal(HovedoekosystemEnum.H, Hovedtypgruppe_Hovedoekosystem_First.HovedoekosystemEnum);
-            Assert.Equal(HovedoekosystemEnum.L, Hovedtypgruppe_Hovedoekosystem_Second.HovedoekosystemEnum);
+            var HTG_0_MU = inmemorydb.Hovedtypegruppe.Where(x => x.Kode == "0-MU").FirstOrDefault();
+            Assert.Equal(1, HTG_0_MU.Hovedoekosystemer.Count);
+            var Hovedtypgruppe_Hovedoekosystem = HTG_0_MU.Hovedoekosystemer.FirstOrDefault();
+            Assert.Equal(HovedoekosystemEnum.H, Hovedtypgruppe_Hovedoekosystem.HovedoekosystemEnum);//HAV
         }
 
         [Fact]
         //This code tests the LoadHovedtype method by creating an in-memory database,
         //instantiating a LoaderService object, and then calling the LoadHovedtypeGruppeData, LoadHtg_Ht_Gt_Mappings,
-        //and LoadHovedtypeData methods. Finally, it checks that the number of Hovedtype objects in the in-memory database is equal to 445. 
+        //and LoadHovedtypeData methods. 
 
         public void TestLoadHovedtype()
         {
@@ -168,17 +166,34 @@ namespace NiN3.Tests.Infrastructure
             var numOfHD = inmemorydb.Hovedtype.Count();
             var hovedtyper = inmemorydb.Hovedtype.ToList();
             Assert.True(numOfHD>400); //flux between 412 and 421
-            var HT_0_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "0-C-01").FirstOrDefault();
-            Assert.NotNull(HT_0_C_01);
-            Assert.Equal("Varmkildekompleks", HT_0_C_01.Navn);
-            Assert.NotNull(HT_0_C_01.Hovedtypegruppe);
-            //Assert.Equal("NIN-3.0-T-C-SE-NK-0-C-01", HT_0_C_01.Langkode);
-            Assert.Equal("NIN-3.0-T-C-SE-NK-0-0-C-01", HT_0_C_01.Langkode);
+            var HT_NC_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NC-C-01").FirstOrDefault();
+            Assert.NotNull(HT_NC_C_01);
+            Assert.Equal("Varmkildekompleks", HT_NC_C_01.Navn);
+            Assert.NotNull(HT_NC_C_01.Hovedtypegruppe);
+            //Assert.Equal("NIN-3.0-T-C-SE-NK-0-C-01", HT_NC_C_01.Langkode);
+            Assert.Equal("NIN-3.0-T-C-SE-NK-0-C-C-01", HT_NC_C_01.Langkode);
 
             //testing that hovedtype 'T-M-01' has typekategori3 embedded in langkode, (child of HTG "NA-T")
-            var HT_T_M_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "T-M-01").FirstOrDefault();
-            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-T-M-01", HT_T_M_01.Langkode);
-            Assert.Equal("Hard sterkt endret fastmark", HT_T_M_01.Navn);
+            var HT_NT_M_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NT-M-01").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-NA-MB-T-M-01", HT_NT_M_01.Langkode);
+            Assert.Equal("Hard sterkt endret fastmark", HT_NT_M_01.Navn);
+        }
+
+        [Fact]
+        public void TestHovedtype_langkoder() // For #185 & #201
+        {
+            var inmemorydb = GetInMemoryDb();
+            var ht_LK_0_02 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-02").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-K-0-02", ht_LK_0_02.Langkode);//NIN-3.0-T-C-PE-FL-0-LK-0-02?
+            Assert.Equal("Fjordlandskap", ht_LK_0_02.Navn);
+
+            var ht_LK_0_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-01").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-K-0-01", ht_LK_0_01.Langkode);
+            Assert.Equal("Kystås- og kystfjellandskap", ht_LK_0_01.Navn);
+
+            var ht_LK_0_03 = inmemorydb.Hovedtype.Where(x => x.Kode == "LK-0-03").FirstOrDefault();
+            Assert.Equal("NIN-3.0-T-C-PE-LA-0-K-0-03", ht_LK_0_03.Langkode);
+            Assert.Equal("Kystslettelandskap", ht_LK_0_03.Navn);
         }
 
         [Fact]
@@ -205,7 +220,7 @@ namespace NiN3.Tests.Infrastructure
             // Get the number of Grunntype records
             var numOfGD = inmemorydb.Grunntype.Count();
             // Assert that the number of records is 166
-            Assert.Equal(1403, numOfGD);
+            Assert.Equal(1401, numOfGD);
             // Get the Grunntype record with the code "M-A-01-05"
             var grunntype = inmemorydb.Grunntype.Where(gt => gt.Kode == "M-A-01-05").FirstOrDefault();
             // Assert that the name of the record is "sukkertareskog"
@@ -216,23 +231,6 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("NIN-3.0-T-C-PE-NA-MB-M-A-01-05", grunntype.Langkode);
         }                
 
-        /*
-        [Fact]
-        public void TestLoadKartleggingsenhet_m005()
-        {
-            var inmemorydb = GetInMemoryDb();
-            var numOfKE = inmemorydb.Kartleggingsenhet.Count();
-            var firstKE = inmemorydb.Kartleggingsenhet.OrderBy(x => x.Kode).First();
-            var hovedtype_kartlegginsenhetFirstKE = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Id == firstKE.Id).FirstOrDefault();
-            Assert.NotNull(hovedtype_kartlegginsenhetFirstKE);
-            Assert.Equal("Varig snø", firstKE.Navn);
-            Assert.Equal(1278, numOfKE);
-            Assert.Equal("NiN-3.0-T-C-PE-NA-MB-IA01-M005-01", firstKE.Langkode);
-            var kl_IA01_M005_01 = inmemorydb.Kartleggingsenhet.Where(x => x.Kode == "IA01-M005-01").FirstOrDefault();
-            var gts_for_IA01_M005_01 = inmemorydb.Grunntype.Where(x => x.kartleggingsenhet == kl_IA01_M005_01).ToList();
-            Assert.NotNull(kl_IA01_M005_01);
-        }*/
-
 
         [Fact]
         public void TestKartleggingsenhet_ALL_m005_has_GT() {
@@ -241,7 +239,7 @@ namespace NiN3.Tests.Infrastructure
             var num005M = inmemorydb.Kartleggingsenhet.Where(x => x.Maalestokk == MaalestokkEnum.M005).Count();
             //Fetch number of KLE_M005 that has GT
             var num005MGT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x=>x.Kartleggingsenhet).Distinct().Count();            
-            Assert.Equal(653, num005M);
+            Assert.Equal(654, num005M);
             Assert.Equal(num005M, num005MGT);
             var M005_TB01_M005_09 = inmemorydb.Kartleggingsenhet.Where(x => x.Kode == "TB01-M005-09").FirstOrDefault();
             Assert.NotNull(M005_TB01_M005_09);//Test for #175
@@ -262,29 +260,28 @@ namespace NiN3.Tests.Infrastructure
             var numHTM005 = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Hovedtype).Distinct().Count();
             //Number of unique Hovedtype
             var numHT = inmemorydb.Hovedtype.Count();
-            Assert.Equal(653, num005M);//647 before #175
-            Assert.Equal(647, num005MHT);
+            Assert.Equal(654, num005M);//647 before #175
+            Assert.Equal(654, num005MHT);
             Assert.Equal(123, numHTM005);
-            Assert.Equal(421, numHT);
+            Assert.Equal(430, numHT);
         }
 
         [Fact]
-        public void TestKartleggingsenhet_Hovedtype_O_C_01() {
+        public void TestKartleggingsenhet_Hovedtype_NO_C_01() {
             var inmemorydb = GetInMemoryDb();
-            var HT_O_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "O-C-01").FirstOrDefault();
-            var HT_O_C_01_Kartleggingsenheter = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == HT_O_C_01 && x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Kartleggingsenhet).Distinct().ToList();
-            Assert.Equal(4, HT_O_C_01_Kartleggingsenheter.Count);
+            var HT_NO_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NO-C-01").FirstOrDefault();
+            var HT_NO_C_01_Kartleggingsenheter = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == HT_NO_C_01 && x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Kartleggingsenhet).Distinct().ToList();
+            Assert.Equal(4, HT_NO_C_01_Kartleggingsenheter.Count);
         }
 
 
         //Test HT T-B-01 skal ha 15 KLE_M005
         [Fact]
-        public void TestKartleggingsenhet_Hovedtype_T_B_01()
-        {
+        public void TestKartleggingsenhet_Hovedtype_NT_B_01() {
             var inmemorydb = GetInMemoryDb();
-            var HT_T_B_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "T-B-01").FirstOrDefault();
-            var HT_T_B_01_Kartleggingsenheter = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == HT_T_B_01 && x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Kartleggingsenhet).Distinct().ToList();
-            Assert.Equal(15, HT_T_B_01_Kartleggingsenheter.Count);
+            var HT_NT_B_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NT-B-01").FirstOrDefault();
+            var HT_NT_B_01_Kartleggingsenheter = inmemorydb.Hovedtype_Kartleggingsenhet.Where(x => x.Hovedtype == HT_NT_B_01 && x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M005).Select(x => x.Kartleggingsenhet).Distinct().ToList();
+            Assert.Equal(15, HT_NT_B_01_Kartleggingsenheter.Count);
         }
 
         [Fact]
@@ -307,7 +304,7 @@ namespace NiN3.Tests.Infrastructure
             var num050M = inmemorydb.Kartleggingsenhet.Where(x => x.Maalestokk == MaalestokkEnum.M050).Count();
             //Fetch number of KLE_M005 that has GT
             var num050MGT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M050).Select(x => x.Kartleggingsenhet).Distinct().Count();
-            Assert.Equal(238, num050M);
+            Assert.Equal(239, num050M);
             Assert.Equal(num050M, num050MGT);
         }
 
@@ -323,7 +320,7 @@ namespace NiN3.Tests.Infrastructure
             Assert.NotNull(firstV);
             Assert.Equal("A-M", firstV.Kode);
             Assert.Equal("Abiotisk menneskebetinget", firstV.Navn);
-            Assert.Equal(4, numOfV);
+            Assert.Equal(5, numOfV);
             Assert.Equal("NIN-3.0-V-A-M", firstV.Langkode);
         }
 
@@ -335,7 +332,7 @@ namespace NiN3.Tests.Infrastructure
             var numOfVN = VariabelnavnList.Count();
             var firstVN = VariabelnavnList.OrderBy(x => x.Kode).First();
             Assert.NotNull(firstVN);
-            Assert.Equal(370, numOfVN);
+            Assert.Equal(367, numOfVN);
             Assert.True(firstVN.Kode == "AD-FA");
             Assert.True(firstVN.Navn == "Fremmedartsantall");
             Assert.True(firstVN.Variabelkategori2.ToString() == "AD");
@@ -354,7 +351,7 @@ namespace NiN3.Tests.Infrastructure
             // prepare test
             var inmemorydb = GetInMemoryDb();
             var numOfMS = inmemorydb.Maaleskala.Count();
-            Assert.Equal(157, numOfMS);
+            Assert.Equal(158, numOfMS);
             var maaleskalaSO = inmemorydb.Maaleskala.FirstOrDefault(m => m.MaaleskalatypeEnum == MaaleskalatypeEnum.SO);
             var maaleskalaSI = inmemorydb.Maaleskala.FirstOrDefault(m => m.MaaleskalatypeEnum == MaaleskalatypeEnum.SI);
             Assert.NotNull(maaleskalaSO);
@@ -373,11 +370,8 @@ namespace NiN3.Tests.Infrastructure
             var trinnNhB = inmemorydb.Trinn.Where(trinn => trinn.Verdi == "NH_B").FirstOrDefault();
             var bMaaleskala = inmemorydb.Maaleskala.Where(m=> m.MaaleskalaNavn == "B").FirstOrDefault();
             Assert.Equal(2, bMaaleskala.Trinn.Count);//Checking that Binær-måleskala is loaded and has its trinn
-            Assert.Equal("Barentshavet og Polhavet", trinnNhB.Beskrivelse);
+            Assert.Equal("Barentshavet og polhavet", trinnNhB.Beskrivelse);
             Assert.Equal(MaaleskalatypeEnum.SI, trinnNhB.Maaleskala.MaaleskalatypeEnum);
-            //var uniqueCount = inmemorydb.Trinn.Select(x => x.Verdi).Distinct().Count();
-            //assert that trinn-navn is unique
-            //Assert.Equal(numOfTrinn, uniqueCount);
         }
 
         [Fact]
@@ -431,9 +425,9 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             var htvt = inmemorydb.HovedtypeVariabeltrinn.Count();
             Assert.True(100 < htvt);
-            var ht_S_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "S-C-01").FirstOrDefault();
-            Assert.NotNull(ht_S_C_01);
-            Assert.Equal(5, ht_S_C_01.HovedtypeVariabeltrinn.Count());
+            var ht_NS_C_01 = inmemorydb.Hovedtype.Where(x => x.Kode == "NS-C-01").FirstOrDefault();
+            Assert.NotNull(ht_NS_C_01);
+            Assert.Equal(5, ht_NS_C_01.HovedtypeVariabeltrinn.Count());
         }
 
 
@@ -442,7 +436,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3563, numOfKortkoder);//3557 before #175
+            Assert.Equal(3567, numOfKortkoder);//3557 before #175
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);
@@ -470,8 +464,8 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             var numOfVariabelAllekortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.V);
             var numOfVariabelnavnAllekortkoder = inmemorydb.AlleKortkoder.Count(x => x.TypeKlasseEnum == KlasseEnum.VN);
-            Assert.Equal(4, numOfVariabelAllekortkoder);
-            Assert.Equal(370,numOfVariabelnavnAllekortkoder);
+            Assert.Equal(5, numOfVariabelAllekortkoder);
+            Assert.Equal(367,numOfVariabelnavnAllekortkoder);
         }
 
         [Fact]
@@ -509,40 +503,55 @@ namespace NiN3.Tests.Infrastructure
 
         [Fact]
         public void TestLoadKonvertering_hovedtypegruppe() { 
-            var db = GetInMemoryDb(false);
-            var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
-            loader.SeedLookupData();
-            loader.LoadKonverteringHovedtypegruppe();
+            var db = GetInMemoryDb();
+            //var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
+            //loader.SeedLookupData();
+            //loader.LoadKonverteringHovedtypegruppe();
             var versjon = db.Versjon.Where(v => v.Navn == "3.0").FirstOrDefault();
             var konvertering = db.Konvertering.Where(k => k.Klasse == KlasseEnum.HTG && k.Versjon ==versjon)
                 .ToList();
-            Assert.Equal(8, konvertering.Count);
+            Assert.Equal(4, konvertering.Count);
         }
 
         [Fact]
         public void TestLoadKonvertering_hovedtype() {
-            var db = GetInMemoryDb(false);
-            var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
-            loader.SeedLookupData();
-            loader.LoadKonverteringHovedtype();
+            var db = GetInMemoryDb();
+            //var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
+            //loader.SeedLookupData();
+            //loader.LoadKonverteringHovedtype();
             var versjon = db.Versjon.Where(v => v.Navn == "3.0").FirstOrDefault();
             var konvertering = db.Konvertering.Where(k => k.Klasse == KlasseEnum.HT && k.Versjon == versjon)
                 .ToList();
-            Assert.Equal(120, konvertering.Count);
-            var konv4_T_M_01 = db.Konvertering.Where(k => k.Kode == "T-M-01" && k.Versjon == versjon).ToList();
-            Assert.Equal(12, konv4_T_M_01.Count);
+            Assert.Equal(60, konvertering.Count);
+            var konv4_NT_M_01 = db.Konvertering.Where(k => k.Kode == "NT-M-01" && k.Versjon == versjon).ToList();
+            Assert.Equal(6, konv4_NT_M_01.Count);
         }
 
         [Fact]
         public void TestLoadKonvertering_grunntype() {
-            var db = GetInMemoryDb(false);
-            var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
-            loader.SeedLookupData();
-            loader.LoadKonverteringGrunntype();
+            var db = GetInMemoryDb();
+            //var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
+            //loader.SeedLookupData();
+            //loader.LoadKonverteringGrunntype();
             var versjon = db.Versjon.Where(v => v.Navn == "3.0").FirstOrDefault();
             var konvertering = db.Konvertering.Where(k => k.Klasse == KlasseEnum.GT && k.Versjon == versjon)
                 .ToList();
-            Assert.Equal(850, konvertering.Count);
+            Assert.Equal(425, konvertering.Count);
         }
+
+        [Fact]
+        public void TestLoadKonvertering_variabelnavn()
+        {
+            var db = GetInMemoryDb();
+            //var loader = new LoaderService(null, db, new Mock<ILogger<LoaderService>>().Object);
+            //loader.SeedLookupData();
+            //loader.LoadKonverteringVariabelnavn();
+            var versjon = db.Versjon.Where(v => v.Navn == "3.0").FirstOrDefault();
+            var konvertering = db.Konvertering.Where(k => k.Klasse == KlasseEnum.VN && k.Versjon == versjon)
+                .ToList();
+            Assert.Equal(119, konvertering.Count);
+        }
+
+
     }
 }

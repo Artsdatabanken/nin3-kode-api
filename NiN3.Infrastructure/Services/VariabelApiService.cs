@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Logging;
 using NiN3.Core.Models;
 using NiN3.Core.Models.DTOs;
@@ -69,6 +70,7 @@ namespace NiN3.Infrastructure.Services
                 .ThenInclude(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
                 .ThenInclude(vn_maaleskala => vn_maaleskala.Maaleskala)
                 .ThenInclude(maaleskala => maaleskala.Trinn)
+                .Include(variabelnavn => variabelnavn.Versjon)
                 .AsNoTracking()
                 .FirstOrDefault();
             return variabel != null ? NiNkodeMapper.Instance.Map(variabel) : null;
@@ -82,8 +84,19 @@ namespace NiN3.Infrastructure.Services
                 .Include(variabelnavn => variabelnavn.VariabelnavnMaaleskala)
                 .ThenInclude(vn_maaleskala => vn_maaleskala.Maaleskala)
                 .ThenInclude(maaleskala => maaleskala.Trinn)
+                .Include(variabelnavn => variabelnavn.Versjon)
                 .AsNoTracking()
                 .FirstOrDefault();
+            if (variabelnavn != null)
+            {
+                //Get konverteringer
+                variabelnavn.Konverteringer = _context.Konvertering.Where(Konvertering =>
+                                             Konvertering.Kode == variabelnavn.Kode &&
+                                             Konvertering.Versjon.Id == variabelnavn.Versjon.Id)
+                .Include(k => k.Versjon).Include(k => k.ForrigeVersjon)
+                .AsNoTracking()
+                .ToList();
+            }
             VariabelnavnDto variabelnavnDto = variabelnavn != null ? NiNkodeMapper.Instance.Map(variabelnavn) : null;
             // Sort Trinn by Verdi here
             foreach (var variabeltrinn in variabelnavnDto.Variabeltrinn)

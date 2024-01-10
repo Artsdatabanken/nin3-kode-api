@@ -3,8 +3,8 @@ KA_a;Svært kalkfattig;KA-SO
 HS_KB;Plukkhogst;HS-SI
 HS_U;Uspesifisert lukket selektiv hogst;HS-SI
 nan_E2B;Edellauvtrær dominerer, bartrær meddominerende;nan-SI
-NH_A;Grønlandshavet øst og Norskehavet nord;NH-SI
-NH_B;Barentshavet og Polhavet;NH-SI
+NH_A;Grønlandshavet øst og norskehavet nord;NH-SI
+NH_B;Barentshavet og polhavet;NH-SI
 PI_0;Uten iskantkontakt;PI-SI
 PI_A;Iskantkontaktsonen;PI-SI
 PI_B;Under polar havis;PI-SI
@@ -28,11 +28,11 @@ IP_c;Sterkt innsjøpreget;IP-SO
 KY_0;Med kystlinje;KY-SO
 KY_a;Kystnær;KY-SO
 KY_b;Innland;KY-SO
-MS_a;Nordsjøen og Skagerrak;MS-SO
+MS_a;Nordsjøen og skagerrak;MS-SO
 MS_b;Norskehavet sør;MS-SO
 MS_c;Norskehavet midt;MS-SO
-MS_d;Norskehavet nord og Barentshavet sør;MS-SO
-MS_e;Grønlandshavet øst, Barentshavet nord og Polhavet;MS-SO
+MS_d;Norskehavet nord og barentshavet sør;MS-SO
+MS_e;Grønlandshavet øst, barentshavet nord og polhavet;MS-SO
 SE_a;Sterkt oseanisk seksjon;SE-SO
 SE_b;Klart oseanisk seksjon;SE-SO
 SE_c;Svakt oseanisk seksjon;SE-SO
@@ -40,8 +40,8 @@ SE_d;Overgangsseksjon;SE-SO
 SE_e;Svakt kontinental seksjon;SE-SO
 SE_f;Klart kontinental seksjon;SE-SO
 SO_a;Boreonemoral sone;SO-SO
-SO_b;Sørboreal sone ;SO-SO
-SO_c;Mellomboreal sone ;SO-SO
+SO_b;Sørboreal sone;SO-SO
+SO_c;Mellomboreal sone;SO-SO
 SO_d;Nordboreal sone;SO-SO
 SO_e;Lavalpin sone;SO-SO
 SO_f;Mellomalpin/mellomarktisk sone;SO-SO
@@ -89,7 +89,7 @@ IT_A;Med isbunn;IT-SI
 KT_A;Vann- og gassførende kald havkilde;KT-SI
 KT_B;Mudderførende kald havkilde;KT-SI
 LT_0;Løsmasser uten spesifisert opphav;LT-SI
-LT_A;Stedegent forvitringsmateriale ;LT-SI
+LT_A;Stedegent forvitringsmateriale;LT-SI
 LT_B;Gamle breavsetninger;LT-SI
 LT_C;Løsmasser formet av strandprosesser;LT-SI
 LT_D;Resente breavsetninger;LT-SI
@@ -127,7 +127,7 @@ VT_E;Nedbørvann;VT-SI
 ED_K0;Permanent vannførende;ED-SI
 ED_K1;Semi-permanent vannførende;ED-SI
 ED_K2;Oftest vannførende;ED-SI
-ED_K3;Ofte vannførende, oftest med kulper ;ED-SI
+ED_K3;Ofte vannførende, oftest med kulper;ED-SI
 ED_K4;Periodisk vannførende;ED-SI
 ED_K5;Periodisk vannførende, med kulper;ED-SI
 ED_K6;Tidvis vannførende;ED-SI
@@ -142,11 +142,11 @@ EL_K2;Trappetrinn;EL-SI
 EL_K3;Jevn sedimentbunn;EL-SI
 EL_K4;Kulp-stryk med tverrbanker;EL-SI
 EL_K5;Kulp-stryk med alternerende sidebanker;EL-SI
-EL_K6;Fin bunn med eller uten temporære mikroformer ;EL-SI
+EL_K6;Fin bunn med eller uten temporære mikroformer;EL-SI
 EL_KU;Uten tydelig sedimentsortering og karakteristisk lengdeprofil;EL-SI
 EP_K1;Enkel, rett eller bølgende;EP-SI
 EP_K2;Enkel, meandrerende;EP-SI
-EP_K3;Forgreinet, vandrende ;EP-SI
+EP_K3;Forgreinet, vandrende;EP-SI
 EP_K4;Forgreinet meandrerende;EP-SI
 EP_K5;Forgreinet, ustabilt;EP-SI
 EP_K6;Forgreinet, stabilt;EP-SI
@@ -155,10 +155,10 @@ ES_K0;Fast fjell;ES-SI
 ES_K1;Karstberg;ES-SI
 ES_K2;Myrtorv;ES-SI
 ES_K3;Rasmateriale;ES-SI
-ES_K4;Morenemateriale ;ES-SI
+ES_K4;Morenemateriale;ES-SI
 ES_K5;Breelvavsetninger;ES-SI
 ES_K6;Bresjøavsetninger;ES-SI
-ES_K7;Elveavsetninger ;ES-SI
+ES_K7;Elveavsetninger;ES-SI
 ES_K8;Havavsetninger;ES-SI
 ES_KU;Andre eller uspesifiserte substrater;ES-SI
 ET_K0;Fast fjell;ET-SI
@@ -193,7 +193,7 @@ FI_0;Uten finmateriale;FI-SO
 FI_a;Finmaterialfattig;FI-SO
 FI_b;Litt finmaterialrik;FI-SO
 FI_c;Temmelig finmaterialrik;FI-SO
-FI_d; finmaterialrik;FI-SO
+FI_d;Finmaterialrik;FI-SO
 FI_y;Finmaterialdominert;FI-SO
 FT_0;Uten fastmarkstorvlag;FT-SO
 FT_a;Tynt fastmarkstorvlag;FT-SO
@@ -295,7 +295,7 @@ RU_b;Temmelig rasutsatt;RU-SO
 RU_c;Sterkt rasutsatt;RU-SO
 RU_d;Svært sterkt rasutsatt;RU-SO
 RU_y;Disruptivt rasutsatt;RU-SO
-SA_0;Fersk ;SA-SO
+SA_0;Fersk;SA-SO
 SA_a;Saltpåvirket ferskvann;SA-SO
 SA_b;Ultrabrakt;SA-SO
 SA_c;Svært brakt;SA-SO
@@ -325,7 +325,7 @@ SM_h;Stor pytt;SM-SO
 SM_i;Liten pytt;SM-SO
 SM_z;Temporær vannforekomst;SM-SO
 SS_0;Sanddominert bunn;SS-SO
-SS_a;Naken flyvesand ;SS-SO
+SS_a;Naken flyvesand;SS-SO
 SS_b;Embryonaldyne;SS-SO
 SS_c;Primærdyne;SS-SO
 SS_d;Hvit og ustabil dyne;SS-SO
@@ -409,7 +409,7 @@ VF_e;Litt eksponert / litt sterk energi;VF-SO
 VF_f;Temmelig eksponert / temmelig sterk energi;VF-SO
 VF_g;Svært eksponert / svært sterk energi;VF-SO
 VF_h;Ekstremt eksponert / ekstremt sterk energi;VF-SO
-VF_y;Disruptivt eksponert / disruptiv energi ;VF-SO
+VF_y;Disruptivt eksponert / disruptiv energi;VF-SO
 VI_0;Uten vindpreg;VI-SO
 VI_a;Temmelig sterkt vindpreget;VI-SO
 VI_b;Sterkt vindpreget;VI-SO
@@ -433,7 +433,7 @@ EB_2;Dobbelt løp med banker;EB-SO
 EB_3;Forgreinet løp med banker;EB-SO
 EB_4;Sterkt forgreinet løp med banker;EB-SO
 EC_0;Uten sidevegs begrensning;EC-SO
-EC_1;Delvis sidevegs begrenset ;EC-SO
+EC_1;Delvis sidevegs begrenset;EC-SO
 EC_2;Betydelig sidevegs begrenset;EC-SO
 EC_y;Fullstendig sidevegs begrenset;EC-SO
 EI_0;Enkelt løp uten øyer;EI-SO
@@ -446,9 +446,9 @@ EU_1;Delvis underjordisk elveløp;EU-SO
 EU_2;Hovedsakelig underjordisk elveløp;EU-SO
 EU_y;Underjordisk elveløp;EU-SO
 FV_1;Svært liten flomvannføring;FV-SO
-FV_2;Liten flomvannføring ;FV-SO
+FV_2;Liten flomvannføring;FV-SO
 FV_3;Temmelig liten flomvannføring;FV-SO
-FV_4;Stor flomvannføring ;FV-SO
+FV_4;Stor flomvannføring;FV-SO
 FV_5;Svært stor flomvannføring;FV-SO
 HE_0;Flatt;HE-SO
 HE_01;Tilnærmet flatt;HE-SO
@@ -467,15 +467,15 @@ HE_13;Ekstremt bratt;HE-SO
 HE_14;Nær loddrett;HE-SO
 HE_15;Loddrett;HE-SO
 SI_0;Rett;SI-SO
-SI_1;Svakt sinuøs ;SI-SO
+SI_1;Svakt sinuøs;SI-SO
 SI_2;Sinuøs;SI-SO
 SI_3;Meandrerende;SI-SO
 SI_4;Sterkt meandrerende;SI-SO
 VA_1;Svært liten bekk;VA-SO
-VA_2;Liten bekk ;VA-SO
+VA_2;Liten bekk;VA-SO
 VA_3;Stor bekk;VA-SO
 VA_4;Liten elv;VA-SO
-VA_5;Mellomstor elv ;VA-SO
+VA_5;Mellomstor elv;VA-SO
 VA_6;Temmelig stor elv;VA-SO
 VA_7;Stor elv;VA-SO
 DW_0;Usortert materiale;DW-SO
@@ -550,7 +550,7 @@ RD_a;Åpent;RD-SO
 RD_b;Relativt åpent;RD-SO
 RD_c;Nedskåret;RD-SO
 RD_d;Dypt nedskåret;RD-SO
-RK_a;Slakt  ;RK-SO
+RK_a;Slakt;RK-SO
 RK_b;Middels kupert;RK-SO
 RK_c;Bratte åser, restfjell, klipper og stup;RK-SO
 EO_1;Elvestrekning av første orden;EO-SO
@@ -589,9 +589,9 @@ SR_4;Hurtigstrømmende;SR-SO
 SR_5;Skummende;SR-SO
 SR_6;Fossende;SR-SO
 SR_7;Frittfallende;SR-SO
-LH _0;Ved dagens kystlinje;LH -SO
-LH _1;Mellom dagens kystlinje og øvre marine grense;LH -SO
-LH _y;Ved øvre marine grense;LH -SO
+LH_0;Ved dagens kystlinje;LH-SO
+LH_1;Mellom dagens kystlinje og øvre marine grense;LH-SO
+LH_y;Ved øvre marine grense;LH-SO
 AI_0;Minimal arealbruk;AI-SO
 AI_a;Lite arealbruk;AI-SO
 AI_b;Bebygde områder;AI-SO
@@ -799,14 +799,14 @@ BT_3;Temmelig høyt beitetrykk;BT-SO
 BT_4;Høyt beitetrykk;BT-SO
 BT_y;Overbeitet;BT-SO
 DA_0;Ingen død ved;DA-SO
-DA_1;Ubetydelig andel død ved ;DA-SO
+DA_1;Ubetydelig andel død ved;DA-SO
 DA_2;Svært liten andel død ved, mye mindre enn forventet i skog med naturlig dynamikk;DA-SO
 DA_3;Liten andel død ved, mindre enn forventet i skog med naturlig dynamikk;DA-SO
 DA_4;Middels andel død ved, noe mindre enn forventet i skog med naturlig dynamikk;DA-SO
 DA_5;Stor andel død ved, omtrent som forventet (1/3) i skog med naturlig dynamikk;DA-SO
 DA_6;Svært stor andel død ved, forventet kun i nylig naturlig forstyrret skog;DA-SO
 DV_0;Tilnærmet uten død ved og dødvedvariasjon;DV-SO
-DV_1;Liten dødvedvariasjon  ;DV-SO
+DV_1;Liten dødvedvariasjon;DV-SO
 DV_2;Middels dødvedvariasjon;DV-SO
 DV_y;Stor dødvedvariasjon, som forventet i uforstyrret skog;DV-SO
 FS_0;Naturlig fisketom vannforekomst;FS-SI
@@ -841,7 +841,7 @@ AD_V2B;Pil og vier er relative dominanter: bartrær er med-dominerende treslagsg
 AD_V2E;Pil og vier er relative dominanter: edellauvtrær er med-dominerende treslagsgruppe;AD-SI
 AD_V2L;Pil og vier er relative dominanter: boreale lauvtrær er med-dominerende treslagsgruppe;AD-SI
 AD_V;Pil og vier er eneste treslagsgruppe som tilfredsstiller definisjonen av relativ samdominant;AD-SI
-VE_a;Skog eller potensiell skog ;VE-SO
+VE_a;Skog eller potensiell skog;VE-SO
 VE_b;Åpen hei og eng under skoggrensa;VE-SO
 VE_c;Hei og eng over skoggrensa;VE-SO
 VE_d;Bart fjell og nakne løsmasser over skoggrensa;VE-SO

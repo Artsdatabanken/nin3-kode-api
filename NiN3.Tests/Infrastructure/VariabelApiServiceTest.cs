@@ -75,7 +75,7 @@ namespace NiN3.Tests.Infrastructure
             var result = service.AllCodes(versjon);
             var variabler = result.Variabler;
             var firstVariabel = variabler.OrderBy(x => x.Kode.Id).First();
-            Assert.Equal(4, variabler.Count);
+            Assert.Equal(5, variabler.Count);
             Assert.Equal("A-M", firstVariabel.Kode.Id);
             var count = variabler.Count(x => x.Kode.Id == "A-M");
             Assert.Equal(1, count);
@@ -128,5 +128,16 @@ namespace NiN3.Tests.Infrastructure
             Assert.Equal("BK-SI", result.MaaleskalaNavn);
             Assert.True(result.Trinn.Count==5);
         }
+
+        [Fact]
+        public void TestFetchVariabelnavnWithKonvertering_KM_AH()
+        {
+            var service = GetPrepearedVariabelApiService();
+            var versjon = "3.0";
+            var variabelnavn_KM_AH = service.GetVariabelnavnByKortkode("KM-AH", "3.0");
+            Assert.NotNull(variabelnavn_KM_AH);
+            Assert.Equal(3, variabelnavn_KM_AH.Konverteringer.Count);
+        }
+
     }
 }

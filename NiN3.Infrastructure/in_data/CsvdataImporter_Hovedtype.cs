@@ -16,11 +16,11 @@ namespace NiN3KodeAPI.in_data
             var columns = row.Split(';');
             return new CsvdataImporter_Hovedtype()
             {
-                Hovedtype = columns[0],
-                Prosedyrekategori = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(columns[1]),
+                Hovedtype = columns[4],
+                Prosedyrekategori = EnumUtil.ParseEnum<ProsedyrekategoriEnum>(columns[3]),
                 Hovedtypegruppe = columns[2],
-                Hovedtypenavn = char.ToUpper(columns[3][0]) + columns[3].Substring(1),
-                Kode = columns[4]
+                Hovedtypenavn = char.ToUpper(columns[1][0]) + columns[1].Substring(1),
+                Kode = columns[0]
             };
         }
 

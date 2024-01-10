@@ -1,15 +1,9 @@
-﻿using Sharprompt;
-using System;
-using System.IO;
-using System.ComponentModel.Design.Serialization;
-using NiN3.Infrastructure.DbContexts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using NiN.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using System.Data.SqlClient;
+using NiN.Infrastructure.Services;
+using NiN3.Infrastructure.DbContexts;
+using Sharprompt;
 // See https://aka.ms/new-console-template for more information
 
 //IConfiguration config;
@@ -79,27 +73,6 @@ while (run)
         case "exit":
             return;
             break;
-        /* case "status":
-             var tableNames = db.Model.GetEntityTypes()
-                 .Select(t => t.GetTableName())
-                 .Distinct()
-                 .ToList();
-
-             var tableRowCounts = new Dictionary<string, int>();
-
-             foreach (var tableName in tableNames)
-             {
-                 var tableType = db.Model.GetEntityTypes().FirstOrDefault(t => t.GetTableName() == tableName).ClrType;
-                 var tableData = db.Set(tableType);
-                 var rowCount = tableData.Count();
-                 tableRowCounts.Add(tableName, rowCount);
-             }
-
-             foreach (var kvp in tableRowCounts)
-             {
-                 Console.WriteLine($"{kvp.Key}: {kvp.Value}");
-             }
-             break;*/
         case "wipe":
             if (db == null)
             {
@@ -139,31 +112,6 @@ while (run)
                 Console.WriteLine(ex.ToString());
             };
             break;
-        /*case "copy":
-            //webapiDBpath // copy manually
-            var arr = config.GetConnectionString("Extract").Split("=");
-            var sourcepath = buildtDbFileFullPath;
-            //var destinationfile = config.GetValue<string>("webapiDBpath");
-            var path = config.GetValue<string>("webapiDBpath");
-            try
-            {
-                File.Copy(sourcepath, path, true); //not working fix later
-                Console.WriteLine($"Copied new db file to webproject ({path})");
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            };
-            break;*/
-        /*
-        case "info":
-            var sourcedbpath = buildtDbFileFullPath;
-            //var destinationfile = config.GetValue<string>("webapiDBpath");
-            var webdbpath = config.GetValue<string>("webapiDBpath");
-            Console.WriteLine($"Changed time of source db file: {File.GetLastWriteTime(sourcedbpath)}");
-            Console.WriteLine($"Changed time of web db file: {File.GetLastWriteTime(webdbpath)}");
-            break;*/
         case "info":
             var sourcedbpath = buildtDbFileFullPath;
             var webdbpath = config.GetValue<string>("webapiDBpath");

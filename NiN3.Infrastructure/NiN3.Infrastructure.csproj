@@ -48,85 +48,91 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="in_data\grunntyper.csv">
+	  <None Update="in_data\csvfiles\grunntyper.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\grunntype_variabeltrinn_mapping.csv">
+	  <None Update="in_data\csvfiles\grunntype_variabeltrinn_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\hovedtype.csv">
+	  <None Update="in_data\csvfiles\hovedtype.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\hovedtypegrupper.csv">
+	  <None Update="in_data\csvfiles\hovedtypegrupper.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\hovedtype_variabeltrinn_mapping.csv">
+	  <None Update="in_data\csvfiles\hovedtypegruppe_hovedtype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\htg_ht_gt_mapping.csv">
+	  <None Update="in_data\csvfiles\hovedtype_grunntype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\konvertering_gt_v30.csv">
+	  <None Update="in_data\csvfiles\hovedtype_variabeltrinn_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\konvertering_ht_v30.csv">
+	  <None Update="in_data\csvfiles\konvertering_gt_v30.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\konvertering_htg_v30.csv">
+	  <None Update="in_data\csvfiles\konvertering_ht_v30.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m005.csv">
+	  <None Update="in_data\csvfiles\konvertering_htg_v30.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m005_grunntype_mapping.csv">
+	  <None Update="in_data\csvfiles\konvertering_vn_v30.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m005_hovedtype_mapping.csv">
+	  <None Update="in_data\csvfiles\M005.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m020.csv">
+	  <None Update="in_data\csvfiles\m005_grunntype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m020_grunntype_mapping.csv">
+	  <None Update="in_data\csvfiles\m005_hovedtype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m020_hovedtype_mapping.csv">
+	  <None Update="in_data\csvfiles\m020.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m050.csv">
+	  <None Update="in_data\csvfiles\m020_grunntype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m050_grunntype_mapping.csv">
+	  <None Update="in_data\csvfiles\m020_hovedtype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\m050_hovedtype_mapping.csv">
+	  <None Update="in_data\csvfiles\m050.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\maaleskala_enhet.csv">
+	  <None Update="in_data\csvfiles\m050_grunntype_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\maaleskala_trinn.csv">
+	  <None Update="in_data\csvfiles\m050_hovedtype_mapping.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="in_data\csvfiles\maaleskala_enhet.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="in_data\csvfiles\maaleskala_trinn.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="in_data\maaleskala_trinn_md.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\type.csv">
+	  <None Update="in_data\csvfiles\type.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\typeklasser_langkode_mapping.csv">
+	  <None Update="in_data\csvfiles\typeklasser_langkode_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\type_htg_mapping.csv">
+	  <None Update="in_data\csvfiles\type_htg_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\variabel.csv">
+	  <None Update="in_data\csvfiles\variabel.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\variabelnavn_maaleskala_mapping.csv">
+	  <None Update="in_data\csvfiles\variabelnavn_maaleskala_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="in_data\variabelnavn_variabel_mapping.csv">
+	  <None Update="in_data\csvfiles\variabelnavn_variabel_mapping.csv">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
