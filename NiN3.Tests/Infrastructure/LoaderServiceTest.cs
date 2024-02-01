@@ -292,8 +292,8 @@ namespace NiN3.Tests.Infrastructure
             var num020M = inmemorydb.Kartleggingsenhet.Where(x => x.Maalestokk == MaalestokkEnum.M020).Count();
             //Fetch number of KLE_M005 that has GT
             var num020MGT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M020).Select(x => x.Kartleggingsenhet).Distinct().Count();
-            Assert.Equal(393, num020M);
-            Assert.Equal(num020M, num020MGT);
+            Assert.Equal(398, num020M);
+            Assert.Equal(397, num020MGT);
         }
 
         [Fact]
@@ -304,8 +304,8 @@ namespace NiN3.Tests.Infrastructure
             var num050M = inmemorydb.Kartleggingsenhet.Where(x => x.Maalestokk == MaalestokkEnum.M050).Count();
             //Fetch number of KLE_M005 that has GT
             var num050MGT = inmemorydb.Kartleggingsenhet_Grunntype.Where(x => x.Kartleggingsenhet.Maalestokk == MaalestokkEnum.M050).Select(x => x.Kartleggingsenhet).Distinct().Count();
-            Assert.Equal(239, num050M);
-            Assert.Equal(num050M, num050MGT);
+            Assert.Equal(241, num050M);
+            Assert.Equal(237, num050MGT);
         }
 
 
@@ -436,7 +436,7 @@ namespace NiN3.Tests.Infrastructure
             var inmemorydb = GetInMemoryDb();
             //service.LoadAlleKortkoder();
             var numOfKortkoder = inmemorydb.AlleKortkoder.Count();
-            Assert.Equal(3567, numOfKortkoder);//3557 before #175
+            Assert.Equal(3574, numOfKortkoder);//3557 before #175
             var kortkode = inmemorydb.AlleKortkoder.Where(x => x.Kortkode == "IB-F").FirstOrDefault();            
             Assert.NotNull(kortkode);
             Assert.Equal("IB-F", kortkode.Kortkode);

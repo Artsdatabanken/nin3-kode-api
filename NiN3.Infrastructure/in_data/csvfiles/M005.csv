@@ -82,7 +82,7 @@ NiN-3.0-T-C-PE-NA-MB-LM05-M005-02;kronisk saltpåvirket innsjøbunn ;LM05-M005-0
 NiN-3.0-T-C-PE-NA-MB-LM05-M005-03;kronisk forsuret eller eutrofiert innsjøbunn ;LM05-M005-03
 NiN-3.0-T-C-PE-NA-MB-LM05-M005-04;kronisk forsuret fast innsjøbunn ;LM05-M005-04
 NiN-3.0-T-C-PE-NA-MB-MA01-M005-01;beskyttet fast saltvanns-fjærebeltebunn i hydro- til geollittoral;MA01-M005-01
-NiN-3.0-T-C-PE-NA-MB-MA01-M005-02;moderat eksponert fast saltvanns-fjærebeltebunn i hydro- til geollittoral;MA01-M005-02
+NiN-3.0-T-C-PE-NA-MB-MA01-M005-02;moderat eksponert bergvegg i fjærebeltet;MA01-M005-02
 NiN-3.0-T-C-PE-NA-MB-MA01-M005-03;ganske til svært eksponert fast saltvanns-fjærebeltebunn i hydro- til geollittoral;MA01-M005-03
 NiN-3.0-T-C-PE-NA-MB-MA01-M005-04;trådalgedominert fast saltvanns-fjærebeltebunn;MA01-M005-04
 NiN-3.0-T-C-PE-NA-MB-MA02-M005-01;beskyttet fast saltvannsbunn og bergvegg ovenfor rødalgebeltet;MA02-M005-01
@@ -132,7 +132,7 @@ NiN-3.0-T-C-PE-NA-MB-MA05-M005-08;finmaterialfattig uorganisk saltvanns-grusbunn
 NiN-3.0-T-C-PE-NA-MB-MA05-M005-09;noe finmaterialrik uorganisk saltvanns-sandbunn i rødalgebeltet;MA05-M005-09
 NiN-3.0-T-C-PE-NA-MB-MA05-M005-10;noe finmaterialrik uorganisk saltvanns-grusbunn i rødalgebeltet;MA05-M005-10
 NiN-3.0-T-C-PE-NA-MB-MA05-M005-11;finmaterialrik til -dominert saltvanns-sedimentbunn av leire og silt i rødalgebeltet;MA05-M005-11
-NiN-3.0-T-C-PE-NA-MB-MA05-M005-12;eufotisk saltvanns-skjellsandbunn;MA05-M005-12
+NiN-3.0-T-C-PE-NA-MB-MA05-M005-12; ruglbunn;MA05-M005-12
 NiN-3.0-T-C-PE-NA-MB-MA05-M005-13; eufotisk saltvanns-sedimentbunn av myrtorv;MA05-M005-13
 NiN-3.0-T-C-PE-NA-MB-MA05-M005-14;eufotisk saltvanns-sedimentbunn av dy- og gytje;MA05-M005-14
 NiN-3.0-T-C-PE-NA-MB-MA05-M005-15;eufotisk saltvanns-sedimentbunn av konsolidert leire;MA05-M005-15
@@ -513,9 +513,9 @@ NiN-3.0-T-C-PE-NA-MB-TK01-M005-10;kalkfattig semi-naturlig markryddet tørreng m
 NiN-3.0-T-C-PE-NA-MB-TK01-M005-11;svakt kalkrik semi-naturlig markryddet tørreng med åpent tresjikt;TK01-M005-11
 NiN-3.0-T-C-PE-NA-MB-TK01-M005-12;klart kalkrik semi-naturlig markryddet tørreng med åpent tresjikt;TK01-M005-12
 NiN-3.0-T-C-PE-NA-MB-TK01-M005-13;kalkfattig åpen semi-naturlig ikke markryddet eng;TK01-M005-13
-NiN-3.0-T-C-PE-NA-MB-TK01-M005-14;svakt kalkrik åpen semi-naturlig ikke markryddet eng;TK01-M005-14
-NiN-3.0-T-C-PE-NA-MB-TK01-M005-15;klart kalkrik åpen semi-naturlig ikke markryddet eng;TK01-M005-15
-NiN-3.0-T-C-PE-NA-MB-TK01-M005-16;kalkfattig åpen semi-naturlig ikke markryddet tørreng;TK01-M005-16
+NiN-3.0-T-C-PE-NA-MB-TK01-M005-14;kalkfattig åpen semi-naturlig ikke markryddet tørreng;TK01-M005-14
+NiN-3.0-T-C-PE-NA-MB-TK01-M005-15;svakt kalkrik åpen semi-naturlig ikke markryddet eng;TK01-M005-15
+NiN-3.0-T-C-PE-NA-MB-TK01-M005-16;klart kalkrik åpen semi-naturlig ikke markryddet eng;TK01-M005-16
 NiN-3.0-T-C-PE-NA-MB-TK01-M005-17;svakt kalkrik åpen semi-naturlig ikke markryddet tørreng;TK01-M005-17
 NiN-3.0-T-C-PE-NA-MB-TK01-M005-18;klart kalkrik åpen semi-naturlig ikke markryddet tørreng;TK01-M005-18
 NiN-3.0-T-C-PE-NA-MB-TK01-M005-19;kalkfattig åpen semi-naturlig markryddet eng;TK01-M005-19
