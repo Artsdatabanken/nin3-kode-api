@@ -259,7 +259,7 @@ namespace NiN3.Tests.Infrastructure
             var htg_N0_C_01 = service.GetHovedtypeByKortkode("NO-C-01", "3.0");
             Assert.NotNull(htg_N0_C_01);
             //Assert count of all kartleggingsenheter for hovedtype O-C-01
-            Assert.Equal(8, htg_N0_C_01.Kartleggingsenheter.Count());
+            Assert.Equal(10, htg_N0_C_01.Kartleggingsenheter.Count());
             //Assert count of M005 kartleggingsenheter for hovedtype O-C-01
             var m005_on_htg = htg_N0_C_01.Kartleggingsenheter.Where(ke => ke.MaalestokkEnum == MaalestokkEnum.M005).ToList();
             Assert.Equal(4,m005_on_htg.Count());
@@ -272,10 +272,10 @@ namespace NiN3.Tests.Infrastructure
             var htg_NM_A_06 = service.GetHovedtypeByKortkode("NM-A-06", "3.0");
             Assert.NotNull(htg_NM_A_06);
             //Assert count of all kartleggingsenheter for hovedtype M-A-06
-            Assert.Equal(55, htg_NM_A_06.Kartleggingsenheter.Count());
+            Assert.Equal(54, htg_NM_A_06.Kartleggingsenheter.Count());
             //Assert count of M050 kartleggingsenheter for hovedtype M-A-06
             var htg_NM_A_06_M050_list = htg_NM_A_06.Kartleggingsenheter.Where(ke => ke.MaalestokkEnum == MaalestokkEnum.M050).ToList();
-            Assert.Equal(12, htg_NM_A_06_M050_list.Count());
+            Assert.Equal(11, htg_NM_A_06_M050_list.Count());
         }
 
 
