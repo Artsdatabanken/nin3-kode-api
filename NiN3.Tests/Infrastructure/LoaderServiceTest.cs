@@ -359,14 +359,18 @@ namespace NiN3.Tests.Infrastructure
             Assert.True(EnhetEnum.VSI == maaleskalaSI.EnhetEnum);
         }
 
+        [Fact]
+        public void TestTotalTrinn()
+        {
+            var inmemorydb = GetInMemoryDb();
+            var numOfTrinn = inmemorydb.Trinn.Count();
+            Assert.Equal(1024, numOfTrinn);
+        }
+
 
         [Fact]
-        public void TestLoadTrinn() {
-            // prepare test
+        public void TestLoadTrinn_NH_B() {
             var inmemorydb = GetInMemoryDb();
-            //var numOfTrinn = inmemorydb.Trinn.ToList().Count();
-            //Assert.Equal(1023,numOfTrinn);
-
             var trinnNhB = inmemorydb.Trinn.Where(trinn => trinn.Verdi == "NH_B").FirstOrDefault();
             var bMaaleskala = inmemorydb.Maaleskala.Where(m=> m.MaaleskalaNavn == "B").FirstOrDefault();
             Assert.Equal(2, bMaaleskala.Trinn.Count);//Checking that Binær-måleskala is loaded and has its trinn
@@ -478,7 +482,7 @@ namespace NiN3.Tests.Infrastructure
             var EnumoppslagHovedoekosystemEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "HovedoekosystemEnum").ToList();
             Assert.Equal(3, EnumoppslagHovedoekosystemEnum.Count);
             var EnumoppslagKlasseEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "KlasseEnum").ToList(); 
-            Assert.Equal(7, EnumoppslagKlasseEnum.Count);
+            Assert.Equal(9, EnumoppslagKlasseEnum.Count);
             var EnumoppslagMaaleskalatypeEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "MaaleskalatypeEnum").ToList();
             Assert.Equal(18, EnumoppslagMaaleskalatypeEnum.Count);
             var EnumoppslagProsedyrekategoriEnum = inmemorydb.Enumoppslag.Where(e => e.Enumtype == "ProsedyrekategoriEnum").ToList();

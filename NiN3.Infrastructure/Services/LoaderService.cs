@@ -139,7 +139,7 @@ namespace NiN.Infrastructure.Services
             LoadTrinn();
             MakeMaalestokkMappingForVariabelnavn();
 
-            LoadGrunndataVariabeltrinnMapping();
+            LoadGrunntypeVariabeltrinnMapping();
             LoadHovedtypeVariabeltrinnMapping();
             LoadKonverteringHovedtypegruppe();
             LoadKonverteringHovedtype();
@@ -945,16 +945,6 @@ namespace NiN.Infrastructure.Services
                     kodeArrayForGT.Add(typeForObject.Typekategori.ToString()); //kodeledd 5
                     kodeArrayForGT.Add(typekategori2ForGrunntype != null ? typekategori2ForGrunntype.ToString() : "0");  //kodeledd 6
                     kodeArrayForGT.Add(typekategori3ForGrunntype != null ? typekategori3ForGrunntype.ToString() : "0"); //kodeledd 7
-                    //embed of typekategori3 in Langkode bedre kortkode shall only happen on typekategori2 = NA
-                    /*
-                    if (typekategori2ForGrunntype.Equals(Typekategori2Enum.NA))
-                    {
-                        if (typeForObject.Ecosystnivaa.Equals(EcosystnivaaEnum.C)
-                            && (gt.Hovedtype.Hovedtypegruppe.Typekategori3.ToString().Equals("VM") || gt.Hovedtype.Hovedtypegruppe.Typekategori3.ToString().Equals("MB")))
-                        {
-                            kodeArrayForGT.Add(gt.Hovedtype.Hovedtypegruppe.Typekategori3.ToString()); //kodeledd 7
-                        }
-                    }*/
                     kodeArrayForGT.Add(gt.Kode);//kodeledd 8(++)
                     return string.Join("-", kodeArrayForGT);
                 default:
@@ -1003,7 +993,6 @@ namespace NiN.Infrastructure.Services
                     Kode = v.Kode,
                     Ecosystnivaa = v.Ecosystnivaa,
                     Variabelkategori = v.Variabelkategori, // No semicolon here
-                    //Langkode = LangkodeForTypeObject(VariabelklasseTypeEnum.V, v.Kode),
                     Navn = _navn,
                     Versjon = this.Versjon
                 };
@@ -1036,11 +1025,9 @@ namespace NiN.Infrastructure.Services
                     Variabeltype = v.Variabeltype,
                     Variabelgruppe = v.Variabelgruppe,
                     Variabel = parent,
-                    Langkode = v.Langkode,
-                    //Versjon = _versjon
+                    Langkode = v.Langkode
                 };
                 _context.Add(variabel);
-                //loadedVariabelnavn.Add(variabel);
             }
 
             _context.SaveChanges();
@@ -1074,11 +1061,6 @@ namespace NiN.Infrastructure.Services
             foreach (var t in trinnList)
             {
                 var maaleskala = MaaleskalaList.Where(m => m.MaaleskalaNavn == t.Maaleskalanavn).FirstOrDefault();
-/*                if (t.Maaleskalanavn == "B")
-                {
-                    WriteToFile($"{t.Trinn}:{t.Trinnverdi}");
-                }*/
-                //if (!TrinnsAdded.Contains(t.Trinn)) {
 
                 var trinn = new Trinn()
                 {
@@ -1087,7 +1069,7 @@ namespace NiN.Infrastructure.Services
                     Maaleskala = maaleskala
                     //Versjon = _versjon
                 };
-                //TrinnsAdded.Add(t.Trinn);
+
                 if (trinn.Maaleskala != null)
                 {
                     _context.Add(trinn);
@@ -1096,7 +1078,6 @@ namespace NiN.Infrastructure.Services
                 {
                     Console.WriteLine(t.Maaleskalanavn + " not found " + $"trinn was {t.Trinn}: {t.Trinnverdi}");
                 }
-                //}
                 _context.SaveChanges();
             }
         }
@@ -1132,7 +1113,7 @@ namespace NiN.Infrastructure.Services
             //savechanges
         }
 
-        public void LoadGrunndataVariabeltrinnMapping()
+        public void LoadGrunntypeVariabeltrinnMapping()
         {
             WriteToFile("\n\n********  LoadGrunndataVariabeltrinnMapping");
             var grunntypeVariabeltrinnList = CsvDataImporter_grunntype_variabeltrinn.ProcessCSV("in_data/csvfiles/grunntype_variabeltrinn_mapping.csv");
@@ -1147,14 +1128,14 @@ namespace NiN.Infrastructure.Services
                 var variabelnavn = grunntypeVariabeltrinn.variabelnavnKode != null ? _context.Variabelnavn.FirstOrDefault(vn => vn.Kode == grunntypeVariabeltrinn.variabelnavnKode) : null;
                 if (grunntype != null && maaleskala != null)
                 {
-                    var grunndataVariabeltrinnMapping = new GrunntypeVariabeltrinn()
+                    var grunntypeVariabeltrinnMapping = new GrunntypeVariabeltrinn()
                     {
                         Variabelnavn = variabelnavn,
                         Grunntype = grunntype,
                         Maaleskala = maaleskala,
                         Trinn = trinn
                     };
-                    _context.Add(grunndataVariabeltrinnMapping);
+                    _context.Add(grunntypeVariabeltrinnMapping);
                 }
                 else
                 {
@@ -1274,41 +1255,7 @@ namespace NiN.Infrastructure.Services
             }
             _context.SaveChanges();
         }
-        /* //Trinnmapping shall only happen between typeclasses and trinn not variabelnavn and trinn
-        public void MakeTrinnMappingForVariabelnavn()
-        {
-            //todo-sat: impl.
-            var trinnListCsv = CsvDataImporter_MaaleskalaTrinn.ProcessCSV("in_data/maaleskala_trinn.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-            List<Variabelnavn> variabelnavnList = _context.Variabelnavn.ToList();
-            List<Variabeltrinn> MaaleskalaList = _context.Variabeltrinn.ToList();
-            List<Trinn> TrinnList = _context.Trinn.ToList();
-            foreach (var t in trinnListCsv) { 
-                //find trinn by navn
-                var trinn = TrinnList.Where(tr => tr.Navn == t.Trinn).FirstOrDefault();
-                //find variabelnavn by kode
-                var variabelnavn = variabelnavnList.Where(vn => vn.Kode == t.VNKortkode).FirstOrDefault();
-                //find maaleskala by enum
-                var maaleskala = MaaleskalaList.Where(m => m.MaaleskalatypeEnum == t.MaaleskalatypeEnum).FirstOrDefault();
-                //create mapppingobject
-                if (variabelnavn != null)
-                {
-                    // execute this code block if variabelnavn is not null
-                    var variabelnavn_trinn = new VariabelnavnMaaleskala()
-                    {
-                        Trinn = trinn,
-                        Variabelnavn = variabelnavn,
-                        Variabeltrinn = maaleskala
-                    };
-                    //add to db
-                    _context.Add(variabelnavn_trinn);
-                }
-                else {
-                    Console.Write($"Could not find variabelnavn.Kode: {t.VNKortkode}");
-                }                                                
-            }
-            _context.SaveChanges();
-        }*/
+
 
         public void LoadKonverteringVariabelnavn() {
             WriteToFile("\n\n********  LoadKonverteringVariabelnavn");
@@ -1565,25 +1512,52 @@ namespace NiN.Infrastructure.Services
             _context.Database.ExecuteSqlRaw(sql);
         }
 
+        /*
         public void CreateAlleLangkoderView() {
             var sql = @"Create view AlleLangkoderView AS
-                        select 'Type' as Klasse, Kode, Langkode from Type
+                        select 'Type' as Klasse, Kode, Langkode, Navn from Type
                         UNION ALL
-                        select 'Hovedtypegruppe' as Klasse, Kode, Langkode from Hovedtypegruppe
+                        select 'Hovedtypegruppe' as Klasse, Kode, Langkode, Navn from Hovedtypegruppe
                         UNION ALL
-                        select 'Hovedtype' as Klasse, Kode, Langkode from Hovedtype
+                        select 'Hovedtype' as Klasse, Kode, Langkode, Navn from Hovedtype
                         UNION ALL
-                        select 'Grunntype' as Klasse, Kode, Langkode from Grunntype
+                        select 'Grunntype' as Klasse, Kode, Langkode, Navn from Grunntype
                         UNION ALL
-                        select 'Kartleggingsenhet' as Klasse, Kode, Langkode from Kartleggingsenhet
+                        select 'Kartleggingsenhet' as Klasse, Kode, Langkode, Navn from Kartleggingsenhet
                         UNION ALL
-                        select 'Variabel' as Klasse, Kode, Langkode from Variabel
+                        select 'Variabel' as Klasse, Kode, Langkode, Navn from Variabel
                         UNION ALL
-                        select 'Variabelnavn' as Klasse, Kode, Langkode from Variabelnavn";
+                        select 'Variabelnavn' as Klasse, Kode, Langkode, Navn from Variabelnavn";
             _context.Database.ExecuteSqlRaw(sql);
+        }*/
+        public void CreateAlleLangkoderView()
+        {
+            var sql = @"INSERT INTO AlleLangkoderView (Klasse, Kode, Langkode, Navn)
+            SELECT 'Type' as Klasse, Kode, Langkode, Navn FROM Type
+            UNION ALL
+            SELECT 'Hovedtypegruppe' as Klasse, Kode, Langkode, Navn FROM Hovedtypegruppe
+            UNION ALL
+            SELECT 'Hovedtype' as Klasse, Kode, Langkode, Navn FROM Hovedtype
+            UNION ALL
+            SELECT 'Grunntype' as Klasse, Kode, Langkode, Navn FROM Grunntype
+            UNION ALL
+            SELECT 'Kartleggingsenhet' as Klasse, Kode, Langkode, Navn FROM Kartleggingsenhet
+            UNION ALL
+            SELECT 'Variabel' as Klasse, Kode, Langkode, Navn FROM Variabel
+            UNION ALL
+            SELECT 'Variabelnavn' as Klasse, Kode, Langkode, Navn FROM Variabelnavn";
+            _context.Database.ExecuteSqlRaw(sql);
+            /*using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = sql;
+                command.CommandType = CommandType.Text;
+
+                _context.Database.OpenConnection();
+                command.ExecuteNonQuery();
+            }*/
         }
 
-        public void CreateDuplikateLangkoderView() {
+public void CreateDuplikateLangkoderView() {
             var sql = @"create view DuplikateLangkoderView AS
                         SELECT Langkode, Klasse, COUNT(*) AS DuplicateCount
                         FROM AlleLangkoderView
