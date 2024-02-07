@@ -56,6 +56,9 @@ namespace NiN3.Tests.Infrastructure
             var service = GetPrepearedSearchService();
             var result = service.SimpleSearch("Livs", KlasseEnum.T, SearchMethodEnum.SW);
             Assert.True(result.Count > 0);
+            Assert.Equal("Livsmedium", result[0].Navn);
+            var result2 = service.SimpleSearch("limnisk", KlasseEnum.ALL, SearchMethodEnum.C);
+            Assert.Equal(7, result2.Count);
         }
     }
 }
