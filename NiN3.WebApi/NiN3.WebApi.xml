@@ -227,7 +227,17 @@
 				GT = Grunntype <br />
 				KE = Kartleggingsenhet <br />
 				V = Variabel <br />
-				VN = Variabelnavn
+				VN = Variabelnavn <br />
+				ALL = All
+			</summary>
+		</member>
+		<member name="T:NiN3.Core.Models.Enums.SearchMethodEnum">
+			<summary>
+				Possible values for SearchMethodEnum:
+
+				Default = ""<br />
+				SW = Starts with <br />
+				C = Contains 
 			</summary>
 		</member>
 	</members>

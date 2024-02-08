@@ -66,6 +66,7 @@ builder.Services.AddDbContext<NiN3DbContext>(options =>
 builder.Services.AddAutoMapper(typeof(AllProfiles));
 builder.Services.AddScoped<ILoaderService, LoaderService>();
 builder.Services.AddScoped<ITypeApiService, TypeApiService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IVariabelApiService, VariabelApiService>();
 builder.Services.AddScoped<IRapportService, RapportService>();
 //builder.Services.AddSingleton<ISService, SService>();
