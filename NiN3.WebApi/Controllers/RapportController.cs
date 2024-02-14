@@ -19,7 +19,7 @@ namespace NiN3.WebApi.Controllers
             _configuration = configuration;
         }
 
-
+        /*
         [HttpGet("kodeoversikt")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Kodeoversikt()
@@ -39,7 +39,7 @@ namespace NiN3.WebApi.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "nin3_0.xlsx");
         }
-
+        */
 
         /*
         public enum ReportFormat
