@@ -37,8 +37,7 @@ namespace NiN.Infrastructure.Services
             }
         }
 
-        private List<CsvDataImporter_typeklasser_langkode> Langkoder_typeklasser;
-        //private string AdminToken;
+        //private List<CsvDataImporter_typeklasser_langkode> Langkoder_typeklasser;
         private readonly Dictionary<string, dynamic> EntitiesTypeDict = new Dictionary<string, dynamic>();
 
         public LoaderService(IConfiguration configuration, NiN3DbContext context, ILogger<LoaderService> logger)
@@ -375,7 +374,7 @@ namespace NiN.Infrastructure.Services
         private void LoadTypeklasser_langkoder()
         {
             WriteToFile("\n\n********  LoadTypeklasser_langkoder");
-            Langkoder_typeklasser = CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/csvfiles/typeklasser_langkode_mapping.csv");
+            //Langkoder_typeklasser = CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/csvfiles/typeklasser_langkode_mapping.csv");
         }
 
 

@@ -53,17 +53,17 @@ TM;F;mellomstillingsmassiv;0;TM-F
 TM;G;ombrogent ikke-hvelvet torvmassiv;0;TM-G
 TM;H;høgmyrmassiv;0;TM-H
 BM;A;bremassiv;0;BM-A
-0;A;hav-vannmasser;0;0-A
-0;B;fjordvannmasser;0;0-B
+0;A;hav-vannmasser;0;MV-A
+0;B;fjordvannmasser;0;MV-B
 LA;I;innlandslandskap;0;LA-I
 LA;K;kystlandskap;0;LA-K
 LA;M;marine landskap;0;LA-M
 NK;C;naturkompleks betinget av miljøstress;0;NK-C
 NK;D;naturkompleks betinget av regulerende forstyrrelse;0;NK-D
 NK;E;naturkompleks betinget av destabiliserende forstyrrelse;0;NK-E
-0;MS;substrat i marine systemer;0;0-MS
-0;MU;substratfrie livsmedier i marine systemer;0;0-MU
-0;FS;substrat i ferskvann;0;0-FS
-0;FU;substratfrie livsmedier i ferskvann;0;0-FU
-0;TS;substrat på land;0;0-TS
-0;TU;substratfrie livsmedier på land;0;0-TU
+0;MS;substrat i marine systemer;0;LI-MS
+0;MU;substratfrie livsmedier i marine systemer;0;LI-MU
+0;FS;substrat i ferskvann;0;LI-FS
+0;FU;substratfrie livsmedier i ferskvann;0;LI-FU
+0;TS;substrat på land;0;LI-TS
+0;TU;substratfrie livsmedier på land;0;LI-TU

@@ -1,4 +1,4 @@
-M020-kode;M020-navn;M020-kortkode
+M020-langkode;M020-navn;M020-kortkode
 NiN-3.0-T-C-PE-NA-MB-IA01-M020-01;varig snø og breoverflate;IA01-M020-01
 NiN-3.0-T-C-PE-NA-MB-IA01-M020-02;polar havis-overside;IA01-M020-02
 NiN-3.0-T-C-PE-NA-MB-LA01-M020-01;svært kalkfattig fast strandkant-innsjøbunn;LA01-M020-01
@@ -307,7 +307,6 @@ NiN-3.0-T-C-PE-NA-MB-TH01-M020-03;klart kalkrik avskoget bærlynghei;TH01-M020-0
 NiN-3.0-T-C-PE-NA-MB-TH01-M020-04;kalkfattig avskoget lynghei og -lavhei;TH01-M020-04
 NiN-3.0-T-C-PE-NA-MB-TH01-M020-05;intermediær til litt kalkrik avskoget lynghei og -lavhei;TH01-M020-05
 NiN-3.0-T-C-PE-NA-MB-TH01-M020-06;klart kalkrik avskoget lynghei og -lavhei;TH01-M020-06
-NiN-3.0-T-C-PE-NA-MB-TI01-M020-01;grøftet eller markforstyrret klart endret ikke-kalkrik skog;TI01-M020-01
 NiN-3.0-T-C-PE-NA-MB-TI01-M020-01;grøftet eller markforstyrret klart endret ikke-kalkrik skog;TI01-M020-01
 NiN-3.0-T-C-PE-NA-MB-TI01-M020-02;grøftet eller markforstyrret klart endret kalkskog;TI01-M020-02
 NiN-3.0-T-C-PE-NA-MB-TI01-M020-03;hugd eller treslagstypeskiftet klart endret ikke-kalkrik skog;TI01-M020-03
