@@ -121,7 +121,7 @@ namespace NiN3.WebApi.Controllers
         [HttpGet]
         [Route("kodeForHovedtype/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<HovedtypeDto>), StatusCodes.Status200OK)]
-        public IActionResult HentKodeForHovedtype([Required] string kortkode = "NS-C-01")
+        public IActionResult HentKodeForHovedtype([Required] string kortkode = "NA-TI01")
         { 
             var hovedtype = _typeApiService.GetHovedtypeByKortkode(kortkode, _versjon);
             if (hovedtype != null)
@@ -135,7 +135,7 @@ namespace NiN3.WebApi.Controllers
         [HttpGet]
         [Route("kodeforGrunntype/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<GrunntypeDto>), StatusCodes.Status200OK)]
-        public IActionResult hentkodeForGrunntype([Required] string kortkode = "K-0-02-006")
+        public IActionResult hentkodeForGrunntype([Required] string kortkode = "I01-0062")
         {
             var grunntype = _typeApiService.GetGrunntypeByKortkode(kortkode, _versjon);
             if (grunntype != null)
