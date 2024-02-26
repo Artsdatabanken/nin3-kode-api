@@ -117,7 +117,7 @@ namespace NiN3.Tests.Infrastructure
         public void TestGetHovedtypeByKortkode()
         {
             TypeApiService service = GetPrepearedTypeApiService();
-            var hovedtype = service.GetHovedtypeByKortkode("NM-A-06", "3.0");
+            var hovedtype = service.GetHovedtypeByKortkode("NA-MA06", "3.0");
             Assert.NotNull(hovedtype);
         }
 
@@ -126,7 +126,7 @@ namespace NiN3.Tests.Infrastructure
         public void TestGetGrunntypeByKortkode()
         {
             TypeApiService service = GetPrepearedTypeApiService();
-            var grunntype = service.GetGrunntypeByKortkode("K-0-02-006", "3.0");
+            var grunntype = service.GetGrunntypeByKortkode("K02-006", "3.0");
             Assert.NotNull(grunntype);
         }
 
@@ -157,10 +157,10 @@ namespace NiN3.Tests.Infrastructure
             var htg_NA_I = type_C_PE_NA.Hovedtypegrupper.FirstOrDefault(htg => htg.Kode.Id == "NA-I");
             //assert not null
             Assert.NotNull(htg_NA_I);
-            var ht_NI_A_01 = htg_NA_I.Hovedtyper.FirstOrDefault(ht => ht.Kode.Id == "NI-A-01");
+            var ht_NA_IA01 = htg_NA_I.Hovedtyper.FirstOrDefault(ht => ht.Kode.Id == "NA-IA01");
             //assert not null
-            Assert.NotNull(ht_NI_A_01);
-            var kl_IA01_M005_03 = ht_NI_A_01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode.Langkode == "NiN-3.0-T-C-PE-NA-MB-IA01-M005-03");
+            Assert.NotNull(ht_NA_IA01);
+            var kl_IA01_M005_03 = ht_NA_IA01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode.Langkode == "NiN-3.0-T-C-PE-NA-MB-IA01-M005-03");
             Assert.NotNull(kl_IA01_M005_03);
             Assert.Equal("Kryokonitt-preget breoverflate", kl_IA01_M005_03.Navn);
             Assert.Equal("Kartleggingsenhet", kl_IA01_M005_03.Kategori);
@@ -180,13 +180,13 @@ namespace NiN3.Tests.Infrastructure
             var v3allCodes = await service.AllCodesAsync("3.0");
             var type_C_PE_NA = v3allCodes.Typer.FirstOrDefault(t => t.Kode.Id == "C-PE-NA");
             var htg_NA_I = type_C_PE_NA.Hovedtypegrupper.FirstOrDefault(htg => htg.Kode.Id == "NA-I");
-            var ht_NI_A_01 = htg_NA_I.Hovedtyper.FirstOrDefault(ht => ht.Kode.Id == "NI-A-01");
-            var kl_IA01_M020_02 = ht_NI_A_01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode.Langkode == "NiN-3.0-T-C-PE-NA-MB-IA01-M020-02");
+            var ht_NA_IA01 = htg_NA_I.Hovedtyper.FirstOrDefault(ht => ht.Kode.Id == "NA-IA01");
+            var kl_IA01_M020_02 = ht_NA_IA01.Kartleggingsenheter.SingleOrDefault(ke => ke.Kode.Langkode == "NiN-3.0-T-C-PE-NA-MB-IA01-M020-02");
 
             //assert
             Assert.NotNull(type_C_PE_NA);
             Assert.NotNull(htg_NA_I);
-            Assert.NotNull(ht_NI_A_01);
+            Assert.NotNull(ht_NA_IA01);
             Assert.NotNull(kl_IA01_M020_02);
             Assert.Equal("Polar havis-overside", kl_IA01_M020_02.Navn);
             Assert.Equal("Kartleggingsenhet", kl_IA01_M020_02.Kategori);
@@ -200,7 +200,7 @@ namespace NiN3.Tests.Infrastructure
         public void TestGetGrunntypeByKodeAndVariabeltrinn()
         {
             TypeApiService service = GetPrepearedTypeApiService();
-            var grunntype = service.GetGrunntypeByKortkode("T-E-05-01", "3.0");
+            var grunntype = service.GetGrunntypeByKortkode("TE05-01", "3.0");
             Assert.NotNull(grunntype);
             var variabeltrinn = grunntype.Variabeltrinn;
             Assert.Equal(3, variabeltrinn.Count());
@@ -214,7 +214,7 @@ namespace NiN3.Tests.Infrastructure
         {
             //S-C-01
             TypeApiService service = GetPrepearedTypeApiService();
-            var hovedtype = service.GetHovedtypeByKortkode("NS-C-01", "3.0");
+            var hovedtype = service.GetHovedtypeByKortkode("NA-SC01", "3.0");
             Assert.Equal(2, hovedtype.Variabeltrinn.Count());
         }
 
@@ -246,9 +246,9 @@ namespace NiN3.Tests.Infrastructure
         public void TestGetHovedtypeByKode_w_konvertering()
         {
             TypeApiService service = GetPrepearedTypeApiService();
-            var htg_NT_M_01 = service.GetHovedtypeByKortkode("NT-M-01", "3.0");
-            Assert.NotNull(htg_NT_M_01);
-            Assert.Equal(6, htg_NT_M_01.Konverteringer.Count());
+            var ht_NA_MM01 = service.GetHovedtypeByKortkode("NA-MM01", "3.0");
+            Assert.NotNull(ht_NA_MM01);
+            Assert.Equal(2, ht_NA_MM01.Konverteringer.Count());
         }
 
 
@@ -256,26 +256,26 @@ namespace NiN3.Tests.Infrastructure
         public void TestGetHovedtype_CheckKartleggingsenheterFor_O_C_01()
         {
             TypeApiService service = GetPrepearedTypeApiService();
-            var htg_N0_C_01 = service.GetHovedtypeByKortkode("NO-C-01", "3.0");
-            Assert.NotNull(htg_N0_C_01);
+            var ht_NA_IA01 = service.GetHovedtypeByKortkode("NA-IA01", "3.0");
+            Assert.NotNull(ht_NA_IA01);
             //Assert count of all kartleggingsenheter for hovedtype O-C-01
-            Assert.Equal(10, htg_N0_C_01.Kartleggingsenheter.Count());
+            Assert.Equal(8, ht_NA_IA01.Kartleggingsenheter.Count());
             //Assert count of M005 kartleggingsenheter for hovedtype O-C-01
-            var m005_on_htg = htg_N0_C_01.Kartleggingsenheter.Where(ke => ke.MaalestokkEnum == MaalestokkEnum.M005).ToList();
-            Assert.Equal(4,m005_on_htg.Count());
+            var m005_on_ht = ht_NA_IA01.Kartleggingsenheter.Where(ke => ke.MaalestokkEnum == MaalestokkEnum.M005).ToList();
+            Assert.Equal(4,m005_on_ht.Count());
         }
 
 
         [Fact]
         public void TestGetHovedtype_CheckKartleggingenheter_M050_For_hovedtype_M_A_06(){
             TypeApiService service = GetPrepearedTypeApiService();
-            var htg_NM_A_06 = service.GetHovedtypeByKortkode("NM-A-06", "3.0");
-            Assert.NotNull(htg_NM_A_06);
+            var htg_NA_MA06 = service.GetHovedtypeByKortkode("NA-MA06", "3.0");
+            Assert.NotNull(htg_NA_MA06);
             //Assert count of all kartleggingsenheter for hovedtype M-A-06
-            Assert.Equal(54, htg_NM_A_06.Kartleggingsenheter.Count());
+            Assert.Equal(55, htg_NA_MA06.Kartleggingsenheter.Count());
             //Assert count of M050 kartleggingsenheter for hovedtype M-A-06
-            var htg_NM_A_06_M050_list = htg_NM_A_06.Kartleggingsenheter.Where(ke => ke.MaalestokkEnum == MaalestokkEnum.M050).ToList();
-            Assert.Equal(11, htg_NM_A_06_M050_list.Count());
+            var htg_NM_A_06_M050_list = htg_NA_MA06.Kartleggingsenheter.Where(ke => ke.MaalestokkEnum == MaalestokkEnum.M050).ToList();
+            Assert.Equal(12, htg_NM_A_06_M050_list.Count());
         }
 
 
@@ -284,9 +284,9 @@ namespace NiN3.Tests.Infrastructure
         {
             //M-A-06-19  6 stk
             TypeApiService service = GetPrepearedTypeApiService();
-            var gt_M_A_06_19 = service.GetGrunntypeByKortkode("M-A-06-19", "3.0");
-            Assert.NotNull(gt_M_A_06_19);
-            Assert.Equal(6, gt_M_A_06_19.Konverteringer.Count());//6 just now
+            var gt_MA06_19 = service.GetGrunntypeByKortkode("MA06-19", "3.0");
+            Assert.NotNull(gt_MA06_19);
+            Assert.Equal(6, gt_MA06_19.Konverteringer.Count());//6 just now
         }
     }
 }

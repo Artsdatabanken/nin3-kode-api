@@ -37,8 +37,7 @@ namespace NiN.Infrastructure.Services
             }
         }
 
-        private List<CsvDataImporter_typeklasser_langkode> Langkoder_typeklasser;
-        //private string AdminToken;
+        //private List<CsvDataImporter_typeklasser_langkode> Langkoder_typeklasser;
         private readonly Dictionary<string, dynamic> EntitiesTypeDict = new Dictionary<string, dynamic>();
 
         public LoaderService(IConfiguration configuration, NiN3DbContext context, ILogger<LoaderService> logger)
@@ -231,7 +230,7 @@ namespace NiN.Infrastructure.Services
             }
             else
             {
-                _logger.LogInformation("Objecttype <<Type>> allready has data!");
+                WriteToFile("Objecttype <<Type>> allready has data!");
             }
         }
 
@@ -272,7 +271,7 @@ namespace NiN.Infrastructure.Services
             }
             else
             {
-                _logger.LogInformation("Objecttype <<Hovedtypegruppe>> allready has data!");
+                WriteToFile("Objecttype <<Hovedtypegruppe>> allready has data!");
             }
         }
 
@@ -313,7 +312,7 @@ namespace NiN.Infrastructure.Services
             }
             else
             {
-                _logger.LogInformation("Objecttype <<Hovedtype>> allready has data!");
+                WriteToFile("Objecttype <<Hovedtype>> allready has data!");
             }
         }
 
@@ -365,7 +364,7 @@ namespace NiN.Infrastructure.Services
             }
             else
             {
-                _logger.LogInformation("Objecttype <<Grunntype>> allready has data!");
+                WriteToFile("Objecttype <<Grunntype>> allready has data!");
             }
         }
 
@@ -375,74 +374,8 @@ namespace NiN.Infrastructure.Services
         private void LoadTypeklasser_langkoder()
         {
             WriteToFile("\n\n********  LoadTypeklasser_langkoder");
-            Langkoder_typeklasser = CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/csvfiles/typeklasser_langkode_mapping.csv");
+            //Langkoder_typeklasser = CsvDataImporter_typeklasser_langkode.ProcessCSV("in_data/csvfiles/typeklasser_langkode_mapping.csv");
         }
-
-
-        /// <summary>
-        /// Loads data into database for kartleggingsenhet with maalestokk M005
-        /// </summary>
-        /*
-        public void LoadKartleggingsenhet_m005()
-        {
-            var m050list = CsvdataImporter_m005.ProcessCSV("in_data/m050.csv");
-            var m005_gtlist = CsvdataImporter_m005_grunntype_mapping.ProcessCSV("in_data/m005_grunntype_mapping.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-
-            if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M005).Count() == 0)
-            {
-                foreach (var m050 in m050list)
-                {
-                    var hovedtypeList = new List<Hovedtype>();
-                    var k = new NiN3.Core.Models.Kartleggingsenhet()
-                    {
-                        Langkode = m050.Kode,
-                        Navn = m050.Navn,
-                        Kode = m050.Kortkode,
-                        Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M005,
-                        Versjon = _versjon
-                    };
-                    m005_gtlist.Where(s => s.m005kode == m050.Kode).ToList().ForEach(s =>
-                    {
-                        var gt = _context.Grunntype.FirstOrDefault(g => g.Kode == s.Grunntype_kode);
-                        if (gt != null)
-                        {
-                            gt.kartleggingsenhet = k;
-                            k.Grunntyper.Add(gt);
-                            if (gt.Hovedtype != null) { 
-                                hovedtypeList.Add(gt.Hovedtype);
-                            }
-                            _context.Add(gt);
-                        }
-                        else
-                        {
-                            //logg the m050 kode that has no grunntype mapping  
-                            Console.Write("m050 kode: " + m050.Kode + " has no grunntype mapping");
-                            _logger.Equals("m050 kode: " + m050.Kode + " has no grunntype mapping");
-                        }
-                    });
-                    _context.Add(k);
-                    //adding the kartleggingsenhet to the hovedtype
-                    var hovedtypelist_unique = hovedtypeList.Distinct();
-                    foreach (var ht in hovedtypelist_unique)
-                    {
-                        var hovetype_kartleggingsenhet = new Hovedtype_Kartleggingsenhet()
-                        {
-                            Versjon = _versjon,
-                            Hovedtype = ht,
-                            Kartleggingsenhet = k
-
-                        };
-                        _context.Add(hovetype_kartleggingsenhet);
-                    }
-                }
-                _context.SaveChanges();
-            }
-            else
-            {
-                _logger.LogInformation("Objecttype <<Type>> allready has data!");
-            }
-        }*/
 
 
         public void LoadKartleggingsenhet_m005()
@@ -751,119 +684,6 @@ namespace NiN.Infrastructure.Services
             }
             _context.SaveChanges();
         }
-
-        /*
-        public void LoadKartleggingsenhet_m020()
-        {
-            var m050list = CsvdataImporter_m020.ProcessCSV("in_data/m050.csv");
-            var m020_gtlist = CsvdataImporter_m020_grunntype_mapping.ProcessCSV("in_data/m020_grunntype_mapping.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-
-            if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M020).Count() == 0)
-            {
-                foreach (var m050 in m050list)
-                {
-                    var hovedtypeList = new List<Hovedtype>();
-                    var k = new NiN3.Core.Models.Kartleggingsenhet()
-                    {
-                        Langkode = m050.Kode,
-                        Navn = m050.Navn,
-                        Kode = m050.Kortkode,
-                        Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M020,
-                        Versjon = _versjon
-                    };
-                    m020_gtlist.Where(s => s.m020kode == m050.Kode).ToList().ForEach(s =>
-                    {
-                        var gt = _context.Grunntype.FirstOrDefault(g => g.Kode == s.Grunntype_kode);
-                        if (gt != null)
-                        {
-                            k.Grunntyper.Add(gt);
-                            hovedtypeList.Add(gt.Hovedtype);
-                        }
-                        else
-                        {
-                            //logg the m050 kode that has no grunntype mapping  
-                            _logger.Equals("m050 kode: " + m050.Kode + " has no grunntype mapping");
-                        }
-                    });
-                    _context.Add(k);
-                    //adding the kartleggingsenhet to the hovedtype
-                    var hovedtypelist_unique = hovedtypeList.Distinct();
-                    foreach (var ht in hovedtypelist_unique)
-                    {
-                        var hovetype_kartleggingsenhet = new Hovedtype_Kartleggingsenhet()
-                        {
-                            Versjon = _versjon,
-                            Hovedtype = ht,
-                            Kartleggingsenhet = k
-
-                        };
-                        _context.Add(hovetype_kartleggingsenhet);
-                    }
-                }
-                _context.SaveChanges();
-            }
-            else
-            {
-                _logger.LogInformation("Objecttype <<Type>> already has data!");
-            }
-        }*/
-        /*
-        public void LoadKartleggingsenhet_M050()
-        {
-            var m050list = CsvdataImporter_m050.ProcessCSV("in_data/m050.csv");
-            var m050_gtlist = CsvdataImporter_m050_grunntype_mapping.ProcessCSV("in_data/m050_grunntype_mapping.csv");
-            var _versjon = Domenes.FirstOrDefault(s => s.Navn == "3.0");
-
-            if (_context.Kartleggingsenhet.Where(k => k.Maalestokk == NiN3.Core.Models.Enums.MaalestokkEnum.M050).Count() == 0)
-            {
-                foreach (var m050 in m050list)
-                {
-                    var hovedtypeList = new List<Hovedtype>();
-                    var k = new NiN3.Core.Models.Kartleggingsenhet()
-                    {
-                        Langkode = m050.Kode,
-                        Navn = m050.Navn,
-                        Kode = m050.Kortkode,
-                        Maalestokk = NiN3.Core.Models.Enums.MaalestokkEnum.M050,
-                        Versjon = _versjon
-                    };
-                    m050_gtlist.Where(s => s.m050kode == m050.Kode).ToList().ForEach(s =>
-                    {
-                        var gt = _context.Grunntype.FirstOrDefault(g => g.Kode == s.Grunntype_kode);
-                        if (gt != null)
-                        {
-                            k.Grunntyper.Add(gt);
-                            hovedtypeList.Add(gt.Hovedtype);
-                        }
-                        else
-                        {
-                            //logg the m050 kode that has no grunntype mapping  
-                            _logger.Equals("m050 kode: " + m050.Kode + " has no grunntype mapping");
-                        }
-                    });
-                    _context.Add(k);
-                    //adding the kartleggingsenhet to the hovedtype
-                    var hovedtypelist_unique = hovedtypeList.Distinct();
-                    foreach (var ht in hovedtypelist_unique)
-                    {
-                        var hovetype_kartleggingsenhet = new Hovedtype_Kartleggingsenhet()
-                        {
-                            Versjon = _versjon,
-                            Hovedtype = ht,
-                            Kartleggingsenhet = k
-
-                        };
-                        _context.Add(hovetype_kartleggingsenhet);
-                    }
-                }
-                _context.SaveChanges();
-            }
-            else
-            {
-                _logger.LogInformation("Objecttype <<Type>> already has data!");
-            }
-        }*/
 
         //<summary>
         //1.TypeklasseTypeEnum typeklasseType - this is an enumeration value that determines the type of parent. It can be one of the three possible values: T, HTG, or HT.
