@@ -240,6 +240,7 @@ namespace NiN3.Infrastructure.Mapping
                 hovedtypedto.Variabeltrinn = variabeltrinnBag.Distinct().ToList();
             }
             hovedtypedto.Kartleggingsenheter = kartleggingsenheterBag.ToList();
+            
             hovedtypedto.Variabeltrinn = hovedtypedto.Variabeltrinn
                 .GroupBy(vt => vt.Maaleskala.MaaleskalaNavn)//TODO: Lazy solution to duplicate MaaleskalaDto objects inside VariabeltrinnCollection, please improve
                 .Select(group => group.First())
@@ -271,6 +272,7 @@ namespace NiN3.Infrastructure.Mapping
                 var variabelnavn = grunntype.GrunntypeVariabeltrinn.Any() ? grunntype.GrunntypeVariabeltrinn.Select(vt => vt.Variabelnavn).ToList() : new List<Variabelnavn?>();
                 Parallel.ForEach(grunntype.GrunntypeVariabeltrinn.ToList(), vt => variabeltrinnBag.Add(Map(vt, trinnIds)));
                 grunntypedto.Variabeltrinn = variabeltrinnBag.ToList();
+                
                 grunntypedto.Variabeltrinn = grunntypedto.Variabeltrinn//TODO: Lazy solution to duplicate MaaleskalaDto objects inside VariabeltrinnCollection, please improve
                     .GroupBy(vt => vt.Maaleskala.MaaleskalaNavn)
                     .Select(group => group.First())

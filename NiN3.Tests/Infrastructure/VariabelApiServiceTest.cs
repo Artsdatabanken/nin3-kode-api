@@ -75,7 +75,7 @@ namespace NiN3.Tests.Infrastructure
             var result = service.AllCodes(versjon);
             var variabler = result.Variabler;
             var firstVariabel = variabler.OrderBy(x => x.Kode.Id).First();
-            Assert.Equal(5, variabler.Count);
+            Assert.Equal(4, variabler.Count);
             Assert.Equal("A-M", firstVariabel.Kode.Id);
             var count = variabler.Count(x => x.Kode.Id == "A-M");
             Assert.Equal(1, count);
