@@ -135,7 +135,7 @@ namespace NiN3.WebApi.Controllers
         [HttpGet]
         [Route("kodeforGrunntype/{kortkode}")]
         [ProducesResponseType(typeof(IEnumerable<GrunntypeDto>), StatusCodes.Status200OK)]
-        public IActionResult hentkodeForGrunntype([Required] string kortkode = "I01-0062")
+        public IActionResult hentkodeForGrunntype([Required] string kortkode = "I01-006")
         {
             var grunntype = _typeApiService.GetGrunntypeByKortkode(kortkode, _versjon);
             if (grunntype != null)
